@@ -1,0 +1,13 @@
+.mdc-circular-progress {
+    width: 24px;
+    height: 24px;
+    margin-right: 32px;
+
+    &__foreground {
+        stroke: $primary-color;
+    }
+
+    &__background {
+        stroke: #d4d9dd;
+    }
+}

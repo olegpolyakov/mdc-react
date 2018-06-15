@@ -1,0 +1,9 @@
+@import '@material/list/mdc-list';
+
+.mdc-list {
+    &--inset {
+        .mdc-list-item {
+            padding-left: 2rem;
+        }
+    }
+}

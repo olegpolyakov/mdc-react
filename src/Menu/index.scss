@@ -1,0 +1,18 @@
+@import '@material/menu/mdc-menu';
+
+.mdc-menu {
+    display: inline-block;
+    visibility: hidden;
+    transform: scale(.8);
+    opacity: 0;
+    transition:
+        visibility $mdc-menu-fade-in-duration linear,
+        opacity $mdc-menu-fade-in-duration linear,
+        transform $mdc-menu-scale-duration $mdc-animation-deceleration-curve-timing-function;
+
+    &--open {
+        visibility: visible;
+        opacity: 1;
+        transform: scale(1);
+    }
+}

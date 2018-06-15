@@ -1,0 +1,48 @@
+{
+  "name": "@codedojo/mdc-react",
+  "version": "0.1.2",
+  "description": "Material Components for the web implemented in React",
+  "scripts": {
+    "start": "webpack --watch --env.dev --mode=development",
+    "build": "webpack --env.prod --mode=production",
+    "prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "autoprefixer": "^8.6.2",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "classnames": "^2.2.5",
+    "css-loader": "^0.28.11",
+    "material-components-web": "^0.36.0",
+    "mini-css-extract-plugin": "^0.4.0",
+    "node-sass": "^4.9.0",
+    "postcss-loader": "^2.1.5",
+    "prop-types": "^15.6.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.1",
+    "react-transition-group": "^2.3.1",
+    "sass-loader": "^7.0.3",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^4.12.0",
+    "webpack-cli": "^3.0.3"
+  },
+  "author": {
+    "name": "Oleg Polyakov",
+    "email": "olegpolyakov@outlook.com"
+  },
+  "main": "index.js",
+  "repository": "codedojo/mdc-react",
+  "keywords": [
+    "mdc",
+    "react",
+    "material",
+    "design",
+    "components",
+    "web",
+    "ui"
+  ],
+  "license": "MIT"
+}
