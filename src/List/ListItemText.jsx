@@ -10,6 +10,7 @@ export default function ListItemText({
 }) {
     return React.createElement(component, {
         className: 'mdc-list-item__text',
+        ...props
     },
         primary && React.createElement('span', { className: 'mdc-list-item__primary-text' }, primary),
         secondary && React.createElement('span', { className: 'mdc-list-item__secondary-text' }, secondary),
