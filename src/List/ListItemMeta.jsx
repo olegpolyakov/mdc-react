@@ -1,18 +1,24 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function ListItemGraphic({
+export default function ListItemMeta({
     element = 'span',
     component = element,
-    icon,
     className,
     children,
     ...props
 }) {
-    return React.createElement(component, {
-        className: classnames('mdc-list-item__meta', {
-            'material-icons': icon && typeof icon === 'string',
-        }, className),
-        ...props
-    }, icon, children)
+    const classNames = classnames('mdc-list-item__meta', className);
+
+    if (React.isValidElement(React.Children.only(children))) {
+        return React.cloneElement(children, {
+            className: classNames,
+            ...props
+        });
+    } else {
+        return React.createElement(component, {
+            className: classNames,
+            ...props
+        }, children);
+    }
 }
