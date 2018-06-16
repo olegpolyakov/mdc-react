@@ -8,6 +8,8 @@
 
 # production
 /build
+index.js
+index.css
 
 # misc
 .DS_Store
