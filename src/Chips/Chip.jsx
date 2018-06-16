@@ -10,7 +10,7 @@ export default function Chip({ element = 'span', text, leadingIcon, tarilingIcon
             ...props
         },
 
-        leadingIcon && React.cloneElement(icon, {
+        leadingIcon && React.cloneElement(leadingIcon, {
             className: classnames('mdc-chip__icon mdc-chip__icon--leading', {
                 'mdc-chip__icon--leading-hidden': filtered && selected
             })
@@ -26,7 +26,7 @@ export default function Chip({ element = 'span', text, leadingIcon, tarilingIcon
         
         <span className="mdc-chip__text">{text || children}</span>,
 
-        tarilingIcon && React.cloneElement(icon, {
+        tarilingIcon && React.cloneElement(tarilingIcon, {
             className: classnames('mdc-chip__icon mdc-chip__icon--leading')
         })
     );
