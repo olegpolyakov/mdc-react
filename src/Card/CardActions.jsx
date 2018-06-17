@@ -5,7 +5,7 @@ export default function CardActions({ element = 'section', className, fullBleed,
     return React.createElement(element,
         {
             className: classnames('mdc-card__actions', className, {
-                'mdc-card__actions--full-blee': fullBleed
+                'mdc-card__actions--full-bleed': fullBleed
             }),
             ...props
         }
