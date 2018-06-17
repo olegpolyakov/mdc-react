@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function CardMedia({ element = 'section', image, square, wide, className, children, ...props }) {
+export default function CardMedia({ element = 'section', image, content, square, wide, className, children, ...props }) {
     return React.createElement(element,
         {
             className: classnames('mdc-card__media', {
@@ -13,6 +13,7 @@ export default function CardMedia({ element = 'section', image, square, wide, cl
             },
             ...props
         },
-        children && React.createElement('div', { className: 'mdc-card__media-content' }, children)
+        content && React.createElement('div', { className: 'mdc-card__media-content' }, content),
+        children
     );
 }
