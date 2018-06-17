@@ -6,9 +6,7 @@ export default function CardHeader({ element = 'header', title, subtitle, large,
         'mdc-card__title--large': large
     });
 
-    return React.createElement(
-        element,
-
+    return React.createElement(element,
         {
             className: classnames('mdc-card__header', className),
             ...props
