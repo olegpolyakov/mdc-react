@@ -86,10 +86,6 @@
         box-sizing: border-box;
         @include mdc-typography(body2);
 
-        &:last-child {
-            padding-bottom: 24px;
-        }
-
         p:last-child {
             margin-bottom: 0;
         }
