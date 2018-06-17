@@ -18,7 +18,7 @@ export default class LinearProgress extends React.Component {
     }
 
     render() {
-        const { element, progress, buffer, indeterminate, reversed, closed, className } = this.props;
+        const { element, progress, buffer, indeterminate, reversed, closed, className, ...props } = this.props;
 
         return React.createElement(element, {
             role: 'progressbar',
@@ -26,18 +26,19 @@ export default class LinearProgress extends React.Component {
                 'mdc-linear-progress--indeterminate': indeterminate,
                 'mdc-linear-progress--reversed': reversed,
                 'mdc-linear-progress--closed': closed
-            }, className)
+            }, className),
+            ...props
         },
-            <div class="mdc-linear-progress__buffering-dots" style={{}}></div>,
+            <div className="mdc-linear-progress__buffering-dots"></div>,
 
-            <div class="mdc-linear-progress__buffer" style={{ transform: `scaleX(${indeterminate ? 1 : buffer * 0.01})` }}></div>,
+            <div className="mdc-linear-progress__buffer" style={{ transform: buffer ? `scaleX(${indeterminate ? 1 : buffer * 0.01})` : null }}></div>,
 
-            <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar" style={{ transform: `scaleX(${indeterminate ? 1 : progress * 0.01})` }}>
-                <span class="mdc-linear-progress__bar-inner"></span>
+            <div className="mdc-linear-progress__bar mdc-linear-progress__primary-bar" style={{ transform: `scaleX(${indeterminate ? 1 : progress * 0.01})` }}>
+                <span className="mdc-linear-progress__bar-inner"></span>
             </div>,
 
-            <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
-                <span class="mdc-linear-progress__bar-inner"></span>
+            <div className="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                <span className="mdc-linear-progress__bar-inner"></span>
             </div>
         );
     }
