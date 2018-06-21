@@ -1,3 +1,5 @@
+@import '../mixins';
+
 $data-table-font-size: 13px !default;
 $data-table-header-font-size: 12px !default;
 $data-table-header-sort-icon-size: 16px !default;
@@ -46,7 +48,7 @@ $data-table-cell-top: $data-table-card-padding / 2;
         tr {
             position: relative;
             height: $data-table-row-height;
-            @include material-animation-default(0.28s);
+            @include material-transition-default(0.28s);
             transition-property: background-color;
 
             &.is-selected {
