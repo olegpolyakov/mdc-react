@@ -4,7 +4,7 @@ import classnames from 'classnames';
 export default function Icon({
     element = 'i',
     component = element,
-    size = 18,
+    size,
     dark,
     light,
     inactive,
