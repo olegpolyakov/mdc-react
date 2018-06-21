@@ -3,6 +3,10 @@ import classnames from 'classnames';
 import Transition from 'react-transition-group/Transition';
 
 export default class TemporaryDrawer extends React.PureComponent {
+    static defaultProps = {
+        onClose: Function.prototype
+    };
+    
     componentDidUpdate(prevProps, prevState) {
         if (this.props.open === true) {
             document.addEventListener('keydown', this.handleDocumentKeyDown);
