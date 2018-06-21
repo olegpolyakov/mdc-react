@@ -1,0 +1,40 @@
+$icon-dark-color: rgba(0, 0, 0, 0.54);
+$icon-dark-inactive-color: rgba(0, 0, 0, 0.26);
+$icon-light-color: rgba(255, 255, 255, 0.54);
+$icon-light-inactive-color: rgba(255, 255, 255, 0.3);
+
+.material-icons {
+    user-select: none;
+
+    &.md-18 {
+        font-size: 18px;
+    }
+
+    &.md-24 {
+        font-size: 24px;
+    }
+
+    &.md-36 {
+        font-size: 36px;
+    }
+
+    &.md-48 {
+        font-size: 48px;
+    }
+
+    &.md-dark {
+        color: $icon-color;
+    }
+
+    &.md-dark.md-inactive {
+        color: $icon-inactive-color;
+    }
+
+    &.md-light {
+        color: $icon-light-color;
+    }
+
+    &.md-light.md-inactive {
+        color: $icon-light-inactive-color
+    }
+}
