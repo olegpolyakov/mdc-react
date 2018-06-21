@@ -44,10 +44,10 @@ const loaders = {
 
 module.exports = env => {
     return {
-        entry: './src/index.js',
+        entry: './index.js',
 
         output: {
-            path: path.resolve(__dirname),
+            path: path.resolve(__dirname, 'dist'),
             filename: 'index.js',
             library: 'mdc-react',
             libraryTarget: 'umd'
