@@ -1,10 +1,12 @@
+@import '@material/theme/mdc-theme';
+
 .mdc-circular-progress {
     width: 24px;
     height: 24px;
     margin-right: 32px;
 
     &__foreground {
-        stroke: $primary-color;
+        stroke: $mdc-theme-primary;
     }
 
     &__background {
