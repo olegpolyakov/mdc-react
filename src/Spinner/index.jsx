@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function CircularProgress({ element = 'div', active = true, singleColor }) {
+export default function Spinner({ element = 'div', active = true, singleColor }) {
     return React.createElement(element, {
         className: classnames('mdc-spinner', {
             'mdc-spinner--active': active,
