@@ -1,11 +1,9 @@
 import React from 'react';
 import classnames from 'classnames';
-import { MDCTabBarFoundation } from '@material/tabs';
-
-import MaterialComponent from '../MaterialComponent';
 
 export default class Tabs extends React.Component {
     static defaultProps = {
+        element: 'nav',
         onChange: Function.prototype
     };
 
@@ -16,7 +14,7 @@ export default class Tabs extends React.Component {
     }
 
     get activeTab() {
-        return this.tabs.get(this.state.activeTabIndex);
+        return this.tabs.get(this.props.value);
     }
 
     get indicatorTanslateX() {
@@ -27,56 +25,34 @@ export default class Tabs extends React.Component {
         return this.activeTab ? this.activeTab.width / this.width : 0;
     }
 
-    state = {
-        ready: false,
-        activeTabIndex: this.props.selectedTab || 0
-    };
-
-    handleTabSelect = (activeTabIndex) => {
-        this.setState({ activeTabIndex });
-    };
-
     componentDidMount() {
         this.forceUpdate();
     }
 
     render() {
-        const { element = 'nav', children, ...props } = this.props;
-        const { activeTabIndex } = this.state;
-
-        return (
-            <React.Fragment>
-                {
-                    React.createElement(element,
-                        {
-                            className: 'mdc-tab-bar',
-                            ref: element => this.root = element,
-                            ...props
-                        },
-                        React.Children.map(children, (tab, index) =>
-                            React.cloneElement(tab, {
-                                ref: element => this.tabs.set(index, element),
-                                active: index === activeTabIndex,
-                                onSelect: () => this.handleTabSelect(index)
-                            })
-                        ),
-                        React.createElement('span', {
-                            className: 'mdc-tab-bar__indicator',
-                            ref: element => this.indicator = element,
-                            style: {
-                                visibility: 'visible',
-                                transform: `translateX(${this.indicatorTanslateX}px) scale(${this.indicatorScale}, 1)`
-                            }
-                        })
-                    )
+        const { element, value, className, children, ...props } = this.props;
+        
+        return React.createElement(element,
+            {
+                ref: element => this.root = element,
+                className: classnames('mdc-tab-bar', className),
+                ...props
+            },
+            React.Children.map(children, (tab, index) => {
+                return React.cloneElement(tab, {
+                    ref: element => this.tabs.set(tab.props.value || index, element),
+                    active: (tab.props.value || index) === value,
+                    onSelect: value => this.props.onChange(value || index)
+                })
+            }),
+            React.createElement('span', {
+                className: 'mdc-tab-bar__indicator',
+                ref: element => this.indicator = element,
+                style: {
+                    visibility: 'visible',
+                    transform: `translateX(${this.indicatorTanslateX}px) scale(${this.indicatorScale}, 1)`
                 }
-
-                {
-                    React.Children.map(children, (tab, index) => 
-                        index === activeTabIndex && tab.props.children
-                    )
-                }
-            </React.Fragment>
+            })
         );
     }
 }

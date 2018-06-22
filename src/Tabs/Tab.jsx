@@ -23,17 +23,17 @@ export default class Tab extends React.Component {
     handleClick = event => {
         event.preventDefault();
 
-        this.props.onSelect();
+        this.props.onSelect(this.props.value);
     };
 
     handleKeyDown = event => {
         if (event.key && event.key === 'Enter' || event.keyCode === 13) {
-            this.props.onSelect();
+            this.props.onSelect(this.props.value);
         }
     };
 
     render() {
-        const { element, label, active, className, ...props } = this.props;
+        const { element, component = element, label, active, className, ...props } = this.props;
 
         return React.createElement(element,
             {
