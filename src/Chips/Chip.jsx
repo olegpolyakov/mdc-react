@@ -1,12 +1,13 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function Chip({ element = 'span', text, leadingIcon, tarilingIcon, filtered, selected, children, ...props }) {
+export default function Chip({ element = 'span', text, label, leadingIcon, tarilingIcon, filtered, selected, children, ...props }) {
     return React.createElement(element,
         {
             className: classnames('mdc-chip', {
                 'mdc-chip--selected': selected
             }),
+            title: label,
             ...props
         },
 
