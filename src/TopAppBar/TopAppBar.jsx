@@ -5,6 +5,10 @@ import TopAppBarRow from './TopAppBarRow';
 import TopAppBarSection from './TopAppBarSection';
 
 export default class TopAppBar extends React.Component {
+    static defaultProps = {
+        element: 'header'
+    };
+
     state = {
         hidden: undefined,
         scrolled: false
@@ -44,7 +48,10 @@ export default class TopAppBar extends React.Component {
             window.addEventListener('scroll', this.handleScroll);
         }
 
-        this.fixedAdjustElement = document.querySelector('.mdc-toolbar + *');
+        if (this.props.fixedAdjustSibling) {
+            this.root.current.nextSibling.classList.add(classnames('mdc-top-app-bar--fixed-adjust'));
+        }
+        
     }
 
     componentWillUnmount() {
@@ -52,6 +59,10 @@ export default class TopAppBar extends React.Component {
             window.removeEventListener('scroll', this.handleFixedScroll);
         } else {
             window.removeEventListener('scroll', this.handleScroll);
+        }
+
+        if (this.props.fixedAdjustSibling) {
+            this.root.current.nextSibling.classList.remove(classnames('mdc-top-app-bar--fixed-adjust'));
         }
     }
 
@@ -73,7 +84,7 @@ export default class TopAppBar extends React.Component {
     handleResize = event => {};
 
     render() {
-        const { element = 'header', navigationIcon, title, fixed, dense, prominent, short, collapsed, actionItems, className, children, ...props } = this.props;
+        const { element, navigationIcon, title, fixed, dense, prominent, short, collapsed, actionItems, fixedAdjustSibling, className, children, ...props } = this.props;
         const { scrolled, hidden } = this.state;
 
         return React.createElement(element,
