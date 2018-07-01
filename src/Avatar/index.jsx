@@ -8,13 +8,13 @@ export default function Avatar({ element = 'div', src, small, large, children, .
         className: classnames('mdc-avatar', {
             'mdc-avatar--small': small,
             'mdc-avatar--large': large
-        })
+        }),
+        ...props
     },
         src ?
             React.createElement('img', {
                 className: 'mdc-avatar__image',
-                src,
-                ...props
+                src
             })
             :
             (React.isValidElement(children) ?
