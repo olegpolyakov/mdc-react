@@ -10,7 +10,7 @@ export default function ListItemMeta({
 }) {
     const classNames = classnames('mdc-list-item__meta', className);
 
-    if (React.isValidElement(React.Children.only(children))) {
+    if (React.isValidElement(children)) {
         return React.cloneElement(children, {
             className: classNames,
             ...props
