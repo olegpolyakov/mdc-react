@@ -6,6 +6,7 @@ import './App.css';
 import { Layout, TopAppBar, Icon, Drawer, List, ListItem } from '../../src';
 
 import IndexPage from './components/index';
+import AvatarPage from './components/Avatar';
 import BadgePage from './components/Badge';
 import ButtonPage from './components/Button';
 import CardPage from './components/Card';
@@ -40,56 +41,61 @@ export default class App extends React.Component {
                     navigationIcon={
                         <Icon onClick={this.toggleDrawer}>menu</Icon>
                     }
+                    fixedAdjustSibling
                 />
 
-                <Drawer persistent open={this.state.open}>                    
-                    <List element="nav">
-                        <ListItem component={NavLink} to="/badge" activeClassName="mdc-list-item--selected">Badge</ListItem>
-                        <ListItem component={NavLink} to="/button" activeClassName="mdc-list-item--selected">Button</ListItem>
-                        <ListItem component={NavLink} to="/cards" activeClassName="mdc-list-item--selected">Cards</ListItem>
-                        <ListItem component={NavLink} to="/checkbox" activeClassName="mdc-list-item--selected">Checkbox</ListItem>
-                        <ListItem component={NavLink} to="/chips" activeClassName="mdc-list-item--selected">Chips</ListItem>
-                        <ListItem component={NavLink} to="/dialog" activeClassName="mdc-list-item--selected">Dialog</ListItem>
-                        <ListItem component={NavLink} to="/drawer" activeClassName="mdc-list-item--selected">Drawer</ListItem>
-                        <List inset>
-                            <ListItem component={NavLink} to="/drawer/permanent" activeClassName="mdc-list-item--selected">Permanent</ListItem>
-                            <ListItem component={NavLink} to="/drawer/temporary" activeClassName="mdc-list-item--selected">Temporary</ListItem>
-                            <ListItem component={NavLink} to="/drawer/persistent" activeClassName="mdc-list-item--selected">Persistent</ListItem>
+                <Layout>
+                    <Drawer persistent open={this.state.open}>                    
+                        <List element="nav">
+                            <ListItem component={NavLink} to="/avatar" activeClassName="mdc-list-item--selected">Avatar</ListItem>
+                            <ListItem component={NavLink} to="/badge" activeClassName="mdc-list-item--selected">Badge</ListItem>
+                            <ListItem component={NavLink} to="/button" activeClassName="mdc-list-item--selected">Button</ListItem>
+                            <ListItem component={NavLink} to="/cards" activeClassName="mdc-list-item--selected">Cards</ListItem>
+                            <ListItem component={NavLink} to="/checkbox" activeClassName="mdc-list-item--selected">Checkbox</ListItem>
+                            <ListItem component={NavLink} to="/chips" activeClassName="mdc-list-item--selected">Chips</ListItem>
+                            <ListItem component={NavLink} to="/dialog" activeClassName="mdc-list-item--selected">Dialog</ListItem>
+                            <ListItem component={NavLink} to="/drawer" activeClassName="mdc-list-item--selected">Drawer</ListItem>
+                            <List inset>
+                                <ListItem component={NavLink} to="/drawer/permanent" activeClassName="mdc-list-item--selected">Permanent</ListItem>
+                                <ListItem component={NavLink} to="/drawer/temporary" activeClassName="mdc-list-item--selected">Temporary</ListItem>
+                                <ListItem component={NavLink} to="/drawer/persistent" activeClassName="mdc-list-item--selected">Persistent</ListItem>
+                            </List>
+                            <ListItem component={NavLink} to="/fab" activeClassName="mdc-list-item--selected">FAB</ListItem>
+                            <ListItem component={NavLink} to="/icon-button" activeClassName="mdc-list-item--selected">Icon Button</ListItem>
+                            <ListItem component={NavLink} to="/layout-grid" activeClassName="mdc-list-item--selected">Layout Grid</ListItem>
+                            <ListItem component={NavLink} to="/list" activeClassName="mdc-list-item--selected">List</ListItem>
+                            <ListItem component={NavLink} to="/menu" activeClassName="mdc-list-item--selected">Menu</ListItem>
+                            <ListItem component={NavLink} to="/snackbar" activeClassName="mdc-list-item--selected">Snackbar</ListItem>
+                            <ListItem component={NavLink} to="/switch" activeClassName="mdc-list-item--selected">Switch</ListItem>
+                            <ListItem component={NavLink} to="/tabs" activeClassName="mdc-list-item--selected">Tabs</ListItem>
+                            <List inset>
+                                <ListItem component={NavLink} to="/top-app-bar/standard" activeClassName="mdc-list-item--selected">Standard</ListItem>
+                                <ListItem component={NavLink} to="/top-app-bar/fixed" activeClassName="mdc-list-item--selected">Fixed</ListItem>
+                            </List>
+                            <ListItem component={NavLink} to="/typography" activeClassName="mdc-list-item--selected">Typography</ListItem>
                         </List>
-                        <ListItem component={NavLink} to="/fab" activeClassName="mdc-list-item--selected">FAB</ListItem>
-                        <ListItem component={NavLink} to="/icon-button" activeClassName="mdc-list-item--selected">Icon Button</ListItem>
-                        <ListItem component={NavLink} to="/layout-grid" activeClassName="mdc-list-item--selected">Layout Grid</ListItem>
-                        <ListItem component={NavLink} to="/list" activeClassName="mdc-list-item--selected">List</ListItem>
-                        <ListItem component={NavLink} to="/menu" activeClassName="mdc-list-item--selected">Menu</ListItem>
-                        <ListItem component={NavLink} to="/snackbar" activeClassName="mdc-list-item--selected">Snackbar</ListItem>
-                        <ListItem component={NavLink} to="/switch" activeClassName="mdc-list-item--selected">Switch</ListItem>
-                        <ListItem component={NavLink} to="/tabs" activeClassName="mdc-list-item--selected">Tabs</ListItem>
-                        <List inset>
-                            <ListItem component={NavLink} to="/top-app-bar/standard" activeClassName="mdc-list-item--selected">Standard</ListItem>
-                            <ListItem component={NavLink} to="/top-app-bar/fixed" activeClassName="mdc-list-item--selected">Fixed</ListItem>
-                        </List>
-                        <ListItem component={NavLink} to="/typography" activeClassName="mdc-list-item--selected">Typography</ListItem>
-                    </List>
-                </Drawer>
+                    </Drawer>
 
-                <Route exact path="/" component={IndexPage} />
-                <Route path="/badge" component={BadgePage} />
-                <Route path="/button" component={ButtonPage} />
-                <Route path="/cards" component={CardPage} />
-                <Route path="/checkbox" component={CheckboxPage} />
-                <Route path="/chips" component={ChipsPage} />
-                <Route path="/dialog" component={DialogPage} />
-                <Route path="/drawer" component={DrawerPage} />
-                <Route path="/fab" component={FABPage} />
-                <Route path="/icon-button" component={IconButtonPage} />
-                <Route path="/layout-grid" component={LayoutGridPage} />
-                <Route path="/list" component={ListPage} />
-                <Route path="/menu" component={MenuPage} />
-                <Route path="/snackbar" component={SnackbarPage} />
-                <Route path="/switch" component={SwitchPage} />
-                <Route path="/tabs" component={TabsPage} />
-                <Route path="/top-app-bar" component={TopAppBarPage} />
-                <Route path="/typography" component={TypographyPage} />
+                    <Route exact path="/" component={IndexPage} />
+                    <Route path="/avatar" component={AvatarPage} />
+                    <Route path="/badge" component={BadgePage} />
+                    <Route path="/button" component={ButtonPage} />
+                    <Route path="/cards" component={CardPage} />
+                    <Route path="/checkbox" component={CheckboxPage} />
+                    <Route path="/chips" component={ChipsPage} />
+                    <Route path="/dialog" component={DialogPage} />
+                    <Route path="/drawer" component={DrawerPage} />
+                    <Route path="/fab" component={FABPage} />
+                    <Route path="/icon-button" component={IconButtonPage} />
+                    <Route path="/layout-grid" component={LayoutGridPage} />
+                    <Route path="/list" component={ListPage} />
+                    <Route path="/menu" component={MenuPage} />
+                    <Route path="/snackbar" component={SnackbarPage} />
+                    <Route path="/switch" component={SwitchPage} />
+                    <Route path="/tabs" component={TabsPage} />
+                    <Route path="/top-app-bar" component={TopAppBarPage} />
+                    <Route path="/typography" component={TypographyPage} />
+                </Layout>
             </Layout>
         );
     }
