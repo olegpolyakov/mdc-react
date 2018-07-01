@@ -3,109 +3,55 @@
 @import '@material/card/mdc-card';
 
 .mdc-card {
-    .mdc-card__title {
-        @include mdc-typography(headline6);
-
-        margin: 0;
-    }
-
-    .mdc-card__subtitle {
-        @include mdc-typography(body2);
-        @include mdc-theme-prop(color, text-secondary-on-light);
-
-        margin: 0;
-    }
-
-    .mdc-card__avatar {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        margin-right: 1rem;
-
-        &-image {
-
-        }
-
-        &-icon {
-            width: 36px;
-            height: 36px;
-            text-align: center;
-            line-height: 36px;
-        }
-    }
-
     .mdc-card__header {
         display: flex;
         align-items: center;
         padding: 16px;
         border-radius: 2px 2px 0 0;
 
-        .mdc-card__header-title {
-            @include mdc-typography-overflow-ellipsis;
-
-            margin-right: auto;
-        }
-
-        .mdc-card__title {
-            @include mdc-typography(body1);
+        .mdc-card__header__title {
+            @include mdc-typography(headline6);
             @include mdc-theme-prop(color, text-primary-on-light);
             @include mdc-typography-overflow-ellipsis;
+            margin: 0;
 
-            &.mdc-card__title--large {
+            &.mdc-card__header__title--large {
                 @include mdc-typography(headline5);
             }
         }
-
-        .mdc-card__icon {
-            margin-left: 0;
-            margin-right: 32px;
-            width: 24px;
-            height: 24px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+    
+        .mdc-card__header__subtitle {
+            @include mdc-typography(body2);
+            @include mdc-theme-prop(color, text-secondary-on-light);
+    
+            margin: 0;
         }
-
-        &.mdc-card__header--with-avatar,
-        &.mdc-card__header--with-icon, {
-            display: flex;
-            align-items: center;
-
-            .mdc-card__avatar {
-                margin-left: 0;
-                margin-right: 16px;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-            }
+    
+        .mdc-card__header__avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-right: 1rem;
         }
     }
 
     .mdc-card__section {
+        @include mdc-typography(body2);
         width: 100%;
         box-sizing: border-box;
-        @include mdc-typography(body2);
-
-        p:last-child {
-            margin-bottom: 0;
-        }
         
         &.mdc-card__section--primary {
             @include mdc-theme-prop(color, text-primary-on-background);
             padding: 16px;
-    
-            .mdc-card__title--large {
-                padding-top: 8px;
-            }
-    
-            &:last-child {
-                padding-bottom: 24px;
-            }
         }
     
         &.mdc-card__section--secondary {    
             @include mdc-theme-prop(color, text-secondary-on-background);
             padding: 8px 16px;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
         }
     }
 
