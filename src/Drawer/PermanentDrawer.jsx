@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 export default class PermanentDrawer extends React.Component {
     render() {
-        const { element = 'aside', toolbarSpacer, className, children, ...props } = this.props;
+        const { element = 'aside', toolbarSpacer, open, className, children, ...props } = this.props;
 
         return React.createElement(element, {
             className: classnames(className, 'mdc-drawer--permanent'),
