@@ -7,6 +7,11 @@
     "build": "webpack --env.prod --mode=production",
     "prepublish": "npm run build"
   },
+  "peerDependencies": {
+    "material-components-web": "^0.36.0",
+    "react": "^16.4.0",
+    "react-transition-group": "^2.3.1"
+  },
   "devDependencies": {
     "autoprefixer": "^8.6.2",
     "babel-core": "^6.26.0",
