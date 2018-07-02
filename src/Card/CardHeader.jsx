@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function CardHeader({ element = 'header', avatar, title, subtitle, large, className, ...props }) {
+export default function CardHeader({ element = 'header', graphic, title, subtitle, large, className, ...props }) {
     const titleClassNames = classnames('mdc-card__header__title', {
         'mdc-card__header__title--large': large
     });
@@ -12,8 +12,8 @@ export default function CardHeader({ element = 'header', avatar, title, subtitle
             ...props
         },
         
-        avatar && React.cloneElement(avatar, {
-            className: 'mdc-card__header__avatar'
+        graphic && React.cloneElement(graphic, {
+            className: 'mdc-card__header__graphic'
         }),
 
         <div className="mdc-card__header__inner">
