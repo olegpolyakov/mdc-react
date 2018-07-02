@@ -7,16 +7,16 @@ import TemporaryDrawer from './TemporaryDrawer';
 
 export default class Drawer extends React.Component {
     render() {
-        const { permanent, persistent, temporary, ...props } = this.props;
+        const { permanent, persistent, temporary, className, ...props } = this.props;
 
-        const className = 'mdc-drawer';
+        const classNames = classnames('mdc-drawer', className);
     
         if (permanent) {
-            return <PermanentDrawer className={className} {...props} />;
+            return <PermanentDrawer className={classNames} {...props} />;
         } else if (persistent) {
-            return <PersistentDrawer className={className} {...props} />;
+            return <PersistentDrawer className={classNames} {...props} />;
         } else if (temporary) {
-            return <TemporaryDrawer className={className} {...props} />;
+            return <TemporaryDrawer className={classNames} {...props} />;
         }
     }
 }
