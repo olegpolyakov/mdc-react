@@ -1,8 +1,13 @@
 import React from 'react';
 
-import { Layout, Typography, List, ListItem, ListItemText, ListItemGraphic, ListItemMeta, ListDivider } from '../../../src';
+import {
+    Layout,
+    Typography,
+    Icon,
+    List, ListItem, ListItemText, ListItemGraphic, ListItemMeta, ListDivider
+} from '../../../src';
 
-export default function FabPage() {
+export default function ListPage() {
     return (
         <Layout column element="main">
             <Typography variant="headline3" component="h1">List</Typography>
@@ -40,17 +45,24 @@ export default function FabPage() {
 
                 <List>
                     <ListItem>
-                        <ListItemGraphic icon="wifi" />
+                        <ListItemGraphic><Icon>wifi</Icon></ListItemGraphic>
                         <ListItemText>List Item</ListItemText>
                     </ListItem>
 
                     <ListItem>
-                        <ListItemGraphic icon="bluetooth" />
+                        <ListItemGraphic><Icon>bluetooth</Icon></ListItemGraphic>
                         List Item
                     </ListItem>
 
                     <ListItem>
-                        <ListItemGraphic icon="data_usage" />
+                        <ListItemGraphic><Icon>data_usage</Icon></ListItemGraphic>
+                        List Item
+                    </ListItem>
+
+                    <ListItem>
+                        <ListItemGraphic className="section-progress">
+                            <svg></svg>
+                        </ListItemGraphic>
                         List Item
                     </ListItem>
                 </List>
@@ -82,13 +94,17 @@ export default function FabPage() {
 
                 <List twoLine avatarList>
                     <ListItem>
-                        <ListItemGraphic icon="folder" />
+                        <ListItemGraphic>
+                            <Icon>folder</Icon>
+                        </ListItemGraphic>
                         <ListItemText primary="Dog Photos" secondary="9 Jan 2018" />
                         <ListItemMeta icon="info" />
                     </ListItem>
 
                     <ListItem>
-                        <ListItemGraphic icon="folder" />
+                        <ListItemGraphic>
+                            <Icon>folder</Icon>
+                        </ListItemGraphic>
                         <ListItemText primary="Dog Photos" secondary="9 Jan 2018" />
                         <ListItemMeta icon="info" />
                     </ListItem>
@@ -96,13 +112,17 @@ export default function FabPage() {
                     <ListDivider />
 
                     <ListItem>
-                        <ListItemGraphic icon="folder" />
+                        <ListItemGraphic>
+                            <Icon>folder</Icon>
+                        </ListItemGraphic>
                         <ListItemText primary="Dog Photos" secondary="9 Jan 2018" />
                         <ListItemMeta icon="info" />
                     </ListItem>
 
                     <ListItem>
-                        <ListItemGraphic icon="folder" />
+                        <ListItemGraphic>
+                            <Icon>folder</Icon>
+                        </ListItemGraphic>
                         <ListItemText primary="Dog Photos" secondary="9 Jan 2018" />
                         <ListItemMeta icon="info" />
                     </ListItem>
