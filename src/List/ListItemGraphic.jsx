@@ -9,5 +9,5 @@ export default function ListItemGraphic({
     return React.cloneElement(React.Children.only(children), {
         className: classnames('mdc-list-item__graphic', className),
         ...props
-    }, children);
+    });
 }
