@@ -4,6 +4,7 @@ import classnames from 'classnames';
 export default class Tab extends React.Component {
     static defaultProps = {
         element: 'div',
+        preventDefault: true,
         onSelect: Function.prototype
     };
 
@@ -21,7 +22,9 @@ export default class Tab extends React.Component {
     }
 
     handleClick = event => {
-        event.preventDefault();
+        if (this.props.preventDefault) {
+            event.preventDefault();
+        }
 
         this.props.onSelect(this.props.value);
     };
@@ -33,9 +36,9 @@ export default class Tab extends React.Component {
     };
 
     render() {
-        const { element, component = element, label, active, className, ...props } = this.props;
+        const { element, component = element, label, active, value, className, ...props } = this.props;
 
-        return React.createElement(element,
+        return React.createElement(component,
             {
                 ref: element => this.root = element,
                 className: classnames(Tab.classes.root, className, {
