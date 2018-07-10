@@ -26,7 +26,7 @@ export default class IconButton extends React.Component {
             {
                 ref: element => this.root = element,
                 className: classnames('mdc-icon-button material-icons', className),
-                title: on ? offLabel : onLabel,
+                title: on ? onLabel : offLabel,
                 role: element !== 'button' ? 'button' : undefined,
                 onClick: this.handleClick,
                 ...props
