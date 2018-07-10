@@ -16,7 +16,7 @@ export default function CardHeader({ element = 'header', graphic, title, subtitl
             className: 'mdc-card__header__graphic'
         }),
 
-        <div className="mdc-card__header__inner">
+        <div className="mdc-card__header__text">
             <h2 className={titleClassNames}>{title}</h2>
             {subtitle && <h3 className="mdc-card__header__subtitle">{subtitle}</h3>}
         </div>
