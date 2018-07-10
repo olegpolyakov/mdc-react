@@ -36,7 +36,7 @@ export default class Tab extends React.Component {
     };
 
     render() {
-        const { element, component = element, label, active, value, className, ...props } = this.props;
+        const { element, component = element, label, active, icon, value, preventDefault, className, ...props } = this.props;
 
         return React.createElement(component,
             {
