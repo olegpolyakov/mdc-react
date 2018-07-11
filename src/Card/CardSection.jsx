@@ -1,8 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function CardSection({ element = 'section', primary, secondary, className, children, ...props }) {
-    return React.createElement(element,
+export default function CardSection({ element = 'section', component = element, primary, secondary, className, children, ...props }) {
+    return React.createElement(component,
         {
             className: classnames('mdc-card__section', {
                 'mdc-card__section--primary': primary,

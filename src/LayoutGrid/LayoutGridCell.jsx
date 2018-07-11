@@ -1,8 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function LayoutGridCell({ element = 'div', span = 12, desktop, tablet, mobile, order, align, container, className, children, ...props }) {
-    return React.createElement(element, {
+export default function LayoutGridCell({ element = 'div', component = element, span = 12, desktop, tablet, mobile, order, align, container, className, children, ...props }) {
+    return React.createElement(component, {
         className:classnames('mdc-layout-grid__cell', {
             [`mdc-layout-grid__cell--span-${span}`]: span,
             [`mdc-layout-grid__cell--span-${desktop}-desktop`]: desktop,
