@@ -10,28 +10,28 @@ export default class IconButton extends React.Component {
         onClick: Function.prototype
     };
 
-    componentDidUpdate() {
-        this.root.blur();
-    }
-
     handleClick = event => {
-        this.root.blur();
         this.props.onClick(event);
     }
 
     render() {
-        let { element, on, onIcon, offIcon, onLabel, offLabel, className, children, onClick, ...props } = this.props;
-        
-        return React.createElement(element,
-            {
-                ref: element => this.root = element,
-                className: classnames('mdc-icon-button material-icons', className),
-                title: on ? onLabel : offLabel,
-                role: element !== 'button' ? 'button' : undefined,
-                onClick: this.handleClick,
-                ...props
-            },
-            children || (on ? onIcon : offIcon)
-        );
+        const { element, on, onIcon, offIcon, onLabel, offLabel, className, children, onClick, ...props } = this.props;
+
+        const commonProps = {
+            element,
+            className: classnames('mdc-icon-button', className),
+            role: element !== 'button' ? 'button' : undefined,
+            onClick: this.handleClick,
+            ...props
+        };
+
+        if (React.isValidElement(children)) {
+            return React.cloneElement(children, commonProps);
+        } else {
+            return React.cloneElement((on ? onIcon : offIcon), {
+                ...commonProps,
+                title: on ? onLabel : offLabel
+            });
+        }
     }
 }
