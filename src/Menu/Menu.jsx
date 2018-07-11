@@ -123,9 +123,7 @@ export default class Menu extends React.Component {
                 ref={element => this.root = element}
                 style={this.style}>
                 <List className="mdc-menu__items" role="menu" aria-hidden="true">
-                    {React.Children.map(children, (child) =>
-                        React.cloneElement(child, { onClick: this.handleMenuItemClick })
-                    )}
+                    {children}
                 </List>
             </div>
         );
