@@ -10,13 +10,13 @@
         border-radius: 2px 2px 0 0;
 
         .mdc-card__header__title {
-            @include mdc-typography(headline6);
+            @include mdc-typography(subtitle2);
             @include mdc-theme-prop(color, text-primary-on-light);
             @include mdc-typography-overflow-ellipsis;
             margin: 0;
 
             &.mdc-card__header__title--large {
-                @include mdc-typography(headline5);
+                @include mdc-typography(headline6);
             }
         }
     
