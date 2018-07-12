@@ -22,9 +22,9 @@ import MenuPage from './components/Menu';
 import SnackbarPage from './components/Snackbar';
 import SwitchPage from './components/Switch';
 import TabsPage from './components/Tabs';
+import TextFieldPage from './components/TextField';
 import TopAppBarPage from './components/TopAppBar';
 import TypographyPage from './components/Typography';
-
 
 export default class App extends React.Component {
     state = {
@@ -68,6 +68,7 @@ export default class App extends React.Component {
                             <ListItem component={NavLink} to="/snackbar" activeClassName="mdc-list-item--selected">Snackbar</ListItem>
                             <ListItem component={NavLink} to="/switch" activeClassName="mdc-list-item--selected">Switch</ListItem>
                             <ListItem component={NavLink} to="/tabs" activeClassName="mdc-list-item--selected">Tabs</ListItem>
+                            <ListItem component={NavLink} to="/textfield" activeClassName="mdc-list-item--selected">Text Field</ListItem>
                             <List inset>
                                 <ListItem component={NavLink} to="/top-app-bar/standard" activeClassName="mdc-list-item--selected">Standard</ListItem>
                                 <ListItem component={NavLink} to="/top-app-bar/fixed" activeClassName="mdc-list-item--selected">Fixed</ListItem>
@@ -93,6 +94,7 @@ export default class App extends React.Component {
                     <Route path="/snackbar" component={SnackbarPage} />
                     <Route path="/switch" component={SwitchPage} />
                     <Route path="/tabs" component={TabsPage} />
+                    <Route path="/textfield" component={TextFieldPage} />
                     <Route path="/top-app-bar" component={TopAppBarPage} />
                     <Route path="/typography" component={TypographyPage} />
                 </Layout>
