@@ -3,10 +3,6 @@ import classnames from 'classnames';
 
 import './index.scss';
 
-const classes = {
-    root: 'mdc-typography'
-};
-
 const variants = {
     headline1: 'h1',
     headline2: 'h2',
@@ -23,11 +19,26 @@ const variants = {
     overline: 'span'
 };
 
-export default function Typography({ variant = 'body1', element, component = element, className, ...props }) {
+export default function Typography({
+    element,
+    component = element,
+    variant = 'body1',
+    display,
+    align,
+    noMargin,
+    noWrap,
+    className,
+    ...props
+}) {
     if (!variant in variants) throw new Error('Typography variant is invalid');
 
     return React.createElement(component || variants[variant], {
-        className: classnames(`${classes.root}--${variant}`, className),
+        className: classnames(`mdc-typography--${variant}`, {
+            [`mdc-typography--display-${display}`]: display,
+            [`mdc-typography--align-${align}`]: align,
+            'mdc-typography--no-margin': noMargin,
+            'mdc-typography--overflow-ellipsis': noWrap
+        }, className),
         ...props
     });
 };
