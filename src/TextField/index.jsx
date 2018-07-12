@@ -1,125 +1,172 @@
 import React from 'react';
 import classnames from 'classnames';
 
+import LineRipple from '../LineRipple';
+import FloatingLabel from '../FloatingLabel';
+import HelperText from './HelperText';
+
+import './index.scss';
+
+const VALIDATION_ATTR_WHITELIST = [
+    'pattern', 'min', 'max', 'required', 'step', 'minlength', 'maxlength',
+];
+
+const TextInput = React.forwardRef((props, ref) => (
+    <input
+        ref={ref}
+        className="mdc-text-field__input"
+        {...props}
+    />
+));
+
+const TextArea = React.forwardRef((props, ref) => (
+    <textarea
+        ref={ref}
+        className="mdc-text-field__input"
+        rows="8"
+        cols="40"
+        {...props}
+    />
+));
+
+const EditableDiv = React.forwardRef((props, ref) => (
+    <div
+        ref={ref}
+        className="mdc-text-field__input"
+        contentEditable
+        {...props}
+    />
+));
+
 export default class TextField extends React.Component {
     static defaultProps = {
+        element: 'div',
         type: 'text',
+        validationMessage: false,
         onChange: Function.prototype
     };
 
-    handleTextareaKeyPress = event => {
-        if (event.which === 13 && !event.shiftKey) {
-            event.preventDefault();
+    state = {
+        focused: false,
+        valid: this.isValid
+    };
 
-            this.props.onEnter(this.textarea.value);
-            this.textarea.value = '';
+    get isValid() {
+        return this.input ? this.input.validity.valid : true;
+    }
 
-            return false;
+    get value() {
+        return this.input ? this.input.value : undefined;
+    }
+
+    get validationMessage() {
+        if (typeof this.props.validationMessage === 'string') {
+            return this.props.validationMessage;
+        } else if (this.props.validationMessage === true) {
+            return this.input ? this.input.validationMessage : undefined;
         }
     }
 
-    handleContentEditableKeyPress = event => {
-        if (event.which === 13 && !event.shiftKey) {
-            event.preventDefault();
-
-            this.props.onEnter(this.contentEditable.textContent);
-            this.contentEditable.textContent = '';
-
-            return false;
-        }
+    handleRootInteraction = event => {
+        this.input.focus();
+        this.setState({ focused: true });
     }
+
+    handleInputInteraction = event => {
+        const targetClientRect = event.target.getBoundingClientRect();
+        const coords = { x: event.clientX, y: event.clientY };
+        
+        this.lineRippleTransformOrigin = coords.x - targetClientRect.left;
+    };
+
+    handleInputFocus = event => this.setState({ focused: true });
+
+    handleInputBlur = event => {
+        this.lineRippleTransformOrigin = undefined;
+        this.setState({ focused: false });
+    }
+
+    handleInputChange = event => this.props.onChange(this.value);
 
     render() {
         const {
-            id,
-            type,
-            value,
-            defaultValue,
+            element,
             fullWidth,
             outlined,
             box,
             dense,
-            focused,
             disabled,
             multiline,
-            contentEditable,
             label,
             leadingIcon,
             trailingIcon,
+            helperText,
+            validationMessage,
             className,
             children,
             onChange,
             ...props
         } = this.props;
-
-        const classNames = classnames('mdc-text-field', {
-            'mdc-text-field--box': box && !fullWidth,
-            'mdc-text-field--dense': dense,
-            'mdc-text-field--disabled': disabled,
-            'mdc-text-field--outlined': outlined && !fullWidth,
-            'mdc-text-field--focused': focused,
-            'mdc-text-field--fullwidth': fullWidth,
-            'mdc-text-field--with-leading-icon': leadingIcon,
-            'mdc-text-field--with-trailing-icon': trailingIcon
-        })
-
-        if (multiline) {
-            return (
-                <div className={classnames(classNames, 'mdc-text-field--textarea')}>
-                    <textarea
-                        id={id}
-                        className="mdc-text-field__input"
-                        rows="8"
-                        cols="40"
-                        ref={textarea => this.textarea = textarea}
-                        onKeyPress={this.handleTextareaKeyPress}
-                        {...props}
-                    />
-
-                    <label htmlFor={id} className="mdc-text-field__label">{label}</label>
-                </div>
-            );
-        }
+        const { focused } = this.state;
 
         return (
-            <div className={classNames}>
-                {leadingIcon && React.cloneElement(leadingIcon, {
-                    className: 'mdc-text-field__icon',
-                    tabIndex: '0',
-                    role: 'button'
-                })}
+            <React.Fragment>
+                {React.createElement(element, {
+                    className: classnames('mdc-text-field', {
+                        'mdc-text-field--box': box && !fullWidth,
+                        'mdc-text-field--dense': dense,
+                        'mdc-text-field--disabled': disabled,
+                        'mdc-text-field--outlined': outlined && !fullWidth,
+                        'mdc-text-field--focused': focused,
+                        'mdc-text-field--fullwidth': fullWidth,
+                        'mdc-text-field--textarea': multiline,
+                        'mdc-text-field--with-leading-icon': leadingIcon,
+                        'mdc-text-field--with-trailing-icon': trailingIcon,
+                        'mdc-text-field--invalid': !this.isValid,
+                    }, 'mdc-text-field--upgraded', className)
+                },
+                    leadingIcon && React.cloneElement(leadingIcon, {
+                        className: 'mdc-text-field__icon',
+                        tabIndex: '0',
+                        role: 'button'
+                    }),
 
-                {contentEditable ?
-                    <div
-                        id={id}
-                        className="mdc-text-field__input"
-                        contentEditable
-                        ref={input => this.contentEditable = input}
-                        onKeyPress={this.handleContentEditableKeyPress}
-                    />
-                    :
-                    <input
-                        id={id}
-                        className="mdc-text-field__input"
-                        type={type}
-                        ref={input => this.input = input}
-                        value={value}
-                        defaultValue={defaultValue}
-                        disabled={disabled}
-                        onChange={onChange}
-                    />
-                }
-                
-                {!fullWidth && <label className="mdc-text-field__label" htmlFor={id}>{label}</label>}
-                
-                {trailingIcon && React.cloneElement(trailingIcon, {
-                    className: 'mdc-text-field__icon',
-                    tabIndex: '0',
-                    role: 'button'
-                })}
+                    React.createElement(multiline ? 'textarea' : 'input', {
+                        className: 'mdc-text-field__input',
+                        disabled,
+                        ref: element => this.input = element,
+                        onChange: this.handleInputChange,
+                        onFocus: this.handleInputFocus,
+                        onBlur: this.handleInputBlur,
+                        onMouseDown: this.handleInputInteraction,
+                        onTouchStart: this.handleInputInteraction,
+                        ...props
+                    }),
+                    
+                    (label && !fullWidth) &&
+                        <FloatingLabel
+                            float={!!focused || !!this.props.value || !this.isValid}
+                        >
+                            {label}
+                        </FloatingLabel>,
+                    
+                    trailingIcon && React.cloneElement(trailingIcon, {
+                        className: 'mdc-text-field__icon',
+                        tabIndex: '0',
+                        role: 'button'
+                    }),
+        
+                    (!fullWidth && !multiline) &&
+                        <LineRipple
+                            active={focused}
+                            center={this.lineRippleTransformOrigin}
+                        />
+                )}
 
-                <div className="mdc-text-field__bottom-line"></div>
-            </div>
+                {(validationMessage && !valid) && <HelperText error>{this.validationMessage}</HelperText>}
+
+                {helperText && <HelperText>{helperText}</HelperText>}
+            </React.Fragment>
         );
     }
 }
