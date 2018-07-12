@@ -15,10 +15,11 @@ export default class IconButton extends React.Component {
     }
 
     render() {
-        const { element, on, onIcon, offIcon, onLabel, offLabel, className, children, onClick, ...props } = this.props;
+        const { element, component = element, on, onIcon, offIcon, onLabel, offLabel, className, children, onClick, ...props } = this.props;
 
         const commonProps = {
             element,
+            component,
             className: classnames('mdc-icon-button', className),
             role: element !== 'button' ? 'button' : undefined,
             onClick: this.handleClick,
