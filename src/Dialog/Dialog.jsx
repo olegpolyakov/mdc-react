@@ -10,18 +10,14 @@ export default class Dialog extends React.Component {
         onClose: Function.prototype
     };
 
-    shouldComponentUpdate(nextProps) {
-        return this.props.open !== nextProps.open;
-    }
-
-    componentDidUpdate() {
-        if (this.props.open === true) {
+    componentDidUpdate(prevProps) {
+        if (this.props.open === true && prevProps.open === false) {
             document.body.classList.add('mdc-dialog-scroll-lock');
             
             if (this.props.confirmation === false) {
                 document.addEventListener('keydown', this.handleDocumentKeyDown);
             }
-        } else if (this.props.open === false) {
+        } else if (this.props.open === false && prevProps.open === true) {
             document.body.classList.remove('mdc-dialog-scroll-lock');
             
             if (this.props.confirmation === false) {
