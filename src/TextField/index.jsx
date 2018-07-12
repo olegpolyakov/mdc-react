@@ -86,7 +86,7 @@ export default class TextField extends React.Component {
         this.setState({ focused: false });
     }
 
-    handleInputChange = event => this.props.onChange(this.value);
+    handleInputChange = event => this.props.onChange(this.value, this.input, event);
 
     render() {
         const {
