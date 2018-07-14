@@ -33,7 +33,7 @@ export default class Snackbar extends React.Component {
     }
 
     render() {
-        const { element, active, timeout, text, actionText, action, alignStart, multiline, actionOnBottom, className, children, onClose, ...props } = this.props;
+        const { element, active, timeout, text, actionText, action, icon, alignStart, multiline, actionOnBottom, className, children, onClose, ...props } = this.props;
 
         return React.createElement(element, {
             className: classnames('mdc-snackbar', {
@@ -44,6 +44,11 @@ export default class Snackbar extends React.Component {
             }),
             ...props
         },
+            (icon && React.isValidElement(icon)) &&
+                React.cloneElement(icon, {
+                    className: 'mdc-snackbar__icon'
+                }),
+
             React.createElement('div', {
                 className: 'mdc-snackbar__text'
             }, text || children),
