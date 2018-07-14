@@ -7,37 +7,6 @@ import HelperText from './HelperText';
 
 import './index.scss';
 
-const VALIDATION_ATTR_WHITELIST = [
-    'pattern', 'min', 'max', 'required', 'step', 'minlength', 'maxlength',
-];
-
-const TextInput = React.forwardRef((props, ref) => (
-    <input
-        ref={ref}
-        className="mdc-text-field__input"
-        {...props}
-    />
-));
-
-const TextArea = React.forwardRef((props, ref) => (
-    <textarea
-        ref={ref}
-        className="mdc-text-field__input"
-        rows="8"
-        cols="40"
-        {...props}
-    />
-));
-
-const EditableDiv = React.forwardRef((props, ref) => (
-    <div
-        ref={ref}
-        className="mdc-text-field__input"
-        contentEditable
-        {...props}
-    />
-));
-
 export default class TextField extends React.Component {
     static defaultProps = {
         element: 'div',
@@ -143,7 +112,7 @@ export default class TextField extends React.Component {
                         ...props
                     }),
                     
-                    (label && !fullWidth) &&
+                    (label && (!fullWidth && !multiline)) &&
                         <FloatingLabel
                             float={!!focused || !!this.props.value || !this.isValid}
                         >
