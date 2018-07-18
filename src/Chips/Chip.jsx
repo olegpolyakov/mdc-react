@@ -1,7 +1,18 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function Chip({ element = 'span', text, label, leadingIcon, tarilingIcon, filtered, selected, children, ...props }) {
+export default function Chip({
+    element = 'span',
+    text,
+    label,
+    leadingIcon,
+    tarilingIcon,
+    avatar,
+    filtered,
+    selected,
+    children,
+    ...props
+}) {
     return React.createElement(element,
         {
             className: classnames('mdc-chip', {
@@ -10,6 +21,10 @@ export default function Chip({ element = 'span', text, label, leadingIcon, taril
             title: label,
             ...props
         },
+
+        avatar && React.cloneElement(avatar, {
+            className: classnames('mdc-chip__avatar')
+        }),
 
         leadingIcon && React.cloneElement(leadingIcon, {
             className: classnames('mdc-chip__icon mdc-chip__icon--leading', {
