@@ -36,7 +36,7 @@ export default class Tab extends React.Component {
     };
 
     render() {
-        const { element, component = element, label, active, icon, value, preventDefault, className, ...props } = this.props;
+        const { element, component = element, label, active, icon, value, preventDefault, className, children, ...props } = this.props;
 
         return React.createElement(component,
             {
@@ -48,7 +48,7 @@ export default class Tab extends React.Component {
                 onKeyDown: this.handleKeyDown,
                 ...props
             },
-            label
+            label || children
         );
     }
 }
