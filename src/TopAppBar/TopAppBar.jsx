@@ -102,6 +102,7 @@ export default class TopAppBar extends React.Component {
                 ref: this.root,
                 ...props
             },
+
             <TopAppBarRow>
                 <TopAppBarSection align="start">
                     {navigationIcon && React.cloneElement(navigationIcon, { className: 'mdc-top-app-bar__navigation-icon' })}
@@ -115,9 +116,9 @@ export default class TopAppBar extends React.Component {
                         )}
                     </TopAppBarSection>
                 }
+            </TopAppBarRow>,
 
-                {children}
-            </TopAppBarRow>
+            children
         );
     }
 }
