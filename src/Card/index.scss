@@ -28,7 +28,7 @@
         }
     
         .mdc-card__header__graphic {
-            @include mdc-theme-prop(color, icon);
+            @include mdc-theme-prop(color, text-icon-on-background);
             margin-right: 8px;
         }
 
