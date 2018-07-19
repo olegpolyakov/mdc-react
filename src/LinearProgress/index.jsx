@@ -18,7 +18,7 @@ export default class LinearProgress extends React.Component {
     }
 
     render() {
-        const { element, progress, buffer, indeterminate, reversed, closed, className, ...props } = this.props;
+        const { element, value, buffer, indeterminate, reversed, closed, className, ...props } = this.props;
 
         return React.createElement(element, {
             role: 'progressbar',
@@ -33,7 +33,7 @@ export default class LinearProgress extends React.Component {
 
             <div className="mdc-linear-progress__buffer" style={{ transform: buffer ? `scaleX(${indeterminate ? 1 : buffer * 0.01})` : null }}></div>,
 
-            <div className="mdc-linear-progress__bar mdc-linear-progress__primary-bar" style={{ transform: `scaleX(${indeterminate ? 1 : progress * 0.01})` }}>
+            <div className="mdc-linear-progress__bar mdc-linear-progress__primary-bar" style={{ transform: `scaleX(${indeterminate ? 1 : value * 0.01})` }}>
                 <span className="mdc-linear-progress__bar-inner"></span>
             </div>,
 
