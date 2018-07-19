@@ -1,8 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function CardMedia({ element = 'section', image, content, square, wide, className, children, ...props }) {
-    return React.createElement(element,
+export default function CardMedia({ element = 'section', component = element, image, content, square, wide, className, children, ...props }) {
+    return React.createElement(component,
         {
             className: classnames('mdc-card__media', {
                 'mdc-card__media--square': square,
