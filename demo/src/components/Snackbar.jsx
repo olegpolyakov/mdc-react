@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Layout, Typography, Button, Snackbar } from '../../../src';
+import { Layout, Typography, Button, Snackbar, Icon } from '../../../src';
 
 export default class SnackbarPage extends React.Component {
     state = {
@@ -21,6 +21,7 @@ export default class SnackbarPage extends React.Component {
                         active={this.state.active}
                         text="Hello World"
                         actionText="OK"
+                        icon={<Icon>star</Icon>}
                         onClose={this.onClose}
                     />
                 </section>
