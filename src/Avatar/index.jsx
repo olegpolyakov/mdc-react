@@ -3,12 +3,12 @@ import classnames from 'classnames';
 
 import './index.scss';
 
-export default function Avatar({ element = 'div', src, small, large, children, ...props }) {
+export default function Avatar({ element = 'div', src, small, large, className, children, ...props }) {
     return React.createElement(element, {
         className: classnames('mdc-avatar', {
             'mdc-avatar--small': small,
             'mdc-avatar--large': large
-        }),
+        }, className),
         ...props
     },
         src ?
