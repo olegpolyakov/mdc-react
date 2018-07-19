@@ -9,10 +9,10 @@ export default class Tab extends React.Component {
     handleTransitionEnd = event => this.setState({ transitioning: false });
 
     render() {
-        const { element = 'button', icon, label, active, className, children, ...props } = this.props;
+        const { element = 'button', component = element, icon, label, active, className, children = label, ...props } = this.props;
         const { transitioning } = this.state;
         
-        return React.createElement(element,
+        return React.createElement(component,
             {
                 ref: element => ref = element,
                 role: 'tab',
@@ -25,8 +25,8 @@ export default class Tab extends React.Component {
                 ...props
             },
             React.createElement('div', { className: 'mdc-tab__content' }, 
-                icon && React.createElement('span', { className: 'mdc-tab__icon' }),
-                React.createElement('span', { className: 'mdc-tab__text-label' }, label || children)
+                icon && React.cloneElement({ className: 'mdc-tab__icon' }),
+                children && React.createElement('span', { className: 'mdc-tab__text-label' }, children)
             )
         );
     }
