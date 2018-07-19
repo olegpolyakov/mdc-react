@@ -3,3 +3,15 @@
 .mdc-text-field--inline {
     display: inline-block;
 }
+
+.mdc-text-field {
+    width: auto;
+
+    &.mdc-text-field--textarea {
+        resize: vertical;
+
+        &:not(.mdc-text-field--disabled) {
+            border-color: rgba(0, 0, 0, 0.42);
+        }
+    }
+}
