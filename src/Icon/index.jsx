@@ -12,7 +12,7 @@ export default function Icon({
     ...props
 }) {
     return (
-        React.createElement(element, {
+        React.createElement(component, {
             className: classnames('material-icons', {
                 [`md-${size}`]: size,
                 'md-dark': dark,
