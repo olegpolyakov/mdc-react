@@ -3,11 +3,18 @@ import classnames from 'classnames';
 
 import './index.scss';
 
-export default function Avatar({ element = 'div', src, small, large, className, children, ...props }) {
-    return React.createElement(element, {
+export default function Avatar({
+    element = 'div',
+    component = element,
+    src,
+    size,
+    className,
+    children,
+    ...props
+}) {
+    return React.createElement(component, {
         className: classnames('mdc-avatar', {
-            'mdc-avatar--small': small,
-            'mdc-avatar--large': large
+            [`mdc-avatar--${small}`]: size
         }, className),
         ...props
     },
@@ -17,14 +24,8 @@ export default function Avatar({ element = 'div', src, small, large, className, 
                 src
             })
             :
-            (React.isValidElement(children) ?
-                React.cloneElement(children, {
-                    className: 'mdc-avatar__icon'
-                })
-                :
-                React.createElement('span', {
-                    className: 'mdc-avatar__text'
-                }, children)
-            )
+            React.createElement('span', {
+                className: 'mdc-avatar__text'
+            }, children)
     );
 };
