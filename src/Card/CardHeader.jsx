@@ -1,7 +1,17 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function CardHeader({ element = 'header', graphic, title, subtitle, action, large, className, ...props }) {
+export default function CardHeader({
+    element = 'header',
+    component = element,
+    graphic,
+    title,
+    subtitle,
+    action,
+    large,
+    className,
+    ...props
+}) {
     const titleClassNames = classnames('mdc-card__header__title', {
         'mdc-card__header__title--large': large
     });
