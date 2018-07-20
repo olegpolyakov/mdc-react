@@ -1,12 +1,18 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function CircularProgress({ progress, className, ...props }) {
-    const angle = progress * 289.067 / 100;
+export default function CircularProgress({ value, className, ...props }) {
+    const angle = value * 289.067 / 100;
     const diff = 289.067 - angle;
+    const classNames = classnames('mdc-circular-progress', className);
 
     return (
-        <svg className={classnames('mdc-circular-progress', className)} width="100%" height="100%" viewBox="0 0 100 100">
+        <svg
+            className={classNames}
+            width="100%"
+            height="100%"
+            viewBox="0 0 100 100"
+            {...props}>
             <path
                 className="mdc-circular-progress__background"
                 fill="none"
