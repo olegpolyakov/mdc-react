@@ -114,7 +114,7 @@ export default class TextField extends React.Component {
                     
                     (label && !fullWidth) &&
                         <FloatingLabel
-                            float={!!focused || !!this.props.value || !this.isValid}
+                            float={focused || this.props.value || !this.isValid}
                         >
                             {label}
                         </FloatingLabel>,
