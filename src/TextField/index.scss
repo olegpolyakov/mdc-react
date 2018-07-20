@@ -10,6 +10,11 @@
     &.mdc-text-field--textarea {
         resize: vertical;
 
+        .mdc-text-field__input {
+            height: 100%;
+            box-sizing: border-box;
+        }
+
         &:not(.mdc-text-field--disabled) {
             border-color: rgba(0, 0, 0, 0.42);
         }
