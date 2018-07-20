@@ -17,12 +17,12 @@ export default class Switch extends React.Component {
     handleChange = event => this.props.onChange(event, !this.props.checked);
 
     render() {
-        const { checked, disabled, className } = this.props;
+        const { checked, disabled, className, ...props } = this.props;
 
         const classNames = classnames('mdc-switch', className);
 
         return (
-            <div className={classNames}>
+            <div className={classNames} {...props}>
                 <input
                     type="checkbox"
                     className="mdc-switch__native-control"
