@@ -1,6 +1,6 @@
 {
   "name": "@codedojo/mdc-react",
-  "version": "0.1.41",
+  "version": "0.1.42",
   "description": "Material Components for the web implemented in React",
   "scripts": {
     "start": "webpack --watch --env.dev --mode=development",
