@@ -6,7 +6,7 @@ import './index.scss';
 FAB.defaultProps = {
     element: 'button',
     mini: false,
-    plain: false,
+    extended: false,
     disabled: false
 };
 
