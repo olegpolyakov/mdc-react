@@ -13,7 +13,7 @@ export default class Checkbox extends React.Component {
 
     input = React.createRef();
 
-    handleChange = event => this.props.onChange(event, !this.props.checked);
+    handleChange = event => this.props.onChange(!this.props.checked, this.input.current, event);
 
     componentDidUpdate() {
         this.input.current.blur();
