@@ -14,7 +14,7 @@ export default function Avatar({
 }) {
     return React.createElement(component, {
         className: classnames('mdc-avatar', {
-            [`mdc-avatar--${small}`]: size
+            [`mdc-avatar--${size}`]: size
         }, className),
         ...props
     },
