@@ -1,1 +1,31 @@
 @import '@material/drawer/mdc-drawer';
+
+.mdc-drawer {
+    &.mdc-drawer--position-right {
+        .mdc-drawer__drawer {
+            right: 0;
+            left: initial;
+            transform: translateX(calc(100% + 20px));
+        }
+
+        &.mdc-drawer--open {
+            .mdc-drawer__drawer {
+                transform: none;
+            }
+        }
+    }
+
+    &.mdc-drawer--position-left {
+        .mdc-drawer__drawer {
+            left: 0;
+            right: initial;
+            transform: translateX(calc(-100% - 20px));
+        }
+
+        &.mdc-drawer--open {
+            .mdc-drawer__drawer {
+                transform: none;
+            }
+        }
+    }
+}

@@ -4,6 +4,7 @@ import Transition from 'react-transition-group/Transition';
 
 export default class TemporaryDrawer extends React.PureComponent {
     static defaultProps = {
+        element: 'aside',
         onClose: Function.prototype
     };
     
@@ -30,15 +31,16 @@ export default class TemporaryDrawer extends React.PureComponent {
     };
 
     render() {
-        const { element = 'aside', open, className, children, ...props } = this.props;
+        const { element, component = element, open, position, className, children, ...props } = this.props;
 
         return (
             <Transition timeout={200} in={open} appear={true}>
                 {status =>
-                    React.createElement(element, {
+                    React.createElement(component, {
                         className: classnames(className, 'mdc-drawer--temporary', {
                             'mdc-drawer--open': open,
-                            'mdc-drawer--animating': status === 'entering' || status === 'exiting'
+                            'mdc-drawer--animating': status === 'entering' || status === 'exiting',
+                            [`mdc-drawer--position-${position}`]: position
                         }),
                         onClick: this.handleClick,
                         ...props
