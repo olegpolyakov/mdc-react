@@ -11,7 +11,7 @@
 
         .mdc-card__header__graphic {
             @include mdc-theme-prop(color, text-icon-on-background);
-            margin-right: 8px;
+            margin-right: 16px;
         }
 
         .mdc-card__header__text {
@@ -44,7 +44,6 @@
 
     .mdc-card__section {
         @include mdc-typography(body2);
-        width: 100%;
         box-sizing: border-box;
         padding: 8px 16px;
         
