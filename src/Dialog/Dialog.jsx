@@ -44,13 +44,13 @@ export default class Dialog extends React.Component {
         const { element, open, className, children, confirmation, ...props } = this.props;
 
         return (
-            <Transition timeout={200} in={open} appear={true}>
+            <Transition timeout={{enter: 0, exit: 200}} in={open} mountOnEnter unmountOnExit>
                 {status =>
                     React.createElement(element,
                         {
                             className: classnames('mdc-dialog', {
-                                'mdc-dialog--open': open,
-                                'mdc-dialog--animating': status === 'entering' || status === 'exiting'
+                                'mdc-dialog--open': status === 'entered',
+                                'mdc-dialog--animating': status === 'entered' || status === 'exiting'
                             }, className),
                             role: 'alertdialog',
                             ...props
