@@ -112,7 +112,7 @@ export default class Menu extends React.Component {
     handleBodyClick = event => this.props.onClose();
 
     render() {
-        const { open, children, ...props } = this.props;
+        const { open, anchor, top, right, bottom, left, children, ...props } = this.props;
 
         return (
             <div
