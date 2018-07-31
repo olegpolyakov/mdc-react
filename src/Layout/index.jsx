@@ -22,7 +22,7 @@ export default function Layout({
             [`mdc-layout--direction--${direction}`]: direction,
             [`mdc-layout--align-items--${alignItems}`]: alignItems,
             [`mdc-layout--align-self--${alignSelf}`]: alignSelf,
-            [`mdc-layout--justify-content--${justifyContent}`]: justifyContent,
+            [`mdc-layout--justify-content--${justifyContent}`]: justifyContent
         }),
         ...props
     }, children);
