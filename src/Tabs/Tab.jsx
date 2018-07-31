@@ -36,10 +36,9 @@ export default class Tab extends React.Component {
     };
 
     render() {
-        const { element, component = element, label, active, icon, value, preventDefault, className, children, ...props } = this.props;
+        const { element, component = element, label, active, icon, value, preventDefault, className, children = label, ...props } = this.props;
 
-        return React.createElement(component,
-            {
+        return React.createElement(component, {
                 ref: element => this.root = element,
                 className: classnames(Tab.classes.root, className, {
                     [Tab.classes.active]: active
@@ -47,8 +46,6 @@ export default class Tab extends React.Component {
                 onClick: this.handleClick,
                 onKeyDown: this.handleKeyDown,
                 ...props
-            },
-            label || children
-        );
+            }, children);
     }
 }
