@@ -9,10 +9,10 @@ export default class TemporaryDrawer extends React.PureComponent {
     };
     
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.open === true) {
+        if (this.props.open === true && prevProps.open === false) {
             document.addEventListener('keydown', this.handleDocumentKeyDown);
             document.body.classList.add('mdc-drawer-scroll-lock');
-        } else if (this.props.open === false) {
+        } else if (this.props.open === false && prevProps.open === true) {
             document.removeEventListener('keydown', this.handleDocumentKeyDown);
             document.body.classList.remove('mdc-drawer-scroll-lock');
         }
