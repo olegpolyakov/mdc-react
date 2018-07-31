@@ -112,7 +112,7 @@ export default class Menu extends React.Component {
     handleBodyClick = event => this.props.onClose();
 
     render() {
-        const { open, children } = this.props;
+        const { open, children, ...props } = this.props;
 
         return (
             <div
@@ -121,7 +121,8 @@ export default class Menu extends React.Component {
                 })}
                 tabIndex="-1"
                 ref={element => this.root = element}
-                style={this.style}>
+                style={this.style}
+                {...props}>
                 <List className="mdc-menu__items" role="menu" aria-hidden="true">
                     {children}
                 </List>
