@@ -4,7 +4,7 @@ import classnames from 'classnames';
 export default class LinearProgress extends React.Component {
     static defaultProps = {
         element: 'div',
-        progress: 0,
+        value: 0,
         buffer: 0,
         indeterminate: false,
         reversed: false,
