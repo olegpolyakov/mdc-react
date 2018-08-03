@@ -14,7 +14,7 @@ export default function ListDivider({
             'mdc-list-divider--inset': inset,
             'mdc-list-divider--padded': padded,
         }, className),
-        role: element === 'li' && 'separator',
+        role: element === 'li' ? 'separator' : undefined,
         ...props
     });
 };
