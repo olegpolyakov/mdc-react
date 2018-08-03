@@ -13,11 +13,6 @@ export default class Button extends React.Component {
         onClick: Function.prototype
     };
 
-    handleClick = event => {
-        this.root.blur();
-        this.props.onClick(event);
-    };
-
     render() {
         const {
             element,
@@ -34,21 +29,20 @@ export default class Button extends React.Component {
             ...props
         } = this.props;
         
-        return React.createElement(component || element,
-            {
-                ref: element => this.root = element,
-                className: classnames('mdc-button', className, {
-                    'mdc-button--raised': raised,
-                    'mdc-button--unelevated': unelevated,
-                    'mdc-button--outlined': outlined,
-                    'mdc-button--dense': dense
-                }),
-                onClick: this.handleClick,
-                ...props
-            },
-
+        return React.createElement(component, {
+            className: classnames('mdc-button', {
+                'mdc-button--raised': raised,
+                'mdc-button--unelevated': unelevated,
+                'mdc-button--outlined': outlined,
+                'mdc-button--dense': dense
+            }, className),
+            ...props
+        },
             icon && React.cloneElement(icon, { className: 'mdc-button__icon' }),
-            text || children
+
+            text,
+
+            children
         );
     }
 }
