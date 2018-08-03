@@ -36,8 +36,10 @@ export default function FAB({
         }, className),
         ...props
     },
-        React.cloneElement(icon || React.Children.only(children), {
+        React.cloneElement(icon, {
             className: 'mdc-fab__icon'
-        })
+        }),
+
+        children
     );
 }
