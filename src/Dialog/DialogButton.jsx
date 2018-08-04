@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import Button from '../Button';
 
-export default function DialogButton({ element, action, cancel, accept, ...props }) {
+export default function DialogButton({ action, cancel, accept, ...props }) {
     return React.createElement(Button, {
         className: classnames('mdc-dialog__footer__button', {
             'mdc-dialog__action': action,
