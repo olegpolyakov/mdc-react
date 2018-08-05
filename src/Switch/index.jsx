@@ -17,7 +17,7 @@ export default class Switch extends React.Component {
     handleChange = event => this.props.onChange(event, !this.props.checked);
 
     render() {
-        const { checked, disabled, className, ...props } = this.props;
+        const { checked, disabled, className, onChange, ...props } = this.props;
 
         const classNames = classnames('mdc-switch', className);
 
