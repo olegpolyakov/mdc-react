@@ -9,6 +9,8 @@ export default class Tab extends React.Component {
     static defaultProps = {
         element: 'button',
         active: false,
+        stacked: false,
+        minWidth: false,
         fade: false,
         underline: true,
         onActivate: Function.prototype
@@ -60,6 +62,8 @@ export default class Tab extends React.Component {
             icon,
             label,
             active,
+            stacked,
+            minWidth,
             fade,
             underline,
             previousIndicatorClientRect,
@@ -77,6 +81,8 @@ export default class Tab extends React.Component {
             ref: element => this.root = element,
             className: classnames('mdc-tab', {
                 'mdc-tab--active': active,
+                'mdc-tab--stacked': stacked,
+                'mdc-tab--min-width': minWidth,
                 'mdc-tab--animating-activate': isTransitioning && isTransitionActivating,
                 'mdc-tab--animating-deactivate': isTransitioning && isTransitionDeactivating,
             }, className),
@@ -88,7 +94,7 @@ export default class Tab extends React.Component {
             ...props
         },
             React.createElement('div', { className: 'mdc-tab__content' }, 
-                icon && React.cloneElement({ className: 'mdc-tab__icon' }),
+                icon && React.cloneElement(icon, { className: 'mdc-tab__icon' }),
                 children && React.createElement('span', { className: 'mdc-tab__text-label' }, children)
             ),
 

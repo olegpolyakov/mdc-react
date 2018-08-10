@@ -8,6 +8,8 @@ import './index.scss';
 export default class TabBar extends React.Component {
     static defaultProps = {
         element: 'nav',
+        stacked: false,
+        minWidth: false,
         fade: false,
         underline: true,
         onChange: Function.prototype
@@ -27,6 +29,8 @@ export default class TabBar extends React.Component {
     render() {
         const {
             value,
+            stacked,
+            minWidth,
             fade,
             underline,
             onChange,
@@ -44,19 +48,21 @@ export default class TabBar extends React.Component {
                 role: 'tablist',
                 ...props
             },
-            <TabScroller>
-                {React.Children.map(children, (tab, index) => {
-                    return React.cloneElement(tab, {
+            React.createElement(TabScroller, {},
+                React.Children.map(children, (tab, index) => 
+                    React.cloneElement(tab, {
                         ref: component => this.tabs.set((tab.props.value || index), component),
                         value: tab.props.value || index,
                         active: (tab.props.value || index) === value,
+                        stacked: tab.props.stacked || stacked,
+                        minWidth: tab.props.minWidth || minWidth,
                         fade,
                         underline,
                         previousIndicatorClientRect: this.previousIndicatorClientRect,
                         onActivate: this.handleTabActivate
                     })
-                })}
-            </TabScroller>
+                )
+            )
         );
     }
 }
