@@ -33,6 +33,7 @@ export default class TabBar extends React.Component {
             minWidth,
             fade,
             underline,
+            align,
             onChange,
 
             element,
@@ -48,7 +49,7 @@ export default class TabBar extends React.Component {
                 role: 'tablist',
                 ...props
             },
-            React.createElement(TabScroller, {},
+            React.createElement(TabScroller, { align },
                 React.Children.map(children, (tab, index) => 
                     React.cloneElement(tab, {
                         ref: component => this.tabs.set((tab.props.value || index), component),
