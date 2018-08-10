@@ -1,12 +1,13 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function Spinner({ element = 'div', active = true, singleColor }) {
+export default function Spinner({ element = 'div', active = true, singleColor = true, className, ...props }) {
     return React.createElement(element, {
         className: classnames('mdc-spinner', {
             'mdc-spinner--active': active,
             'mdc-spinner--single-color': singleColor
-        })
+        }, className),
+        ...props
     },
     <div className="mdc-spinner__layer mdc-spinner__layer-1">
         <div className="mdc-spinner__circle-clipper mdc-spinner__left">
