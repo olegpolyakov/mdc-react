@@ -5,38 +5,39 @@ import './index.scss';
 
 export default class Switch extends React.Component {
     static defaultProps = {
+        checked: false,
+        disabled: false,
         onChange: Function.prototype
     };
 
-    input = React.createRef();
-
-    componentDidUpdate() {
-        this.input.current.blur();
-    }
-
-    handleChange = event => this.props.onChange(event, !this.props.checked);
+    handleChange = event => this.props.onChange(!this.props.checked, event);
 
     render() {
-        const { checked, disabled, className, onChange, ...props } = this.props;
+        const {
+            checked, disabled, onChange,
+            className, ...props
+        } = this.props;
 
-        const classNames = classnames('mdc-switch', className);
-
-        return (
-            <div className={classNames} {...props}>
-                <input
-                    type="checkbox"
-                    className="mdc-switch__native-control"
-                    role="switch"
-                    ref={this.input}
-                    checked={checked}
-                    disabled={disabled}
-                    onChange={this.handleChange}
-                />
-
-                <div className="mdc-switch__background">
-                    <div className="mdc-switch__knob"></div>
-                </div>
-            </div>
+        return React.createElement('div', {
+            className: classnames('mdc-switch', {
+                'mdc-switch--checked': checked,
+                'mdc-switch--disabled': disabled
+            }, className)
+        },
+            React.createElement('div', { className: 'mdc-switch__track' }),
+            React.createElement('div', { className: 'mdc-switch__thumb-underlay' },
+                React.createElement('div', { className: 'mdc-switch__thumb' },
+                    React.createElement('input', {
+                        type: 'checkbox',
+                        className: 'mdc-switch__native-control',
+                        role: 'switch',
+                        checked,
+                        disabled,
+                        onChange: this.handleChange,
+                        ...props
+                    })
+                )
+            )
         );
     }
 }

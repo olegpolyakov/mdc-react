@@ -7,7 +7,7 @@ export default class SwitchPage extends React.Component {
         checked: false
     };
 
-    handleChange = (event, checked) => this.setState({ checked });
+    handleChange = checked => this.setState({ checked });
 
     render() {
         return (
