@@ -1,15 +1,19 @@
 import React from 'react';
+import classnames from 'classnames';
 
 export default function ListItemText({
-    element = 'span',
-    component = element,
     primary,
     secondary,
+
+    element = 'span',
+    component = element,
     children,
     ...props
 }) {
     return React.createElement(component, {
-        className: 'mdc-list-item__text',
+        className: classnames({
+            'mdc-list-item__text': primary && secondary
+        }),
         ...props
     },
         primary && React.createElement('span', { className: 'mdc-list-item__primary-text' }, primary),
