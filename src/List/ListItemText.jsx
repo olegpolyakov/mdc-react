@@ -1,5 +1,4 @@
 import React from 'react';
-import classnames from 'classnames';
 
 export default function ListItemText({
     primary,
@@ -7,17 +6,18 @@ export default function ListItemText({
 
     element = 'span',
     component = element,
-    children,
+    children = primary,
     ...props
 }) {
-    return React.createElement(component, {
-        className: classnames({
-            'mdc-list-item__text': primary && secondary
-        }),
-        ...props
-    },
-        primary && React.createElement('span', { className: 'mdc-list-item__primary-text' }, primary),
-        secondary && React.createElement('span', { className: 'mdc-list-item__secondary-text' }, secondary),
-        children
-    );
+    if (primary && secondary) {
+        return React.createElement(component, {
+            className: 'mdc-list-item__text',
+            ...props
+        },
+            React.createElement('span', { className: 'mdc-list-item__primary-text' }, primary),
+            React.createElement('span', { className: 'mdc-list-item__secondary-text' }, secondary)
+        );
+    } else {
+        return React.createElement(component, { ...props }, children);
+    }
 }
