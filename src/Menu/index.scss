@@ -13,6 +13,7 @@
     &--open {
         transform: scale(1);
         opacity: 1;
+        width: max-content;
     }
 
     .mdc-list-item {
