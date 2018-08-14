@@ -10,6 +10,7 @@ export default function CardHeader({
     action,
     large,
     className,
+    children,
     ...props
 }) {
     const titleClassNames = classnames('mdc-card__header__title', {
@@ -31,8 +32,6 @@ export default function CardHeader({
             {subtitle && <h3 className="mdc-card__header__subtitle">{subtitle}</h3>}
         </div>,
 
-        action && React.cloneElement(action, {
-            className: 'mdc-card__header__action'
-        })
+        children
     );
 }
