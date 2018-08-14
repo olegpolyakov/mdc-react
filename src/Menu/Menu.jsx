@@ -52,6 +52,7 @@ export default class Menu extends React.Component {
     componentDidMount() {
         this.width = this.root.clientWidth;
         this.height = this.root.clientHeight;
+        this.root.style.position = 'absolute';
         this._style = this.style;
     }
 

@@ -1,6 +1,7 @@
 @import '@material/menu/mdc-menu';
 
 .mdc-menu {
+    position: static;
     display: inline-block;
     left: 0;
     right: 0;
@@ -13,7 +14,6 @@
     &--open {
         transform: scale(1);
         opacity: 1;
-        width: max-content;
     }
 
     .mdc-list-item {
