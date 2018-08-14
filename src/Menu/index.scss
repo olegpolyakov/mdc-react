@@ -2,21 +2,24 @@
 
 .mdc-menu {
     display: inline-block;
-    visibility: hidden;
-    transform: scale(.8);
+    left: 0;
+    right: 0;
+    transform: scale(0);
     opacity: 0;
     transition:
-        visibility $mdc-menu-fade-in-duration linear,
-        opacity $mdc-menu-fade-in-duration linear,
-        transform $mdc-menu-scale-duration $mdc-animation-deceleration-curve-timing-function;
+        opacity .12s $mdc-animation-deceleration-curve-timing-function,
+        transform .2s $mdc-animation-deceleration-curve-timing-function;
 
     &--open {
-        visibility: visible;
-        opacity: 1;
         transform: scale(1);
+        opacity: 1;
     }
 
     .mdc-list-item {
         height: 48px;
     }
+}
+
+.mdc-menu-anchor {
+    display: inline-block;
 }
