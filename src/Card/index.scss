@@ -6,7 +6,7 @@
     .mdc-card__header {
         display: flex;
         align-items: center;
-        padding: 16px;
+        padding: 8px 16px;
         border-radius: 2px 2px 0 0;
 
         .mdc-card__header__graphic {
@@ -16,6 +16,9 @@
 
         .mdc-card__header__text {
             flex: 1;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
         .mdc-card__header__title {
@@ -26,19 +29,28 @@
 
             &.mdc-card__header__title--large {
                 @include mdc-typography(headline6);
-                line-height: 1.5rem;
+                line-height: 2rem;
+
+                + .mdc-card__header__subtitle {
+                    line-height: 1.5rem;
+                }
             }
         }
     
         .mdc-card__header__subtitle {
             @include mdc-typography(body2);
             @include mdc-theme-prop(color, text-secondary-on-light);
-            line-height: 1rem;
             margin: 0;
         }
 
         .mdc-card__header__action {
             margin-left: auto;
+
+            .mdc-icon-button {
+                width: 32px;
+                height: 32px;
+                padding: 0;
+            }
         }
     }
 

@@ -32,6 +32,8 @@ export default function CardHeader({
             {subtitle && <h3 className="mdc-card__header__subtitle">{subtitle}</h3>}
         </div>,
 
-        children
+        React.isValidElement(action) && React.cloneElement(action, {
+            className: classnames(action.props.className, 'mdc-card__header__action')
+        })
     );
 }
