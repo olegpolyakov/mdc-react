@@ -9,19 +9,19 @@ export default class Menu extends React.Component {
         open: false,
         
         onSelect: () => {},
-        onCancel: () => {}
+        onCancel: () => {},
+
+        element: 'div'
     };
 
     get style() {
         if (this._style) return this._style;
         
-        if (!this.anchor) return {};
+        if (!this.props.anchor) return {};
 
-        const anchor = this.anchor;
-        const width = this.width;
-        const height = this.height;
-        const { top, left, bottom, right } = this.props;
-
+        const { anchor, top, left, bottom, right } = this.props;
+        const anchorDimensions = anchor.getBoundingClientRect();
+        
         const style = {
             top: null,
             left: null,
@@ -29,31 +29,38 @@ export default class Menu extends React.Component {
         };
 
         if (left || !right) {
-            style.left = 0;
+            const delta = anchorDimensions.left + this.width;
+
+            style.left = delta > window.innerWidth ? (window.innerWidth - delta) : 0;
             style.transformOrigin += 'left';
         } else if (right) {
-            style.left = anchor.offsetWidth - width;
+            const delta = anchorDimensions.right - this.width;
+
+            style.left = delta < 0 ? (anchor.offsetWidth - this.width) - delta : anchor.offsetWidth - this.width;
             style.transformOrigin += 'right';
         }
 
         if (top || !bottom) {
-            style.top = 0;
+            const delta = anchorDimensions.top + this.height;
+
+            style.top = delta > window.innerHeight ? (window.innerHeight - delta) : 0;
             style.transformOrigin += ' top';
         } else if (bottom) {
-            style.top = anchor.offsetHeight - height;
+            const delta = anchorDimensions.bottom - this.height;
+
+            style.top = delta < 0 ? (anchor.offsetHeight - this.height) - delta : anchor.offsetHeight - this.height;
             style.transformOrigin += ' bottom';
         }
-        
-        this._style = style;
 
-        return this._style;
+        style.width = this.width;
+
+        return style;
     }
 
     componentDidMount() {
         this.width = this.root.clientWidth;
         this.height = this.root.clientHeight;
         this.root.style.position = 'absolute';
-        this._style = this.style;
     }
 
     shouldComponentUpdate(nextProps) {
@@ -71,25 +78,22 @@ export default class Menu extends React.Component {
     handleBodyClick = event => this.props.onClose();
 
     render() {
-        const { open, trigger, top, right, bottom, left, children, ...props } = this.props;
+        const { open, top, right, bottom, left, anchor, element, children, className, ...props } = this.props;
         
-        return (
-            <div ref={element => this.anchor = element} className="mdc-menu-anchor">
-                {trigger}
-
-                <div
-                    className={classnames('mdc-menu', {
-                        'mdc-menu--open': open
-                    })}
-                    tabIndex="-1"
-                    ref={element => this.root = element}
-                    style={this.style}
-                    {...props}>
-                    <List className="mdc-menu__items" role="menu" aria-hidden="true">
-                        {children}
-                    </List>
-                </div>
-            </div>
+        return React.createElement(element, {
+            className: classnames('mdc-menu', {
+                'mdc-menu--open': open
+            }),
+            tabIndex: open ? '0' : '-1',
+            ref: element => this.root = element,
+            style: this.style,
+            ...props
+        },
+            React.createElement(List, {
+                className: 'menu__items',
+                role: 'menu',
+                'aria-hidden': "true"
+            }, children)
         );
     }
 }

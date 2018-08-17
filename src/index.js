@@ -13,7 +13,7 @@ export { default as Layout } from './Layout';
 export { default as LayoutGrid, LayoutGridCell } from './LayoutGrid';
 export { default as LinearProgress } from './LinearProgress';
 export { List, ListDivider, ListItem, ListItemGraphic, ListItemText, ListItemMeta, ListGroup, ListGroupSubheader } from './List';
-export { Menu, MenuItem } from './Menu';
+export { Menu, MenuItem, MenuAnchor } from './Menu';
 export { default as FAB } from './FAB';
 export { default as FormField } from './FormField';
 export { default as Snackbar } from './Snackbar';

@@ -22,11 +22,12 @@ export default class MenuPage extends React.Component {
                                 <Icon>menu</Icon>
                             </IconButton>
                         }
+                        top
+                        right
                         onClose={this.toggleMenu}>
-                        <MenuItem>Item 1</MenuItem>
-                        <MenuItem>Item 2</MenuItem>
-                        <MenuItem>Item 3</MenuItem>
-                        <MenuItem>Item 4</MenuItem>
+                        <MenuItem>Подключить ВКонтакте</MenuItem>
+                        <MenuItem>Подключить Яндекс</MenuItem>
+                        <MenuItem>Подключить Google</MenuItem>
                     </Menu>
                 </section>
             </Layout>
