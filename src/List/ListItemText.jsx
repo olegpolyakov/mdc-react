@@ -17,7 +17,9 @@ export default function ListItemText({
             React.createElement('span', { className: 'mdc-list-item__primary-text' }, primary),
             React.createElement('span', { className: 'mdc-list-item__secondary-text' }, secondary)
         );
+    } else if (children) {
+        return children;
     } else {
-        return React.createElement(component, { ...props }, children);
+        return null;
     }
 }
