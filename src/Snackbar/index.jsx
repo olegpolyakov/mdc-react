@@ -41,7 +41,7 @@ export default class Snackbar extends React.Component {
                 'mdc-snackbar--align-start': alignStart,
                 'mdc-snackbar--multiline': multiline,
                 'mdc-snackbar--action-on-bottom': actionOnBottom
-            }),
+            }, className),
             ...props
         },
             (icon && React.isValidElement(icon)) &&
