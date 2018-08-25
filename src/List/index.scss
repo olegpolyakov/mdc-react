@@ -6,4 +6,13 @@
             padding-left: 2rem;
         }
     }
+
+    .mdc-list-item__meta {
+        &.mdc-icon-button,
+        .mdc-icon-button {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+        }
+    }
 }

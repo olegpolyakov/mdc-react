@@ -46,6 +46,7 @@
         .mdc-card__header__action {
             margin-left: auto;
 
+            &.mdc-icon-button,
             .mdc-icon-button {
                 width: 32px;
                 height: 32px;
