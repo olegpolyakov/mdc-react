@@ -51,7 +51,7 @@ export default class TabBar extends React.Component {
             },
             React.createElement(TabScroller, { align },
                 React.Children.map(children, (tab, index) => 
-                    React.cloneElement(tab, {
+                    tab && React.cloneElement(tab, {
                         ref: component => this.tabs.set((tab.props.value || index), component),
                         value: tab.props.value || index,
                         active: (tab.props.value || index) === value,
