@@ -5,24 +5,26 @@ import './index.scss';
 
 export default class Button extends React.Component {
     static defaultProps = {
-        element: 'button',
         raised: false,
         unelevated: false,
         outlined: false,
         dense: false,
-        onClick: Function.prototype
+        onClick: Function.prototype,
+
+        element: 'button'
     };
 
     render() {
         const {
-            element,
-            component = element,
             text,
             raised,
             unelevated,
             outlined,
             dense,
             icon,
+
+            element,
+            component = element,
             className,
             children,
             ...props

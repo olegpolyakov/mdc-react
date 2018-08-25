@@ -5,24 +5,31 @@ import './index.scss';
 
 export default class IconButton extends React.Component {
     static defaultProps = {
-        element: 'button',
         on: false,
-        onClick: Function.prototype
+        onClick: Function.prototype,
+
+        element: 'button'
     };
 
-    handleClick = event => {
-        this.props.onClick(event);
-    }
-
     render() {
-        const { element, component = element, on, onIcon, offIcon, onLabel, offLabel, className, children, onClick, ...props } = this.props;
+        const {
+            on,
+            onIcon,
+            offIcon,
+            onLabel,
+            offLabel,
+            
+            element,
+            component = element,
+            className,
+            children,
+            ...props
+        } = this.props;
 
         const commonProps = {
-            element,
             component,
             className: classnames('mdc-icon-button', className),
             role: element !== 'button' ? 'button' : undefined,
-            onClick: this.handleClick,
             ...props
         };
 
