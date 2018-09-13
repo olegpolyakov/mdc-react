@@ -7,6 +7,8 @@ export default class CheckboxPage extends React.Component {
         basic: false
     };
 
+    handleChange = () => this.setState(state => ({ basic: !state.basic }))
+
     render() {
         return (
             <Layout column element="main">
@@ -15,7 +17,7 @@ export default class CheckboxPage extends React.Component {
                 <Checkbox
                     name="basic"
                     checked={this.state.basic}
-                    onChange={(event, checked) => this.setState({ basic: checked })}
+                    onChange={this.handleChange}
                 />
             </Layout>
         );
