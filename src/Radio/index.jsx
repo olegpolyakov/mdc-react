@@ -1,103 +1,50 @@
-import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames/dedupe';
-import { MDCRadioFoundation } from '@material/radio/dist/mdc.radio';
+import React from 'react';
+import classnames from 'classnames';
 
-class Radio extends Component {
-    static propTypes = {
-        id: PropTypes.string,
-        name: PropTypes.string,
-        className: PropTypes.string,
-        checked: PropTypes.bool,
-        disabled: PropTypes.bool,
-        lable: PropTypes.string,
-        onChange: PropTypes.func
-    }
+import './index.scss';
 
+export default class Radio extends React.Component {
     static defaultProps = {
-        onChange: () => { }
+        checked: false,
+        disabled: false,
+        onChange: Function.prototype
     }
 
-    state = {
-        classes: ''
+    componentDidUpdate() {
+        this.input.blur();
     }
 
-    foundation = new MDCRadioFoundation({
-        addClass: className => this.setState(prevState => ({
-            classes: classnames(prevState.classes, className)
-        })),
-
-        removeClass: className => this.setState(prevState => ({
-            classes: classnames(prevState.classes, {
-                [className]: false
-            })
-        })),
-
-        getNativeControl: () => this.refs.radio
-    })
-
-    componentWillMount() {
-        const { checked, disabled } = this.props;
-
-        if (checked) {
-            this.foundation.setChecked(checked);
-        }
-
-        if (disabled) {
-            this.foundation.setDisabled(disabled);
-        }
-    }
-
-    componentDidMount() {
-        this.foundation.init();
-    }
-
-    componentWillUnmount() {
-        this.foundation.destroy()
-    }
-
-    componentWillReceiveProps({ checked, disabled }) {
-        if (checked) {
-            this.foundation.setChecked(checked);
-        }
-
-        if (disabled) {
-            this.foundation.setDisabled(disabled);
-        }
-    }
+    handleChange = event => this.props.onChange(this.props.value, this.input, event);
 
     render() {
         const {
-            id,
-            name,
-            className,
             checked,
             disabled,
             onChange,
-            ...otherProps
+            
+            className,
+            ...props
         } = this.props;
 
-        const classNames = classnames('mdc-radio', this.state.classes, {
-            'mdc-radio--disabled': disabled
-        }, className);
+        return React.createElement('div', {
+            className: classnames('mdc-radio', {
+                'mdc-radio--disabled': disabled
+            }, className)
+        },
+            React.createElement('input', {
+                ref: element => this.input = element,
+                className: 'mdc-radio__native-control',
+                type: 'radio',
+                checked,
+                disabled,
+                onChange: this.handleChange,
+                ...props
+            }),
 
-        return (
-            <div className={classNames}>
-                <input ref="radio"
-                    type="radio"
-                    id={id}
-                    name={name}
-                    className="mdc-radio__native-control"
-                    checked={checked}
-                    disabled={disabled}
-                    onChange={event => onChange(event.target.checked, event)}
-                    {...otherProps} />
-                <div className="mdc-radio__background">
-                    <div className="mdc-radio__outer-circle" />
-                    <div className="mdc-radio__inner-circle" />
-                </div>
-            </div>
-        )
+            React.createElement('div', { className: 'mdc-radio__background' },
+                React.createElement('div', { className: 'mdc-radio__outer-circle' }),
+                React.createElement('div', { className: 'mdc-radio__inner-circle' }),
+            )
+        );
     }
 }
-
-export default Radio;
