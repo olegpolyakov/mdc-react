@@ -19,6 +19,7 @@ import IconButtonPage from './components/IconButton';
 import LayoutGridPage from './components/LayoutGrid';
 import ListPage from './components/List';
 import MenuPage from './components/Menu';
+import RadioPage from './components/Radio';
 import SnackbarPage from './components/Snackbar';
 import SwitchPage from './components/Switch';
 import TabsPage from './components/Tabs';
@@ -65,6 +66,7 @@ export default class App extends React.Component {
                             <ListItem component={NavLink} to="/layout-grid" activeClassName="mdc-list-item--selected">Layout Grid</ListItem>
                             <ListItem component={NavLink} to="/list" activeClassName="mdc-list-item--selected">List</ListItem>
                             <ListItem component={NavLink} to="/menu" activeClassName="mdc-list-item--selected">Menu</ListItem>
+                            <ListItem component={NavLink} to="/radio" activeClassName="mdc-list-item--selected">Radio</ListItem>
                             <ListItem component={NavLink} to="/snackbar" activeClassName="mdc-list-item--selected">Snackbar</ListItem>
                             <ListItem component={NavLink} to="/switch" activeClassName="mdc-list-item--selected">Switch</ListItem>
                             <ListItem component={NavLink} to="/tabs" activeClassName="mdc-list-item--selected">Tabs</ListItem>
@@ -91,6 +93,7 @@ export default class App extends React.Component {
                     <Route path="/layout-grid" component={LayoutGridPage} />
                     <Route path="/list" component={ListPage} />
                     <Route path="/menu" component={MenuPage} />
+                    <Route path="/radio" component={RadioPage} />
                     <Route path="/snackbar" component={SnackbarPage} />
                     <Route path="/switch" component={SwitchPage} />
                     <Route path="/tabs" component={TabsPage} />
