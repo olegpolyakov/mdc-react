@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Layout, Typography, Button, IconButton, Icon, Menu, MenuItem } from '../../../src';
+import { Layout, Typography, Button, IconButton, Icon, MenuAnchor, Menu, MenuItem } from '../../../src';
 
 export default class MenuPage extends React.Component {
     state = {
@@ -15,20 +15,19 @@ export default class MenuPage extends React.Component {
                 <Typography variant="headline3" component="h1">Menu</Typography>
     
                 <section>
-                    <Menu
-                        open={this.state.open}
-                        trigger={
-                            <IconButton onClick={this.toggleMenu}>
-                                <Icon>menu</Icon>
-                            </IconButton>
-                        }
-                        top
-                        right
-                        onClose={this.toggleMenu}>
-                        <MenuItem>Подключить ВКонтакте</MenuItem>
-                        <MenuItem>Подключить Яндекс</MenuItem>
-                        <MenuItem>Подключить Google</MenuItem>
-                    </Menu>
+                    <MenuAnchor>
+                        <IconButton onClick={this.toggleMenu}>
+                            <Icon>menu</Icon>
+                        </IconButton>
+
+                        <Menu
+                            open={this.state.open}
+                            onClose={this.toggleMenu}>
+                            <MenuItem>Подключить ВКонтакте</MenuItem>
+                            <MenuItem>Подключить Яндекс</MenuItem>
+                            <MenuItem>Подключить Google</MenuItem>
+                        </Menu>
+                    </MenuAnchor>
                 </section>
             </Layout>
         );
