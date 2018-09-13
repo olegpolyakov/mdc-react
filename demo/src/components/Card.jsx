@@ -1,11 +1,12 @@
 import React from 'react';
 
 import {
-    Layout,
-    Typography,
-    Card, CardHeader, CardSection, CardMedia, CardActions, CardAction,
     Button,
-    IconButton
+    Card, CardHeader, CardSection, CardMedia, CardActions, CardAction,
+    Icon,
+    IconButton,
+    Layout,
+    Typography
 } from '../../../src';
 
 export default class CardsPage extends React.Component {
@@ -58,11 +59,15 @@ export default class CardsPage extends React.Component {
     
                     <CardActions>
                         <CardAction icon>
-                            <IconButton>star</IconButton>
+                            <IconButton>
+                                <Icon>star</Icon>
+                            </IconButton>
                         </CardAction>
 
                         <CardAction icon>
-                            <IconButton>favorite</IconButton>
+                            <IconButton>
+                                <Icon>favorite</Icon>
+                            </IconButton>
                         </CardAction>
                     </CardActions>
                 </Card>
