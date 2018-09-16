@@ -12,6 +12,7 @@ import ButtonPage from './components/Button';
 import CardPage from './components/Card';
 import CheckboxPage from './components/Checkbox';
 import ChipsPage from './components/Chips';
+import DataTablePage from './components/DataTable';
 import DialogPage from './components/Dialog';
 import DrawerPage from './components/Drawer';
 import FABPage from './components/FAB';
@@ -54,6 +55,7 @@ export default class App extends React.Component {
                             <ListItem component={NavLink} to="/cards" activeClassName="mdc-list-item--selected">Cards</ListItem>
                             <ListItem component={NavLink} to="/checkbox" activeClassName="mdc-list-item--selected">Checkbox</ListItem>
                             <ListItem component={NavLink} to="/chips" activeClassName="mdc-list-item--selected">Chips</ListItem>
+                            <ListItem component={NavLink} to="/data-table" activeClassName="mdc-list-item--selected">Data Table</ListItem>
                             <ListItem component={NavLink} to="/dialog" activeClassName="mdc-list-item--selected">Dialog</ListItem>
                             <ListItem component={NavLink} to="/drawer" activeClassName="mdc-list-item--selected">Drawer</ListItem>
                             <List inset>
@@ -86,6 +88,7 @@ export default class App extends React.Component {
                     <Route path="/cards" component={CardPage} />
                     <Route path="/checkbox" component={CheckboxPage} />
                     <Route path="/chips" component={ChipsPage} />
+                    <Route path="/data-table" component={DataTablePage} />
                     <Route path="/dialog" component={DialogPage} />
                     <Route path="/drawer" component={DrawerPage} />
                     <Route path="/fab" component={FABPage} />

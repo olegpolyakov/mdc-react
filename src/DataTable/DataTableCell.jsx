@@ -9,4 +9,4 @@ export default function DataTableCell({ header, element = header ? 'th' : 'td', 
         }),
         ...props
     }, children);
-};
+}

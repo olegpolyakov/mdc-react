@@ -9,14 +9,11 @@ export default class DataTable extends React.Component {
     render() {
         const { selectable, className, children, ...props } = this.props;
 
-        return (
-            <table
-                className={classnames('mdc-data-table', {
-                    'mdc-data-table--selectable': selectable
-                }, className)}
-                {...props}>
-                {children}    
-            </table>
-        );
+        return React.createElement('table', {
+            className: classnames('mdc-data-table', {
+                'mdc-data-table--selectable': selectable
+            }, className),
+            ...props
+        }, children);
     }
 }

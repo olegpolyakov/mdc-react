@@ -1,9 +1,8 @@
 import React from 'react';
 
-export default function DataTableBody({ children }) {
-    return (
-        <tbody className="mdc-table__body">
-            {children}
-        </tbody>
-    );
-};
+export default function DataTableBody({ children, ...props }) {
+    return React.createElement('tbody', {
+        className: 'mdc-data-table__body',
+        ...props
+    }, children);
+}
