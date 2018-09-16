@@ -22,7 +22,7 @@ export default class DrawerPage extends React.Component {
 
                 <Route exact path="/drawer/permanent" render={() =>
                     <section>
-                        <Drawer permanent>
+                        <Drawer>
                             Permanent Drawer
                         </Drawer>
                     </section>
