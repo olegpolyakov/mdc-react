@@ -96,6 +96,7 @@ export default class TopAppBar extends React.Component {
             title,
             navigationIcon,
             fixed,
+            sticky,
             dense,
             prominent,
             short,
