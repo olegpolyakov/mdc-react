@@ -2,6 +2,11 @@
 
 .mdc-top-app-bar {
     //transition: transform .15s;
+    position: relative;
+}
+
+.mdc-top-app-bar--sticky {
+    position: fixed;
 }
 
 .mdc-top-app-bar--dense {

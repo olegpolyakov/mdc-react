@@ -6,6 +6,14 @@ import TopAppBarSection from './TopAppBarSection';
 
 export default class TopAppBar extends React.Component {
     static defaultProps = {
+        fixed: false,
+        sticky: false,
+        dense: false,
+        prominent: false,
+        short: false,
+        collapsed: false,
+        fixedAdjustSibling: false,
+
         element: 'header'
     };
 
@@ -44,7 +52,7 @@ export default class TopAppBar extends React.Component {
         if (this.props.fixed) {
             window.addEventListener('scroll', this.handleFixedScroll);
             this.setScrolled();
-        } else {
+        } else if (this.props.sticky) {
             window.addEventListener('scroll', this.handleScroll);
         }
 
@@ -57,7 +65,7 @@ export default class TopAppBar extends React.Component {
     componentWillUnmount() {
         if (this.props.fixed) {
             window.removeEventListener('scroll', this.handleFixedScroll);
-        } else {
+        } else if (this.props.sticky) {
             window.removeEventListener('scroll', this.handleScroll);
         }
 
@@ -84,25 +92,43 @@ export default class TopAppBar extends React.Component {
     handleResize = event => {};
 
     render() {
-        const { element, navigationIcon, title, fixed, dense, prominent, short, collapsed, actionItems, fixedAdjustSibling, className, children, ...props } = this.props;
+        const {
+            title,
+            navigationIcon,
+            fixed,
+            dense,
+            prominent,
+            short,
+            collapsed,
+            actionItems,
+            fixedAdjustSibling,
+
+            element,
+            component = element,
+            className,
+            children,
+            ...props
+        } = this.props;
+
         const { scrolled, hidden } = this.state;
 
-        return React.createElement(element,
-            {
-                className: classnames('mdc-top-app-bar', className, {
-                    'mdc-top-app-bar--fixed': fixed,
-                    'mdc-top-app-bar--dense': dense,
-                    'mdc-top-app-bar--prominent': prominent,
-                    'mdc-top-app-bar--short': short,
-                    'mdc-top-app-bar--short-collapsed': short && collapsed,
-                    'mdc-top-app-bar--fixed-scrolled': fixed && scrolled,
-                    'mdc-top-app-bar--hidden': hidden === true,
-                    'mdc-top-app-bar--shown': hidden === false
-                }),
-                ref: this.root,
-                ...props
-            },
-
+        return React.createElement(component, {
+            ref: this.root,
+            
+            className: classnames('mdc-top-app-bar', {
+                'mdc-top-app-bar--fixed': fixed,
+                'mdc-top-app-bar--sticky': sticky,
+                'mdc-top-app-bar--dense': dense,
+                'mdc-top-app-bar--prominent': prominent,
+                'mdc-top-app-bar--short': short,
+                'mdc-top-app-bar--short-collapsed': short && collapsed,
+                'mdc-top-app-bar--fixed-scrolled': fixed && scrolled,
+                'mdc-top-app-bar--hidden': hidden === true,
+                'mdc-top-app-bar--shown': hidden === false
+            }, className),
+            
+            ...props
+        },
             <TopAppBarRow>
                 <TopAppBarSection align="start">
                     {navigationIcon && React.cloneElement(navigationIcon, { className: 'mdc-top-app-bar__navigation-icon' })}
