@@ -1,12 +1,11 @@
 import React from 'react';
 
-export default function DrawerHeader({ element = 'header', children, ...props }) {
+export default function DrawerHeader({ element = 'header', title, subtitle, children }) {
     return React.createElement(element, {
-            className: 'mdc-drawer__header',
-            ...props
+            className: 'mdc-drawer__header'
         },
-        React.createElement('div', {
-            className: 'mdc-drawer__header-content'
-        }, children)
+            title && React.createElement('h3', { className: 'mdc-drawer__title' }, title),
+            subtitle && React.createElement('h6', { className: 'mdc-drawer__subtitle' }, subtitle),
+            children
     );
 };

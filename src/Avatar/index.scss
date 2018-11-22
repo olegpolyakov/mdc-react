@@ -1,11 +1,13 @@
 .mdc-avatar {
-    display: flex;
+    display: inline-flex;
     width: 40px;
     height: 40px;
     justify-content: center;
     align-items: center;
     border-radius: 100%;
     user-select: none;
+    color: #fafafa;
+    background-color: #bdbdbd;
 
     &__image {
         width: 100%;
@@ -20,14 +22,25 @@
 .mdc-avatar--small {
     width: 24px;
     height: 24px;
+
+    .mdc-avatar__icon {
+        font-size: 16px;
+    }
+
+    .mdc-avatar__text {
+        font-size: 12px;
+    }
 }
 
 .mdc-avatar--large {
     width: 64px;
     height: 64px;
-}
 
-.mdc-avatar--extra-large {
-    width: 128px;
-    height: 128px;
+    .mdc-avatar__icon {
+        font-size: 32px;
+    }
+
+    .mdc-avatar__text {
+        font-size: 32px;
+    }
 }

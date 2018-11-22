@@ -1,26 +1,2 @@
 @import '@material/menu/mdc-menu';
-
-.mdc-menu {
-    position: static;
-    display: inline-block;
-    left: 0;
-    right: 0;
-    transform: scale(0);
-    opacity: 0;
-    transition:
-        opacity .12s $mdc-animation-deceleration-curve-timing-function,
-        transform .2s $mdc-animation-deceleration-curve-timing-function;
-
-    &--open {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    .mdc-list-item {
-        height: 48px;
-    }
-}
-
-.mdc-menu-anchor {
-    display: inline-block;
-}
+@import "@material/menu-surface/mdc-menu-surface";

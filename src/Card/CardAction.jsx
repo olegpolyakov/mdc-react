@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function CardAction({ component, children, button, icon, ...props }) {
+export default function CardAction({ button, icon, component, children, ...props }) {
     return (
         React.cloneElement(component || React.Children.only(children), {
             className: classnames('mdc-card__action', {

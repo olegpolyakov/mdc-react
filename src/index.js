@@ -1,5 +1,6 @@
 export { default as Avatar } from './Avatar';
 export { default as Badge } from './Badge';
+export { default as Banner } from './Banner';
 export { default as Button } from './Button';
 export { Card, CardAction, CardActions, CardActionSection, CardHeader, CardMedia, CardSection } from './Card';
 export { default as Checkbox } from './Checkbox';
@@ -18,6 +19,7 @@ export { default as LinearProgress } from './LinearProgress';
 export { List, ListDivider, ListItem, ListItemGraphic, ListItemText, ListItemMeta, ListGroup, ListGroupSubheader } from './List';
 export { Menu, MenuItem, MenuAnchor } from './Menu';
 export { default as Radio } from './Radio';
+export { Select, Option } from './Select';
 export { default as Snackbar } from './Snackbar';
 export { default as Spinner } from './Spinner';
 export { default as Switch } from './Switch';

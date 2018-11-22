@@ -2,17 +2,19 @@ import React from 'react';
 import classnames from 'classnames';
 
 export default function Card({
+    outlined = false,
+    
     element = 'div',
     component = element,
-    outlined,
     className,
-    children,
     ...props
 }) {
-    return React.createElement(component, {
-        className: classnames('mdc-card', className, {
-            'mdc-card--outlined': outlined
-        }),
-        ...props
-    }, children);
+    const Element = component;
+    const classNames = classnames('mdc-card', {
+        'mdc-card--outlined': outlined
+    }, className);
+
+    return (
+        <Element className={classNames} {...props} />
+    );
 }

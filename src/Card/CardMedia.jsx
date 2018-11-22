@@ -1,19 +1,31 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function CardMedia({ element = 'section', component = element, image, content, square, wide, className, children, ...props }) {
-    return React.createElement(component,
-        {
-            className: classnames('mdc-card__media', {
-                'mdc-card__media--square': square,
-                'mdc-card__media--16-9': wide,
-            }, className),
-            style: image && {
-                backgroundImage: `url(${image})`
-            },
-            ...props
-        },
-        content && React.createElement('div', { className: 'mdc-card__media-content' }, content),
-        children
+export default function CardMedia({
+    image,
+    content,
+    square = false,
+    wide = false,
+
+    element = 'section',
+    component = element,
+    className,
+    children,
+    ...props
+}) {
+    const Element = component;
+    const classNames = classnames('mdc-card__media', {
+        'mdc-card__media--square': square,
+        'mdc-card__media--16-9': wide,
+    }, className);
+    const style = image && {
+        backgroundImage: `url(${image})`
+    };
+
+    return (
+        <Element className={classNames} style={style} {...props}>
+            {content && <div className="mdc-card__media-content">{content}</div>}
+            {children}
+        </Element>
     );
 }

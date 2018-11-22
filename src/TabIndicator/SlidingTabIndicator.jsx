@@ -53,7 +53,7 @@ export default class SlidingTabIndicator extends React.Component {
             ref: element => this.root = element,
             className: classnames('mdc-tab-indicator', {
                 'mdc-tab-indicator--active': active,
-                'mdc-tab-indicator--sliding-activate': isSliding
+                'mdc-tab-indicator--no-transition': !isSliding
             })
         },
             React.createElement(IndicatorContent, {
