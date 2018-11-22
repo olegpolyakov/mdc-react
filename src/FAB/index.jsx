@@ -11,23 +11,16 @@ FAB.defaultProps = {
     disabled: false
 };
 
-// FAB.propTypes = {
-//     className: PropTypes.string,
-//     icon: PropTypes.string,
-//     mini: PropTypes.bool,
-//     plain: PropTypes.bool,
-//     disabled: PropTypes.bool
-// };
-
 export default function FAB({
-    element,
-    component = element,
     icon,
     label,
     mini,
     extended,
     exited,
     disabled,
+    
+    element,
+    component = element,
     className,
     children = label,
     ...props
@@ -40,7 +33,7 @@ export default function FAB({
         }, className),
         ...props
     },
-        React.cloneElement(icon, {
+        icon && React.cloneElement(icon, {
             className: 'mdc-fab__icon'
         }),
 

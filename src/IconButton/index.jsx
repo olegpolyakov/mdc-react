@@ -3,43 +3,40 @@ import classnames from 'classnames';
 
 import './index.scss';
 
-export default class IconButton extends React.Component {
-    static defaultProps = {
-        on: false,
-        onClick: Function.prototype,
-
-        element: 'button'
-    };
-
-    render() {
-        const {
-            on,
-            onIcon,
-            offIcon,
-            onLabel,
-            offLabel,
-            
+export default function IconButton({
+    on = false,
+    icon,
+    onIcon,
+    offIcon,
+    onLabel,
+    offLabel,
+    
+    element = 'button',
+    component = element,
+    className,
+    children = icon,
+    ...props
+}) {
+    return React.isValidElement(children) ?
+        React.cloneElement(children, {
             element,
-            component = element,
-            className,
-            children,
+            className: 'mdc-icon-button',
             ...props
-        } = this.props;
-
-        const commonProps = {
-            component,
-            className: classnames('mdc-icon-button', className),
-            role: element !== 'button' ? 'button' : undefined,
+        })
+        :
+        React.createElement(component, {
+            className: classnames('mdc-icon-button', {
+                'mdc-icon-button--on': on
+            }, className),
             ...props
-        };
-
-        if (React.isValidElement(children)) {
-            return React.cloneElement(children, commonProps);
-        } else {
-            return React.cloneElement((on ? onIcon : offIcon), {
-                ...commonProps,
-                title: on ? onLabel : offLabel
-            });
-        }
-    }
+        },
+            React.cloneElement(onIcon, {
+                className: 'mdc-icon-button__icon mdc-icon-button__icon--on',
+                title: offLabel
+            }),
+            React.cloneElement(offIcon, {
+                className: 'mdc-icon-button__icon',
+                title: onLabel
+            })
+        );
 }

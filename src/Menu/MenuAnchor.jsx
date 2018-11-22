@@ -13,7 +13,7 @@ export default class MenuAnchor extends React.Component {
         
         return React.createElement(element, {
             ref: element => this.root = element,
-            className: classnames(className, 'mdc-menu-anchor'),
+            className: classnames(className, 'mdc-menu-surface--anchor'),
             ...props
         }, React.Children.map(children, child => {
             if (child.type !== Menu) return child;

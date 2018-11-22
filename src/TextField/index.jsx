@@ -59,18 +59,18 @@ export default class TextField extends React.Component {
 
     render() {
         const {
-            element,
             fullWidth,
             outlined,
-            box,
             dense,
             disabled,
-            multiline,
+            textarea,
             label,
             leadingIcon,
             trailingIcon,
             helperText,
             validationMessage,
+
+            element,
             className,
             children,
             onChange,
@@ -82,16 +82,15 @@ export default class TextField extends React.Component {
             <React.Fragment>
                 {React.createElement(element, {
                     className: classnames('mdc-text-field', {
-                        'mdc-text-field--box': box && !fullWidth,
+                        'mdc-text-field--outlined': outlined && !fullWidth,
+                        'mdc-text-field--fullwidth': fullWidth,
+                        'mdc-text-field--textarea': textarea,
                         'mdc-text-field--dense': dense,
                         'mdc-text-field--disabled': disabled,
-                        'mdc-text-field--outlined': outlined && !fullWidth,
                         'mdc-text-field--focused': focused,
-                        'mdc-text-field--fullwidth': fullWidth,
-                        'mdc-text-field--textarea': multiline,
+                        'mdc-text-field--invalid': !this.isValid,
                         'mdc-text-field--with-leading-icon': leadingIcon,
                         'mdc-text-field--with-trailing-icon': trailingIcon,
-                        'mdc-text-field--invalid': !this.isValid,
                     }, 'mdc-text-field--upgraded', className)
                 },
                     leadingIcon && React.cloneElement(leadingIcon, {
@@ -100,7 +99,7 @@ export default class TextField extends React.Component {
                         role: 'button'
                     }),
 
-                    React.createElement(multiline ? 'textarea' : 'input', {
+                    React.createElement(textarea ? 'textarea' : 'input', {
                         className: 'mdc-text-field__input',
                         disabled,
                         ref: element => this.input = element,
@@ -125,7 +124,7 @@ export default class TextField extends React.Component {
                         role: 'button'
                     }),
         
-                    (!fullWidth && !multiline) &&
+                    (!fullWidth && !textarea && !outlined) &&
                         <LineRipple
                             active={focused}
                             center={this.lineRippleTransformOrigin}
@@ -134,7 +133,7 @@ export default class TextField extends React.Component {
 
                 {(validationMessage && !valid) && <HelperText error>{this.validationMessage}</HelperText>}
 
-                {helperText && <HelperText>{helperText}</HelperText>}
+                {helperText && <HelperText persistent>{helperText}</HelperText>}
             </React.Fragment>
         );
     }

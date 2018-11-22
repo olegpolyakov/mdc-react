@@ -49,7 +49,7 @@ export default class TopAppBar extends React.Component {
         }
 
         if (this.props.fixedAdjustSibling) {
-            this.root.current.nextSibling.classList.add(classnames('mdc-top-app-bar--fixed-adjust'));
+            this.root.current.nextSibling.classList.add('mdc-top-app-bar--fixed-adjust');
         }
         
     }
@@ -62,7 +62,7 @@ export default class TopAppBar extends React.Component {
         }
 
         if (this.props.fixedAdjustSibling) {
-            this.root.current.nextSibling.classList.remove(classnames('mdc-top-app-bar--fixed-adjust'));
+            this.root.current.nextSibling.classList.remove('mdc-top-app-bar--fixed-adjust');
         }
     }
 

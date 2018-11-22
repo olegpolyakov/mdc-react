@@ -14,8 +14,8 @@ export default class IndicatorContent extends React.Component {
             className: classnames('mdc-tab-indicator__content', {
                 'mdc-tab-indicator__content--underline': underline
             }),
-            onTransitionEnd,
-            style
+            style,
+            onTransitionEnd
         });
     }
 }

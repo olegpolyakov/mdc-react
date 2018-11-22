@@ -12,12 +12,30 @@ export default class Drawer extends React.Component {
         open: false,
         dismissible: false,
         modal: false,
+
         onClose: Function.prototype,
+
         element: 'aside'
     };
 
     static Header = DrawerHeader;
     static Content = DrawerContent;
+
+    componentDidMount() {
+        if (this.props.dismissible) {
+            if (this.props.appContentSelector) {
+                document.querySelector(this.props.appContentSelector).classList.add('mdc-drawer-app-content');
+            } else {
+                this.root.nextElementSibling.classList.add('mdc-drawer-app-content');
+            }
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.props.dismissible) {
+            //document.querySelector('mdc-drawer-app-content').classList.remove('mdc-drawer-app-content');
+        }
+    }
 
     componentDidUpdate(prevProps) {
         if (this.props.modal) {

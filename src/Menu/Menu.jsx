@@ -1,66 +1,66 @@
 import React from 'react';
+import CSSTransition from 'react-transition-group/CSSTransition';
 import classnames from 'classnames';
-import Transition from 'react-transition-group/Transition';
 
+import Modal from '../Modal';
 import { List } from '../List';
 
 export default class Menu extends React.Component {
     static defaultProps = {
         open: false,
         
-        onSelect: () => {},
-        onCancel: () => {},
+        onClose: Function.prototype,
 
         element: 'div'
     };
 
-    get style() {
+    getStyle() {
         if (this._style) return this._style;
-        
-        if (!this.props.anchor) return {};
+        if (!this.root || !this.props.anchor) return;
 
         const { anchor, top, left, bottom, right } = this.props;
+        const { clientWidth: width, clientHeight: height } = this.root;
         const anchorDimensions = anchor.getBoundingClientRect();
-        
         const style = {
-            top: null,
-            left: null,
+            position: 'absolute',
             transformOrigin: ''
         };
-
+        
         if (left || !right) {
-            const delta = anchorDimensions.left + this.width;
+            const left = anchorDimensions.left;
+            const right = left + width;
+            const delta = window.innerWidth - right;
 
-            style.left = delta > window.innerWidth ? (window.innerWidth - delta) : 0;
+            style.left = `${delta > 0 ? left : left - Math.abs(delta)}px`;
             style.transformOrigin += 'left';
         } else if (right) {
-            const delta = anchorDimensions.right - this.width;
+            const left = anchorDimensions.right - width;
 
-            style.left = delta < 0 ? (anchor.offsetWidth - this.width) - delta : anchor.offsetWidth - this.width;
+            style.left = `${left > 0 ? left : 0}px`;
             style.transformOrigin += 'right';
         }
 
         if (top || !bottom) {
-            const delta = anchorDimensions.top + this.height;
-
-            style.top = delta > window.innerHeight ? (window.innerHeight - delta) : 0;
+            const top = anchorDimensions.top;
+            const bottom = top + height
+            const delta = window.innerHeight - bottom;
+            
+            style.top = `${delta > 0 ? top : top - Math.abs(delta)}px`;
             style.transformOrigin += ' top';
         } else if (bottom) {
-            const delta = anchorDimensions.bottom - this.height;
-
-            style.top = delta < 0 ? (anchor.offsetHeight - this.height) - delta : anchor.offsetHeight - this.height;
+            const top = anchorDimensions.bottom - height;
+            
+            style.top = `${delta > 0 ? top : 0}px`;
             style.transformOrigin += ' bottom';
         }
 
-        style.width = this.width;
-
-        return style;
+        this._style = style;
+        
+        return this._style;
     }
 
     componentDidMount() {
-        this.width = this.root.clientWidth;
-        this.height = this.root.clientHeight;
-        this.root.style.position = 'absolute';
+        this.getStyle();
     }
 
     shouldComponentUpdate(nextProps) {
@@ -78,22 +78,39 @@ export default class Menu extends React.Component {
     handleBodyClick = event => this.props.onClose();
 
     render() {
-        const { open, top, right, bottom, left, anchor, element, children, className, ...props } = this.props;
+        const { open, anchor, top, left, bottom, right, element, children, className, ...props } = this.props;
         
-        return React.createElement(element, {
-            className: classnames('mdc-menu', {
-                'mdc-menu--open': open
-            }),
-            tabIndex: open ? '0' : '-1',
-            ref: element => this.root = element,
-            style: this.style,
-            ...props
-        },
-            React.createElement(List, {
-                className: 'menu__items',
-                role: 'menu',
-                'aria-hidden': "true"
-            }, children)
+        return (
+            <CSSTransition
+                in={open}
+                timeout={{ enter: 120, exit: 75 }}
+                classNames={{
+                    enter: 'mdc-menu-surface--animating-open',
+                    enterActive: 'mdc-menu-surface--open',
+                    enterDone: 'mdc-menu-surface--open',
+                    exit: 'mdc-menu-surface--animating-closed'
+                }}
+                mountOnEnter
+                unmountOnExit
+            >
+                <Modal>
+                    <div
+                        className="mdc-menu-surface"
+                        ref={element => this.root = element}
+                        style={this.getStyle()}
+                    >
+                        <div
+                            className={classnames('mdc-menu', className)}
+                            tabIndex={open ? '0' : '-1'}
+                            {...props}
+                        >
+                            <List role="menu" aria-hidden="true">
+                                {children}
+                            </List>
+                        </div>
+                    </div>
+                </Modal>
+            </CSSTransition>
         );
     }
 }
