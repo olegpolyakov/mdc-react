@@ -22,6 +22,7 @@ import LayoutGridPage from './components/LayoutGrid';
 import ListPage from './components/List';
 import MenuPage from './components/Menu';
 import RadioPage from './components/Radio';
+import SideSheetPage from './components/SideSheet';
 import SelectPage from './components/Select';
 import SnackbarPage from './components/Snackbar';
 import SwitchPage from './components/Switch';
@@ -32,7 +33,7 @@ import TypographyPage from './components/Typography';
 
 export default class App extends React.Component {
     state = {
-        open: false
+        open: true
     };
 
     toggleDrawer = event => this.setState(state => ({ open: !state.open }));
@@ -42,7 +43,6 @@ export default class App extends React.Component {
             <Layout row className="mdc-typography">
                 <Drawer
                     title="MDC React"
-                    subtitle="Material Design Components in React"
                     dismissible
                     open={this.state.open}
                     onClose={() => this.setState(state => ({ open: !state.open }))}
@@ -55,12 +55,13 @@ export default class App extends React.Component {
                         <ListItem component={NavLink} to="/cards" activeClassName="mdc-list-item--activated">Card</ListItem>
                         <ListItem component={NavLink} to="/checkbox" activeClassName="mdc-list-item--activated">Checkbox</ListItem>
                         <ListItem component={NavLink} to="/chips" activeClassName="mdc-list-item--activated">Chips</ListItem>
+                        <ListItem component={NavLink} to="/data-table" activeClassName="mdc-list-item--activated">Data Table</ListItem>
                         <ListItem component={NavLink} to="/dialog" activeClassName="mdc-list-item--activated">Dialog</ListItem>
-                        <ListItem component={NavLink} to="/drawer" activeClassName="mdc-list-item--activated">Drawer</ListItem>
+                        <ListItem>Drawer</ListItem>
                         <List inset>
-                            <ListItem component={NavLink} to="/drawer/permanent" activeClassName="mdc-list-item--activated">Permanent</ListItem>
-                            <ListItem component={NavLink} to="/drawer/temporary" activeClassName="mdc-list-item--activated">Temporary</ListItem>
-                            <ListItem component={NavLink} to="/drawer/persistent" activeClassName="mdc-list-item--activated">Persistent</ListItem>
+                            <ListItem component={NavLink} to="/drawer" activeClassName="mdc-list-item--activated">Permanent</ListItem>
+                            <ListItem component={NavLink} to="/drawer/dismissible" activeClassName="mdc-list-item--activated">Dismissible</ListItem>
+                            <ListItem component={NavLink} to="/drawer/modal" activeClassName="mdc-list-item--activated">Modal</ListItem>
                         </List>
                         <ListItem component={NavLink} to="/fab" activeClassName="mdc-list-item--activated">FAB</ListItem>
                         <ListItem component={NavLink} to="/icon-button" activeClassName="mdc-list-item--activated">Icon Button</ListItem>
@@ -68,6 +69,12 @@ export default class App extends React.Component {
                         <ListItem component={NavLink} to="/list" activeClassName="mdc-list-item--activated">List</ListItem>
                         <ListItem component={NavLink} to="/menu" activeClassName="mdc-list-item--activated">Menu</ListItem>
                         <ListItem component={NavLink} to="/radio" activeClassName="mdc-list-item--activated">Radio</ListItem>
+                        <ListItem>Side Sheet</ListItem>
+                        <List inset>
+                            <ListItem component={NavLink} to="/side-sheet" activeClassName="mdc-list-item--activated">Basic</ListItem>
+                            <ListItem component={NavLink} to="/side-sheet/dismissible" activeClassName="mdc-list-item--activated">Dismissible</ListItem>
+                            <ListItem component={NavLink} to="/side-sheet/modal" activeClassName="mdc-list-item--activated">Modal</ListItem>
+                        </List>
                         <ListItem component={NavLink} to="/select" activeClassName="mdc-list-item--activated">Select</ListItem>
                         <ListItem component={NavLink} to="/snackbar" activeClassName="mdc-list-item--activated">Snackbar</ListItem>
                         <ListItem component={NavLink} to="/switch" activeClassName="mdc-list-item--activated">Switch</ListItem>
@@ -77,7 +84,7 @@ export default class App extends React.Component {
                     </List>
                 </Drawer>
                 
-                <Layout>
+                <Layout id="content">
                     <TopAppBar
                         title="MDC React"
                         navigationIcon={
@@ -86,7 +93,7 @@ export default class App extends React.Component {
                         fixedAdjustSibling
                     />
 
-                    <div>
+                    <Layout>
                         <Route exact path="/" component={IndexPage} />
                         <Route path="/avatar" component={AvatarPage} />
                         <Route path="/badge" component={BadgePage} />
@@ -95,6 +102,7 @@ export default class App extends React.Component {
                         <Route path="/cards" component={CardPage} />
                         <Route path="/checkbox" component={CheckboxPage} />
                         <Route path="/chips" component={ChipsPage} />
+                        <Route path="/data-table" component={DataTablePage} />
                         <Route path="/dialog" component={DialogPage} />
                         <Route path="/drawer" component={DrawerPage} />
                         <Route path="/fab" component={FABPage} />
@@ -103,6 +111,7 @@ export default class App extends React.Component {
                         <Route path="/list" component={ListPage} />
                         <Route path="/menu" component={MenuPage} />
                         <Route path="/radio" component={RadioPage} />
+                        <Route path="/side-sheet" component={SideSheetPage} />
                         <Route path="/select" component={SelectPage} />
                         <Route path="/snackbar" component={SnackbarPage} />
                         <Route path="/switch" component={SwitchPage} />
@@ -110,7 +119,7 @@ export default class App extends React.Component {
                         <Route path="/text-field" component={TextFieldPage} />
                         <Route path="/top-app-bar" component={TopAppBarPage} />
                         <Route path="/typography" component={TypographyPage} />
-                    </div>
+                    </Layout>
                 </Layout>
             </Layout>
         );

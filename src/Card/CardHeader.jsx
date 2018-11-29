@@ -8,28 +8,34 @@ export default function CardHeader({
     action,
     large,
 
-    element = 'header',
+    element = 'div',
     component = element,
     className,
     children,
     ...props
 }) {
     const Element = component;
-    const rootClassNames = classnames('mdc-card__header', className);
-    const titleClassNames = classnames('mdc-card__header__title', {
-        'mdc-card__header__title--large': large
-    });
+    const classNames = classnames('mdc-card__header', className);
 
     return (
-        <Element className={rootClassNames} {...props}>
+        <Element className={classNames} {...props}>
             {graphic && React.cloneElement(graphic, { className: 'mdc-card__header__graphic' })}
 
             <div className="mdc-card__header__text">
-                <h2 className={titleClassNames}>{title}</h2>
-                {subtitle && <h3 className="mdc-card__header__subtitle">{subtitle}</h3>}
+                {React.isValidElement(title) ?
+                    React.cloneElement(title, { className: 'mdc-card__header__title' })
+                    :
+                    <h2 className="mdc-card__header__title">{title}</h2>
+                }
+                
+                {subtitle && (React.isValidElement(subtitle) ?
+                    React.cloneElement(subtitle, { className: 'mdc-card__header__subtitle' })
+                    :
+                    <h3 className="mdc-card__header__subtitle">{subtitle}</h3>
+                )}
             </div>
 
-            {action && React.cloneElement(action, { className: classnames(action.props.className, 'mdc-card__header__action') })}
+            {action && React.cloneElement(action, { className: 'mdc-card__header__action' })}
         </Element>
     );
 }

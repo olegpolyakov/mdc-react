@@ -9,9 +9,11 @@ export default class ButtonsPage extends React.Component {
         return (
             <Layout column element="main" id="buttons-page">
                 <Typography variant="headline3" component="h1">Buttons</Typography>
+
+                <Typography>Buttons allow users to take actions, and make choices, with a single tap.</Typography>
     
                 <section>
-                    <Typography variant="subtitle1">Text Button</Typography>
+                    <Typography variant="subtitle2">Text Button</Typography>
                     
                     <Button>Default</Button>
                     <Button dense>Dense</Button>
@@ -21,7 +23,7 @@ export default class ButtonsPage extends React.Component {
                 </section>
     
                 <section>
-                    <Typography variant="subtitle1">Raised Button</Typography>
+                    <Typography variant="subtitle2">Raised Button</Typography>
                     
                     <Button raised>Default</Button>
                     <Button raised dense>Dense</Button>
@@ -31,7 +33,7 @@ export default class ButtonsPage extends React.Component {
                 </section>
     
                 <section>
-                    <Typography variant="subtitle1">Unelevated Button</Typography>
+                    <Typography variant="subtitle2">Unelevated Button</Typography>
 
                     <Button unelevated>Default</Button>
                     <Button unelevated dense>Dense</Button>
@@ -41,7 +43,7 @@ export default class ButtonsPage extends React.Component {
                 </section>
     
                 <section>
-                    <Typography variant="subtitle1">Outlined Button</Typography>
+                    <Typography variant="subtitle2">Outlined Button</Typography>
                     
                     <Button outlined>Default</Button>
                     <Button outlined dense>Dense</Button>

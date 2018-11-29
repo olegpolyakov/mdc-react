@@ -1,13 +1,27 @@
 import React from 'react';
 
-import { Layout, Typography, Chip, ChipSet, Icon } from 'src';
+import {
+    Layout,
+    Typography,
+    Chip, ChipSet,
+    Icon
+} from 'src';
 
 export default class ChipsPage extends React.Component {
     state = {
-        basic: false
+        selected: null,
+        filtered: [1]
     };
 
+    handleSelect = value => this.setState({ selected: value });
+
+    handleFilter = value => this.setState(state => ({
+        filtered: state.filtered.includes(value) ? state.filtered.filter(v => v !== value) : state.filtered.concat(value)
+    }))
+
     render() {
+        const { selected, filtered } = this.state;
+
         return (
             <Layout column element="main">
                 <Typography variant="headline3" component="h1">Chips</Typography>
@@ -16,10 +30,9 @@ export default class ChipsPage extends React.Component {
                     <Typography variant="subtitle1" component="h2">Basic Chips</Typography>
 
                     <ChipSet>
-                        <Chip>Chip 1</Chip>
-                        <Chip>Chip 2</Chip>
-                        <Chip>Chip 3</Chip>
-                        <Chip>Chip 4</Chip>
+                        <Chip>Angular</Chip>
+                        <Chip>React</Chip>
+                        <Chip>Vue.js</Chip>
                     </ChipSet>
                 </section>
 
@@ -27,21 +40,19 @@ export default class ChipsPage extends React.Component {
                     <Typography variant="subtitle1" component="h2">Action Chips</Typography>
 
                     <ChipSet>
-                        <Chip leadingIcon={<Icon>star</Icon>}>Chip 1</Chip>
-                        <Chip leadingIcon={<Icon>star</Icon>}>Chip 2</Chip>
-                        <Chip leadingIcon={<Icon>star</Icon>}>Chip 3</Chip>
-                        <Chip leadingIcon={<Icon>star</Icon>}>Chip 4</Chip>
+                        <Chip leadingIcon={<Icon>star</Icon>}>Angular</Chip>
+                        <Chip leadingIcon={<Icon>star</Icon>}>React</Chip>
+                        <Chip leadingIcon={<Icon>star</Icon>}>Vue.js</Chip>
                     </ChipSet>
                 </section>
 
                 <section>
                     <Typography variant="subtitle1" component="h2">Choice Chips</Typography>
                     
-                    <ChipSet choice>
-                        <Chip>Chip 1</Chip>
-                        <Chip>Chip 2</Chip>
-                        <Chip>Chip 3</Chip>
-                        <Chip>Chip 4</Chip>
+                    <ChipSet choice selectedChip={selected} onSelect={this.handleSelect}>
+                        <Chip value="angular">Angular</Chip>
+                        <Chip value="react">React</Chip>
+                        <Chip value="vuejs">Vue.js</Chip>
                     </ChipSet>
                 </section>
 
@@ -51,22 +62,20 @@ export default class ChipsPage extends React.Component {
                     <section>
                         <Typography variant="subtitle2" component="h3">No leading icon</Typography>
 
-                        <ChipSet filter>
-                            <Chip>Chip 1</Chip>
-                            <Chip>Chip 2</Chip>
-                            <Chip>Chip 3</Chip>
-                            <Chip>Chip 4</Chip>
+                        <ChipSet filter filteredChips={filtered} onSelect={this.handleFilter}>
+                            <Chip>Angular</Chip>
+                            <Chip>React</Chip>
+                            <Chip>Vue.js</Chip>
                         </ChipSet>
                     </section>
 
                     <section>
                         <Typography variant="subtitle2" component="h3">With leading icon</Typography>
 
-                        <ChipSet filter>
-                            <Chip leadingIcon={<Icon>star</Icon>}>Chip 1</Chip>
-                            <Chip leadingIcon={<Icon>star</Icon>}>Chip 2</Chip>
-                            <Chip leadingIcon={<Icon>star</Icon>}>Chip 3</Chip>
-                            <Chip leadingIcon={<Icon>star</Icon>}>Chip 4</Chip>
+                        <ChipSet filter filteredChips={filtered} onSelect={this.handleFilter}>
+                            <Chip leadingIcon={<Icon>star</Icon>}>Angular</Chip>
+                            <Chip leadingIcon={<Icon>star</Icon>}>React</Chip>
+                            <Chip leadingIcon={<Icon>star</Icon>}>Vue.js</Chip>
                         </ChipSet>
                     </section>
                 </section>

@@ -3,13 +3,23 @@ import classnames from 'classnames';
 
 import './index.scss';
 
-export default function FormField({ element = 'div', label, alignEnd, children }) {
-    return React.createElement(element, {
-        className: classnames('mdc-form-field', {
-            'mdc-form-field--align-end': alignEnd
-        })
-    },
-        children,
-        React.createElement('label', { className: 'mdc-form-field__label' }, label)
+export default function FormField({
+    label,
+    alignEnd = false,
+
+    className,
+    children,
+    ...props
+}) {
+    const classNames = classnames('mdc-form-field', {
+        'mdc-form-field--align-end': alignEnd
+    }, className)
+
+    return (
+        <div className={classNames} {...props}>
+            {children}
+
+            <label className="mdc-form-field__label">{label}</label>
+        </div>
     );
 }

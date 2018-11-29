@@ -35,6 +35,9 @@ export default class DialogPage extends React.Component {
                             <Button>Cancel</Button>
                         ]}>
                         <Typography>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</Typography>
+                        <Typography>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</Typography>
+                        <Typography>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</Typography>
+                        <Typography>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</Typography>
                     </Dialog>
                 </section>
             </Layout>

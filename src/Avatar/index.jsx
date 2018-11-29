@@ -18,7 +18,7 @@ export default function Avatar({
     const classNames = classnames('mdc-avatar', {
         'mdc-avatar--small': small,
         'mdc-avatar--large': large
-    });
+    }, className);
 
     return (
         <Element className={classNames} {...props}>

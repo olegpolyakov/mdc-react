@@ -17,26 +17,29 @@ export default function IconButton({
     children = icon,
     ...props
 }) {
-    return React.isValidElement(children) ?
-        React.cloneElement(children, {
-            element,
-            className: 'mdc-icon-button',
+    if (React.isValidElement(children)) {
+        return React.cloneElement(children, {
+            component,
+            className: classnames('mdc-icon-button', className),
             ...props
-        })
-        :
-        React.createElement(component, {
-            className: classnames('mdc-icon-button', {
-                'mdc-icon-button--on': on
-            }, className),
-            ...props
-        },
-            React.cloneElement(onIcon, {
-                className: 'mdc-icon-button__icon mdc-icon-button__icon--on',
-                title: offLabel
-            }),
-            React.cloneElement(offIcon, {
-                className: 'mdc-icon-button__icon',
-                title: onLabel
-            })
+        });
+    } else {
+        const Element = component;
+        const classNames = classnames('mdc-icon-button', {
+            'mdc-icon-button--on': on
+        }, className);
+
+        return (
+            <Element className={classNames} {...props}>
+                {React.cloneElement(onIcon, {
+                    className: 'mdc-icon-button__icon mdc-icon-button__icon--on',
+                    title: offLabel
+                })}
+                {React.cloneElement(offIcon, {
+                    className: 'mdc-icon-button__icon',
+                    title: onLabel
+                })}
+            </Element>
         );
+    }
 }

@@ -5,7 +5,6 @@ import './index.scss';
 
 export default class FloatingLabel extends React.Component {
     static defaultProps = {
-        element: 'label',
         float: false
     };
 
@@ -14,14 +13,17 @@ export default class FloatingLabel extends React.Component {
     }
 
     render() {
-        const { element, float, className, children, ...props } = this.props;
+        const { float, className, ...props } = this.props;
+        const classNames =  classnames('mdc-floating-label', {
+            'mdc-floating-label--float-above': float
+        }, className);
 
-        return React.createElement(element, {
-            ref: element => this.root = element,
-            className: classnames('mdc-floating-label', {
-                'mdc-floating-label--float-above': float
-            }),
-            ...props
-        }, children);
+        return (
+            <label
+                className={classNames}
+                ref={element => this.rootElement = element}
+                {...props}
+            />
+        );
     }
 }

@@ -3,42 +3,36 @@ import classnames from 'classnames';
 
 import './index.scss';
 
-FAB.defaultProps = {
-    element: 'button',
-    mini: false,
-    extended: false,
-    exited: false,
-    disabled: false
-};
-
 export default function FAB({
     icon,
     label,
-    mini,
-    extended,
-    exited,
-    disabled,
+    mini = false,
+    extended = false,
+    exited = false,
+    disabled = false,
     
-    element,
+    element = 'button',
     component = element,
     className,
     children = label,
     ...props
 }) {
-    return React.createElement(component, {
-        className: classnames('mdc-fab', {
-            'mdc-fab--mini': mini,
-            'mdc-fab--extended': extended,
-            'mdc-fab--exited': exited
-        }, className),
-        ...props
-    },
-        icon && React.cloneElement(icon, {
-            className: 'mdc-fab__icon'
-        }),
+    const Element = component;
+    const classNames = classnames('mdc-fab', {
+        'mdc-fab--mini': mini,
+        'mdc-fab--extended': extended,
+        'mdc-fab--exited': exited
+    }, className);
 
-        children && React.createElement('span', {
-            className: 'mdc-fab__label'
-        }, children)
+    return (
+        <Element className={classNames} {...props}>
+            {icon &&
+                React.cloneElement(icon, { className: 'mdc-fab__icon' })
+            }
+
+            {children &&
+                <span className="mdc-fab__label">{children}</span>
+            }
+        </Element>
     );
 }

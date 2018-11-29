@@ -5,7 +5,7 @@ export default function CardSection({
     primary = false,
     secondary = false,
 
-    element = 'section',
+    element = 'div',
     component = element,
     className,
     ...props

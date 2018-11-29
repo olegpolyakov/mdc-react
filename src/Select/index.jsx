@@ -3,12 +3,13 @@ import classnames from 'classnames';
 
 import LineRipple from '../LineRipple';
 import FloatingLabel from '../FloatingLabel';
+import { Menu, MenuItem } from '../Menu';
 import HelperText from './HelperText';
 
 import './index.scss';
 
 export function Option(props) {
-    return <option {...props} />;
+    return <MenuItem {...props} />;
 }
 
 export class Select extends React.Component {
@@ -21,39 +22,37 @@ export class Select extends React.Component {
     };
 
     state = {
-        focused: false
+        focused: false,
+        selectedText: ''
     };
 
-    get isValid() {
-        return this.select ? this.select.checkValidity() : true;
-    }
+    handleMenuClose = () => this.setState({ focused: false });
 
-    handleChange = event => this.props.onChange(event.target.value, event);
-
-    handleInteraction = event => {
+    handleSelectClick = event => {
+        this.setState({ focused: true });
+        
         const targetClientRect = event.target.getBoundingClientRect();
         const coords = { x: event.clientX, y: event.clientY };
         
         this.lineRippleTransformOrigin = coords.x - targetClientRect.left;
     };
 
-    handleFocus = event => this.setState({ focused: true });
-
-    handleBlur = event => {
-        this.lineRippleTransformOrigin = undefined;
-        this.setState({ focused: false });
-    }
+    handleOptionClick = (value, selectedText, event) => {
+        event.stopPropagation();
+        this.props.onChange(value, event);
+        this.setState({ selectedText, focused: false });
+    };
 
     render() {
-        const { value, disabled, outlined, required, label, leadingIcon, helperText, helperTextProps, className, children, ...props } = this.props;
-        const { focused } = this.state;
+        const { value, outlined, required, disabled, label, leadingIcon, helperText, helperTextProps, className, children, ...props } = this.props;
+        const { selectedText, focused } = this.state;
         
         const classNames = classnames('mdc-select', {
             'mdc-select--outlined': outlined,
             'mdc-select--required': required,
             'mdc-select--disabled': disabled,
             'mdc-select--focused': focused,
-            'mdc-select--invalid': !this.isValid,
+            'mdc-select--invalid': false,
             'mdc-select--with-leading-icon': leadingIcon
         }, className);
         
@@ -61,30 +60,33 @@ export class Select extends React.Component {
             <React.Fragment>
                 <div
                     className={classNames}
-                    onMouseDown={this.handleInteraction}
-                    onTouchStart={this.handleInteraction}
+                    ref={element => this.rootElement = element}
+                    onClick={this.handleSelectClick}
                 >
                     {leadingIcon && React.cloneElement(leadingIcon, {
                         className: 'mdc-select__icon',
                         tabIndex: '0',
                         role: 'button'
                     })}
-
-                    <i className="mdc-select__dropdown-icon"></i>
         
-                    <select
-                        ref={element => this.select = element}
-                        className="mdc-select__native-control"
-                        value={value}
-                        required={required}
-                        disabled={disabled}
-                        onChange={this.handleChange}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur}
+                    <i className="mdc-select__dropdown-icon" />
+
+                    <div className="mdc-select__selected-text">{selectedText}</div>
+
+                    <Menu
+                        className="mdc-select__menu"
+                        open={focused}
+                        anchor={this.rootElement}
+                        onClose={this.handleMenuClose}
                     >
-                        <Option value="" disabled />
-                        {children}
-                    </select>
+                        {React.Children.map(children, (option, index) =>
+                            React.cloneElement(option, {
+                                value: undefined,
+                                selected: option.props.value === value,
+                                onClick: event => this.handleOptionClick(option.props.value, option.props.children, event)
+                            })
+                        )}
+                    </Menu>
 
                     {label &&
                         <FloatingLabel float={focused || value !== ''}>
@@ -100,7 +102,9 @@ export class Select extends React.Component {
                     }
                 </div>
 
-                {helperText && <HelperText {...helperTextProps}>{helperText}</HelperText>}
+                {helperText &&
+                    <HelperText {...helperTextProps}>{helperText}</HelperText>
+                }
             </React.Fragment>
         );
     }

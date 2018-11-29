@@ -12,19 +12,21 @@ export default function Layout({
     justifyContent,
 
     element = 'div',
+    component = element,
     className,
-    children,
     ...props
 }) {
-    return React.createElement(element, {
-        className: classnames('mdc-layout', {
-            'mdc-layout--row': row,
-            'mdc-layout--column': column,
-            [`mdc-layout--direction--${direction}`]: direction,
-            [`mdc-layout--align-items--${alignItems}`]: alignItems,
-            [`mdc-layout--align-self--${alignSelf}`]: alignSelf,
-            [`mdc-layout--justify-content--${justifyContent}`]: justifyContent
-        }, className),
-        ...props
-    }, children);
+    const Element = component;
+    const classNames = classnames('mdc-layout', {
+        'mdc-layout--row': row,
+        'mdc-layout--column': column,
+        [`mdc-layout--direction--${direction}`]: direction,
+        [`mdc-layout--align-items--${alignItems}`]: alignItems,
+        [`mdc-layout--align-self--${alignSelf}`]: alignSelf,
+        [`mdc-layout--justify-content--${justifyContent}`]: justifyContent
+    }, className);
+
+    return (
+        <Element className={classNames} {...props} />
+    );
 }

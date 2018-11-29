@@ -14,7 +14,7 @@ export default class Menu extends React.Component {
         element: 'div'
     };
 
-    getStyle() {
+    setStyle() {
         if (this._style) return this._style;
         if (!this.root || !this.props.anchor) return;
 
@@ -50,27 +50,25 @@ export default class Menu extends React.Component {
         } else if (bottom) {
             const top = anchorDimensions.bottom - height;
             
-            style.top = `${delta > 0 ? top : 0}px`;
+            style.top = `${top > 0 ? top : 0}px`;
             style.transformOrigin += ' bottom';
         }
 
-        this._style = style;
-        
-        return this._style;
-    }
-
-    componentDidMount() {
-        this.getStyle();
+        this.root.style.left = style.left;
+        this.root.style.top = style.top;
+        this.root.style.position = style.position;
+        this.root.style.transformOrigin = style.transformOrigin;
     }
 
     shouldComponentUpdate(nextProps) {
         return this.props.open !== nextProps.open;
     }
 
-    componentDidUpdate() {
-        if (this.props.open === true) {
+    componentDidUpdate(prevProps) {
+        if (this.props.open === true && prevProps.open === false) {
             document.body.addEventListener('click', this.handleBodyClick);
-        } else if (this.props.open === false) {
+            this.setStyle();
+        } else if (this.props.open === false && prevProps.open === true) {
             document.body.removeEventListener('click', this.handleBodyClick);
         }
     }
@@ -97,7 +95,6 @@ export default class Menu extends React.Component {
                     <div
                         className="mdc-menu-surface"
                         ref={element => this.root = element}
-                        style={this.getStyle()}
                     >
                         <div
                             className={classnames('mdc-menu', className)}

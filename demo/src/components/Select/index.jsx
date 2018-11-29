@@ -7,6 +7,8 @@ export default class ButtonsPage extends React.Component {
         value: ''
     };
 
+    handleChange = value => this.setState({ value });
+
     render() {
         const { value } = this.state;
 
@@ -21,8 +23,9 @@ export default class ButtonsPage extends React.Component {
                     <Select
                         label="Fruit"
                         value={value}
-                        onChange={value => this.setState({ value })}
+                        onChange={this.handleChange}
                     >
+                        <Option value="" />
                         <Option value="apple">Apple</Option>
                         <Option value="banana">Banana</Option>
                         <Option value="orange">Orange</Option>

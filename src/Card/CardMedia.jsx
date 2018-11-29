@@ -7,7 +7,7 @@ export default function CardMedia({
     square = false,
     wide = false,
 
-    element = 'section',
+    element = 'div',
     component = element,
     className,
     children,

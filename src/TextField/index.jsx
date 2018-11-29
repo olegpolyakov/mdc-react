@@ -100,9 +100,10 @@ export default class TextField extends React.Component {
                     }),
 
                     React.createElement(textarea ? 'textarea' : 'input', {
-                        className: 'mdc-text-field__input',
-                        disabled,
                         ref: element => this.input = element,
+                        className: 'mdc-text-field__input',
+                        placeholder: fullWidth ? label : undefined,
+                        disabled,
                         onChange: this.handleInputChange,
                         onFocus: this.handleInputFocus,
                         onBlur: this.handleInputBlur,

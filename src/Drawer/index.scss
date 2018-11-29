@@ -16,24 +16,6 @@
         position: fixed;
     }
 
-
-    &.mdc-drawer--position-right {
-        right: 0;
-        left: initial;
-        transform: translateX(100%);
-    }
-
-    &.mdc-drawer--position-left {
-        left: 0;
-        right: initial;
-        transform: translateX(-100%);
-    }
-
-    &-scroll-lock {
-        height: 100%;
-        overflow: hidden;
-    }
-
     &-app-content {
         transition: margin-left .2s;
     }

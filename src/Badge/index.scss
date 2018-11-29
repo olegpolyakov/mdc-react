@@ -4,8 +4,8 @@ $badge-font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif !default;
 $badge-font-size: 12px !default;
 $badge-color: $mdc-theme-on-primary !default;
 $badge-color-inverse: $mdc-theme-primary !default;
+$badge-background: $mdc-theme-primary !default;
 $badge-background-inverse: $mdc-theme-background !default;
-$badge-background: $mdc-theme-secondary !default;
 $badge-size : 22px !default;
 $badge-padding: 2px !default;
 $badge-overlap: 12px !default;
@@ -53,8 +53,6 @@ $badge-overlap: 12px !default;
         &[data-badge]:after {
             color: $badge-color-inverse;
             background: $badge-background-inverse;
-
-            box-shadow: 0 0 1px gray;
         }
     }
 

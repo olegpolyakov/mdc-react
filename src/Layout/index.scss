@@ -1,14 +1,16 @@
 .mdc-layout {
-    display: flex;
+    
 }
 
 .mdc-layout--row,
 .mdc-layout--direction--row {
+    display: flex;
     flex-direction: row;
 }
 
 .mdc-layout--column,
 .mdc-layout--direction-column {
+    display: flex;
     flex-direction: column;
 }
 

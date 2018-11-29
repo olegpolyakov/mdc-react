@@ -2,54 +2,43 @@ import React from 'react';
 import classnames from 'classnames';
 
 export default class ChipSet extends React.Component {
-    state = {
+    static defaultProps = {
+        input: false,
+        choice: false,
+        filter: false,
         selectedChip: undefined,
-        filteredChips: new Set()
-    };
+        filteredChips: [],
 
-    handleClick = index => {
-        if (this.props.choice) {
-            if (this.state.selectedChip === index) {
-                this.setState({ selectedChip: undefined });
-            } else {
-                this.setState({ selectedChip: index });
-            }
-        } else if (this.props.filter) {
-            if (!this.state.filteredChips.has(index)) {
-                this.setState(state => ({ filteredChips: state.filteredChips.add(index) }));
-            } else {
-                this.setState(state => {
-                    state.filteredChips.delete(index);
+        onSelect: Function.prototype,
 
-                    return { filteredChips: new Set(state.filteredChips) };
-                });
-            }
-        }
+        element: 'div'
     };
 
     render() {
-        const { element = 'div', input, choice, filter, children, ...props } = this.props;
-        const { selectedChips } = this.state;
+        const { input, choice, filter, selectedChip, filteredChips, onSelect, element, className, children, ...props } = this.props;
 
-        return React.createElement(
-            element,
+        const classNames = classnames('mdc-chip-set', {
+            'mdc-chip-set--input': input,
+            'mdc-chip-set--choice': choice,
+            'mdc-chip-set--filter': filter
+        }, className);
 
-            {
-                className: classnames('mdc-chip-set', {
-                    'mdc-chip-set--input': input,
-                    'mdc-chip-set--choice': choice,
-                    'mdc-chip-set--filter': filter
-                }),
-                ...props
-            },
-    
-            React.Children.map(children, (child, index) => 
-                React.cloneElement(child, {
-                    selected: index === this.state.selectedChip || this.state.filteredChips.has(index),
-                    filtered: this.state.filteredChips.has(index),
-                    onClick: event => this.handleClick(index)
-                })
-            )
+        return (
+            <div className={classNames} {...props}>
+                {(choice || filter) ? 
+                    React.Children.map(children, (chip, index) => {
+                        const value = chip.value || index;
+
+                        return React.cloneElement(chip, {
+                            selected: value === selectedChip || filteredChips.includes(value),
+                            filtered: filteredChips.includes(value),
+                            onClick: event => onSelect(value)
+                        });
+                    })
+                    :
+                    children
+                }
+            </div>
         );
     }
 }

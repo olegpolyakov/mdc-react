@@ -1,13 +1,10 @@
 import React from 'react';
 import classnames from 'classnames';
-import Transition from 'react-transition-group/Transition';
+import CSSTransition from 'react-transition-group/CSSTransition';
 
 import './index.scss';
 
-import DrawerHeader from './DrawerHeader';
-import DrawerContent from './DrawerContent';
-
-export default class Drawer extends React.Component {
+export default class SideSheet extends React.Component {
     static defaultProps = {
         open: false,
         dismissible: false,
@@ -18,15 +15,23 @@ export default class Drawer extends React.Component {
         element: 'aside'
     };
 
-    static Header = DrawerHeader;
-    static Content = DrawerContent;
+    static cssClasses = {
+        ROOT: 'mdc-side-sheet',
+        DISMISSIBLE: 'mdc-side-sheet--dismissible',
+        MODAL: 'mdc-side-sheet--modal',
+        OPEN: 'mdc-side-sheet--open',
+        ANIMATE: 'mdc-side-sheet--animate',
+        OPENING: 'mdc-side-sheet--opening',
+        CLOSING: 'mdc-side-sheet--closing',
+        CONTENT: 'mdc-side-sheet__content',
+        APP_CONTENT: 'mdc-side-sheet-app-content',
+        SCRIM: 'mdc-side-sheet-scrim'
+    };
 
     componentDidMount() {
         if (this.props.dismissible) {
             if (this.props.appContentSelector) {
-                document.querySelector(this.props.appContentSelector).classList.add('mdc-drawer-app-content');
-            } else {
-                this.rootElement.nextElementSibling.classList.add('mdc-drawer-app-content');
+                document.querySelector(this.props.appContentSelector).classList.add(SideSheet.cssClasses.APP_CONTENT);
             }
         }
     }
@@ -56,9 +61,8 @@ export default class Drawer extends React.Component {
             open,
             dismissible,
             modal,
-            title,
-            subtitle,
             position,
+
             onClose,
 
             element,
@@ -69,21 +73,24 @@ export default class Drawer extends React.Component {
         } = this.props;
 
         const Element = component;
-        const classNames = classnames('mdc-drawer', {
-            'mdc-drawer--dismissible': dismissible,
-            'mdc-drawer--modal': modal,
-            'mdc-drawer--open': open
+        const classNames = classnames(SideSheet.cssClasses.ROOT, {
+            [SideSheet.cssClasses.DISMISSIBLE]: dismissible,
+            [SideSheet.cssClasses.MODAL]: modal
         }, className);
 
         return (
-            <Transition
+            <CSSTransition
                 in={open}
-                timeout={200}
+                timeout={{
+                    enter: 250,
+                    exit: 200
+                }}
                 classNames={{
-                    enter: 'mdc-drawer--opening',
-                    enterActive: 'mdc-drawer--animate',
-                    enterDone: 'mdc-drawer--open',
-                    exit: 'mdc-drawer--closing'
+                    enter: `${SideSheet.cssClasses.OPEN} ${SideSheet.cssClasses.ANIMATE}`,
+                    enterActive: SideSheet.cssClasses.OPENING,
+                    enterDone: SideSheet.cssClasses.OPEN,
+                    exit: `${SideSheet.cssClasses.OPEN}`,
+                    exitActive: `${SideSheet.cssClasses.OPEN} ${SideSheet.cssClasses.CLOSING}`
                 }}
             >
                 <React.Fragment>
@@ -92,22 +99,20 @@ export default class Drawer extends React.Component {
                         ref={element => this.rootElement = element}
                         {...props}
                     >
-                        {title && <DrawerHeader title={title} subtitle={subtitle} />}
-
-                        <DrawerContent>
+                        <div className="mdc-side-sheet__content">
                             {children}
-                        </DrawerContent>
+                        </div>
                     </Element>
 
                     {modal &&
                         <div
-                            className="mdc-drawer-scrim"
+                            className="mdc-side-sheet-scrim"
                             ref={element => this.scrimElement = element}
                             onClick={this.handleScrimClick}
                         />
                     }
                 </React.Fragment>
-            </Transition>
+            </CSSTransition>
         );
     }
 }

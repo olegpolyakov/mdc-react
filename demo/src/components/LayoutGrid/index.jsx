@@ -7,7 +7,7 @@ import './index.scss';
 export default class LayoutGridPage extends React.Component {
     render() {
         return (
-            <Layout column element="main">
+            <Layout id="layout-grid-page" column element="main">
                 <Typography variant="headline3" component="h1">LayoutGrid</Typography>
     
                 <LayoutGrid>

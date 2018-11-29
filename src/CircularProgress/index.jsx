@@ -12,7 +12,8 @@ export default function CircularProgress({ value, className, ...props }) {
             width="100%"
             height="100%"
             viewBox="0 0 100 100"
-            {...props}>
+            {...props}
+        >
             <path
                 className="mdc-circular-progress__background"
                 fill="none"

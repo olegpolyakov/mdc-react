@@ -23,6 +23,8 @@ export default function Banner({
     return (
         <Element className={classNames} {...props}>
             <div className="mdc-banner__content">
+                {icon && React.cloneElement(icon, { className: 'mdc-banner__icon' })}
+
                 {React.isValidElement(children) ?
                     React.cloneElement(children, { className: 'mdc-banner__text' })
                     :

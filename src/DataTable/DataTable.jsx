@@ -1,19 +1,12 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default class DataTable extends React.Component {
-    static defaultProps = {
-        selectable: false
-    };
+export default function DataTable({ selectable = false, className, ...props }) {
+    const classNames = classnames('mdc-data-table', {
+        'mdc-data-table--selectable': selectable
+    }, className);
 
-    render() {
-        const { selectable, className, children, ...props } = this.props;
-
-        return React.createElement('table', {
-            className: classnames('mdc-data-table', {
-                'mdc-data-table--selectable': selectable
-            }, className),
-            ...props
-        }, children);
-    }
+    return (
+        <table className={classNames} {...props} />
+    );
 }

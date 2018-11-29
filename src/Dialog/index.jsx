@@ -13,16 +13,35 @@ export default class Dialog extends React.Component {
 
         onClose: Function.prototype
     };
+    
+    static cssClasses = {
+        OPEN: 'mdc-dialog--open',
+        OPENING: 'mdc-dialog--opening',
+        CLOSING: 'mdc-dialog--closing',
+        SCROLLABLE: 'mdc-dialog--scrollable',
+        STACKED: 'mdc-dialog--stacked',
+        SCROLL_LOCK: 'mdc-dialog-scroll-lock'
+    };
 
-    componentDidUpdate(prevProps) {
+    get isScrollable() {
+        return this.contentElement ? this.contentElement.scrollHeight > this.contentElement.offsetHeight : false;
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.open === true && prevProps.open === false) {
-            document.body.classList.add('mdc-dialog-scroll-lock');
+            document.body.classList.add(Dialog.cssClasses.SCROLL_LOCK);
+
+            if (this.isScrollable) {
+                this.rootElement.classList.add(Dialog.cssClasses.SCROLLABLE);
+            } else {
+                this.rootElement.classList.remove(Dialog.cssClasses.SCROLLABLE);
+            }
             
             if (this.props.confirmation === false) {
                 document.addEventListener('keydown', this.handleDocumentKeyDown);
             }
         } else if (this.props.open === false && prevProps.open === true) {
-            document.body.classList.remove('mdc-dialog-scroll-lock');
+            document.body.classList.remove(Dialog.cssClasses.SCROLL_LOCK);
             
             if (this.props.confirmation === false) {
                 document.removeEventListener('keydown', this.handleDocumentKeyDown);
@@ -46,6 +65,7 @@ export default class Dialog extends React.Component {
 
     render() {
         const { open, confirmation, title, actions, className, children, ...props } = this.props;
+        const classNames = classnames('mdc-dialog', className);
 
         return (
             <CSSTransition
@@ -61,14 +81,20 @@ export default class Dialog extends React.Component {
                 unmountOnExit
             >
                 <Modal>
-                    <div className={classnames('mdc-dialog', className)} role="alertdialog" aria-modal="true" {...props}>
+                    <div
+                        className={classNames}
+                        ref={element => this.rootElement = element}
+                        role="alertdialog"
+                        aria-modal="true"
+                        {...props}
+                    >
                         <div className="mdc-dialog__container">
                             <div className="mdc-dialog__surface">
                                 {title &&
                                     <h2 className="mdc-dialog__title">{title}</h2>
                                 }
 
-                                <div className="mdc-dialog__content">{children}</div>
+                                <div className="mdc-dialog__content" ref={element => this.contentElement = element}>{children}</div>
 
                                 {actions &&
                                     <div className="mdc-dialog__actions">

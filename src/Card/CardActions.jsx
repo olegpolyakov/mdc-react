@@ -4,7 +4,7 @@ import classnames from 'classnames';
 export default function CardActions({
     fullBleed = false,
 
-    element = 'section',
+    element = 'div',
     className,
     ...props
 }) {
