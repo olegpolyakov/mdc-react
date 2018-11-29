@@ -7,6 +7,7 @@ export default class Switch extends React.Component {
     static defaultProps = {
         checked: false,
         disabled: false,
+        
         onChange: Function.prototype
     };
 
@@ -17,27 +18,28 @@ export default class Switch extends React.Component {
             checked, disabled, onChange,
             className, ...props
         } = this.props;
+        const classNames = classnames('mdc-switch', {
+            'mdc-switch--checked': checked,
+            'mdc-switch--disabled': disabled
+        }, className);
 
-        return React.createElement('div', {
-            className: classnames('mdc-switch', {
-                'mdc-switch--checked': checked,
-                'mdc-switch--disabled': disabled
-            }, className)
-        },
-            React.createElement('div', { className: 'mdc-switch__track' }),
-            React.createElement('div', { className: 'mdc-switch__thumb-underlay' },
-                React.createElement('div', { className: 'mdc-switch__thumb' },
-                    React.createElement('input', {
-                        type: 'checkbox',
-                        className: 'mdc-switch__native-control',
-                        role: 'switch',
-                        checked,
-                        disabled,
-                        onChange: this.handleChange,
-                        ...props
-                    })
-                )
-            )
+        return (
+            <div className={classNames}>
+                <div className="mdc-switch__track" />
+                <div className="mdc-switch__thumb-underlay">
+                    <div className="mdc-switch__thumb">
+                        <input
+                            className="mdc-switch__native-control"
+                            type="checkbox"
+                            role="switch"
+                            checked={checked}
+                            disabled={disabled}
+                            onChange={this.handleChange}
+                            {...props}
+                        />
+                    </div>
+                </div>
+            </div>
         );
     }
 }

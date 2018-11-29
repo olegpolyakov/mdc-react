@@ -8,6 +8,7 @@ export default function ListItemMeta({
     children,
     ...props
 }) {
+    const Element = component;
     const classNames = classnames('mdc-list-item__meta', className);
 
     if (React.isValidElement(children)) {
@@ -16,9 +17,10 @@ export default function ListItemMeta({
             ...props
         });
     } else {
-        return React.createElement(component, {
-            className: classNames,
-            ...props
-        }, children);
+        return (
+            <Element className={classNames} {...props}>
+                {children}
+            </Element>
+        );
     }
 }

@@ -1,25 +1,20 @@
 import React from 'react';
 
 export default function ListItemText({
-    primary,
-    secondary,
+    primary = false,
+    secondary = false,
 
-    element = 'span',
-    component = element,
     children = primary,
     ...props
 }) {
     if (primary && secondary) {
-        return React.createElement(component, {
-            className: 'mdc-list-item__text',
-            ...props
-        },
-            React.createElement('span', { className: 'mdc-list-item__primary-text' }, primary),
-            React.createElement('span', { className: 'mdc-list-item__secondary-text' }, secondary)
+        return (
+            <div className="mdc-list-item__text" {...props}>
+                <span className="mdc-list-item__primary-text">{primary}</span>
+                <span className="mdc-list-item__secondary-text">{secondary}</span>
+            </div>
         );
-    } else if (children) {
-        return children;
     } else {
-        return null;
+        return children;
     }
 }

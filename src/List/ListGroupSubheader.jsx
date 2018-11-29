@@ -1,9 +1,18 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function ListGroupSubheader({ element = 'h3', title, className, children, ...props }) {
-    return React.createElement(element, {
-        className: classnames('mdc-list-group__subheader', className),
-        ...props
-    }, title || children);
+export default function ListGroupSubheader({
+    title,
+
+    element = 'h3',
+    className,
+    children = title,
+    ...props
+}) {
+    const Element = element;
+    const classNames = classnames('mdc-list-group__subheader', className);
+
+    return (
+        <Element className={classNames} {...props}>{children}</Element>
+    );
 }

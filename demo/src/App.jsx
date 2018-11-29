@@ -90,7 +90,6 @@ export default class App extends React.Component {
                         navigationIcon={
                             <Icon onClick={this.toggleDrawer}>menu</Icon>
                         }
-                        fixedAdjustSibling
                     />
 
                     <Layout>

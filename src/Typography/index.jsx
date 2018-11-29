@@ -20,25 +20,28 @@ const variants = {
 };
 
 export default function Typography({
-    element,
-    component = element,
     variant = 'body1',
     display,
     align,
-    noMargin,
-    noWrap,
+    noMargin = false,
+    noWrap = false,
+
+    element,
+    component = element,
     className,
     ...props
 }) {
     if (!variant in variants) throw new Error('Typography variant is invalid');
 
-    return React.createElement(component || variants[variant], {
-        className: classnames(`mdc-typography--${variant}`, {
-            [`mdc-typography--display-${display}`]: display,
-            [`mdc-typography--align-${align}`]: align,
-            'mdc-typography--no-margin': noMargin,
-            'mdc-typography--overflow-ellipsis': noWrap
-        }, className),
-        ...props
-    });
+    const Element = component || variants[variant];
+    const classNames = classnames(`mdc-typography--${variant}`, {
+        [`mdc-typography--display-${display}`]: display,
+        [`mdc-typography--align-${align}`]: align,
+        'mdc-typography--no-margin': noMargin,
+        'mdc-typography--overflow-ellipsis': noWrap
+    }, className);
+
+    return (
+        <Element className={classNames} {...props} />
+    );
 };

@@ -22,7 +22,7 @@ export default class TopAppBar extends React.Component {
         scrolled: false
     };
 
-    root = React.createRef();
+    rootElement = React.createRef();
 
     lastScrollPosition = this.viewportScrollY;
 
@@ -57,7 +57,7 @@ export default class TopAppBar extends React.Component {
         }
 
         if (this.props.fixedAdjustSibling) {
-            this.root.current.nextSibling.classList.add('mdc-top-app-bar--fixed-adjust');
+            this.rootElement.current.nextSibling.classList.add('mdc-top-app-bar--fixed-adjust');
         }
         
     }
@@ -70,7 +70,7 @@ export default class TopAppBar extends React.Component {
         }
 
         if (this.props.fixedAdjustSibling) {
-            this.root.current.nextSibling.classList.remove('mdc-top-app-bar--fixed-adjust');
+            this.rootElement.current.nextSibling.classList.remove('mdc-top-app-bar--fixed-adjust');
         }
     }
 
@@ -112,40 +112,42 @@ export default class TopAppBar extends React.Component {
         } = this.props;
 
         const { scrolled, hidden } = this.state;
+        const Element = component;
+        const classNames = classnames('mdc-top-app-bar', {
+            'mdc-top-app-bar--fixed': fixed,
+            'mdc-top-app-bar--sticky': sticky,
+            'mdc-top-app-bar--dense': dense,
+            'mdc-top-app-bar--prominent': prominent,
+            'mdc-top-app-bar--short': short,
+            'mdc-top-app-bar--short-collapsed': short && collapsed,
+            'mdc-top-app-bar--fixed-scrolled': fixed && scrolled,
+            'mdc-top-app-bar--hidden': hidden === true,
+            'mdc-top-app-bar--shown': hidden === false
+        }, className);
 
-        return React.createElement(component, {
-            ref: this.root,
-            
-            className: classnames('mdc-top-app-bar', {
-                'mdc-top-app-bar--fixed': fixed,
-                'mdc-top-app-bar--sticky': sticky,
-                'mdc-top-app-bar--dense': dense,
-                'mdc-top-app-bar--prominent': prominent,
-                'mdc-top-app-bar--short': short,
-                'mdc-top-app-bar--short-collapsed': short && collapsed,
-                'mdc-top-app-bar--fixed-scrolled': fixed && scrolled,
-                'mdc-top-app-bar--hidden': hidden === true,
-                'mdc-top-app-bar--shown': hidden === false
-            }, className),
-            
-            ...props
-        },
-            <TopAppBarRow>
-                <TopAppBarSection align="start">
-                    {navigationIcon && React.cloneElement(navigationIcon, { className: 'mdc-top-app-bar__navigation-icon' })}
-                    {title && React.createElement('span', { className: 'mdc-top-app-bar__title' }, title)}
-                </TopAppBarSection>
-
-                {(actionItems && actionItems.length) &&
-                    <TopAppBarSection align="end">
-                        {actionItems.map((item, key) =>
-                            React.cloneElement(item, { key, className: 'mdc-top-app-bar__action-item' })
-                        )}
+        return (
+            <Element
+                className={classNames}
+                ref={this.rootElement}
+                {...props}
+            >
+                <TopAppBarRow>
+                    <TopAppBarSection align="start">
+                        {navigationIcon && React.cloneElement(navigationIcon, { className: 'mdc-top-app-bar__navigation-icon' })}
+                        {title && <span className="mdc-top-app-bar__title">{title}</span>}
                     </TopAppBarSection>
-                }
-            </TopAppBarRow>,
 
-            children
+                    {(actionItems && actionItems.length) &&
+                        <TopAppBarSection align="end">
+                            {actionItems.map((item, key) =>
+                                React.cloneElement(item, { key, className: 'mdc-top-app-bar__action-item' })
+                            )}
+                        </TopAppBarSection>
+                    }
+                </TopAppBarRow>
+
+                {children}
+            </Element>
         );
     }
 }

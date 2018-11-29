@@ -7,6 +7,7 @@ export default class Radio extends React.Component {
     static defaultProps = {
         checked: false,
         disabled: false,
+
         onChange: Function.prototype
     }
 
@@ -20,31 +21,33 @@ export default class Radio extends React.Component {
         const {
             checked,
             disabled,
+            
             onChange,
             
             className,
             ...props
         } = this.props;
+        const classNames = classnames('mdc-radio', {
+            'mdc-radio--disabled': disabled
+        }, className);
 
-        return React.createElement('div', {
-            className: classnames('mdc-radio', {
-                'mdc-radio--disabled': disabled
-            }, className)
-        },
-            React.createElement('input', {
-                ref: element => this.input = element,
-                className: 'mdc-radio__native-control',
-                type: 'radio',
-                checked,
-                disabled,
-                onChange: this.handleChange,
-                ...props
-            }),
+        return (
+            <div className={classNames}>
+                <input
+                    className="mdc-radio__native-control"
+                    ref={element => this.input = element}
+                    type="radio"
+                    checked={checked}
+                    disabled={disabled}
+                    onChange={this.handleChange}
+                    {...props}
+                />
 
-            React.createElement('div', { className: 'mdc-radio__background' },
-                React.createElement('div', { className: 'mdc-radio__outer-circle' }),
-                React.createElement('div', { className: 'mdc-radio__inner-circle' }),
-            )
+                <div className="mdc-radio__background">
+                    <div className="mdc-radio__outer-circle" />
+                    <div className="mdc-radio__inner-circle" />
+                </div>
+            </div>
         );
     }
 }
