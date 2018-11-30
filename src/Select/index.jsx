@@ -44,7 +44,22 @@ export class Select extends React.Component {
     };
 
     render() {
-        const { value, outlined, required, disabled, label, leadingIcon, helperText, helperTextProps, className, children, ...props } = this.props;
+        const {
+            name,
+            value,
+            outlined,
+            required,
+            disabled,
+            label,
+            leadingIcon,
+            helperText,
+            helperTextProps,
+            
+            className,
+            children,
+            ...props
+        } = this.props;
+
         const { selectedText, focused } = this.state;
         
         const classNames = classnames('mdc-select', {
@@ -63,6 +78,8 @@ export class Select extends React.Component {
                     ref={element => this.rootElement = element}
                     onClick={this.handleSelectClick}
                 >
+                    <input type="hidden" name={name} value={value} />
+
                     {leadingIcon && React.cloneElement(leadingIcon, {
                         className: 'mdc-select__icon',
                         tabIndex: '0',

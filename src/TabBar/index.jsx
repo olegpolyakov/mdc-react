@@ -43,27 +43,32 @@ export default class TabBar extends React.Component {
             ...props
         } = this.props;
         
-        return React.createElement(component, {
-                ref: element => this.root = element,
-                className: classnames('mdc-tab-bar', className),
-                role: 'tablist',
-                ...props
-            },
-            React.createElement(TabScroller, { align },
-                React.Children.map(children, (tab, index) => 
-                    tab && React.cloneElement(tab, {
-                        ref: component => this.tabs.set((tab.props.value || index), component),
-                        value: tab.props.value || index,
-                        active: (tab.props.value || index) === value,
-                        stacked: tab.props.stacked || stacked,
-                        minWidth: tab.props.minWidth || minWidth,
-                        fade,
-                        underline,
-                        previousIndicatorClientRect: this.previousIndicatorClientRect,
-                        onActivate: this.handleTabActivate
-                    })
-                )
-            )
+        const Element = component;
+        const classNames = classnames('mdc-tab-bar', className);
+
+        return (
+            <Element
+                ref={element => this.root = element}
+                className={classNames}
+                role="tablist"
+                {...props}
+            >
+                <TabScroller align={align}>
+                    {React.Children.map(children, (tab, index) => 
+                        tab && React.cloneElement(tab, {
+                            ref: component => this.tabs.set((tab.props.value || index), component),
+                            value: tab.props.value || index,
+                            active: (tab.props.value || index) === value,
+                            stacked: tab.props.stacked || stacked,
+                            minWidth: tab.props.minWidth || minWidth,
+                            fade,
+                            underline,
+                            previousIndicatorClientRect: this.previousIndicatorClientRect,
+                            onActivate: this.handleTabActivate
+                        })
+                    )}
+                </TabScroller>
+            </Element>
         );
     }
 }

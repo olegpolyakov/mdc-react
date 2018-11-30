@@ -1,9 +1,7 @@
 import React from 'react';
 
-export default function DrawerContent({ element = 'div', children }) {
-    return React.createElement(element, {
-            className: 'mdc-drawer__content'
-        },
-        children
+export default function DrawerContent(props) {
+    return (
+        <div className="mdc-drawer__content" {...props} />
     );
 };

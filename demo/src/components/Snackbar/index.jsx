@@ -20,7 +20,7 @@ export default class SnackbarPage extends React.Component {
                     <Snackbar
                         active={this.state.active}
                         text="Hello World"
-                        actionText="OK"
+                        action={<Button>OK</Button>}
                         icon={<Icon>star</Icon>}
                         onClose={this.onClose}
                     />

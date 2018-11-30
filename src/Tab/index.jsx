@@ -77,38 +77,42 @@ export default class Tab extends React.Component {
         } = this.props;
         const { isTransitioning, isTransitionActivating, isTransitionDeactivating } = this.state;
         
-        return React.createElement(component, {
-            ref: element => this.root = element,
-            className: classnames('mdc-tab', {
-                'mdc-tab--active': active,
-                'mdc-tab--stacked': stacked,
-                'mdc-tab--min-width': minWidth,
-                'mdc-tab--animating-activate': isTransitioning && isTransitionActivating,
-                'mdc-tab--animating-deactivate': isTransitioning && isTransitionDeactivating,
-            }, className),
-            role: 'tab',
-            'aria-selected': active ? 'true' : 'false',
-            tabIndex: active ? '0' : '-1',
-            onClick: this.handleClick,
-            onTransitionEnd: this.handleTransitionEnd,
-            ...props
-        },
-            React.createElement('div', { className: 'mdc-tab__content' }, 
-                icon && React.cloneElement(icon, { className: 'mdc-tab__icon' }),
-                children && React.createElement('span', { className: 'mdc-tab__text-label' }, children)
-            ),
+        const Element = component;
+        const Indicator = fade ? FadingTabIndicator : SlidingTabIndicator;
+        const classNames = classnames('mdc-tab', {
+            'mdc-tab--active': active,
+            'mdc-tab--stacked': stacked,
+            'mdc-tab--min-width': minWidth,
+            'mdc-tab--animating-activate': isTransitioning && isTransitionActivating,
+            'mdc-tab--animating-deactivate': isTransitioning && isTransitionDeactivating,
+        }, className);
 
-            React.createElement(fade ? FadingTabIndicator : SlidingTabIndicator, {
-                ref: component => this.indicator = component,
-                active,
-                fade,
-                underline,
-                previousIndicatorClientRect: active ? previousIndicatorClientRect : undefined
-            }),
+        return (
+            <Element
+                className={classNames}
+                ref={element => this.root = element}
+                role='tab'
+                aria-selected={active ? 'true' : 'false'}
+                tabIndex={active ? '0' : '-1'}
+                onClick={this.handleClick}
+                onTransitionEnd={this.handleTransitionEnd}
+                {...props}
+            >
+                <div className="mdc-tab__content">
+                    {icon && React.cloneElement(icon, { className: 'mdc-tab__icon' })}
+                    {children && <span className="mdc-tab__text-label">{children}</span>}
+                </div>
 
-            React.createElement('span', {
-                className: 'mdc-tab__ripple'
-            })
+                <Indicator
+                    ref={component => this.indicator = component}
+                    active={active}
+                    fade={fade}
+                    underline={underline}
+                    previousIndicatorClientRect={active ? previousIndicatorClientRect : undefined}
+                />
+
+                <span className="mdc-tab__ripple" />
+            </Element>
         );
     }
 }

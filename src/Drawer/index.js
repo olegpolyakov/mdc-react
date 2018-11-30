@@ -1,5 +1,10 @@
 import './index.scss';
 
-export { default as Drawer } from './Drawer';
-export { default as DrawerHeader } from './DrawerHeader';
-export { default as DrawerContent } from './DrawerContent';
+import Drawer from './Drawer';
+import DrawerHeader from './DrawerHeader';
+import DrawerContent from './DrawerContent';
+
+Drawer.Header = DrawerHeader;
+Drawer.Content = DrawerContent;
+
+export { Drawer as default, DrawerHeader, DrawerContent };
