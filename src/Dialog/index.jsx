@@ -11,6 +11,7 @@ export default class Dialog extends React.Component {
 
     static defaultProps = {
         open: false,
+        appear: false,
         confirmation: false,
 
         onClose: Function.prototype
@@ -68,6 +69,7 @@ export default class Dialog extends React.Component {
     render() {
         const {
             open,
+            appear,
             confirmation,
             title,
             actions,
@@ -85,11 +87,14 @@ export default class Dialog extends React.Component {
                 in={open}
                 timeout={{enter: 150, exit: 75}}
                 classNames={{
+                    appear: 'mdc-dialog--opening',
+                    appearActive: 'mdc-dialog--open',
                     enter: 'mdc-dialog--opening',
                     enterActive: 'mdc-dialog--open',
                     enterDone: 'mdc-dialog--open',
                     exit: 'mdc-dialog--closing'
                 }}
+                appear={appear}
                 mountOnEnter
                 unmountOnExit
             >
