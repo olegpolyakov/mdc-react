@@ -26,9 +26,16 @@ export class Select extends React.Component {
     };
 
     state = {
-        focused: false,
-        selectedText: ''
+        focused: false
     };
+
+    text = new Map();
+
+    componentDidMount() {
+        const options = React.Children.toArray(this.props.children);
+
+        this.text = new Map(options.map(option => [option.props.value, option.props.children]));
+    }
 
     handleMenuClose = () => this.setState({ focused: false });
 
@@ -41,10 +48,11 @@ export class Select extends React.Component {
         this.lineRippleTransformOrigin = coords.x - targetClientRect.left;
     };
 
-    handleOptionClick = (value, selectedText, event) => {
+    handleOptionClick = (value, event) => {
         event.stopPropagation();
-        this.props.onChange(value, event);
-        this.setState({ selectedText, focused: false });
+
+        this.props.onChange(value, this.inputElement);
+        this.setState({ focused: false });
     };
 
     render() {
@@ -64,7 +72,7 @@ export class Select extends React.Component {
             ...props
         } = this.props;
 
-        const { selectedText, focused } = this.state;
+        const { focused } = this.state;
         
         const classNames = classnames('mdc-select', {
             'mdc-select--outlined': outlined,
@@ -74,6 +82,8 @@ export class Select extends React.Component {
             'mdc-select--invalid': false,
             'mdc-select--with-leading-icon': leadingIcon
         }, className);
+
+        const selectedText = this.text.get(value);
         
         return (
             <React.Fragment>
@@ -82,7 +92,15 @@ export class Select extends React.Component {
                     ref={element => this.rootElement = element}
                     onClick={this.handleSelectClick}
                 >
-                    <input type="hidden" name={name} value={value} />
+                    <input
+                        type="hidden"
+                        ref={element => this.inputElement = element}
+                        name={name}
+                        value={value}
+                        required={required}
+                        disabled={disabled}
+                        {...props}
+                    />
 
                     {leadingIcon && React.cloneElement(leadingIcon, {
                         className: 'mdc-select__icon',
@@ -104,7 +122,7 @@ export class Select extends React.Component {
                             React.cloneElement(option, {
                                 value: undefined,
                                 selected: option.props.value === value,
-                                onClick: event => this.handleOptionClick(option.props.value, option.props.children, event)
+                                onClick: option.props.disabled ? undefined : event => this.handleOptionClick(option.props.value, event)
                             })
                         )}
                     </Menu>
