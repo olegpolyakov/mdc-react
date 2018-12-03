@@ -4,6 +4,8 @@ import classnames from 'classnames';
 import './index.scss';
 
 export default class Snackbar extends React.Component {
+    static displayName = 'MDCSnackbar';
+
     static defaultProps = {
         active: false,
         timeout: 2750,

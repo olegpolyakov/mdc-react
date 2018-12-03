@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
+CircularProgress.displayName = 'MDCCircularProgress';
+
 export default function CircularProgress({ value, className, ...props }) {
     const angle = value * 289.067 / 100;
     const diff = 289.067 - angle;

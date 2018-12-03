@@ -1,6 +1,10 @@
 import React from 'react';
 import classnames from 'classnames';
 
+import './index.scss';
+
+Icon.displayName = 'MDCIcon';
+
 export default function Icon({
     size,
     dark = false,
@@ -8,11 +12,10 @@ export default function Icon({
     inactive = false,
 
     element = 'i',
-    component = element,
+    component: Element = element,
     className,
     ...props
 }) {
-    const Element = component;
     const classNames = classnames('mdc-icon', 'material-icons', {
         [`mdc-icon--${size}`]: size,
         'mdc-icon--dark': dark,

@@ -2,8 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 export default class Modal extends React.Component {
+    static displayName = 'MDCModal';
+
+    static defaultProps = {
+        element: 'div'
+    };
+
     componentWillMount() {
-        this.root = document.createElement('div');
+        this.root = document.createElement(this.props.element);
         
         this.root.classList = 'mdc-modal';
 

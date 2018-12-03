@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
+Spinner.displayName = 'MDCSpinner';
+
 export default function Spinner({
     active = true,
     singleColor = true,

@@ -3,18 +3,19 @@ import classnames from 'classnames';
 
 import './index.scss';
 
+Avatar.displayName = 'MDCAvatar';
+
 export default function Avatar({
     src,
     small = false,
     large = false,
     
     element = 'div',
-    component = element,
+    component: Element = element,
     className,
     children,
     ...props
 }) {
-    const Element = component;
     const classNames = classnames('mdc-avatar', {
         'mdc-avatar--small': small,
         'mdc-avatar--large': large

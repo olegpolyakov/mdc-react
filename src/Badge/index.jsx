@@ -3,16 +3,17 @@ import classnames from 'classnames';
 
 import './index.scss';
 
+Badge.displayName = 'MDCBadge';
+
 export default function Badge({
     value,
     overlap = false,
     noBackground = false,
 
-    element = 'span',
+    element: Element = 'span',
     className,
     ...props
 }) {
-    const Element = element;
     const classNames = classnames('mdc-badge', {
         'mdc-badge--overlap': overlap,
         'mdc-badge--no-background': noBackground

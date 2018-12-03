@@ -1,14 +1,15 @@
 import React from 'react';
 import classnames from 'classnames';
 
+ListItemMeta.displayName = 'MDCListItemMeta';
+
 export default function ListItemMeta({
     element = 'span',
-    component = element,
+    component: Element = element,
     className,
     children,
     ...props
 }) {
-    const Element = component;
     const classNames = classnames('mdc-list-item__meta', className);
 
     if (React.isValidElement(children)) {

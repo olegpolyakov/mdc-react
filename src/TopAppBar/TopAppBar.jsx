@@ -5,6 +5,8 @@ import TopAppBarRow from './TopAppBarRow';
 import TopAppBarSection from './TopAppBarSection';
 
 export default class TopAppBar extends React.Component {
+    static displayName = 'MDCTopAppBar';
+
     static defaultProps = {
         fixed: false,
         sticky: false,
@@ -105,14 +107,14 @@ export default class TopAppBar extends React.Component {
             fixedAdjustSibling,
 
             element,
-            component = element,
+            component: Element = element,
             className,
             children,
             ...props
         } = this.props;
 
         const { scrolled, hidden } = this.state;
-        const Element = component;
+        
         const classNames = classnames('mdc-top-app-bar', {
             'mdc-top-app-bar--fixed': fixed,
             'mdc-top-app-bar--sticky': sticky,

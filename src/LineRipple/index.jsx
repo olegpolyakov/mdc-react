@@ -4,6 +4,8 @@ import classnames from 'classnames';
 import './index.scss';
 
 export default class LineRipple extends React.Component {
+    static displayName = 'MDCLineRipple';
+
     static defaultProps = {
         active: false,
         center: undefined
@@ -30,11 +32,15 @@ export default class LineRipple extends React.Component {
     render() {
         const { active, center, className } = this.props;
         const { deactivating } = this.state;
+
         const classNames = classnames('mdc-line-ripple', {
             'mdc-line-ripple--active': active || deactivating,
             'mdc-line-ripple--deactivating': deactivating
         }, className);
-        const style = { transformOrigin: center ? `${center}px center` : undefined };
+
+        const style = {
+            transformOrigin: center ? `${center}px center` : undefined
+        };
         
         return (
             <div

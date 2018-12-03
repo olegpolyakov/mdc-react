@@ -6,8 +6,9 @@ import TabScroller from '../TabScroller';
 import './index.scss';
 
 export default class TabBar extends React.Component {
+    static displayName = 'MDCTabBar';
+
     static defaultProps = {
-        element: 'nav',
         stacked: false,
         minWidth: false,
         fade: false,
@@ -36,14 +37,13 @@ export default class TabBar extends React.Component {
             align,
             onChange,
 
-            element,
-            component = element,
+            element = 'nav',
+            component: Element = element,
             className,
             children,
             ...props
         } = this.props;
         
-        const Element = component;
         const classNames = classnames('mdc-tab-bar', className);
 
         return (

@@ -1,20 +1,22 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default class ImageList extends React.Component {
-    static defaultProps = {
-        element: 'ul',
-        masonry: false
-    };
+ImageList.displayName = 'MDCImageList';
 
-    render() {
-        const { element, masonry, children, ...props } = this.props;
+export default function ImageList({
+    masonry = false,
+    withTextProtection = false,
 
-        return React.createElement(element, {
-            className: classnames('mdc-image-list', {
-                'mdc-image-list--masonry': masonry
-            }),
-            ...props
-        }, children);
-    }
+    element: Element = 'ul',
+    className,
+    ...props
+}) {
+    const classNames = classnames('mdc-image-list', {
+        'mdc-image-list--masonry': masonry,
+        'mdc-image-list--with-text-protection': withTextProtection
+    }, className);
+
+    return (
+        <Element className={classNames} {...props} />
+    );
 }

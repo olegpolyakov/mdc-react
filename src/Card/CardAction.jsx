@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
+CardAction.displayName = 'MDCCardAction';
+
 export default function CardAction({
     button = false,
     icon = false,

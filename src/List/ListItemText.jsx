@@ -1,5 +1,7 @@
 import React from 'react';
 
+ListItemText.displayName = 'MDCListItemText';
+
 export default function ListItemText({
     primary = false,
     secondary = false,

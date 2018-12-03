@@ -1,18 +1,28 @@
 import React from 'react';
+import classnames from 'classnames';
 
-export default class ImageListItem extends React.Component {
-    static defaultProps = {
-        element: 'li'
-    };
+ImageListItem.displayName = 'MDCImageListItem';
 
-    render() {
-        const { element, children, ...props } = this.props;
+export default function ImageListItem({
+    src,
+    label,
 
-        return React.createElement(element, {
-            className: classnames('mdc-image-list__item', {
-                
-            }),
-            ...props
-        }, children);
-    }
+    element: Element = 'li',
+    className
+}) {
+    const classNames = classnames('mdc-image-list__item', className);
+
+    return (
+        <Element
+            className={classnames}
+        >
+            <img class="mdc-image-list__image" src={src} alt={label} />
+
+            {label &&
+                <div className="mdc-image-list__supporting">
+                    <span className="mdc-image-list__label">{label}</span>
+                </div>
+            }
+        </Element>
+    );
 }

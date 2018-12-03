@@ -1,15 +1,16 @@
 import React from 'react';
 import classnames from 'classnames';
 
+ListDivider.displayName = 'MDCListDivider';
+
 export default function ListDivider({
     inset = false,
     padded = false,
 
-    element = 'li',
+    element: Element = 'li',
     className,
     ...props
 }) {
-    const Element = element;
     const classNames = classnames('mdc-list-divider', {
         'mdc-list-divider--inset': inset,
         'mdc-list-divider--padded': padded,
@@ -18,7 +19,7 @@ export default function ListDivider({
     return (
         <Element
             className={classNames}
-            role={element === 'li' ? 'separator' : undefined}
+            role={Element === 'li' ? 'separator' : undefined}
             {...props}
         />
     );

@@ -3,6 +3,8 @@ import classnames from 'classnames';
 
 import './index.scss';
 
+FAB.displayName = 'MDCFAB';
+
 export default function FAB({
     icon,
     label,
@@ -12,12 +14,11 @@ export default function FAB({
     disabled = false,
     
     element = 'button',
-    component = element,
+    component: Element = element,
     className,
     children = label,
     ...props
 }) {
-    const Element = component;
     const classNames = classnames('mdc-fab', {
         'mdc-fab--mini': mini,
         'mdc-fab--extended': extended,

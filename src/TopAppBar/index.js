@@ -7,4 +7,4 @@ import TopAppBarSection from './TopAppBarSection';
 TopAppBar.Row = TopAppBarRow;
 TopAppBar.Section = TopAppBarSection;
 
-export { TopAppBar as default, TopAppBarRow, TopAppBarSection };
+export { TopAppBar, TopAppBarRow, TopAppBarSection };

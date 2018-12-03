@@ -8,11 +8,15 @@ import HelperText from './HelperText';
 
 import './index.scss';
 
+Option.displayName = 'MDCOption';
+
 export function Option(props) {
     return <MenuItem {...props} />;
 }
 
 export class Select extends React.Component {
+    static displayName = 'MDCSelect';
+
     static defaultProps = {
         disabled: false,
         outlined: false,

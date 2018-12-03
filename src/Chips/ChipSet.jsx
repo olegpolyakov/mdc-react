@@ -1,44 +1,44 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default class ChipSet extends React.Component {
-    static defaultProps = {
-        input: false,
-        choice: false,
-        filter: false,
-        selectedChip: undefined,
-        filteredChips: [],
+ChipSet.displayName = 'MDCChipSet';
 
-        onSelect: Function.prototype,
+export default function ChipSet({
+    choice = false,
+    filter = false,
+    input = false,
+    selectedChip,
+    filteredChips = [],
 
-        element: 'div'
-    };
+    onSelect = Function.prototype,
 
-    render() {
-        const { input, choice, filter, selectedChip, filteredChips, onSelect, element, className, children, ...props } = this.props;
+    element = 'div',
+    component: Element = element,
+    className,
+    children,
+    ...props
+}) {
+    const classNames = classnames('mdc-chip-set', {
+        'mdc-chip-set--choice': choice,
+        'mdc-chip-set--filter': filter,
+        'mdc-chip-set--input': input
+    }, className);
 
-        const classNames = classnames('mdc-chip-set', {
-            'mdc-chip-set--input': input,
-            'mdc-chip-set--choice': choice,
-            'mdc-chip-set--filter': filter
-        }, className);
+    return (
+        <Element className={classNames} {...props}>
+            {(choice || filter) ? 
+                React.Children.map(children, (chip, index) => {
+                    const value = chip.value || index;
 
-        return (
-            <div className={classNames} {...props}>
-                {(choice || filter) ? 
-                    React.Children.map(children, (chip, index) => {
-                        const value = chip.value || index;
-
-                        return React.cloneElement(chip, {
-                            selected: value === selectedChip || filteredChips.includes(value),
-                            filtered: filteredChips.includes(value),
-                            onClick: event => onSelect(value)
-                        });
-                    })
-                    :
-                    children
-                }
-            </div>
-        );
-    }
+                    return React.cloneElement(chip, {
+                        selected: value === selectedChip || filteredChips.includes(value),
+                        filtered: filteredChips.includes(value),
+                        onClick: event => onSelect(value)
+                    });
+                })
+                :
+                children
+            }
+        </Element>
+    );
 }

@@ -26,7 +26,7 @@ export default class MenuPage extends React.Component {
                         anchor={this.state.anchor}
                         onClose={this.closeMenu}
                     >
-                        <MenuItem>Подключить ВКонтакте</MenuItem>
+                        <MenuItem selected>Подключить ВКонтакте</MenuItem>
                         <MenuItem>Подключить Яндекс</MenuItem>
                         <MenuItem>Подключить Google</MenuItem>
                     </Menu>

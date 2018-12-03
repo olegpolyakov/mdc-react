@@ -1,11 +1,10 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import IndicatorContent from './IndicatorContent';
+import TabIndicatorContent from './TabIndicatorContent';
 
 export default class SlidingTabIndicator extends React.Component {
     static defaultProps = {
-        element: 'span',
         active: false,
     };
     
@@ -49,19 +48,23 @@ export default class SlidingTabIndicator extends React.Component {
         const { active, ...props } = this.props;
         const { isSliding } = this.state;
 
-        return React.createElement('span', {
-            ref: element => this.root = element,
-            className: classnames('mdc-tab-indicator', {
-                'mdc-tab-indicator--active': active,
-                'mdc-tab-indicator--no-transition': !isSliding
-            })
-        },
-            React.createElement(IndicatorContent, {
-                ref: component => this.content = component,
-                style: this.indicatorStyle,
-                onTransitionEnd: this.handleTransitionEnd,
-                ...props
-            })
+        const classNames = classnames('mdc-tab-indicator', {
+            'mdc-tab-indicator--active': active,
+            'mdc-tab-indicator--no-transition': !isSliding
+        });
+
+        return (
+            <span
+                ref={element => this.root = element}
+                className={classNames}
+            >
+                <TabIndicatorContent
+                    ref={component => this.content = component}
+                    style={this.indicatorStyle}
+                    onTransitionEnd={this.handleTransitionEnd}
+                    {...props}
+                />
+            </span>
         );
     }
 }

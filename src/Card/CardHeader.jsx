@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
+CardHeader.displayName = 'MDCCardHeader';
+
 export default function CardHeader({
     graphic,
     title,
@@ -9,12 +11,11 @@ export default function CardHeader({
     large,
 
     element = 'div',
-    component = element,
+    component: Element = element,
     className,
     children,
     ...props
 }) {
-    const Element = component;
     const classNames = classnames('mdc-card__header', className);
 
     return (

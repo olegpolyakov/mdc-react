@@ -4,6 +4,8 @@ import classnames from 'classnames';
 import './index.scss';
 
 export default class Radio extends React.Component {
+    static displayName = 'MDCRadio';
+
     static defaultProps = {
         checked: false,
         disabled: false,
@@ -27,6 +29,7 @@ export default class Radio extends React.Component {
             className,
             ...props
         } = this.props;
+        
         const classNames = classnames('mdc-radio', {
             'mdc-radio--disabled': disabled
         }, className);

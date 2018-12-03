@@ -3,6 +3,8 @@ import classnames from 'classnames';
 
 import './index.scss';
 
+Button.displayName = 'MDCButton';
+
 export default function Button({
     text,
     raised = false,
@@ -12,12 +14,11 @@ export default function Button({
     icon,
 
     element = 'button',
-    component = element,
+    component: Element = element,
     className,
     children = text,
     ...props
 }) {
-    const Element = component;
     const classNames = classnames('mdc-button', {
         'mdc-button--raised': raised,
         'mdc-button--unelevated': unelevated,

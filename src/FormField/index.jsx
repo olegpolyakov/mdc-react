@@ -3,6 +3,8 @@ import classnames from 'classnames';
 
 import './index.scss';
 
+FormField.displayName = 'MDCFormField';
+
 export default function FormField({
     label,
     alignEnd = false,

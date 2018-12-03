@@ -1,12 +1,10 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import IndicatorContent from './IndicatorContent';
+import TabIndicatorContent from './TabIndicatorContent';
 
 export default class FadingTabIndicator extends React.Component {
-    static defaultProps = {
-        element: 'span'
-    };
+    static displayName = 'MDCFadingTabIndicator';
 
     state = {
         isFadingActivating: false,
@@ -35,22 +33,23 @@ export default class FadingTabIndicator extends React.Component {
     });
 
     render() {
-        const { element, component = element, className, children, ...props } = this.props;
         const { isFadingActivating, isFadingDeactivating } = this.state;
+        
+        const classNames = classnames('mdc-tab-indicator--fade', {
+            'mdc-tab-indicator--fading-activate': isFadingActivating,
+            'mdc-tab-indicator--fading-deactivate': isFadingDeactivating
+        });
 
-        return React.createElement(component, {
-            ref: element => this.root = element,
-
-            className: classnames(className, 'mdc-tab-indicator--fade', {
-                'mdc-tab-indicator--fading-activate': isFadingActivating,
-                'mdc-tab-indicator--fading-deactivate': isFadingDeactivating
-            }),
-
-            ...props
-        },
-            <IndicatorContent
-                ref={component => this.content = component} {...props} 
-            />
+        return (
+            <span
+                ref={element => this.root = element}
+                className={classNames}
+            >
+                <TabIndicatorContent
+                    ref={component => this.content = component}
+                    {...props} 
+                />
+            </span>
         );
     }
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
+LayoutGridCell.displayName = 'MDCLayoutGridCell';
+
 export default function LayoutGridCell({
     span = 12,
     desktop,

@@ -3,6 +3,8 @@ import classnames from 'classnames';
 
 import './index.scss';
 
+IconButton.displayName = 'MDCIconButton';
+
 export default function IconButton({
     on = false,
     icon,
@@ -12,19 +14,18 @@ export default function IconButton({
     offLabel,
     
     element = 'button',
-    component = element,
+    component: Element = element,
     className,
     children = icon,
     ...props
 }) {
     if (React.isValidElement(children)) {
         return React.cloneElement(children, {
-            component,
+            component: Element,
             className: classnames('mdc-icon-button', className),
             ...props
         });
     } else {
-        const Element = component;
         const classNames = classnames('mdc-icon-button', {
             'mdc-icon-button--on': on
         }, className);

@@ -1,14 +1,16 @@
 import React from 'react';
 import classnames from 'classnames';
 
+ListGroup.displayName = 'MDCListGroup';
+
 export default function ListGroup({
-    element = 'div',
+    element: Element = 'div',
     className,
     ...props
 }) {
     const classNames = classnames('mdc-list-group', className);
 
     return (
-        <div className={classNames} {...props} />
+        <Element className={classNames} {...props} />
     );
 }

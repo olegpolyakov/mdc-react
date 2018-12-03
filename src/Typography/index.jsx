@@ -26,14 +26,13 @@ export default function Typography({
     noMargin = false,
     noWrap = false,
 
-    element,
-    component = element,
+    element = variants[variant],
+    component: Element = element,
     className,
     ...props
 }) {
     if (!variant in variants) throw new Error('Typography variant is invalid');
 
-    const Element = component || variants[variant];
     const classNames = classnames(`mdc-typography--${variant}`, {
         [`mdc-typography--display-${display}`]: display,
         [`mdc-typography--align-${align}`]: align,

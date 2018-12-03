@@ -1,15 +1,16 @@
 import React from 'react';
 import classnames from 'classnames';
 
+Card.displayName = 'MDCCard';
+
 export default function Card({
     outlined = false,
     
     element = 'div',
-    component = element,
+    component: Element = element,
     className,
     ...props
 }) {
-    const Element = component;
     const classNames = classnames('mdc-card', {
         'mdc-card--outlined': outlined
     }, className);

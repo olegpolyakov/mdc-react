@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
+DataTable.displayName = 'MDCDataTable';
+
 export default function DataTable({ selectable = false, className, ...props }) {
     const classNames = classnames('mdc-data-table', {
         'mdc-data-table--selectable': selectable

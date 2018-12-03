@@ -1,10 +1,14 @@
 import React from 'react';
 import classnames from 'classnames';
 
+CardActionSection.displayName = 'MDCCardActionSection';
+
 export default function CardActionSection({
     buttons,
     icons,
 
+    element = 'div',
+    component: Element = element,
     className,
     ...props
 }) {
@@ -14,6 +18,6 @@ export default function CardActionSection({
     }, className);
 
     return (
-        <div className={classNames} {...props} />
+        <Element className={classNames} {...props} />
     );
 }

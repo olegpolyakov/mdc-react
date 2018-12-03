@@ -5,14 +5,14 @@ import CSSTransition from 'react-transition-group/CSSTransition';
 import './index.scss';
 
 export default class SideSheet extends React.Component {
+    static displayName = 'MDCSideSheet';
+
     static defaultProps = {
         open: false,
         dismissible: false,
         modal: false,
 
-        onClose: Function.prototype,
-
-        element: 'aside'
+        onClose: Function.prototype
     };
 
     static cssClasses = {
@@ -62,17 +62,15 @@ export default class SideSheet extends React.Component {
             dismissible,
             modal,
             position,
-
             onClose,
 
-            element,
-            component = element,
+            element = 'aside',
+            component: Element = element,
             className,
             children,
             ...props
         } = this.props;
 
-        const Element = component;
         const classNames = classnames(SideSheet.cssClasses.ROOT, {
             [SideSheet.cssClasses.DISMISSIBLE]: dismissible,
             [SideSheet.cssClasses.MODAL]: modal

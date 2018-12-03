@@ -1,8 +1,9 @@
 import React from 'react';
 
-export default function TopAppBarRow({ element = 'div', children, ...props }) {
-    return React.createElement(element, {
-        className: 'mdc-top-app-bar__row',
-        ...props
-    }, children);
-};
+TopAppBarRow.displayName = 'MDCTopAppBarRow';
+
+export default function TopAppBarRow({ element: Element = 'div', ...props }) {
+    return (
+        <Element className="mdc-top-app-bar__row" {...props} />
+    );
+}

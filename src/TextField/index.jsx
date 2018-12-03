@@ -8,9 +8,17 @@ import HelperText from './HelperText';
 import './index.scss';
 
 export default class TextField extends React.Component {
+    static displayName = 'MDCTextField';
+
     static defaultProps = {
         type: 'text',
+        fullWidth: false,
+        outlined: false,
+        dense: false,
+        disabled: false,
+        textarea: false,
         validationMessage: false,
+
         onChange: Function.prototype
     };
 
@@ -69,9 +77,7 @@ export default class TextField extends React.Component {
             helperText,
             validationMessage,
 
-            element,
             className,
-            children,
             onChange,
             ...props
         } = this.props;
@@ -133,7 +139,7 @@ export default class TextField extends React.Component {
                     }
                 </div>
 
-                {(validationMessage && !valid) && <HelperText error>{this.validationMessage}</HelperText>}
+                {(validationMessage && !valid) && <HelperText validation>{this.validationMessage}</HelperText>}
 
                 {helperText && <HelperText persistent>{helperText}</HelperText>}
             </React.Fragment>

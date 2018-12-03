@@ -3,15 +3,27 @@ import classnames from 'classnames';
 
 import { ListItem } from '../List';
 
-export default class MenuItem extends React.Component {
-    render() {
-        const { disabled, ...props } = this.props;
+MenuItem.displayName = 'MDCMenuItem';
 
-        return React.createElement(ListItem, {
-            role: 'menuitem',
-            tabIndex: disabled && "-1",
-            "aria-disabled": disabled && "true",
-            ...props
-        });
-    }
-};
+export default function MenuItem({
+    selected = false,
+    disabled = false,
+    
+    className,
+    ...props
+}) {
+    const classNames = classnames({
+        'mdc-menu-item--selected': selected
+    }, className);
+
+    return (
+        <ListItem
+            className={classNames}
+            role="menuitem"
+            tabIndex={disabled ? '-1' : undefined}
+            aria-disabled={disabled && 'true'}
+            selected={selected}
+            {...props}
+        />
+    );
+}

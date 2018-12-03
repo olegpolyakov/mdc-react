@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
+Chip.displayName = 'MDCChip';
+
 export default function Chip({
     value,
     text,
@@ -11,13 +13,12 @@ export default function Chip({
     selected = false,
 
     element = 'div',
-    component = element,
+    component: Element = element,
     className,
     children = text,
 
     ...props
 }) {
-    const Element = component;
     const classNames = classnames('mdc-chip', {
         'mdc-chip--selected': selected
     }, className);

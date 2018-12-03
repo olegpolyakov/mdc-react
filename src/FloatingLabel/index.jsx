@@ -4,6 +4,8 @@ import classnames from 'classnames';
 import './index.scss';
 
 export default class FloatingLabel extends React.Component {
+    static displayName = 'MDCFloatingLabel';
+
     static defaultProps = {
         float: false
     };
@@ -14,6 +16,7 @@ export default class FloatingLabel extends React.Component {
 
     render() {
         const { float, className, ...props } = this.props;
+        
         const classNames =  classnames('mdc-floating-label', {
             'mdc-floating-label--float-above': float
         }, className);

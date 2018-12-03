@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
+CardMedia.displayName = 'MDCCardMedia';
+
 export default function CardMedia({
     image,
     content,
@@ -8,16 +10,16 @@ export default function CardMedia({
     wide = false,
 
     element = 'div',
-    component = element,
+    component: Element = element,
     className,
     children,
     ...props
 }) {
-    const Element = component;
     const classNames = classnames('mdc-card__media', {
         'mdc-card__media--square': square,
         'mdc-card__media--16-9': wide,
     }, className);
+    
     const style = image && {
         backgroundImage: `url(${image})`
     };

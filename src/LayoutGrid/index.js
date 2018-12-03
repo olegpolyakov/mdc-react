@@ -5,4 +5,4 @@ import LayoutGridCell from './LayoutGridCell';
 
 LayoutGrid.Cell = LayoutGridCell;
 
-export { LayoutGrid as default, LayoutGridCell };
+export { LayoutGrid, LayoutGridCell };

@@ -8,14 +8,14 @@ import DrawerHeader from './DrawerHeader';
 import DrawerContent from './DrawerContent';
 
 export default class Drawer extends React.Component {
+    static displayName = 'MDCDrawer';
+
     static defaultProps = {
         open: false,
         dismissible: false,
         modal: false,
 
-        onClose: Function.prototype,
-
-        element: 'aside'
+        onClose: Function.prototype
     };
 
     static Header = DrawerHeader;
@@ -61,14 +61,13 @@ export default class Drawer extends React.Component {
             position,
             onClose,
 
-            element,
-            component = element,
+            element = 'aside',
+            component: Element = element,
             className,
             children,
             ...props
         } = this.props;
 
-        const Element = component;
         const classNames = classnames('mdc-drawer', {
             'mdc-drawer--dismissible': dismissible,
             'mdc-drawer--modal': modal,

@@ -3,6 +3,8 @@ import classnames from 'classnames';
 
 import './index.scss';
 
+Banner.displayName = 'MDCBanner';
+
 export default function Banner({
     icon,
     text,
@@ -10,12 +12,11 @@ export default function Banner({
     persistent = false,
 
     element = 'div',
-    component = element,
+    component: Element = element,
     className,
     children = text,
     ...props
 }) {
-    const Element = component;
     const classNames = classnames('mdc-banner', {
         'mdc-banner--persistent': persistent
     }, className);

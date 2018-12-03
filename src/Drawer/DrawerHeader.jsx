@@ -1,5 +1,7 @@
 import React from 'react';
 
+DrawerHeader.displayName = 'MDCDrawerHeader';
+
 export default function DrawerHeader({ title, subtitle, children, ...props }) {
     return (
         <div className="mdc-drawer__header" {...props}>

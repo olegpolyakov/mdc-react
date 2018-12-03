@@ -4,6 +4,8 @@ import classnames from 'classnames';
 import './index.scss';
 
 export default class TabScroller extends React.Component {
+    static displayName = 'MDCTabScroller';
+
     static horizontalScrollbarHeight;
 
     static computeHorizontalScrollbarHeight(shouldCacheResult = true) {

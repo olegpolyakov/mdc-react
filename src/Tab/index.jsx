@@ -6,6 +6,8 @@ import { FadingTabIndicator, SlidingTabIndicator } from '../TabIndicator';
 import './index.scss';
 
 export default class Tab extends React.Component {
+    static displayName = 'MDCTab';
+
     static defaultProps = {
         element: 'button',
         active: false,
@@ -70,14 +72,13 @@ export default class Tab extends React.Component {
             onActivate,
 
             element,
-            component = element,
+            component: Element = element,
             className,
             children = label,
             ...props
         } = this.props;
         const { isTransitioning, isTransitionActivating, isTransitionDeactivating } = this.state;
         
-        const Element = component;
         const Indicator = fade ? FadingTabIndicator : SlidingTabIndicator;
         const classNames = classnames('mdc-tab', {
             'mdc-tab--active': active,

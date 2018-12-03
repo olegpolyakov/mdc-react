@@ -1,17 +1,18 @@
 import React from 'react';
 import classnames from 'classnames';
 
+CardActions.displayName = 'MDCCardActions';
+
 export default function CardActions({
     fullBleed = false,
 
-    element = 'div',
+    element: Element = 'div',
     className,
     ...props
 }) {
-    const Element = element;
-    const classNames = classnames('mdc-card__actions', className, {
+    const classNames = classnames('mdc-card__actions', {
         'mdc-card__actions--full-bleed': fullBleed
-    });
+    }, className);
 
     return (
         <Element className={classNames} {...props} />

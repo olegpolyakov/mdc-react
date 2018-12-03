@@ -1,6 +1,8 @@
 import React from 'react';
 
-export default function DataTableFoot({ children, ...props }) {
+DataTableFoot.displayName = 'MDCDataTableFoot';
+
+export default function DataTableFoot(props) {
     return (
         <tfoot className="mdc-data-table__foot" {...props} />
     );

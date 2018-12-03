@@ -3,6 +3,8 @@ import classnames from 'classnames';
 
 import './index.scss';
 
+Layout.displayName = 'MDCLayout';
+
 export default function Layout({
     row,
     column,
@@ -12,11 +14,10 @@ export default function Layout({
     justifyContent,
 
     element = 'div',
-    component = element,
+    component: Element = element,
     className,
     ...props
 }) {
-    const Element = component;
     const classNames = classnames('mdc-layout', {
         'mdc-layout--row': row,
         'mdc-layout--column': column,

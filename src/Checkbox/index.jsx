@@ -4,6 +4,8 @@ import classnames from 'classnames';
 import './index.scss';
 
 export default class Checkbox extends React.Component {
+    static displayName = 'MDCCheckbox';
+
     static defaultProps = {
         checked: false,
         indeterminate: false,

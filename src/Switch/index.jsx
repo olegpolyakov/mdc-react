@@ -4,6 +4,8 @@ import classnames from 'classnames';
 import './index.scss';
 
 export default class Switch extends React.Component {
+    static displayName = 'MDCSwitch';
+
     static defaultProps = {
         checked: false,
         disabled: false,
@@ -14,10 +16,8 @@ export default class Switch extends React.Component {
     handleChange = event => this.props.onChange(!this.props.checked, event);
 
     render() {
-        const {
-            checked, disabled, onChange,
-            className, ...props
-        } = this.props;
+        const { checked, disabled, onChange, className, ...props } = this.props;
+
         const classNames = classnames('mdc-switch', {
             'mdc-switch--checked': checked,
             'mdc-switch--disabled': disabled

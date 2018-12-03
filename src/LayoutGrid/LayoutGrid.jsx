@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
+LayoutGrid.displayName = 'MDCLayoutGrid';
+
 export default function LayoutGrid({
     align,
     fixed = false,

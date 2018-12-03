@@ -1,15 +1,16 @@
 import React from 'react';
 import classnames from 'classnames';
 
+ListGroupSubheader.displayName = 'MDCListGroupSubheader';
+
 export default function ListGroupSubheader({
     title,
 
-    element = 'h3',
+    element: Element = 'h3',
     className,
     children = title,
     ...props
 }) {
-    const Element = element;
     const classNames = classnames('mdc-list-group__subheader', className);
 
     return (

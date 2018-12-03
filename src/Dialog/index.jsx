@@ -7,6 +7,8 @@ import Modal from '../Modal';
 import './index.scss';
 
 export default class Dialog extends React.Component {
+    static displayName = 'MDCDialog';
+
     static defaultProps = {
         open: false,
         confirmation: false,
@@ -64,7 +66,18 @@ export default class Dialog extends React.Component {
     }
 
     render() {
-        const { open, confirmation, title, actions, className, children, ...props } = this.props;
+        const {
+            open,
+            confirmation,
+            title,
+            actions,
+
+            element: Element = 'div',
+            className,
+            children,
+            ...props
+        } = this.props;
+
         const classNames = classnames('mdc-dialog', className);
 
         return (
@@ -81,7 +94,7 @@ export default class Dialog extends React.Component {
                 unmountOnExit
             >
                 <Modal>
-                    <div
+                    <Element
                         className={classNames}
                         ref={element => this.rootElement = element}
                         role="alertdialog"
@@ -107,7 +120,7 @@ export default class Dialog extends React.Component {
                         </div>
 
                         <div className="mdc-dialog__scrim" onClick={this.handleScrimClick} />
-                    </div>
+                    </Element>
                 </Modal>
             </CSSTransition>
         ); 

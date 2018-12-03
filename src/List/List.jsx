@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
+List.displayName = 'MDCList';
+
 export default function List({
     inset = false,
     dense = false,
@@ -8,11 +10,10 @@ export default function List({
     avatarList = false,
     nonInteractive = false,
 
-    element = 'ul',
+    element: Element = 'ul',
     className,
     ...props
 }) {
-    const Element = element;
     const classNames = classnames('mdc-list', {
         'mdc-list--inset': inset,
         'mdc-list--dense': dense,
