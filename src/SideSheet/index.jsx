@@ -9,6 +9,7 @@ export default class SideSheet extends React.Component {
 
     static defaultProps = {
         open: false,
+        appear: false,
         dismissible: false,
         modal: false,
 
@@ -52,16 +53,14 @@ export default class SideSheet extends React.Component {
         }
     };
 
-    handleScrimClick = event => {
-        this.props.onClose();
-    };
+    handleScrimClick = event => this.props.onClose();
 
     render() {
         const {
             open,
+            appear,
             dismissible,
             modal,
-            position,
             onClose,
 
             element = 'aside',
@@ -79,16 +78,18 @@ export default class SideSheet extends React.Component {
         return (
             <CSSTransition
                 in={open}
+                appear={appear}
                 timeout={{
                     enter: 250,
                     exit: 200
                 }}
                 classNames={{
+                    appear: `${SideSheet.cssClasses.OPEN}`,
                     enter: `${SideSheet.cssClasses.OPEN} ${SideSheet.cssClasses.ANIMATE}`,
-                    enterActive: SideSheet.cssClasses.OPENING,
+                    enterActive: `${SideSheet.cssClasses.OPEN} ${SideSheet.cssClasses.OPENING}`,
                     enterDone: SideSheet.cssClasses.OPEN,
-                    exit: `${SideSheet.cssClasses.OPEN}`,
-                    exitActive: `${SideSheet.cssClasses.OPEN} ${SideSheet.cssClasses.CLOSING}`
+                    exit: `${SideSheet.cssClasses.OPEN} ${SideSheet.cssClasses.CLOSING}`,
+                    exitActive: `${SideSheet.cssClasses.CLOSING}`
                 }}
             >
                 <React.Fragment>
