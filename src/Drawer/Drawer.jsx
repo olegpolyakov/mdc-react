@@ -1,25 +1,20 @@
 import React from 'react';
 import classnames from 'classnames';
-import Transition from 'react-transition-group/Transition';
+import CSSTransition from 'react-transition-group/CSSTransition';
 
 import './index.scss';
-
-import DrawerHeader from './DrawerHeader';
-import DrawerContent from './DrawerContent';
 
 export default class Drawer extends React.Component {
     static displayName = 'MDCDrawer';
 
     static defaultProps = {
         open: false,
+        appear: false,
         dismissible: false,
         modal: false,
 
         onClose: Function.prototype
     };
-
-    static Header = DrawerHeader;
-    static Content = DrawerContent;
 
     componentDidMount() {
         if (this.props.dismissible) {
@@ -47,18 +42,14 @@ export default class Drawer extends React.Component {
         }
     };
 
-    handleScrimClick = event => {
-        this.props.onClose();
-    };
+    handleScrimClick = event => this.props.onClose();
 
     render() {
         const {
             open,
+            appear,
             dismissible,
             modal,
-            title,
-            subtitle,
-            position,
             onClose,
 
             element = 'aside',
@@ -70,19 +61,24 @@ export default class Drawer extends React.Component {
 
         const classNames = classnames('mdc-drawer', {
             'mdc-drawer--dismissible': dismissible,
-            'mdc-drawer--modal': modal,
-            'mdc-drawer--open': open
+            'mdc-drawer--modal': modal
         }, className);
 
         return (
-            <Transition
+            <CSSTransition
                 in={open}
-                timeout={200}
+                appear={appear}
+                timeout={{
+                    enter: 250,
+                    exit: 200
+                }}
                 classNames={{
-                    enter: 'mdc-drawer--opening',
-                    enterActive: 'mdc-drawer--animate',
+                    appear: 'mdc-drawer--open',
+                    enter: 'mdc-drawer--open mdc-drawer--animate',
+                    enterActive: 'mdc-drawer--open mdc-drawer--opening',
                     enterDone: 'mdc-drawer--open',
-                    exit: 'mdc-drawer--closing'
+                    exit: 'mdc-drawer--open mdc-drawer--closing',
+                    exitActive: 'mdc-drawer--closing'
                 }}
             >
                 <React.Fragment>
@@ -91,11 +87,7 @@ export default class Drawer extends React.Component {
                         ref={element => this.rootElement = element}
                         {...props}
                     >
-                        {title && <DrawerHeader title={title} subtitle={subtitle} />}
-
-                        <DrawerContent>
-                            {children}
-                        </DrawerContent>
+                        {children}
                     </Element>
 
                     {modal &&
@@ -106,7 +98,7 @@ export default class Drawer extends React.Component {
                         />
                     }
                 </React.Fragment>
-            </Transition>
+            </CSSTransition>
         );
     }
 }
