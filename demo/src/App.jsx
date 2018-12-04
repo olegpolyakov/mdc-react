@@ -3,7 +3,17 @@ import { Route, NavLink } from 'react-router-dom';
 
 import './App.css';
 
-import { Layout, TopAppBar, Icon, Drawer, List, ListItem } from '../../src';
+import {
+    Avatar,
+    Layout,
+    TopAppBar,
+    Icon,
+    Drawer,
+    DrawerHeader,
+    DrawerContent,
+    List,
+    ListItem
+} from '../../src';
 
 import IndexPage from './components/index';
 import AvatarPage from './components/Avatar';
@@ -45,43 +55,51 @@ export default class App extends React.Component {
                     title="MDC React"
                     dismissible
                     open={this.state.open}
+                    appear
                     onClose={() => this.setState(state => ({ open: !state.open }))}
-                >                    
-                    <List element="nav">
-                        <ListItem component={NavLink} to="/avatar" activeClassName="mdc-list-item--activated">Avatar</ListItem>
-                        <ListItem component={NavLink} to="/badge" activeClassName="mdc-list-item--activated">Badge</ListItem>
-                        <ListItem component={NavLink} to="/banner" activeClassName="mdc-list-item--activated">Banner</ListItem>
-                        <ListItem component={NavLink} to="/button" activeClassName="mdc-list-item--activated">Button</ListItem>
-                        <ListItem component={NavLink} to="/cards" activeClassName="mdc-list-item--activated">Card</ListItem>
-                        <ListItem component={NavLink} to="/checkbox" activeClassName="mdc-list-item--activated">Checkbox</ListItem>
-                        <ListItem component={NavLink} to="/chips" activeClassName="mdc-list-item--activated">Chips</ListItem>
-                        <ListItem component={NavLink} to="/data-table" activeClassName="mdc-list-item--activated">Data Table</ListItem>
-                        <ListItem component={NavLink} to="/dialog" activeClassName="mdc-list-item--activated">Dialog</ListItem>
-                        <ListItem>Drawer</ListItem>
-                        <List inset>
-                            <ListItem component={NavLink} to="/drawer" activeClassName="mdc-list-item--activated">Permanent</ListItem>
-                            <ListItem component={NavLink} to="/drawer/dismissible" activeClassName="mdc-list-item--activated">Dismissible</ListItem>
-                            <ListItem component={NavLink} to="/drawer/modal" activeClassName="mdc-list-item--activated">Modal</ListItem>
+                >
+                    <DrawerHeader
+                        graphic={<Avatar src="/img/mdc-logo.png" />}
+                        title="MDC React"
+                    />
+
+                    <DrawerContent>
+                        <List element="nav">
+                            <ListItem component={NavLink} to="/avatar" activeClassName="mdc-list-item--activated">Avatar</ListItem>
+                            <ListItem component={NavLink} to="/badge" activeClassName="mdc-list-item--activated">Badge</ListItem>
+                            <ListItem component={NavLink} to="/banner" activeClassName="mdc-list-item--activated">Banner</ListItem>
+                            <ListItem component={NavLink} to="/button" activeClassName="mdc-list-item--activated">Button</ListItem>
+                            <ListItem component={NavLink} to="/cards" activeClassName="mdc-list-item--activated">Card</ListItem>
+                            <ListItem component={NavLink} to="/checkbox" activeClassName="mdc-list-item--activated">Checkbox</ListItem>
+                            <ListItem component={NavLink} to="/chips" activeClassName="mdc-list-item--activated">Chips</ListItem>
+                            <ListItem component={NavLink} to="/data-table" activeClassName="mdc-list-item--activated">Data Table</ListItem>
+                            <ListItem component={NavLink} to="/dialog" activeClassName="mdc-list-item--activated">Dialog</ListItem>
+                            <ListItem>Drawer</ListItem>
+                            <List inset>
+                                <ListItem component={NavLink} to="/drawer" activeClassName="mdc-list-item--activated">Permanent</ListItem>
+                                <ListItem component={NavLink} to="/drawer/dismissible" activeClassName="mdc-list-item--activated">Dismissible</ListItem>
+                                <ListItem component={NavLink} to="/drawer/modal" activeClassName="mdc-list-item--activated">Modal</ListItem>
+                            </List>
+                            <ListItem component={NavLink} to="/fab" activeClassName="mdc-list-item--activated">FAB</ListItem>
+                            <ListItem component={NavLink} to="/icon-button" activeClassName="mdc-list-item--activated">Icon Button</ListItem>
+                            <ListItem component={NavLink} to="/layout-grid" activeClassName="mdc-list-item--activated">Layout Grid</ListItem>
+                            <ListItem component={NavLink} to="/list" activeClassName="mdc-list-item--activated">List</ListItem>
+                            <ListItem component={NavLink} to="/menu" activeClassName="mdc-list-item--activated">Menu</ListItem>
+                            <ListItem component={NavLink} to="/radio" activeClassName="mdc-list-item--activated">Radio</ListItem>
+                            <ListItem>Side Sheet</ListItem>
+                            <List inset>
+                                <ListItem component={NavLink} to="/side-sheet" activeClassName="mdc-list-item--activated">Basic</ListItem>
+                                <ListItem component={NavLink} to="/side-sheet/dismissible" activeClassName="mdc-list-item--activated">Dismissible</ListItem>
+                                <ListItem component={NavLink} to="/side-sheet/modal" activeClassName="mdc-list-item--activated">Modal</ListItem>
+                            </List>
+                            <ListItem component={NavLink} to="/select" activeClassName="mdc-list-item--activated">Select</ListItem>
+                            <ListItem component={NavLink} to="/snackbar" activeClassName="mdc-list-item--activated">Snackbar</ListItem>
+                            <ListItem component={NavLink} to="/switch" activeClassName="mdc-list-item--activated">Switch</ListItem>
+                            <ListItem component={NavLink} to="/tab-bar" activeClassName="mdc-list-item--activated">Tab Bar</ListItem>
+                            <ListItem component={NavLink} to="/text-field" activeClassName="mdc-list-item--activated">Text Field</ListItem>
+                            <ListItem component={NavLink} to="/typography" activeClassName="mdc-list-item--activated">Typography</ListItem>
                         </List>
-                        <ListItem component={NavLink} to="/fab" activeClassName="mdc-list-item--activated">FAB</ListItem>
-                        <ListItem component={NavLink} to="/icon-button" activeClassName="mdc-list-item--activated">Icon Button</ListItem>
-                        <ListItem component={NavLink} to="/layout-grid" activeClassName="mdc-list-item--activated">Layout Grid</ListItem>
-                        <ListItem component={NavLink} to="/list" activeClassName="mdc-list-item--activated">List</ListItem>
-                        <ListItem component={NavLink} to="/menu" activeClassName="mdc-list-item--activated">Menu</ListItem>
-                        <ListItem component={NavLink} to="/radio" activeClassName="mdc-list-item--activated">Radio</ListItem>
-                        <ListItem>Side Sheet</ListItem>
-                        <List inset>
-                            <ListItem component={NavLink} to="/side-sheet" activeClassName="mdc-list-item--activated">Basic</ListItem>
-                            <ListItem component={NavLink} to="/side-sheet/dismissible" activeClassName="mdc-list-item--activated">Dismissible</ListItem>
-                            <ListItem component={NavLink} to="/side-sheet/modal" activeClassName="mdc-list-item--activated">Modal</ListItem>
-                        </List>
-                        <ListItem component={NavLink} to="/select" activeClassName="mdc-list-item--activated">Select</ListItem>
-                        <ListItem component={NavLink} to="/snackbar" activeClassName="mdc-list-item--activated">Snackbar</ListItem>
-                        <ListItem component={NavLink} to="/switch" activeClassName="mdc-list-item--activated">Switch</ListItem>
-                        <ListItem component={NavLink} to="/tab-bar" activeClassName="mdc-list-item--activated">Tab Bar</ListItem>
-                        <ListItem component={NavLink} to="/text-field" activeClassName="mdc-list-item--activated">Text Field</ListItem>
-                        <ListItem component={NavLink} to="/typography" activeClassName="mdc-list-item--activated">Typography</ListItem>
-                    </List>
+                    </DrawerContent>
                 </Drawer>
                 
                 <Layout id="content">
