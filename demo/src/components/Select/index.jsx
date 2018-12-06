@@ -4,7 +4,7 @@ import { Layout, Typography, Select, Option, Icon } from 'src';
 
 export default class ButtonsPage extends React.Component {
     state = {
-        value: ''
+        value: 'apple'
     };
 
     handleChange = value => this.setState({ value });
@@ -23,6 +23,22 @@ export default class ButtonsPage extends React.Component {
                     <Select
                         label="Fruit"
                         value={value}
+                        onChange={this.handleChange}
+                    >
+                        <Option value="" />
+                        <Option value="apple">Apple</Option>
+                        <Option value="banana">Banana</Option>
+                        <Option value="orange">Orange</Option>
+                    </Select>
+                </section>
+
+                <section>
+                    <Typography variant="subtitle1">Outlined</Typography>
+                    
+                    <Select
+                        label="Fruit"
+                        value={value}
+                        outlined
                         onChange={this.handleChange}
                     >
                         <Option value="" />

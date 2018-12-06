@@ -33,6 +33,27 @@ export default class TextFieldPage extends React.Component {
                 </section>
 
                 <section>
+                    <Typography variant="subtitle1" component="h2">Outlined</Typography>
+
+                    <Layout>
+                        <TextField
+                            label="Standard"
+                            value={this.state.username}
+                            outlined
+                            onChange={value => this.setState({ username: value })}
+                        />
+
+                        <TextField
+                            label="Dense"
+                            value={this.state.username}
+                            outlined
+                            dense
+                            onChange={value => this.setState({ username: value })}
+                        />
+                    </Layout>
+                </section>
+
+                <section>
                     <Typography variant="subtitle1" component="h2">Filled With Leading Icon</Typography>
 
                     <Layout>
@@ -81,7 +102,7 @@ export default class TextFieldPage extends React.Component {
                         <TextField
                             label="Standard"
                             value={this.state.bio}
-                            fullWidth
+                            fullwidth
                             onChange={value => this.setState({ bio: value })}
                         />
 
@@ -89,7 +110,7 @@ export default class TextFieldPage extends React.Component {
                             label="Standard"
                             dense
                             value={this.state.bio}
-                            fullWidth
+                            fullwidth
                             onChange={value => this.setState({ bio: value })}
                         />
                     </Layout>
