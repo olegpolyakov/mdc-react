@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
+import NotchedOutline from '../NotchedOutline';
 import LineRipple from '../LineRipple';
 import FloatingLabel from '../FloatingLabel';
 import HelperText from './HelperText';
@@ -12,11 +13,11 @@ export default class TextField extends React.Component {
 
     static defaultProps = {
         type: 'text',
-        fullWidth: false,
         outlined: false,
+        fullwidth: false,
+        textarea: false,
         dense: false,
         disabled: false,
-        textarea: false,
         validationMessage: false,
 
         onChange: Function.prototype
@@ -43,6 +44,18 @@ export default class TextField extends React.Component {
         }
     }
 
+    get notchedOutlineWidth() {
+        const width = ((this.props.outlined || this.props.textarea) && this.floatingLabel) ? this.floatingLabel.width : 0;
+        const labelScale = this.props.dense ? 1.22 : 0.895;
+        
+        return width * labelScale;
+    }
+
+    setFloatingLabelRef = component => {
+        this.floatingLabel = component;
+        this.forceUpdate();
+    };
+
     handleRootInteraction = event => {
         this.input.focus();
         this.setState({ focused: true });
@@ -66,7 +79,8 @@ export default class TextField extends React.Component {
 
     render() {
         const {
-            fullWidth,
+            value,
+            fullwidth,
             outlined,
             dense,
             disabled,
@@ -81,11 +95,14 @@ export default class TextField extends React.Component {
             onChange,
             ...props
         } = this.props;
+
         const { focused } = this.state;
+
         const Input = textarea ? 'textarea' : 'input';
+
         const classNames = classnames('mdc-text-field', {
-            'mdc-text-field--outlined': outlined && !fullWidth,
-            'mdc-text-field--fullwidth': fullWidth,
+            'mdc-text-field--outlined': outlined && !fullwidth,
+            'mdc-text-field--fullwidth': fullwidth,
             'mdc-text-field--textarea': textarea,
             'mdc-text-field--dense': dense,
             'mdc-text-field--disabled': disabled,
@@ -94,7 +111,7 @@ export default class TextField extends React.Component {
             'mdc-text-field--with-leading-icon': leadingIcon,
             'mdc-text-field--with-trailing-icon': trailingIcon,
         }, 'mdc-text-field--upgraded', className);
-
+        
         return (
             <React.Fragment>
                 <div className={classNames}>
@@ -107,7 +124,8 @@ export default class TextField extends React.Component {
                     <Input
                         className="mdc-text-field__input"
                         ref={element => this.input = element}
-                        placeholder={fullWidth ? label : undefined}
+                        value={value}
+                        placeholder={fullwidth ? label : undefined}
                         disabled={disabled}
                         onChange={this.handleInputChange}
                         onFocus={this.handleInputFocus}
@@ -117,9 +135,23 @@ export default class TextField extends React.Component {
                         {...props}
                     />
 
-                    {(label && !fullWidth) &&
+                    {(textarea || outlined) &&
+                        <NotchedOutline
+                            notched={focused || value}
+                            width={this.notchedOutlineWidth}
+                        >
+                            <FloatingLabel
+                                ref={this.setFloatingLabelRef}
+                                float={focused || value || !this.isValid}
+                            >
+                                {label}
+                            </FloatingLabel>
+                        </NotchedOutline>
+                    }
+
+                    {(!textarea && !outlined && label && !fullwidth) &&
                         <FloatingLabel
-                            float={focused || this.props.value || !this.isValid}
+                            float={focused || value || !this.isValid}
                         >
                             {label}
                         </FloatingLabel>
@@ -131,7 +163,7 @@ export default class TextField extends React.Component {
                         role: 'button'
                     })}
 
-                    {(!fullWidth && !textarea && !outlined) &&
+                    {(!fullwidth && !textarea && !outlined) &&
                         <LineRipple
                             active={focused}
                             center={this.lineRippleTransformOrigin}
