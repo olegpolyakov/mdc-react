@@ -26,7 +26,6 @@
             @include mdc-theme-prop(color, text-primary-on-light);
             @include mdc-typography-overflow-ellipsis;
             margin: 0;
-            line-height: 2rem;
 
             + .mdc-card__header__subtitle {
                 line-height: 1.5rem;
