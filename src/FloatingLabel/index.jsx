@@ -11,7 +11,7 @@ export default class FloatingLabel extends React.Component {
     };
 
     get width() {
-        return this.root ? this.root.offsetWidth : 0;
+        return this.rootElement ? this.rootElement.offsetWidth : 0;
     }
 
     render() {
@@ -23,8 +23,8 @@ export default class FloatingLabel extends React.Component {
 
         return (
             <label
-                className={classNames}
                 ref={element => this.rootElement = element}
+                className={classNames}
                 {...props}
             />
         );
