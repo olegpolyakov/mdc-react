@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
+import NotchedOutline from '../NotchedOutline';
 import LineRipple from '../LineRipple';
 import FloatingLabel from '../FloatingLabel';
 import { Menu, MenuItem } from '../Menu';
@@ -26,16 +27,21 @@ export class Select extends React.Component {
     };
 
     state = {
+        selectedText: '',
         focused: false
     };
 
-    text = new Map();
+    get notchedOutlineWidth() {
+        const width = (this.props.outlined && this.floatingLabel) ? this.floatingLabel.width : 0;
+        const labelScale = 0.95;
 
-    componentDidMount() {
-        const options = React.Children.toArray(this.props.children);
-
-        this.text = new Map(options.map(option => [option.props.value, option.props.children]));
+        return width * labelScale;
     }
+
+    setFloatingLabelRef = component => {
+        this.floatingLabel = component;
+        this.forceUpdate();
+    };
 
     handleMenuClose = () => this.setState({ focused: false });
 
@@ -48,11 +54,11 @@ export class Select extends React.Component {
         this.lineRippleTransformOrigin = coords.x - targetClientRect.left;
     };
 
-    handleOptionClick = (value, event) => {
+    handleOptionClick = (value, text, event) => {
         event.stopPropagation();
 
         this.props.onChange(value, this.inputElement);
-        this.setState({ focused: false });
+        this.setState({ selectedText: text, focused: false });
     };
 
     render() {
@@ -72,7 +78,7 @@ export class Select extends React.Component {
             ...props
         } = this.props;
 
-        const { focused } = this.state;
+        const { selectedText, focused } = this.state;
         
         const classNames = classnames('mdc-select', {
             'mdc-select--outlined': outlined,
@@ -82,8 +88,6 @@ export class Select extends React.Component {
             'mdc-select--invalid': false,
             'mdc-select--with-leading-icon': leadingIcon
         }, className);
-
-        const selectedText = this.text.get(value);
         
         return (
             <React.Fragment>
@@ -112,6 +116,20 @@ export class Select extends React.Component {
 
                     <div className="mdc-select__selected-text">{selectedText}</div>
 
+                    {outlined && label &&
+                        <NotchedOutline
+                            notched={focused || value}
+                            width={this.notchedOutlineWidth}
+                        >
+                            <FloatingLabel
+                                ref={this.setFloatingLabelRef}
+                                float={focused || value}
+                            >
+                                {label}
+                            </FloatingLabel>
+                        </NotchedOutline>
+                    }
+
                     <Menu
                         className="mdc-select__menu"
                         open={focused}
@@ -122,13 +140,13 @@ export class Select extends React.Component {
                             React.cloneElement(option, {
                                 value: undefined,
                                 selected: option.props.value === value,
-                                onClick: option.props.disabled ? undefined : event => this.handleOptionClick(option.props.value, event)
+                                onClick: option.props.disabled ? undefined : event => this.handleOptionClick(option.props.value || index, option.props.text || option.props.children, event)
                             })
                         )}
                     </Menu>
 
-                    {label &&
-                        <FloatingLabel float={focused || value !== ''}>
+                    {!outlined && label &&
+                        <FloatingLabel float={focused || value}>
                             {label}
                         </FloatingLabel>
                     }
