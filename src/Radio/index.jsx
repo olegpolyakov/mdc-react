@@ -14,10 +14,10 @@ export default class Radio extends React.Component {
     }
 
     componentDidUpdate() {
-        this.input.blur();
+        this.inputElement.blur();
     }
 
-    handleChange = event => this.props.onChange(this.props.value, this.input, event);
+    handleChange = event => this.props.onChange(this.props.value, this.inputElement, event);
 
     render() {
         const {
@@ -38,7 +38,7 @@ export default class Radio extends React.Component {
             <div className={classNames}>
                 <input
                     className="mdc-radio__native-control"
-                    ref={element => this.input = element}
+                    ref={element => this.inputElement = element}
                     type="radio"
                     checked={checked}
                     disabled={disabled}

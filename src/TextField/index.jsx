@@ -29,18 +29,18 @@ export default class TextField extends React.Component {
     };
 
     get isValid() {
-        return this.input ? this.input.validity.valid : true;
+        return this.inputElement ? this.inputElement.validity.valid : true;
     }
 
     get value() {
-        return this.input ? this.input.value : undefined;
+        return this.inputElement ? this.inputElement.value : undefined;
     }
 
     get validationMessage() {
         if (typeof this.props.validationMessage === 'string') {
             return this.props.validationMessage;
         } else if (this.props.validationMessage === true) {
-            return this.input ? this.input.validationMessage : undefined;
+            return this.inputElement ? this.inputElement.validationMessage : undefined;
         }
     }
 
@@ -57,7 +57,7 @@ export default class TextField extends React.Component {
     };
 
     handleRootInteraction = event => {
-        this.input.focus();
+        this.inputElement.focus();
         this.setState({ focused: true });
     }
 
@@ -75,7 +75,7 @@ export default class TextField extends React.Component {
         this.setState({ focused: false });
     }
 
-    handleInputChange = event => this.props.onChange(this.value, this.input, event);
+    handleInputChange = event => this.props.onChange(this.value, this.inputElement, event);
 
     render() {
         const {
@@ -123,7 +123,7 @@ export default class TextField extends React.Component {
 
                     <Input
                         className="mdc-text-field__input"
-                        ref={element => this.input = element}
+                        ref={element => this.inputElement = element}
                         value={value}
                         placeholder={fullwidth ? label : undefined}
                         disabled={disabled}

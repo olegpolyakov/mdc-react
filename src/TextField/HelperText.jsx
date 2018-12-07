@@ -8,7 +8,6 @@ export default function HelperText({
     validation = false,
 
     element: Element = 'p',
-    children,
     ...props
 }) {
     const classNames = classnames('mdc-text-field-helper-text', {

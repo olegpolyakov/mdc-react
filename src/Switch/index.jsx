@@ -13,7 +13,7 @@ export default class Switch extends React.Component {
         onChange: Function.prototype
     };
 
-    handleChange = event => this.props.onChange(!this.props.checked, event);
+    handleChange = event => this.props.onChange(!this.props.checked, this.inputElement, event);
 
     render() {
         const { checked, disabled, onChange, className, ...props } = this.props;
@@ -29,6 +29,7 @@ export default class Switch extends React.Component {
                 <div className="mdc-switch__thumb-underlay">
                     <div className="mdc-switch__thumb">
                         <input
+                            ref={element => this.inputElement = element}
                             className="mdc-switch__native-control"
                             type="checkbox"
                             role="switch"

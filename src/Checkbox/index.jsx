@@ -15,10 +15,10 @@ export default class Checkbox extends React.Component {
     };
 
     componentDidUpdate() {
-        this.input.blur();
+        this.inputElement.blur();
     }
 
-    handleChange = event => this.props.onChange(this.input, event);
+    handleChange = event => this.props.onChange(!this.props.checked, this.inputElement, event);
 
     render() {
         const {
@@ -41,7 +41,7 @@ export default class Checkbox extends React.Component {
         return (
             <div className={classNames}>
                 <input
-                    ref={element => this.input = element}
+                    ref={element => this.inputElement = element}
                     type="checkbox"
                     className="mdc-checkbox__native-control"
                     checked={checked}
