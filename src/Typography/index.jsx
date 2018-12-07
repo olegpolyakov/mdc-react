@@ -33,7 +33,7 @@ export default function Typography({
 }) {
     if (!variant in variants) throw new Error('Typography variant is invalid');
 
-    const classNames = classnames(`mdc-typography--${variant}`, {
+    const classNames = classnames('mdc-typography', `mdc-typography--${variant}`, {
         [`mdc-typography--display-${display}`]: display,
         [`mdc-typography--align-${align}`]: align,
         'mdc-typography--no-margin': noMargin,
