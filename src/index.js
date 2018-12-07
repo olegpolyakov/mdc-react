@@ -18,6 +18,7 @@ export { LayoutGrid, LayoutGridCell } from './LayoutGrid';
 export { default as LinearProgress } from './LinearProgress';
 export { List, ListDivider, ListItem, ListItemGraphic, ListItemText, ListItemMeta, ListGroup, ListGroupSubheader } from './List';
 export { Menu, MenuItem } from './Menu';
+export { default as MenuSurface } from './MenuSurface';
 export { default as Radio } from './Radio';
 export { default as SideSheet } from './SideSheet';
 export { Select, Option } from './Select';

@@ -1,8 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
+import MenuSurface from '../MenuSurface';
 import { List } from '../List';
-import MenuSurface from './MenuSurface';
 
 Menu.displayName = 'MDCMenu';
 

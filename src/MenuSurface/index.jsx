@@ -4,6 +4,8 @@ import classnames from 'classnames';
 
 import Modal from '../Modal';
 
+import './index.scss';
+
 export default class MenuSurface extends React.Component {
     static displayName = 'MDCMenuSurface';
 
