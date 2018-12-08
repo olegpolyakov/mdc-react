@@ -1,4 +1,7 @@
+@import '@material/theme/variables';
 @import '@material/theme/color-palette';
+@import '../mixins';
+@import '../variables';
 
 $spinner-size: 28px !default;
 $spinner-stroke-width: 3px !default;
@@ -95,7 +98,7 @@ $spinner-single-color: $mdc-theme-primary !default;
     width: $spinner-size;
     height: $spinner-size;
 
-    &.is-upgraded--active {
+    &--active {
         animation: mdc-spinner__container-rotate $spinner-duration linear infinite;
     }
 }
