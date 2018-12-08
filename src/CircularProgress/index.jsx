@@ -3,6 +3,8 @@ import classnames from 'classnames';
 
 CircularProgress.displayName = 'MDCCircularProgress';
 
+import './index.scss';
+
 export default function CircularProgress({ value, className, ...props }) {
     const angle = value * 289.067 / 100;
     const diff = 289.067 - angle;

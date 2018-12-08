@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
+import './index.scss';
+
 LinearProgress.displayName = 'MDCLinearProgress';
 
 export default function LinearProgress({

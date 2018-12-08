@@ -3,6 +3,8 @@ import classnames from 'classnames';
 
 Spinner.displayName = 'MDCSpinner';
 
+import './index.scss';
+
 export default function Spinner({
     active = true,
     singleColor = true,

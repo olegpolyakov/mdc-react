@@ -2,8 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 import CSSTransition from 'react-transition-group/CSSTransition';
 
-import './index.scss';
-
 export default class Drawer extends React.Component {
     static displayName = 'MDCDrawer';
 
