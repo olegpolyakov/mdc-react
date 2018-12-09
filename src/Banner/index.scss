@@ -1,23 +1,23 @@
 @import '@material/theme/mixins';
+@import '@material/ripple/mixins';
 
 .mdc-banner {
     @include mdc-theme-prop(background-color, secondary);
     @include mdc-theme-prop(color, on-secondary);
-    padding: 16px;
-    width: 100%;
 
-    &__content {
+    & &__content {
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 16px;
     }
 
-    &__icon {
+    & &__icon {
         margin-right: 12px;
         width: 24px;
     }
 
-    &__text {
+    & &__text {
         margin: 0;
 
         a {
@@ -25,7 +25,10 @@
         }
     }
 
-    &__action {
+    & &__action {
+        @include mdc-theme-prop(background-color, secondary, true);
+        @include mdc-theme-prop(color, on-secondary, true);
+        @include mdc-states(on-secondary);
         margin-left: 12px;
     }
 }
