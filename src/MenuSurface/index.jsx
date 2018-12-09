@@ -1,5 +1,5 @@
 import React from 'react';
-import CSSTransition from 'react-transition-group/CSSTransition';
+import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 
 import Modal from '../Modal';
@@ -46,14 +46,14 @@ export default class MenuSurface extends React.Component {
         }
 
         if (top || !bottom) {
-            const top = anchorDimensions.top;
-            const bottom = top + height
+            const top = anchorDimensions.top + window.scrollY;
+            const bottom = anchorDimensions.top + height;
             const delta = window.innerHeight - bottom;
-            
+
             style.top = `${delta > 0 ? top : top - Math.abs(delta)}px`;
             style.transformOrigin += ' top';
         } else if (bottom) {
-            const top = anchorDimensions.bottom - height;
+            const top = anchorDimensions.bottom - height + window.scrollY;
             
             style.top = `${top > 0 ? top : 0}px`;
             style.transformOrigin += ' bottom';
