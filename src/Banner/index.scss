@@ -1,6 +1,8 @@
+@import '@material/theme/mixins';
+
 .mdc-banner {
-    background-color: #6200ee;
-    color: #fff;
+    @include mdc-theme-prop(background-color, secondary);
+    @include mdc-theme-prop(color, on-secondary);
     padding: 16px;
     width: 100%;
 
@@ -19,7 +21,7 @@
         margin: 0;
 
         a {
-            color: white;
+            color: inherit;
         }
     }
 
