@@ -20,7 +20,6 @@ export default class MenuSurface extends React.Component {
     };
 
     setStyle() {
-        if (this._style) return this._style;
         if (!this.root || !this.props.anchor) return;
 
         const { anchor, top, left, bottom, right } = this.props;
