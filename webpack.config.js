@@ -81,7 +81,8 @@ module.exports = env => {
 
         externals: {
             'react': 'react',
-            'react-dom': 'react-dom'
+            'react-dom': 'react-dom',
+            'react-transition-group': 'react-transition-group'
         }
     };
 };
