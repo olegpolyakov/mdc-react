@@ -107,7 +107,6 @@ export default class Tab extends React.Component {
                 <Indicator
                     ref={component => this.indicator = component}
                     active={active}
-                    fade={fade}
                     underline={underline}
                     previousIndicatorClientRect={active ? previousIndicatorClientRect : undefined}
                 />
