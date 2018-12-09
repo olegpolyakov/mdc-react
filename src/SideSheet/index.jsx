@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import CSSTransition from 'react-transition-group/CSSTransition';
+import { CSSTransition } from 'react-transition-group';
 
 import './index.scss';
 
