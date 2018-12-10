@@ -30,7 +30,7 @@ export default class BadgesPage extends React.Component {
                 <section>
                     <Typography variant="subtitle1" component="h2">Icon, Text and Action</Typography>
 
-                    <Banner icon={<Icon>info_outline</Icon>} action={<Button unelevated>Go</Button>}>
+                    <Banner icon={<Icon>info_outline</Icon>} action={<Button>Go</Button>}>
                     <Typography variant="subtitle2">Are you a part of the Material Design web community? Help us improve by filling out this <a href="#">10 minute survey</a>.</Typography>
                     </Banner>
                 </section>
