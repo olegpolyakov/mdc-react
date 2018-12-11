@@ -5,6 +5,7 @@ import NotchedOutline from '../NotchedOutline';
 import LineRipple from '../LineRipple';
 import FloatingLabel from '../FloatingLabel';
 import { Menu, MenuItem } from '../Menu';
+import { MenuSurface } from '../MenuSurface';
 import HelperText from './HelperText';
 
 import './index.scss';
@@ -130,20 +131,21 @@ export class Select extends React.Component {
                         </NotchedOutline>
                     }
 
-                    <Menu
-                        className="mdc-select__menu"
+                    <MenuSurface
                         open={focused}
                         anchor={this.rootElement}
                         onClose={this.handleMenuClose}
                     >
-                        {React.Children.map(children, (option, index) =>
-                            React.cloneElement(option, {
-                                value: undefined,
-                                selected: option.props.value === value,
-                                onClick: option.props.disabled ? undefined : event => this.handleOptionClick(option.props.value || index, option.props.text || option.props.children, event)
-                            })
-                        )}
-                    </Menu>
+                        <Menu className="mdc-select__menu">
+                            {React.Children.map(children, (option, index) =>
+                                React.cloneElement(option, {
+                                    value: undefined,
+                                    selected: option.props.value === value,
+                                    onClick: option.props.disabled ? undefined : event => this.handleOptionClick(option.props.value || index, option.props.text || option.props.children, event)
+                                })
+                            )}
+                        </Menu>
+                    </MenuSurface>
 
                     {!outlined && label &&
                         <FloatingLabel float={focused || value}>
