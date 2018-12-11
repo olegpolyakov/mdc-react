@@ -5,7 +5,7 @@ import NotchedOutline from '../NotchedOutline';
 import LineRipple from '../LineRipple';
 import FloatingLabel from '../FloatingLabel';
 import { Menu, MenuItem } from '../Menu';
-import { MenuSurface } from '../MenuSurface';
+import MenuSurface from '../MenuSurface';
 import HelperText from './HelperText';
 
 import './index.scss';
