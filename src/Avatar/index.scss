@@ -6,8 +6,6 @@
     align-items: center;
     border-radius: 100%;
     user-select: none;
-    color: #fafafa;
-    background-color: #bdbdbd;
 
     &__image {
         width: 100%;
@@ -16,6 +14,8 @@
 
     &__text {
         font-size: 1.25rem;
+        background-color: #bdbdbd;
+        color: #fafafa;
     }
 }
 
