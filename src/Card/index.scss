@@ -10,7 +10,7 @@
         border-radius: 2px 2px 0 0;
 
         .mdc-card__header__graphic {
-            @include mdc-theme-prop(color, text-icon-on-background);
+            @include mdc-theme-prop(color, text-secondary-on-light);
             margin-right: 16px;
         }
 
