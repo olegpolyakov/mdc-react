@@ -51,6 +51,8 @@
     }
 
     .mdc-card__media {
+        overflow: hidden;
+        
         iframe {
             position: absolute;
             top: 0;
