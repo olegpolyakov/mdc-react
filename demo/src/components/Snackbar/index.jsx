@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Layout, Typography, Button, Snackbar, Icon } from 'src';
+import { Layout, Typography, Button, Snackbar, Icon, IconButton } from 'src';
 
 export default class SnackbarPage extends React.Component {
     state = {
-        active: false
+        open: false
     };
 
-    onClose = event => this.setState({ active: false });
+    onClose = event => this.setState({ open: false });
 
     render() {
         return (
@@ -15,13 +15,18 @@ export default class SnackbarPage extends React.Component {
                 <Typography variant="headline3" component="h1">Snackbar</Typography>
     
                 <section>
-                    <Button onClick={() => this.setState({ active: true })}>Open Snackbar</Button>
+                    <Button onClick={() => this.setState({ open: true })}>Open Snackbar</Button>
 
                     <Snackbar
-                        active={this.state.active}
-                        text="Hello World"
-                        action={<Button>OK</Button>}
-                        icon={<Icon>star</Icon>}
+                        open={this.state.open}
+                        label="Hello World"
+                        actions={[
+                            <Button onClick={this.onClose}>OK</Button>,
+                            <IconButton onClick={this.onClose} dismiss>
+                                <Icon>close</Icon>
+                            </IconButton>
+                        ]}
+                        closeOnEscape
                         onClose={this.onClose}
                     />
                 </section>

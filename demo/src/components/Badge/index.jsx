@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { Layout, Typography, Button, Badge } from 'src';
+import {
+    Badge,
+    Button,
+    Icon,
+    IconButton,
+    Layout,
+    Typography
+} from 'src';
 
 export default class BadgesPage extends React.Component {
     render() {
@@ -18,7 +25,9 @@ export default class BadgesPage extends React.Component {
                     </Badge>
 
                     <Badge value="42" overlap noBackground>
-                        <Button>Button</Button>
+                        <IconButton>
+                            <Icon>star</Icon>
+                        </IconButton>
                     </Badge>
                 </section>
             </Layout>

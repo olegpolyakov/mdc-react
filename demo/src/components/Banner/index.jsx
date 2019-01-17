@@ -9,6 +9,7 @@ export default class BadgesPage extends React.Component {
         return (
             <Layout column element="main">
                 <Typography variant="headline3" component="h1">Banner</Typography>
+                
                 <Typography>A banner displays a prominent message and related optional actions.</Typography>
     
                 <section>
