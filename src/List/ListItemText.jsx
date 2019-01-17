@@ -3,20 +3,17 @@ import React from 'react';
 ListItemText.displayName = 'MDCListItemText';
 
 export default function ListItemText({
-    primary = false,
-    secondary = false,
+    primary,
+    secondary,
 
-    children = primary,
+    children,
     ...props
 }) {
-    if (primary && secondary) {
-        return (
-            <div className="mdc-list-item__text" {...props}>
-                <span className="mdc-list-item__primary-text">{primary}</span>
-                <span className="mdc-list-item__secondary-text">{secondary}</span>
-            </div>
-        );
-    } else {
-        return children;
-    }
+    return (
+        <span className="mdc-list-item__text" {...props}>
+            {primary && <span className="mdc-list-item__primary-text">{primary}</span>}
+            {secondary && <span className="mdc-list-item__secondary-text">{secondary}</span>}
+            {children}
+        </span>
+    );
 }

@@ -1,18 +1,1 @@
 @import '@material/list/mdc-list';
-
-.mdc-list {
-    &--inset {
-        .mdc-list-item {
-            padding-left: 2rem;
-        }
-    }
-
-    .mdc-list-item__meta {
-        &.mdc-icon-button,
-        .mdc-icon-button {
-            width: 32px;
-            height: 32px;
-            padding: 0;
-        }
-    }
-}
