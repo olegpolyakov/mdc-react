@@ -6,7 +6,7 @@ import './index.scss';
 Button.displayName = 'MDCButton';
 
 export default function Button({
-    text,
+    label,
     raised = false,
     unelevated = false,
     outlined = false,
@@ -16,7 +16,7 @@ export default function Button({
     element = 'button',
     component: Element = element,
     className,
-    children = text,
+    children = label,
     ...props
 }) {
     const classNames = classnames('mdc-button', {
@@ -28,9 +28,9 @@ export default function Button({
 
     return (
         <Element className={classNames} {...props}>
-            {icon && React.cloneElement(icon, { className: 'mdc-button__icon' })}
+            {icon && React.cloneElement(icon, { className: 'mdc-button__icon', 'aria-hidden': 'true' })}
             
-            {children}
+            <span className="mdc-button__label">{children}</span>
         </Element>
     );
 }

@@ -6,7 +6,7 @@
     "start": "webpack-dev-server --history-api-fallback --open"
   },
   "dependencies": {
-    "material-components-web": "^0.42.1",
+    "material-components-web": "^0.43.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-router-dom": "^4.2.2"
