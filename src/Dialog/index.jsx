@@ -85,7 +85,7 @@ export default class Dialog extends React.Component {
         return (
             <CSSTransition
                 in={open}
-                timeout={{enter: 150, exit: 75}}
+                timeout={{ enter: 150, exit: 75 }}
                 classNames={{
                     appear: 'mdc-dialog--opening',
                     appearActive: 'mdc-dialog--open',
