@@ -20,6 +20,7 @@ export class Select extends React.Component {
     static displayName = 'MDCSelect';
 
     static defaultProps = {
+        value: '',
         disabled: false,
         outlined: false,
         helperTextProps: {},
@@ -28,43 +29,64 @@ export class Select extends React.Component {
     };
 
     state = {
-        selectedText: '',
-        focused: false
+        focused: false,
+        touched: false
     };
 
+    options = this.getOptions();
+
+    get valid() {
+        if (!this.props.required) return true;
+
+        return this.props.value !== '' ? true : false;
+    }
+
     get notchedOutlineWidth() {
-        const width = (this.props.outlined && this.floatingLabel) ? this.floatingLabel.width : 0;
+        const width = (this.props.outlined && this.floatingLabel) ? this.floatingLabel.width : undefined;
         const labelScale = 0.75;
 
-        return width * labelScale;
+        return width ? width * labelScale : undefined;
+    }
+
+    getOptions() {
+        const children = React.Children.toArray(this.props.children);
+
+        return new Map(children.map(child => [child.props.value, child.props.text || child.props.children]));
+    }
+
+    componentDidUpdate(prevProps) {
+        if (React.Children.count(this.props.children) !== React.Children.count(prevProps.children)) {
+            this.options = this.getOptions();
+        }
     }
 
     setFloatingLabelRef = component => {
         this.floatingLabel = component;
+
         this.forceUpdate();
     };
 
     handleMenuClose = () => this.setState({ focused: false });
 
     handleSelectClick = event => {
-        this.setState({ focused: true });
-        
         const targetClientRect = event.target.getBoundingClientRect();
         const coords = { x: event.clientX, y: event.clientY };
         
         this.lineRippleTransformOrigin = coords.x - targetClientRect.left;
+
+        this.setState({ focused: true });
     };
 
-    handleOptionClick = (value, text, event) => {
+    handleOptionClick = (value, event) => {
         event.stopPropagation();
 
         this.props.onChange(value, this.inputElement);
-        this.setState({ selectedText: text, focused: false });
+
+        this.setState({ focused: false, touched: true });
     };
 
     render() {
         const {
-            name,
             value,
             outlined,
             required,
@@ -79,16 +101,19 @@ export class Select extends React.Component {
             ...props
         } = this.props;
 
-        const { selectedText, focused } = this.state;
+        const { focused, touched } = this.state;
         
         const classNames = classnames('mdc-select', {
             'mdc-select--outlined': outlined,
             'mdc-select--required': required,
             'mdc-select--disabled': disabled,
             'mdc-select--focused': focused,
-            'mdc-select--invalid': false,
+            'mdc-select--invalid': !this.valid && touched,
             'mdc-select--with-leading-icon': leadingIcon
         }, className);
+
+        const selectedText = this.options.get(value);
+        const focusedOrHasValue = focused || value;
         
         return (
             <React.Fragment>
@@ -100,7 +125,6 @@ export class Select extends React.Component {
                     <input
                         type="hidden"
                         ref={element => this.inputElement = element}
-                        name={name}
                         value={value}
                         required={required}
                         disabled={disabled}
@@ -119,12 +143,12 @@ export class Select extends React.Component {
 
                     {outlined && label &&
                         <NotchedOutline
-                            notched={focused || value}
+                            notched={focusedOrHasValue}
                             width={this.notchedOutlineWidth}
                         >
                             <FloatingLabel
                                 ref={this.setFloatingLabelRef}
-                                float={focused || value}
+                                float={focusedOrHasValue}
                             >
                                 {label}
                             </FloatingLabel>
@@ -141,14 +165,14 @@ export class Select extends React.Component {
                                 React.cloneElement(option, {
                                     value: undefined,
                                     selected: option.props.value === value,
-                                    onClick: option.props.disabled ? undefined : event => this.handleOptionClick(option.props.value || index, option.props.text || option.props.children, event)
+                                    onClick: option.props.disabled ? undefined : event => this.handleOptionClick(option.props.value, event)
                                 })
                             )}
                         </Menu>
                     </MenuSurface>
 
                     {!outlined && label &&
-                        <FloatingLabel float={focused || value}>
+                        <FloatingLabel float={focusedOrHasValue}>
                             {label}
                         </FloatingLabel>
                     }
