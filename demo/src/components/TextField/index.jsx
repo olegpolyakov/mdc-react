@@ -5,7 +5,7 @@ import { Layout, Typography, TextField, Icon } from 'src';
 export default class TextFieldPage extends React.Component {
     state = {
         username: 'olegpolyakov',
-        bio: 'Bla bla bla'
+        bio: 'Web developer'
     };
 
     render() {
