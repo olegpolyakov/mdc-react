@@ -45,14 +45,15 @@ export default class TextField extends React.Component {
     }
 
     get notchedOutlineWidth() {
-        const width = ((this.props.outlined || this.props.textarea) && this.floatingLabel) ? this.floatingLabel.width : 0;
-        const labelScale = this.props.dense ? 1.22 : 0.895;
-        
-        return width * labelScale;
+        const width = ((this.props.outlined || this.props.textarea) && this.floatingLabel) ? this.floatingLabel.width : undefined;
+        const labelScale = this.props.dense ? 1 : 0.75;
+
+        return width ? width * labelScale : undefined;
     }
 
     setFloatingLabelRef = component => {
         this.floatingLabel = component;
+        
         this.forceUpdate();
     };
 
@@ -111,6 +112,8 @@ export default class TextField extends React.Component {
             'mdc-text-field--with-leading-icon': leadingIcon,
             'mdc-text-field--with-trailing-icon': trailingIcon,
         }, 'mdc-text-field--upgraded', className);
+
+        const notched = focused || value;
         
         return (
             <React.Fragment>
@@ -137,8 +140,8 @@ export default class TextField extends React.Component {
 
                     {(textarea || outlined) &&
                         <NotchedOutline
-                            notched={focused || value}
-                            width={this.notchedOutlineWidth}
+                            notched={notched}
+                            width={notched ? this.notchedOutlineWidth : undefined}
                         >
                             <FloatingLabel
                                 ref={this.setFloatingLabelRef}
