@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Layout, Typography, Select, Option, Icon } from 'src';
+import { Layout, Typography, Select, SelectOption , Icon } from 'src';
 
 export default class ButtonsPage extends React.Component {
     state = {
-        value: 'apple'
+        value: ''
     };
 
     handleChange = value => this.setState({ value });
@@ -25,10 +25,10 @@ export default class ButtonsPage extends React.Component {
                         value={value}
                         onChange={this.handleChange}
                     >
-                        <Option value="" />
-                        <Option value="apple">Apple</Option>
-                        <Option value="banana">Banana</Option>
-                        <Option value="orange">Orange</Option>
+                        <SelectOption value="" />
+                        <SelectOption value="apple">Apple</SelectOption>
+                        <SelectOption value="banana">Banana</SelectOption>
+                        <SelectOption value="orange">Orange</SelectOption>
                     </Select>
                 </section>
 
@@ -41,10 +41,10 @@ export default class ButtonsPage extends React.Component {
                         outlined
                         onChange={this.handleChange}
                     >
-                        <Option value="" />
-                        <Option value="apple">Apple</Option>
-                        <Option value="banana">Banana</Option>
-                        <Option value="orange">Orange</Option>
+                        <SelectOption value="" />
+                        <SelectOption value="apple">Apple</SelectOption>
+                        <SelectOption value="banana">Banana</SelectOption>
+                        <SelectOption value="orange">Orange</SelectOption>
                     </Select>
                 </section>
 
@@ -57,9 +57,9 @@ export default class ButtonsPage extends React.Component {
                         onChange={value => this.setState({ value })}
                         helperText="Выберите любимый фрукт"
                     >
-                        <Option value="apple">Apple</Option>
-                        <Option value="banana">Banana</Option>
-                        <Option value="orange">Orange</Option>
+                        <SelectOption value="apple">Apple</SelectOption>
+                        <SelectOption value="banana">Banana</SelectOption>
+                        <SelectOption value="orange">Orange</SelectOption>
                     </Select>
                 </section>
 
@@ -72,9 +72,9 @@ export default class ButtonsPage extends React.Component {
                         leadingIcon={<Icon>star</Icon>}
                         onChange={value => this.setState({ value })}
                     >
-                        <Option value="apple">Apple</Option>
-                        <Option value="banana">Banana</Option>
-                        <Option value="orange">Orange</Option>
+                        <SelectOption value="apple">Apple</SelectOption>
+                        <SelectOption value="banana">Banana</SelectOption>
+                        <SelectOption value="orange">Orange</SelectOption>
                     </Select>
                 </section>
             </Layout>

@@ -4,7 +4,7 @@ import { Layout, Typography, TextField, Icon } from 'src';
 
 export default class TextFieldPage extends React.Component {
     state = {
-        username: 'olegpolyakov',
+        username: '',
         bio: 'Web developer'
     };
 
@@ -40,6 +40,7 @@ export default class TextFieldPage extends React.Component {
                             label="Standard"
                             value={this.state.username}
                             outlined
+                            required
                             onChange={value => this.setState({ username: value })}
                         />
 
