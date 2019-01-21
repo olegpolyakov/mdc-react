@@ -10,9 +10,9 @@ import HelperText from './HelperText';
 
 import './index.scss';
 
-Option.displayName = 'MDCOption';
+SelectOption.displayName = 'MDCSelectOption';
 
-export function Option(props) {
+export function SelectOption(props) {
     return <MenuItem {...props} />;
 }
 
