@@ -18,7 +18,7 @@ export default function NotchedOutline({
     }, className);
 
     const style = {
-        width: `${width}px`
+        width: width ? `${width + 8}px` : undefined
     };
     
     return (
