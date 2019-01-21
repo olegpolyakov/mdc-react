@@ -13,6 +13,7 @@ export default class TextField extends React.Component {
 
     static defaultProps = {
         type: 'text',
+        value: '',
         outlined: false,
         fullwidth: false,
         textarea: false,
@@ -59,6 +60,7 @@ export default class TextField extends React.Component {
 
     handleRootInteraction = event => {
         this.inputElement.focus();
+
         this.setState({ focused: true, touched: true });
     };
 
@@ -73,6 +75,7 @@ export default class TextField extends React.Component {
 
     handleInputBlur = event => {
         this.lineRippleTransformOrigin = undefined;
+
         this.setState({ focused: false });
     };
 
