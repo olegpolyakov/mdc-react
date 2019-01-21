@@ -34,7 +34,7 @@ export class Select extends React.Component {
 
     get notchedOutlineWidth() {
         const width = (this.props.outlined && this.floatingLabel) ? this.floatingLabel.width : 0;
-        const labelScale = 0.95;
+        const labelScale = 0.75;
 
         return width * labelScale;
     }
