@@ -46,10 +46,12 @@ export default class TextField extends React.Component {
     }
 
     get notchedOutlineWidth() {
-        const width = ((this.props.outlined || this.props.textarea) && this.floatingLabel) ? this.floatingLabel.width : undefined;
+        if (!this.floatingLabel) return;
+
+        const width = this.floatingLabel.width;
         const labelScale = this.props.dense ? 1 : 0.75;
 
-        return width ? width * labelScale : undefined;
+        return width * labelScale;
     }
 
     setFloatingLabelRef = component => {
@@ -144,7 +146,7 @@ export default class TextField extends React.Component {
                     {(textarea || outlined) &&
                         <NotchedOutline
                             notched={focusedOrHasValue}
-                            width={focusedOrHasValue ? this.notchedOutlineWidth : undefined}
+                            width={this.notchedOutlineWidth}
                         >
                             <FloatingLabel
                                 ref={this.setFloatingLabelRef}
