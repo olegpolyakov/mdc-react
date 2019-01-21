@@ -75,7 +75,7 @@ export default class App extends React.Component {
                             <ListItem component={NavLink} to="/data-table" activeClassName="mdc-list-item--activated">Data Table</ListItem>
                             <ListItem component={NavLink} to="/dialog" activeClassName="mdc-list-item--activated">Dialog</ListItem>
                             <ListItem>Drawer</ListItem>
-                            <List inset>
+                            <List>
                                 <ListItem component={NavLink} to="/drawer" activeClassName="mdc-list-item--activated">Permanent</ListItem>
                                 <ListItem component={NavLink} to="/drawer/dismissible" activeClassName="mdc-list-item--activated">Dismissible</ListItem>
                                 <ListItem component={NavLink} to="/drawer/modal" activeClassName="mdc-list-item--activated">Modal</ListItem>
@@ -87,7 +87,7 @@ export default class App extends React.Component {
                             <ListItem component={NavLink} to="/menu" activeClassName="mdc-list-item--activated">Menu</ListItem>
                             <ListItem component={NavLink} to="/radio" activeClassName="mdc-list-item--activated">Radio</ListItem>
                             <ListItem>Side Sheet</ListItem>
-                            <List inset>
+                            <List>
                                 <ListItem component={NavLink} to="/side-sheet" activeClassName="mdc-list-item--activated">Basic</ListItem>
                                 <ListItem component={NavLink} to="/side-sheet/dismissible" activeClassName="mdc-list-item--activated">Dismissible</ListItem>
                                 <ListItem component={NavLink} to="/side-sheet/modal" activeClassName="mdc-list-item--activated">Modal</ListItem>

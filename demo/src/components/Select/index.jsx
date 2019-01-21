@@ -24,8 +24,9 @@ export default class ButtonsPage extends React.Component {
                         label="Fruit"
                         value={value}
                         onChange={this.handleChange}
+                        required
                     >
-                        <SelectOption value="" />
+                        <SelectOption />
                         <SelectOption value="apple">Apple</SelectOption>
                         <SelectOption value="banana">Banana</SelectOption>
                         <SelectOption value="orange">Orange</SelectOption>
