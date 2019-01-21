@@ -21,7 +21,7 @@ export { Menu, MenuItem } from './Menu';
 export { default as MenuSurface } from './MenuSurface';
 export { default as Radio } from './Radio';
 export { default as SideSheet } from './SideSheet';
-export { Select, Option } from './Select';
+export { Select, SelectOption } from './Select';
 export { default as Snackbar } from './Snackbar';
 export { default as Spinner } from './Spinner';
 export { default as Switch } from './Switch';
