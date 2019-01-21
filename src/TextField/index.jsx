@@ -24,11 +24,11 @@ export default class TextField extends React.Component {
     };
 
     state = {
-        focused: false,
-        valid: this.isValid
+        touched: false,
+        focused: false
     };
 
-    get isValid() {
+    get valid() {
         return this.inputElement ? this.inputElement.validity.valid : true;
     }
 
@@ -59,8 +59,8 @@ export default class TextField extends React.Component {
 
     handleRootInteraction = event => {
         this.inputElement.focus();
-        this.setState({ focused: true });
-    }
+        this.setState({ focused: true, touched: true });
+    };
 
     handleInputInteraction = event => {
         const targetClientRect = event.target.getBoundingClientRect();
@@ -69,12 +69,12 @@ export default class TextField extends React.Component {
         this.lineRippleTransformOrigin = coords.x - targetClientRect.left;
     };
 
-    handleInputFocus = event => this.setState({ focused: true });
+    handleInputFocus = event => this.setState({ focused: true, touched: true });
 
     handleInputBlur = event => {
         this.lineRippleTransformOrigin = undefined;
         this.setState({ focused: false });
-    }
+    };
 
     handleInputChange = event => this.props.onChange(this.value, this.inputElement, event);
 
@@ -97,7 +97,7 @@ export default class TextField extends React.Component {
             ...props
         } = this.props;
 
-        const { focused } = this.state;
+        const { focused, touched } = this.state;
 
         const Input = textarea ? 'textarea' : 'input';
 
@@ -108,12 +108,12 @@ export default class TextField extends React.Component {
             'mdc-text-field--dense': dense,
             'mdc-text-field--disabled': disabled,
             'mdc-text-field--focused': focused,
-            'mdc-text-field--invalid': !this.isValid,
+            'mdc-text-field--invalid': !this.valid && touched,
             'mdc-text-field--with-leading-icon': leadingIcon,
             'mdc-text-field--with-trailing-icon': trailingIcon,
         }, 'mdc-text-field--upgraded', className);
 
-        const notched = focused || value;
+        const focusedOrHasValue = focused || value ? true : false;
         
         return (
             <React.Fragment>
@@ -140,12 +140,12 @@ export default class TextField extends React.Component {
 
                     {(textarea || outlined) &&
                         <NotchedOutline
-                            notched={notched}
-                            width={notched ? this.notchedOutlineWidth : undefined}
+                            notched={focusedOrHasValue}
+                            width={focusedOrHasValue ? this.notchedOutlineWidth : undefined}
                         >
                             <FloatingLabel
                                 ref={this.setFloatingLabelRef}
-                                float={focused || value || !this.isValid}
+                                float={focusedOrHasValue}
                             >
                                 {label}
                             </FloatingLabel>
@@ -154,7 +154,7 @@ export default class TextField extends React.Component {
 
                     {(!textarea && !outlined && label && !fullwidth) &&
                         <FloatingLabel
-                            float={focused || value || !this.isValid}
+                            float={focusedOrHasValue}
                         >
                             {label}
                         </FloatingLabel>
@@ -174,9 +174,13 @@ export default class TextField extends React.Component {
                     }
                 </div>
 
-                {(validationMessage && !valid) && <HelperText validation>{this.validationMessage}</HelperText>}
+                {(validationMessage && !this.valid) &&
+                    <HelperText validation>{this.validationMessage}</HelperText>
+                }
 
-                {helperText && <HelperText persistent>{helperText}</HelperText>}
+                {helperText &&
+                    <HelperText persistent>{helperText}</HelperText>
+                }
             </React.Fragment>
         );
     }
