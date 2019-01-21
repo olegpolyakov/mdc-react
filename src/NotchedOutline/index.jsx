@@ -7,7 +7,7 @@ NotchedOutline.displayName = 'MDCNotchedOutline';
 
 export default function NotchedOutline({
     notched = false,
-    width,
+    width = 0,
 
     className,
     children,
@@ -17,9 +17,9 @@ export default function NotchedOutline({
         'mdc-notched-outline--notched': notched
     }, className);
 
-    const style = {
-        width: width ? `${width + 8}px` : undefined
-    };
+    const style = notched && width > 0 ? {
+        width: `${width + 8}px`
+    } : undefined;
     
     return (
         <div className={classNames} {...props}>
