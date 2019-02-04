@@ -4,8 +4,6 @@ import classnames from 'classnames';
 
 import Modal from '../Modal';
 
-import './index.scss';
-
 export default class Dialog extends React.Component {
     static displayName = 'MDCDialog';
 
@@ -28,6 +26,16 @@ export default class Dialog extends React.Component {
 
     get isScrollable() {
         return this.contentElement ? this.contentElement.scrollHeight > this.contentElement.offsetHeight : false;
+    }
+
+    get contentElement() {
+        if (this._contentElement) return this._contentElement;
+
+        if (this.rootElement) {
+            this._contentElement = this.rootElement.querySelector('.mdc-dialog__content');
+            
+            return this._contentElement;
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -72,7 +80,6 @@ export default class Dialog extends React.Component {
             appear,
             confirmation,
             title,
-            actions,
 
             element: Element = 'div',
             className,
@@ -108,19 +115,7 @@ export default class Dialog extends React.Component {
                     >
                         <div className="mdc-dialog__container">
                             <div className="mdc-dialog__surface">
-                                {title &&
-                                    <h2 className="mdc-dialog__title">{title}</h2>
-                                }
-
-                                <div className="mdc-dialog__content" ref={element => this.contentElement = element}>{children}</div>
-
-                                {actions &&
-                                    <div className="mdc-dialog__actions">
-                                        {React.Children.map(actions, action =>
-                                            React.cloneElement(action, { className: 'mdc-dialog__button' })
-                                        )}
-                                    </div>
-                                }
+                                {children}
                             </div>
                         </div>
 

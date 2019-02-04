@@ -7,7 +7,7 @@ export { default as Checkbox } from './Checkbox';
 export { Chip, ChipSet } from './Chips';
 export { default as CircularProgress } from './CircularProgress';
 export { DataTable, DataTableHead, DataTableBody, DataTableRow, DataTableCell, DataTableFoot } from './DataTable';
-export { default as Dialog } from './Dialog';
+export { Dialog, DialogTitle, DialogContent, DialogActions } from './Dialog';
 export { Drawer, DrawerHeader, DrawerContent } from './Drawer';
 export { default as FAB } from './FAB';
 export { default as FormField } from './FormField';
