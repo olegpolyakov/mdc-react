@@ -1,4 +1,4 @@
-@import '@material/typography/mdc-typography';
+@import '@material/theme/mixins';
 @import '../mixins';
 
 $mdc-data-table-font-size: 14px !default;
@@ -100,6 +100,14 @@ $mdc-data-table-cell-top: $mdc-data-table-card-padding / 2;
     
             &.mdc-data-table__cell-actions {
                 text-align: right;
+            }
+
+            .mdc-icon-button {
+                @include mdc-theme-prop(color, text-secondary-on-light);
+            }
+
+            .mdc-icon-button:disabled {
+                @include mdc-theme-prop(color, text-disabled-on-light);
             }
         }
     }
