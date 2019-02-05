@@ -1,4 +1,4 @@
-@import '@material/theme/mdc-theme';
+@import '@material/theme/mixins';
 @import '@material/typography/mixins';
 @import '@material/card/mdc-card';
 
@@ -40,12 +40,16 @@
 
         .mdc-card__header__action {
             margin-left: auto;
+        }
 
+        .mdc-card__header__graphic,
+        .mdc-card__header__action {
             &.mdc-icon-button,
             .mdc-icon-button {
+                @include mdc-theme-prop(color, text-secondary-on-light);
                 width: 32px;
                 height: 32px;
-                padding: 0;
+                padding: 4px;
             }
         }
     }
