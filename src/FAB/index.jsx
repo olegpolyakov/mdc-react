@@ -11,7 +11,6 @@ export default function FAB({
     mini = false,
     extended = false,
     exited = false,
-    disabled = false,
     
     element = 'button',
     component: Element = element,
