@@ -1,258 +1,84 @@
 @import '@material/theme/variables';
 @import '@material/theme/color-palette';
-@import '@material/animation/variables';
-@import '../functions';
 
-$mdc-spinner-size: 28px !default;
-$mdc-spinner-stroke-width: 3px !default;
+$mdc-spinner-size: 48px !default;
+$mdc-spinner-stroke-width: 6 !default;
+$mdc-spinner-stroke-color: $mdc-theme-primary !default;
 
-// Amount of circle the arc takes up.
-$mdc-spinner-arc-size: 270deg !default;
-// Time it takes to expand and contract arc.
-$mdc-spinner-arc-time: 1333ms !default;
-// How much the start location of the arc should rotate each time.
-$mdc-spinner-arc-start-rot: 216deg !default;
+$mdc-spinner-stroke-color-1: $material-color-blue-400 !default;
+$mdc-spinner-stroke-color-2: $material-color-red-500 !default;
+$mdc-spinner-stroke-color-3: $material-color-yellow-600 !default;
+$mdc-spinner-stroke-color-4: $material-color-green-500 !default;
 
-$mdc-spinner-duration: 360 * $mdc-spinner-arc-time / (strip-units($mdc-spinner-arc-start-rot + (360deg - $mdc-spinner-arc-size)));
-
-$mdc-spinner-color-1: $material-color-blue-400 !default;
-$mdc-spinner-color-2: $material-color-red-500 !default;
-$mdc-spinner-color-3: $material-color-yellow-600 !default;
-$mdc-spinner-color-4: $material-color-green-500 !default;
-
-$mdc-spinner-single-color: $mdc-theme-primary !default;
-
-@keyframes mdc-spinner__container-rotate {
-    to { transform: rotate(360deg) }
-}
-
-@keyframes mdc-spinner__fill-unfill-rotate {
-    12.5% { transform: rotate(0.5 * $mdc-spinner-arc-size);  }
-    25%   { transform: rotate($mdc-spinner-arc-size);  }
-    37.5% { transform: rotate(1.5 * $mdc-spinner-arc-size);  }
-    50%   { transform: rotate(2 * $mdc-spinner-arc-size);  }
-    62.5% { transform: rotate(2.5 * $mdc-spinner-arc-size);  }
-    75%   { transform: rotate(3 * $mdc-spinner-arc-size);  }
-    87.5% { transform: rotate(3.5 * $mdc-spinner-arc-size); }
-    to    { transform: rotate(4 * $mdc-spinner-arc-size); }
-}
-
-/**
-* HACK: Even though the intention is to have the current .mdc-spinner__layer-N
-* at `opacity: 1`, we set it to `opacity: 0.99` instead since this forces Chrome
-* to do proper subpixel rendering for the elements being animated. This is
-* especially visible in Chrome 39 on Ubuntu 14.04. See:
-*
-* - https://github.com/Polymer/paper-spinner/issues/9
-* - https://code.google.com/p/chromium/issues/detail?id=436255
-*/
-@keyframes mdc-spinner__layer-1-fade-in-out {
-    from { opacity: 0.99; }
-    25% { opacity: 0.99; }
-    26% { opacity: 0; }
-    89% { opacity: 0; }
-    90% { opacity: 0.99; }
-    100% { opacity: 0.99; }
-}
-  
-@keyframes mdc-spinner__layer-2-fade-in-out {
-    from { opacity: 0; }
-    15% { opacity: 0; }
-    25% { opacity: 0.99; }
-    50% { opacity: 0.99; }
-    51% { opacity: 0; }
-}
-  
-@keyframes mdc-spinner__layer-3-fade-in-out {
-    from { opacity: 0; }
-    40% { opacity: 0; }
-    50% { opacity: 0.99; }
-    75% { opacity: 0.99; }
-    76% { opacity: 0; }
-}
-  
-@keyframes mdc-spinner__layer-4-fade-in-out {
-    from { opacity: 0; }
-    65% { opacity: 0; }
-    75% { opacity: 0.99; }
-    90% { opacity: 0.99; }
-    100% { opacity: 0; }
-}
-
-@keyframes mdc-spinner__left-spin {
-    from { transform: rotate(130deg); }
-    50% { transform: rotate(-5deg); }
-    to { transform: rotate(130deg); }
-}
-  
-@keyframes mdc-spinner__right-spin {
-    from { transform: rotate(-130deg); }
-    50% { transform: rotate(5deg); }
-    to { transform: rotate(-130deg); }
-}
-  
+$mdc-spinner-rotate-animation: mdc-spinner-rotate 1.4s linear infinite !default;
+$mdc-spinner-dash-animation: mdc-spinner-dash 1.4s ease-in-out infinite !default;
+$mdc-spinner-color-animation: mdc-spinner-colors 5.6s ease-in-out infinite !default;
 
 .mdc-spinner {
-    display: inline-block;
-    position: relative;
     width: $mdc-spinner-size;
     height: $mdc-spinner-size;
+    animation: $mdc-spinner-rotate-animation;
 
-    &--active {
-        animation: mdc-spinner__container-rotate $mdc-spinner-duration linear infinite;
+    .mdc-spinner__circle {
+        fill: none;
+        stroke: $mdc-spinner-stroke-color;
+        stroke-width: $mdc-spinner-stroke-width;
+        stroke-dasharray: 187;
+        stroke-dashoffset: 0;
+        stroke-linecap: square;
+        transform-origin: center;
+        animation: $mdc-spinner-dash-animation;
+    }
+
+    &--colorful &__circle {
+        animation: $mdc-spinner-dash-animation, $mdc-spinner-color-animation;
     }
 }
 
-.mdc-spinner__layer {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-}
-
-.mdc-spinner__layer-1 {
-    border-color: $mdc-spinner-color-1;
-
-    .mdc-spinner--single-color & {
-        border-color: $mdc-spinner-single-color;
+@keyframes mdc-spinner-rotate {
+    0% {
+        transform: rotate(0deg);
     }
 
-    .mdc-spinner--active & {
-        animation:
-            mdc-spinner__fill-unfill-rotate (4 * $mdc-spinner-arc-time)
-                $mdc-animation-standard-curve-timing-function infinite both,
-            mdc-spinner__layer-1-fade-in-out (4 * $mdc-spinner-arc-time)
-                $mdc-animation-standard-curve-timing-function infinite both;
+    100% {
+        transform: rotate(270deg);
     }
 }
 
-.mdc-spinner__layer-2 {
-    border-color: $mdc-spinner-color-2;
-
-    .mdc-spinner--single-color & {
-        border-color: $mdc-spinner-single-color;
+@keyframes mdc-spinner-dash {
+    0% {
+        stroke-dashoffset: 187;
     }
 
-    .mdc-spinner--active & {
-        animation:
-            mdc-spinner__fill-unfill-rotate (4 * $mdc-spinner-arc-time)
-                $mdc-animation-standard-curve-timing-function infinite both,
-            mdc-spinner__layer-2-fade-in-out (4 * $mdc-spinner-arc-time)
-                $mdc-animation-standard-curve-timing-function infinite both;
-    }
-}
-
-.mdc-spinner__layer-3 {
-    border-color: $mdc-spinner-color-3;
-
-    .mdc-spinner--single-color & {
-        border-color: $mdc-spinner-single-color;
+    50% {
+        stroke-dashoffset: 46.75;
+        transform: rotate(135deg);
     }
 
-    .mdc-spinner--active & {
-        animation:
-            mdc-spinner__fill-unfill-rotate (4 * $mdc-spinner-arc-time)
-                $mdc-animation-standard-curve-timing-function infinite both,
-            mdc-spinner__layer-3-fade-in-out (4 * $mdc-spinner-arc-time)
-                $mdc-animation-standard-curve-timing-function infinite both;
+    100% {
+        stroke-dashoffset: 187;
+        transform: rotate(450deg);
     }
 }
 
-.mdc-spinner__layer-4 {
-    border-color: $mdc-spinner-color-4;
-
-    .mdc-spinner--single-color & {
-        border-color: $mdc-spinner-single-color;
+@keyframes mdc-spinner-colors {
+    0% {
+        stroke: $mdc-spinner-stroke-color-1;
     }
 
-    .mdc-spinner--active & {
-        animation:
-            mdc-spinner__fill-unfill-rotate (4 * $mdc-spinner-arc-time)
-                $mdc-animation-standard-curve-timing-function infinite both,
-            mdc-spinner__layer-4-fade-in-out (4 * $mdc-spinner-arc-time)
-                $mdc-animation-standard-curve-timing-function infinite both;
-    }
-}
-
-/**
-* Patch the gap that appear between the two adjacent
-* div.mdc-spinner__circle-clipper while the spinner is rotating
-* (appears on Chrome 38, Safari 7.1, and IE 11).
-*
-* Update: the gap no longer appears on Chrome when .mdc-spinner__layer-N's
-* opacity is 0.99, but still does on Safari and IE.
-*/
-.mdc-spinner__gap-patch {
-    position: absolute;
-    box-sizing: border-box;
-    top: 0;
-    left: 45%;
-    width: 10%;
-    height: 100%;
-    overflow: hidden;
-    border-color: inherit;
-
-    & .mdc-spinner__circle {
-        width: 1000%;
-        left: -450%;
-    }
-}
-
-.mdc-spinner__circle-clipper {
-    display: inline-block;
-    position: relative;
-    width: 50%;
-    height: 100%;
-    overflow: hidden;
-    border-color: inherit;
-
-    &.mdc-spinner__left {
-        float: left;
+    25% {
+        stroke: $mdc-spinner-stroke-color-2;
     }
 
-    &.mdc-spinner__right {
-        float: right;
+    50% {
+        stroke: $mdc-spinner-stroke-color-3;
     }
 
-    & .mdc-spinner__circle {
-        width: 200%;
+    75% {
+        stroke: $mdc-spinner-stroke-color-4;
     }
-}
-
-.mdc-spinner__circle {
-    box-sizing: border-box;
-    height: 100%;
-    border-width: $mdc-spinner-stroke-width;
-    border-style: solid;
-    border-color: inherit;
-    border-bottom-color: transparent !important;
-    border-radius: 50%;
-    animation: none;
-
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-
-    .mdc-spinner__left & {
-        border-right-color: transparent !important;
-        transform: rotate(129deg);
-
-        .mdc-spinner--active & {
-        animation: mdc-spinner__left-spin $mdc-spinner-arc-time
-            $mdc-animation-standard-curve-timing-function infinite both;
-        }
-    }
-
-    .mdc-spinner__right & {
-        left: -100%;
-        border-left-color: transparent !important;
-        transform: rotate(-129deg);
-
-        .mdc-spinner--active & {
-        animation: mdc-spinner__right-spin $mdc-spinner-arc-time
-            $mdc-animation-standard-curve-timing-function infinite both;
-        }
+    
+    100% {
+        stroke: $mdc-spinner-stroke-color-1;
     }
 }
