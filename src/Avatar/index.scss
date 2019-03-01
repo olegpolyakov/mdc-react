@@ -1,52 +1,70 @@
+$mdc-avatar-size: 40px;
+$mdc-avatar-size-small: 24px;
+$mdc-avatar-size-large: 64px;
+
+$mdc-avatar-icon-font-size: 24px;
+$mdc-avatar-icon-font-size-small: 16px;
+$mdc-avatar-icon-font-size-large: 48px;
+
+$mdc-avatar-text-font-size: 20px;
+$mdc-avatar-text-font-size-small: 12px;
+$mdc-avatar-text-font-size-large: 32px;
+
 .mdc-avatar {
     display: inline-flex;
-    width: 40px;
-    height: 40px;
+    width: $mdc-avatar-size;
+    height: $mdc-avatar-size;
     justify-content: center;
     align-items: center;
     border-radius: 100%;
     user-select: none;
+    overflow: hidden;
 
-    &__image {
+    & &__image {
         width: 100%;
-        border-radius: 100%;
+        height: 100%;
     }
 
-    &__text {
+    & &__icon {
+        font-size: $mdc-avatar-icon-font-size;
+    }
+
+    & &__text {
         width: 100%;
         height: 100%;
         display: block;
-        font-size: 1.25rem;
+        font-size: $mdc-avatar-text-font-size;
         background-color: #bdbdbd;
         color: #fafafa;
         text-align: center;
-        line-height: 40px;
-        border-radius: 100%;
-    }
-}
-
-.mdc-avatar--small {
-    width: 24px;
-    height: 24px;
-
-    .mdc-avatar__icon {
-        font-size: 16px;
+        line-height: $mdc-avatar-size;
     }
 
-    .mdc-avatar__text {
-        font-size: 12px;
+    &.mdc-avatar--small {
+        width: $mdc-avatar-size-small;
+        height: $mdc-avatar-size-small;
+    
+        .mdc-avatar__icon {
+            font-size: $mdc-avatar-icon-font-size-small;
+        }
+    
+        .mdc-avatar__text {
+            font-size: $mdc-avatar-text-font-size-small;
+            line-height: $mdc-avatar-size-small;
+        }
     }
-}
-
-.mdc-avatar--large {
-    width: 64px;
-    height: 64px;
-
-    .mdc-avatar__icon {
-        font-size: 32px;
-    }
-
-    .mdc-avatar__text {
-        font-size: 32px;
+    
+    &.mdc-avatar--large {
+        width: $mdc-avatar-size-large;
+        height: $mdc-avatar-size-large;
+    
+        .mdc-avatar__icon {
+            font-size: $mdc-avatar-icon-font-size-large;
+        }
+    
+        .mdc-avatar__text {
+            font-size: $mdc-avatar-text-font-size-large;
+            line-height: $mdc-avatar-size-large;
+        }
     }
 }
