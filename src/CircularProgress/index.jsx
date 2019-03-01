@@ -1,39 +1,38 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 CircularProgress.displayName = 'MDCCircularProgress';
 
 import './index.scss';
 
-export default function CircularProgress({ value, className, ...props }) {
-    const angle = value * 289.067 / 100;
-    const diff = 289.067 - angle;
+CircularProgress.propTypes = {
+    value: PropTypes.number
+};
+
+export default function CircularProgress({ value = 0, className, ...props }) {
+    const radius = 22;
+    const circumference = 2 * Math.PI * radius;
+    const progress = value / 100;
+    const dashOffset = circumference * (1 - progress);
     const classNames = classnames('mdc-circular-progress', className);
 
     return (
         <svg
             className={classNames}
-            width="100%"
-            height="100%"
-            viewBox="0 0 100 100"
+            viewBox="0 0 48 48"
             {...props}
         >
-            <path
+            <circle
                 className="mdc-circular-progress__background"
-                fill="none"
-                strokeWidth="8"
-                d="M50,4 a46,46 0 0,1 0,92 a46,46 0 0,1 0,-92"
+                cx="24" cy="24" r={radius}
             />
 
-            <path
+            <circle
                 className="mdc-circular-progress__foreground"
-                fill="none"
-                strokeWidth="8"
-                d="M50,4 a46,46 0 0,1 0,92 a46,46 0 0,1 0,-92"
-                style={{
-                    strokeDasharray: "289.067, 289.067",
-                    strokeDashoffset: diff
-                }}
+                cx="24" cy="24" r={radius}
+                strokeDasharray={circumference}
+                strokeDashoffset={dashOffset}
             />
         </svg>
     );
