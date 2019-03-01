@@ -1,9 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import './index.scss';
 
 Button.displayName = 'MDCButton';
+
+Button.propTypes = {
+    label: PropTypes.string,
+    raised: PropTypes.bool,
+    unelevated: PropTypes.bool,
+    outlined: PropTypes.bool,
+    dense: PropTypes.bool,
+    icon: PropTypes.element
+};
 
 export default function Button({
     label,

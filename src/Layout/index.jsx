@@ -1,9 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import './index.scss';
 
 Layout.displayName = 'MDCLayout';
+
+Layout.propTypes = {
+    row: PropTypes.bool,
+    column: PropTypes.bool,
+    alignItems: PropTypes.oneOf(['start', 'center', 'end']),
+    alignSelf: PropTypes.oneOf(['start', 'center', 'end']),
+    justifyContent: PropTypes.oneOf(['start', 'center', 'end', 'around', 'between'])
+};
 
 export default function Layout({
     row,

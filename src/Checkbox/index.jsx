@@ -1,10 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import './index.scss';
 
 export default class Checkbox extends React.Component {
     static displayName = 'MDCCheckbox';
+
+    static propTypes = {
+        checked: PropTypes.bool,
+        indeterminate: PropTypes.bool,
+        disabled: PropTypes.bool,
+
+        onChange: PropTypes.func
+    };
 
     static defaultProps = {
         checked: false,

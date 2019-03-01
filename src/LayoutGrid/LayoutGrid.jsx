@@ -1,11 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 LayoutGrid.displayName = 'MDCLayoutGrid';
 
+LayoutGrid.PropTypes = {
+    align: PropTypes.oneOf(['left', 'right']),
+    fixedColumnWidth: PropTypes.bool
+};
+
 export default function LayoutGrid({
     align,
-    fixed = false,
+    fixedColumnWidth = false,
 
     element = 'div',
     component = element,
@@ -16,7 +22,7 @@ export default function LayoutGrid({
     const Element = component;
     const classNames = classnames('mdc-layout-grid', {
         [`mdc-layout-grid--align-${align}`]: align,
-        'mdc-layout-grid--fixed-column-width': fixed
+        'mdc-layout-grid--fixed-column-width': fixedColumnWidth
     }, className);
 
     return (

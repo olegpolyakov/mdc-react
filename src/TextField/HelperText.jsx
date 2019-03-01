@@ -1,7 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 HelperText.displayName = 'MDCTextFieldHelperText';
+
+HelperText.PropTypes = {
+    persistent: PropTypes.bool,
+    validation: PropTypes.bool
+};
 
 export default function HelperText({
     persistent = false,

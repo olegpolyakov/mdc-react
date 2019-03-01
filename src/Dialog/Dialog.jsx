@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 
@@ -7,11 +8,17 @@ import Modal from '../Modal';
 export default class Dialog extends React.Component {
     static displayName = 'MDCDialog';
 
+    static propTypes = {
+        open: PropTypes.bool,
+        appear: PropTypes.bool,
+        confirmation: PropTypes.bool,
+        onClose: PropTypes.func
+    };
+
     static defaultProps = {
         open: false,
         appear: false,
         confirmation: false,
-
         onClose: Function.prototype
     };
     

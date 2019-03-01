@@ -1,7 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 ImageListItem.displayName = 'MDCImageListItem';
+
+ImageListItem.propTypes = {
+    src: PropTypes.string,
+    label: PropTypes.string
+};
 
 export default function ImageListItem({
     src,
@@ -14,7 +20,7 @@ export default function ImageListItem({
 
     return (
         <Element
-            className={classnames}
+            className={classNames}
         >
             <img class="mdc-image-list__image" src={src} alt={label} />
 

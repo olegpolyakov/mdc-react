@@ -1,9 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import './index.scss';
 
 FAB.displayName = 'MDCFAB';
+
+FAB.propTypes = {
+    icon: PropTypes.element,
+    label: PropTypes.string,
+    mini: PropTypes.bool,
+    extended: PropTypes.bool,
+    exited: PropTypes.bool
+};
 
 export default function FAB({
     icon,

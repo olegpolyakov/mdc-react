@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import NotchedOutline from '../NotchedOutline';
@@ -10,6 +11,17 @@ import './index.scss';
 
 export default class TextField extends React.Component {
     static displayName = 'MDCTextField';
+
+    static propTypes = {
+        type: PropTypes.string,
+        value: PropTypes.any,
+        outline: PropTypes.bool,
+        fullwidth: PropTypes.bool,
+        textarea: PropTypes.bool,
+        dense: PropTypes.bool,
+        disabled: PropTypes.bool,
+        validationMessage: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
+    };
 
     static defaultProps = {
         type: 'text',

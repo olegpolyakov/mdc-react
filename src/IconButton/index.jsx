@@ -1,9 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import './index.scss';
 
 IconButton.displayName = 'MDCIconButton';
+
+IconButton.propTypes = {
+    on: PropTypes.bool,
+    icon: PropTypes.element,
+    onIcon: PropTypes.element,
+    offIcon: PropTypes.element,
+    onLabel: PropTypes.string,
+    offLabel: PropTypes.string
+};
 
 export default function IconButton({
     on = false,

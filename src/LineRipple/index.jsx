@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import './index.scss';
@@ -6,10 +7,15 @@ import './index.scss';
 export default class LineRipple extends React.Component {
     static displayName = 'MDCLineRipple';
 
+    static propTypes = {
+        active: PropTypes.bool,
+        center: PropTypes.number
+    };
+
     static defaultProps = {
         active: false,
-        center: undefined
-    }
+        center: 0
+    };
 
     state = {
         deactivating: false

@@ -1,9 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import './index.scss';
 
 Banner.displayName = 'MDCBanner';
+
+Banner.propTypes = {
+    icon: PropTypes.element,
+    text: PropTypes.node,
+    action: PropTypes.node,
+    persistent: PropTypes.bool
+};
 
 export default function Banner({
     icon,

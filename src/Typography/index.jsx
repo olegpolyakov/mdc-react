@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import './index.scss';
@@ -17,6 +18,16 @@ const variants = {
     button: 'span',
     caption: 'span',
     overline: 'span'
+};
+
+Typography.displayName = 'MDCTypography';
+
+Typography.propTypes = {
+    variant: PropTypes.oneOf(['headline1', 'headline2', 'headline3', 'headline4', 'headline5', 'headline6', 'subtitle1', 'subtitle2', 'body1', 'body2', 'button', 'caption', 'overline']),
+    display: PropTypes.oneOf(['block', 'inline', 'inline-block']),
+    align: PropTypes.oneOf(['left', 'center', 'right', 'justify']),
+    noMargin: PropTypes.bool,
+    noWrap: PropTypes.bool
 };
 
 export default function Typography({

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import TopAppBarRow from './TopAppBarRow';
@@ -6,6 +7,16 @@ import TopAppBarSection from './TopAppBarSection';
 
 export default class TopAppBar extends React.Component {
     static displayName = 'MDCTopAppBar';
+
+    static propTypes = {
+        fixed: PropTypes.bool,
+        sticky: PropTypes.bool,
+        dense: PropTypes.bool,
+        prominent: PropTypes.bool,
+        short: PropTypes.bool,
+        collapsed: PropTypes.bool,
+        fixedAdjustSibling: PropTypes.bool
+    };
 
     static defaultProps = {
         fixed: false,

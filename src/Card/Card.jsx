@@ -1,7 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 Card.displayName = 'MDCCard';
+
+Card.propTypes = {
+    outlined: PropTypes.bool
+};
 
 export default function Card({
     outlined = false,

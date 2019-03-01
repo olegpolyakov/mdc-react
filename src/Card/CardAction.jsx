@@ -1,7 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 CardAction.displayName = 'MDCCardAction';
+
+CardAction.propTypes = {
+    button: PropTypes.bool,
+    icon: PropTypes.bool
+};
 
 export default function CardAction({
     button = false,

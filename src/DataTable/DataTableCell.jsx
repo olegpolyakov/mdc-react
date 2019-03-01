@@ -1,7 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 DataTableCell.displayName = 'MDCDataTableCell';
+
+DataTableCell.propTypes = {
+    numeric: PropTypes.bool,
+    actions: PropTypes.bool
+};
 
 export default function DataTableCell({
     numeric = false,

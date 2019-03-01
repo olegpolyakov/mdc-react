@@ -1,7 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 CardMedia.displayName = 'MDCCardMedia';
+
+CardMedia.propTypes = {
+    image: PropTypes.string,
+    content: PropTypes.node,
+    square: PropTypes.bool,
+    wide: PropTypes.bool
+};
 
 export default function CardMedia({
     image,

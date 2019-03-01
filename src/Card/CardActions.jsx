@@ -1,7 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 CardActions.displayName = 'MDCCardActions';
+
+CardActions.propTypes = {
+    fullBleed: PropTypes.bool
+};
 
 export default function CardActions({
     fullBleed = false,

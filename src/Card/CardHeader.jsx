@@ -1,7 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 CardHeader.displayName = 'MDCCardHeader';
+
+CardHeader.propTypes = {
+    graphic: PropTypes.element,
+    title: PropTypes.node,
+    subtitle: PropTypes.node,
+    action: PropTypes.element,
+    large: PropTypes.bool
+};
 
 export default function CardHeader({
     graphic,

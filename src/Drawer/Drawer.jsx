@@ -1,16 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 
 export default class Drawer extends React.Component {
     static displayName = 'MDCDrawer';
 
+    static propTypes = {
+        open: PropTypes.bool,
+        appear: PropTypes.bool,
+        dismissible: PropTypes.bool,
+        modal: PropTypes.bool,
+        onClose: PropTypes.func
+    };
+
     static defaultProps = {
         open: false,
         appear: false,
         dismissible: false,
         modal: false,
-
         onClose: Function.prototype
     };
 
