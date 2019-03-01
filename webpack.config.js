@@ -1,7 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const CssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
 const loaders = {
@@ -11,7 +12,10 @@ const loaders = {
         use: {
             loader: 'babel-loader',
             options: {
-                presets: ['babel-preset-env', 'babel-preset-stage-2', 'react']
+                presets: ['@babel/preset-env', '@babel/preset-react'],
+                plugins: [
+                    ['@babel/plugin-proposal-class-properties', { loose: true }]
+                ]
             }
         }
     },
@@ -19,12 +23,9 @@ const loaders = {
     styles: {
         test: /\.scss$/,
         use: [
-            MiniCssExtractPlugin.loader,
+            CssExtractPlugin.loader,
             {
-                loader: 'css-loader',
-                options: {
-                    minimize: true
-                }
+                loader: 'css-loader'
             },
             {
                 loader: 'postcss-loader',
@@ -62,7 +63,7 @@ module.exports = env => {
         },
 
         plugins: [
-            new MiniCssExtractPlugin({
+            new CssExtractPlugin({
                 filename: 'index.css'
             })
         ],
@@ -75,7 +76,8 @@ module.exports = env => {
                             comments: false
                         }
                     }
-                })
+                }),
+                new OptimizeCSSAssetsPlugin({})
             ]
         },
 
