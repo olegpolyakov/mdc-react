@@ -2,7 +2,7 @@ export { default as Avatar } from './Avatar';
 export { default as Badge } from './Badge';
 export { default as Banner } from './Banner';
 export { default as Button } from './Button';
-export { Card, CardAction, CardActions, CardActionSection, CardHeader, CardMedia, CardSection } from './Card';
+export { Card, CardAction, CardActions, CardActionSection, CardHeader, CardMedia, CardPrimaryAction, CardSection } from './Card';
 export { default as Checkbox } from './Checkbox';
 export { Chip, ChipSet } from './Chips';
 export { default as CircularProgress } from './CircularProgress';
