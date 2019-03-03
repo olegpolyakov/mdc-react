@@ -10,7 +10,7 @@ import './index.scss';
 export default class MenuSurface extends React.Component {
     static displayName = 'MDCMenuSurface';
 
-    static PropTypes = {
+    static propTypes = {
         open: PropTypes.bool,
         anchor: PropTypes.object,
         top: PropTypes.bool,

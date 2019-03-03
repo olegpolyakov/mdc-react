@@ -123,7 +123,7 @@ export class Select extends React.Component {
         }, className);
 
         const selectedText = this.options.get(value);
-        const focusedOrHasValue = focused || value;
+        const focusedOrHasValue = focused || value ? true : false;
         
         return (
             <React.Fragment>

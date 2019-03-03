@@ -5,7 +5,7 @@ import classnames from 'classnames';
 LayoutGridCell.displayName = 'MDCLayoutGridCell';
 
 LayoutGridCell.propTypes = {
-    span: PropTypes.number,
+    span: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     desktop: PropTypes.number,
     tablet: PropTypes.number,
     mobile: PropTypes.number,

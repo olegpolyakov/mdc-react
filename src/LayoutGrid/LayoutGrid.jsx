@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 LayoutGrid.displayName = 'MDCLayoutGrid';
 
-LayoutGrid.PropTypes = {
+LayoutGrid.propTypes = {
     align: PropTypes.oneOf(['left', 'right']),
     fixedColumnWidth: PropTypes.bool
 };
