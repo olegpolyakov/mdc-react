@@ -1,30 +1,34 @@
 import React from 'react';
+import classnames from 'classnames';
 
-Option.displayName = 'MDCOption';
+NativeSelect.displayName = 'MDCNativeSelect';
 
-export function Option(props) {
+export default function NativeSelect({
+    outlined = false,
+    required = false,
+    disabled = false
+}) {
+    const classNames = classnames('mdc-select', {
+        'mdc-select--outlined': outlined,
+        'mdc-select--required': required,
+        'mdc-select--disabled': disabled,
+        'mdc-select--focused': focused,
+        'mdc-select--invalid': !this.valid && touched,
+        'mdc-select--with-leading-icon': leadingIcon
+    }, className);
+
     return (
-        <option {...props} />
-    );
-}
+        <div className={classNames}>
+            <i className="mdc-select__dropdown-icon"></i>
 
-export default class Select extends React.Component {
-    static displayName = 'MDCSelect';
-
-    render() {
-        return (
             <select
-                ref={element => this.select = element}
                 className="mdc-select__native-control"
                 value={value}
                 required={required}
                 disabled={disabled}
-                onChange={this.handleChange}
-                onFocus={this.handleFocus}
-                onBlur={this.handleBlur}
             >
                 {children}
             </select>
-        );
-    }
+        </div>
+    );
 };

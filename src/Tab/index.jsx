@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import { FadingTabIndicator, SlidingTabIndicator } from '../TabIndicator';
@@ -8,14 +9,24 @@ import './index.scss';
 export default class Tab extends React.Component {
     static displayName = 'MDCTab';
 
+    static propTypes = {
+        active: PropTypes.bool,
+        stacked: PropTypes.bool,
+        minWidth: PropTypes.bool,
+        fade: PropTypes.bool,
+        underline: PropTypes.bool,
+        onActivate: PropTypes.func
+    };
+
     static defaultProps = {
-        element: 'button',
         active: false,
         stacked: false,
         minWidth: false,
         fade: false,
         underline: true,
-        onActivate: Function.prototype
+        onActivate: Function.prototype,
+
+        element: 'button'
     };
 
     state = {

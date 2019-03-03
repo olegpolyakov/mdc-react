@@ -1,8 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 export default class Modal extends React.Component {
     static displayName = 'MDCModal';
+
+    static propTypes = {
+        element: PropTypes.string,
+        children: PropTypes.node.isRequired
+    };
 
     static defaultProps = {
         element: 'div'

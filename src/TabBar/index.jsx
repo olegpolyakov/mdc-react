@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import TabScroller from '../TabScroller';
@@ -7,6 +8,14 @@ import './index.scss';
 
 export default class TabBar extends React.Component {
     static displayName = 'MDCTabBar';
+
+    static propTypes = {
+        stacked: PropTypes.bool,
+        minWidth: PropTypes.bool,
+        fade: PropTypes.bool,
+        underline: PropTypes.bool,
+        onChange: PropTypes.func
+    };
 
     static defaultProps = {
         stacked: false,

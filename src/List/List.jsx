@@ -1,7 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 List.displayName = 'MDCList';
+
+List.propTypes = {
+    dense: PropTypes.bool,
+    twoLine: PropTypes.bool,
+    avatarList: PropTypes.bool,
+    nonInteractive: PropTypes.bool
+};
 
 export default function List({
     dense = false,

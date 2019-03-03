@@ -1,8 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 export default class TabIndicatorContent extends React.Component {
     static displayName = 'MDCTabIndicatorContent';
+
+    static propTypes = {
+        underline: PropTypes.bool,
+        icon: PropTypes.bool
+    };
 
     static defaultProps = {
         underline: false,

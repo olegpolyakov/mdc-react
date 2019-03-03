@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 
@@ -9,13 +10,22 @@ import './index.scss';
 export default class MenuSurface extends React.Component {
     static displayName = 'MDCMenuSurface';
 
+    static PropTypes = {
+        open: PropTypes.bool,
+        anchor: PropTypes.object,
+        top: PropTypes.bool,
+        left: PropTypes.bool,
+        bottom: PropTypes.bool,
+        right: PropTypes.bool,
+        onClose: PropTypes.func
+    };
+
     static defaultProps = {
         open: false,
         top: false,
         left: false,
         bottom: false,
         right: false,
-        
         onClose: Function.prototype
     };
 
@@ -77,7 +87,7 @@ export default class MenuSurface extends React.Component {
         }
     }
 
-    handleBodyClick = event => this.props.onClose();
+    handleBodyClick = () => this.props.onClose();
 
     render() {
         const { open, anchor, top, left, bottom, right, element, className, ...props } = this.props;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import './index.scss';
@@ -6,10 +7,15 @@ import './index.scss';
 export default class Switch extends React.Component {
     static displayName = 'MDCSwitch';
 
+    static propTypes = {
+        checked: PropTypes.bool.isRequired,
+        disabled: PropTypes.bool,
+        onChange: PropTypes.func.isRequired
+    };
+
     static defaultProps = {
         checked: false,
         disabled: false,
-        
         onChange: Function.prototype
     };
 
@@ -26,6 +32,7 @@ export default class Switch extends React.Component {
         return (
             <div className={classNames}>
                 <div className="mdc-switch__track" />
+
                 <div className="mdc-switch__thumb-underlay">
                     <div className="mdc-switch__thumb">
                         <input

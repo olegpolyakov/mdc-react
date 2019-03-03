@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import './index.scss';
@@ -6,10 +7,15 @@ import './index.scss';
 export default class Radio extends React.Component {
     static displayName = 'MDCRadio';
 
+    static propTypes = {
+        checked: PropTypes.bool.isRequired,
+        disabled: PropTypes.bool,
+        onChange: PropTypes.func.isRequired
+    };
+
     static defaultProps = {
         checked: false,
         disabled: false,
-
         onChange: Function.prototype
     }
 
@@ -23,7 +29,6 @@ export default class Radio extends React.Component {
         const {
             checked,
             disabled,
-            
             onChange,
             
             className,

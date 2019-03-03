@@ -1,22 +1,31 @@
 import React from 'react';
-import classnames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import './index.scss';
 
 export default class SideSheet extends React.Component {
     static displayName = 'MDCSideSheet';
 
+    static propTypes = {
+        open: PropTypes.bool,
+        appear: PropTypes.bool,
+        dismissible: PropTypes.bool,
+        modal: PropTypes.bool,
+        appContentSelector: PropTypes.string,
+        onClose: PropTypes.func
+    };
+
     static defaultProps = {
         open: false,
         appear: false,
         dismissible: false,
         modal: false,
-
         onClose: Function.prototype
     };
 
-    static cssClasses = {
+    static classNames = {
         ROOT: 'mdc-side-sheet',
         DISMISSIBLE: 'mdc-side-sheet--dismissible',
         MODAL: 'mdc-side-sheet--modal',
@@ -30,10 +39,8 @@ export default class SideSheet extends React.Component {
     };
 
     componentDidMount() {
-        if (this.props.dismissible) {
-            if (this.props.appContentSelector) {
-                document.querySelector(this.props.appContentSelector).classList.add(SideSheet.cssClasses.APP_CONTENT);
-            }
+        if (this.props.dismissible && this.props.appContentSelector) {
+            document.querySelector(this.props.appContentSelector).classList.add(SideSheet.classNames.APP_CONTENT);
         }
     }
 
@@ -53,7 +60,7 @@ export default class SideSheet extends React.Component {
         }
     };
 
-    handleScrimClick = event => this.props.onClose();
+    handleScrimClick = () => this.props.onClose();
 
     render() {
         const {
@@ -70,9 +77,9 @@ export default class SideSheet extends React.Component {
             ...props
         } = this.props;
 
-        const classNames = classnames(SideSheet.cssClasses.ROOT, {
-            [SideSheet.cssClasses.DISMISSIBLE]: dismissible,
-            [SideSheet.cssClasses.MODAL]: modal
+        const classNames = classnames(SideSheet.classNames.ROOT, {
+            [SideSheet.classNames.DISMISSIBLE]: dismissible,
+            [SideSheet.classNames.MODAL]: modal
         }, className);
 
         return (
@@ -84,12 +91,12 @@ export default class SideSheet extends React.Component {
                     exit: 200
                 }}
                 classNames={{
-                    appear: `${SideSheet.cssClasses.OPEN}`,
-                    enter: `${SideSheet.cssClasses.OPEN} ${SideSheet.cssClasses.ANIMATE}`,
-                    enterActive: `${SideSheet.cssClasses.OPEN} ${SideSheet.cssClasses.OPENING}`,
-                    enterDone: SideSheet.cssClasses.OPEN,
-                    exit: `${SideSheet.cssClasses.OPEN} ${SideSheet.cssClasses.CLOSING}`,
-                    exitActive: `${SideSheet.cssClasses.CLOSING}`
+                    appear: `${SideSheet.classNames.OPEN}`,
+                    enter: `${SideSheet.classNames.OPEN} ${SideSheet.classNames.ANIMATE}`,
+                    enterActive: `${SideSheet.classNames.OPEN} ${SideSheet.classNames.OPENING}`,
+                    enterDone: SideSheet.classNames.OPEN,
+                    exit: `${SideSheet.classNames.OPEN} ${SideSheet.classNames.CLOSING}`,
+                    exitActive: `${SideSheet.classNames.CLOSING}`
                 }}
             >
                 <React.Fragment>
@@ -98,14 +105,14 @@ export default class SideSheet extends React.Component {
                         ref={element => this.rootElement = element}
                         {...props}
                     >
-                        <div className="mdc-side-sheet__content">
+                        <div className={SideSheet.classNames.CONTENT}>
                             {children}
                         </div>
                     </Element>
 
                     {modal &&
                         <div
-                            className="mdc-side-sheet-scrim"
+                            className={SideSheet.classNames.SCRIM}
                             ref={element => this.scrimElement = element}
                             onClick={this.handleScrimClick}
                         />

@@ -5,7 +5,7 @@ import TabIndicatorContent from './TabIndicatorContent';
 
 export default class SlidingTabIndicator extends React.Component {
     static defaultProps = {
-        active: false,
+        active: false
     };
     
     state = {

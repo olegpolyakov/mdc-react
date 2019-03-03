@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import NotchedOutline from '../NotchedOutline';
@@ -19,12 +20,19 @@ export function SelectOption(props) {
 export class Select extends React.Component {
     static displayName = 'MDCSelect';
 
+    static propTypes = {
+        value: PropTypes.string.isRequired,
+        outlined: PropTypes.bool,
+        disabled: PropTypes.bool,
+        helperTextProps: PropTypes.object,
+        onChange: PropTypes.func
+    };
+
     static defaultProps = {
         value: '',
-        disabled: false,
         outlined: false,
+        disabled: false,
         helperTextProps: {},
-
         onChange: Function.prototype
     };
 

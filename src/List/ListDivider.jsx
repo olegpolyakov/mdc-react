@@ -1,7 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 ListDivider.displayName = 'MDCListDivider';
+
+ListDivider.propTypes = {
+    inset: PropTypes.bool,
+    padded: PropTypes.bool
+};
 
 export default function ListDivider({
     inset = false,

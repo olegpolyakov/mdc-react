@@ -1,5 +1,6 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import Modal from '../Modal';
@@ -9,14 +10,23 @@ import './index.scss';
 export default class Snackbar extends React.Component {
     static displayName = 'MDCSnackbar';
 
+    static propTypes = {
+        open: PropTypes.bool,
+        appear: PropTypes.bool,
+        stacked: PropTypes.bool,
+        leading: PropTypes.bool,
+        timeout: PropTypes.number,
+        closeOnEscape: PropTypes.bool,
+        onClose: PropTypes.func
+    };
+
     static defaultProps = {
         open: false,
         appear: false,
-        timeout: 5000,
         stacked: false,
         leading: false,
+        timeout: 5000,
         closeOnEscape: true,
-
         onClose: Function.prototype
     };
 
@@ -59,10 +69,10 @@ export default class Snackbar extends React.Component {
             stacked,
             leading,
             closeOnEscape,
+            onClose,
 
             className,
             children = label,
-            onClose,
             ...props
         } = this.props;
 

@@ -1,9 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import { ListItem } from '../List';
 
 MenuItem.displayName = 'MDCMenuItem';
+
+MenuItem.propTypes = {
+    selected: PropTypes.bool,
+    disabled: PropTypes.bool
+};
 
 export default function MenuItem({
     selected = false,

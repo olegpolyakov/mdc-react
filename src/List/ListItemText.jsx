@@ -1,6 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 ListItemText.displayName = 'MDCListItemText';
+
+ListItemText.propTypes = {
+    primary: PropTypes.node,
+    secondary: PropTypes.node
+};
 
 export default function ListItemText({
     primary,
