@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
+import './index.scss';
+
 export default class Modal extends React.Component {
     static displayName = 'MDCModal';
 
