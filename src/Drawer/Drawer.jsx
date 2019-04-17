@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 
+import Modal from '../Modal';
+
 export default class Drawer extends React.Component {
     static displayName = 'MDCDrawer';
 
     static propTypes = {
         open: PropTypes.bool,
-        appear: PropTypes.bool,
         dismissible: PropTypes.bool,
         modal: PropTypes.bool,
         onClose: PropTypes.func
@@ -16,7 +17,6 @@ export default class Drawer extends React.Component {
 
     static defaultProps = {
         open: false,
-        appear: false,
         dismissible: false,
         modal: false,
         onClose: Function.prototype
@@ -53,7 +53,6 @@ export default class Drawer extends React.Component {
     render() {
         const {
             open,
-            appear,
             dismissible,
             modal,
             onClose,
@@ -73,7 +72,7 @@ export default class Drawer extends React.Component {
         return (
             <CSSTransition
                 in={open}
-                appear={appear}
+                appear={true}
                 timeout={{
                     enter: 250,
                     exit: 200
@@ -86,24 +85,34 @@ export default class Drawer extends React.Component {
                     exit: 'mdc-drawer--open mdc-drawer--closing',
                     exitActive: 'mdc-drawer--closing'
                 }}
+                mountOnEnter={modal}
+                unmountOnExit={modal}
             >
-                <React.Fragment>
+                {modal ?
+                    <Modal>
+                        <Element
+                            ref={element => this.rootElement = element}
+                            className={classNames}
+                            {...props}
+                        >
+                            {children}
+                        </Element>
+
+                        <div
+                            ref={element => this.scrimElement = element}
+                            className="mdc-drawer-scrim"
+                            onClick={this.handleScrimClick}
+                        />
+                    </Modal>
+                    :
                     <Element
-                        className={classNames}
                         ref={element => this.rootElement = element}
+                        className={classNames}
                         {...props}
                     >
                         {children}
                     </Element>
-
-                    {modal &&
-                        <div
-                            className="mdc-drawer-scrim"
-                            ref={element => this.scrimElement = element}
-                            onClick={this.handleScrimClick}
-                        />
-                    }
-                </React.Fragment>
+                }
             </CSSTransition>
         );
     }
