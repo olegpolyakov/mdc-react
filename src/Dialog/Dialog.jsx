@@ -9,6 +9,7 @@ export default class Dialog extends React.Component {
     static displayName = 'MDCDialog';
 
     static propTypes = {
+        title: PropTypes.string,
         open: PropTypes.bool,
         appear: PropTypes.bool,
         confirmation: PropTypes.bool,
@@ -122,6 +123,7 @@ export default class Dialog extends React.Component {
                     >
                         <div className="mdc-dialog__container">
                             <div className="mdc-dialog__surface">
+                                {title && <h2 className="mdc-dialog__title">{title}</h2>}
                                 {children}
                             </div>
                         </div>
