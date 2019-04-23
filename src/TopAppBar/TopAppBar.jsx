@@ -108,13 +108,13 @@ export default class TopAppBar extends React.Component {
         const {
             title,
             navigationIcon,
+            actionItems,
             fixed,
             sticky,
             dense,
             prominent,
             short,
             collapsed,
-            actionItems,
             fixedAdjustSibling,
 
             element,
@@ -144,20 +144,29 @@ export default class TopAppBar extends React.Component {
                 ref={this.rootElement}
                 {...props}
             >
-                <TopAppBarRow>
-                    <TopAppBarSection align="start">
-                        {navigationIcon && React.cloneElement(navigationIcon, { className: 'mdc-top-app-bar__navigation-icon' })}
-                        {title && <span className="mdc-top-app-bar__title">{title}</span>}
-                    </TopAppBarSection>
+                {(navigationIcon || title || actionItems) &&
+                    <TopAppBarRow>
+                        <TopAppBarSection alignStart>
+                            {navigationIcon &&
+                                React.cloneElement(navigationIcon, { className: 'mdc-top-app-bar__navigation-icon' })
+                            }
 
-                    {(actionItems && actionItems.length) &&
-                        <TopAppBarSection align="end">
-                            {actionItems.map((item, key) =>
-                                React.cloneElement(item, { key, className: 'mdc-top-app-bar__action-item' })
+                            {title && (React.isValidElement(title) ?
+                                React.cloneElement(title, { className: 'mdc-top-app-bar__title' })
+                                :
+                                <span className="mdc-top-app-bar__title">{title}</span>
                             )}
                         </TopAppBarSection>
-                    }
-                </TopAppBarRow>
+
+                        {(actionItems && actionItems.length > 0) &&
+                            <TopAppBarSection alignEnd>
+                                {actionItems.map((item, key) =>
+                                    React.cloneElement(item, { key, className: 'mdc-top-app-bar__action-item' })
+                                )}
+                            </TopAppBarSection>
+                        }
+                    </TopAppBarRow>
+                }
 
                 {children}
             </Element>
