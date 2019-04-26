@@ -21,13 +21,13 @@ export default function FormField({
 }) {
     const classNames = classnames('mdc-form-field', {
         'mdc-form-field--align-end': alignEnd
-    }, className)
+    }, className);
 
     return (
         <div className={classNames} {...props}>
             {children}
 
-            <label className="mdc-form-field__label">{label}</label>
+            {label && <label>{label}</label>}
         </div>
     );
 }
