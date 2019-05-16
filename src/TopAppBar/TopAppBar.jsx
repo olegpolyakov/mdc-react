@@ -144,8 +144,8 @@ export default class TopAppBar extends React.Component {
                 ref={this.rootElement}
                 {...props}
             >
-                {(navigationIcon || title || actionItems) &&
-                    <TopAppBarRow>
+                <TopAppBarRow>
+                    {(navigationIcon || title) &&
                         <TopAppBarSection alignStart>
                             {navigationIcon &&
                                 React.cloneElement(navigationIcon, { className: 'mdc-top-app-bar__navigation-icon' })
@@ -157,18 +157,18 @@ export default class TopAppBar extends React.Component {
                                 <span className="mdc-top-app-bar__title">{title}</span>
                             )}
                         </TopAppBarSection>
+                    }
 
-                        {(actionItems && actionItems.length > 0) &&
-                            <TopAppBarSection alignEnd>
-                                {actionItems.map((item, key) =>
-                                    React.cloneElement(item, { key, className: 'mdc-top-app-bar__action-item' })
-                                )}
-                            </TopAppBarSection>
-                        }
-                    </TopAppBarRow>
-                }
+                    {children}
 
-                {children}
+                    {(actionItems && actionItems.length > 0) &&
+                        <TopAppBarSection alignEnd>
+                            {actionItems.map((item, key) =>
+                                React.cloneElement(item, { key, className: 'mdc-top-app-bar__action-item' })
+                            )}
+                        </TopAppBarSection>
+                    }
+                </TopAppBarRow>
             </Element>
         );
     }
