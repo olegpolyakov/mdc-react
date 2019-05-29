@@ -15,7 +15,7 @@ LayoutGridCell.propTypes = {
 };
 
 export default function LayoutGridCell({
-    span = 12,
+    span,
     desktop,
     tablet,
     mobile,
