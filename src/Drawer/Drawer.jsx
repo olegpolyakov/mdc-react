@@ -89,7 +89,7 @@ export default class Drawer extends React.Component {
                 unmountOnExit={modal}
             >
                 {modal ?
-                    <Modal>
+                    <Modal fixed>
                         <Element
                             ref={element => this.rootElement = element}
                             className={classNames}
