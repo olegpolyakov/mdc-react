@@ -36,7 +36,9 @@ const loaders = {
             {
                 loader: 'sass-loader',
                 options: {
-                    includePaths: [path.resolve('node_modules')]
+                    sassOptions: {
+                        includePaths: [path.resolve('node_modules')]
+                    }
                 }
             }
         ]
