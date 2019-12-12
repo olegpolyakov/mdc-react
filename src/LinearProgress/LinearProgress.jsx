@@ -2,18 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import './index.scss';
-
-LinearProgress.displayName = 'MDCLinearProgress';
-
-LinearProgress.propTypes = {
-    value: PropTypes.number,
-    buffer: PropTypes.number,
-    indeterminate: PropTypes.bool,
-    reversed: PropTypes.bool,
-    closed: PropTypes.bool
-};
-
 export default function LinearProgress({
     value = 0,
     buffer = 0,
@@ -58,3 +46,13 @@ export default function LinearProgress({
         </div>
     );
 }
+
+LinearProgress.displayName = 'MDCLinearProgress';
+
+LinearProgress.propTypes = {
+    value: PropTypes.number,
+    buffer: PropTypes.number,
+    indeterminate: PropTypes.bool,
+    reversed: PropTypes.bool,
+    closed: PropTypes.bool
+};
