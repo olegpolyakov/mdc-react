@@ -2,15 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-ImageListItem.displayName = 'MDCImageListItem';
-
-ImageListItem.propTypes = {
-    src: PropTypes.string,
-    label: PropTypes.string
-};
-
 export default function ImageListItem({
-    src,
+    imageSrc,
     label,
 
     element: Element = 'li',
@@ -22,7 +15,9 @@ export default function ImageListItem({
         <Element
             className={classNames}
         >
-            <img class="mdc-image-list__image" src={src} alt={label} />
+            <div className="mdc-image-list__image-aspect-container">
+                <img className="mdc-image-list__image" src={imageSrc} alt={label} />
+            </div>
 
             {label &&
                 <div className="mdc-image-list__supporting">
@@ -32,3 +27,10 @@ export default function ImageListItem({
         </Element>
     );
 }
+
+ImageListItem.displayName = 'MDCImageListItem';
+
+ImageListItem.propTypes = {
+    src: PropTypes.string,
+    label: PropTypes.string
+};

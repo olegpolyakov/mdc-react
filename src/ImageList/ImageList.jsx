@@ -2,13 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-ImageList.displayName = 'MDCImageList';
-
-ImageList.propTypes = {
-    masonry: PropTypes.bool,
-    withTextProtection: PropTypes.bool
-};
-
 export default function ImageList({
     masonry = false,
     withTextProtection = false,
@@ -26,3 +19,10 @@ export default function ImageList({
         <Element className={classNames} {...props} />
     );
 }
+
+ImageList.displayName = 'MDCImageList';
+
+ImageList.propTypes = {
+    masonry: PropTypes.bool,
+    withTextProtection: PropTypes.bool
+};
