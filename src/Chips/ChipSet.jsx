@@ -2,14 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-ChipSet.displayName = 'MDCChipSet';
-
-ChipSet.propTypes = {
-    choice: PropTypes.bool,
-    filter: PropTypes.bool,
-    input: PropTypes.bool
-};
-
 export default function ChipSet({
     choice = false,
     filter = false,
@@ -30,3 +22,11 @@ export default function ChipSet({
         <Element className={classNames} {...props} />
     );
 }
+
+ChipSet.displayName = 'MDCChipSet';
+
+ChipSet.propTypes = {
+    choice: PropTypes.bool,
+    filter: PropTypes.bool,
+    input: PropTypes.bool
+};

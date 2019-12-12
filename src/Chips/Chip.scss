@@ -1,0 +1,8 @@
+@import '@material/chips/mdc-chips';
+
+.mdc-chip {
+    &.mdc-chip--outlined {
+        border: 1px solid #e0e0e0;
+        background-color: transparent;
+    }
+}
