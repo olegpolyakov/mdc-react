@@ -3,80 +3,58 @@ import classnames from 'classnames';
 
 import './index.scss';
 
-export default class TabScroller extends React.Component {
-    static displayName = 'MDCTabScroller';
+import { useUpdated } from '../lifecycle-hooks';
 
-    static horizontalScrollbarHeight;
+export default function TabScroller({
+    align,
+    activeTab,
 
-    static computeHorizontalScrollbarHeight(shouldCacheResult = true) {
-        if (shouldCacheResult && typeof TabScroller.horizontalScrollbarHeight !== 'undefined') {
-            return TabScroller.horizontalScrollbarHeight;
+    children,
+    ...props
+}) {
+    const rootRef = React.useRef();
+    const scrollAreaRef = React.useRef();
+
+    const classNames = classnames('mdc-tab-scroller', {
+        [`mdc-tab-scroller--align-${align}`]: align
+    });
+
+    useUpdated(() => {
+        const scrollAreaWidth = scrollAreaRef.current.offsetWidth;
+        const tabWidth = activeTab.offsetWidth;
+        const tabHalfWidth = tabWidth * 0.5;
+        const offsetLeft = activeTab.offsetLeft - scrollAreaRef.current.scrollLeft;
+        const offsetLeftDelta = activeTab.offsetLeft - scrollAreaRef.current.scrollLeft;
+        const offsetRight = activeTab.offsetLeft + tabWidth - scrollAreaRef.current.scrollLeft;
+        const offsetRightDelta = scrollAreaWidth - offsetRight;
+
+        if (offsetRight > scrollAreaWidth || offsetRightDelta < tabHalfWidth) {
+            scrollAreaRef.current.scrollBy({
+                left: offsetRight > scrollAreaWidth ? Math.abs(offsetRightDelta) + tabHalfWidth : tabHalfWidth - offsetRightDelta,
+                behavior: 'smooth'
+            });
+        } else if (offsetLeft < 0 || offsetLeftDelta < tabHalfWidth) {
+            scrollAreaRef.current.scrollBy({
+                left: offsetLeft < 0 ? offsetLeftDelta - tabHalfWidth : -(tabHalfWidth - offsetLeftDelta),
+                behavior: 'smooth'
+            });
         }
+    }, [activeTab]);
 
-        const el = document.createElement('div');
-        
-        el.classList.add('mdc-tab-scroller__test');
-        document.body.appendChild(el);
-
-        const horizontalScrollbarHeight = el.offsetHeight - el.clientHeight;
-        document.body.removeChild(el);
-
-        if (shouldCacheResult) {
-            TabScroller.horizontalScrollbarHeight = horizontalScrollbarHeight;
-        }
-
-        return horizontalScrollbarHeight;
-    }
-
-    state = {
-        isAnimating: false
-    };
-
-    componentDidMount() {
-        const horizontalScrollbarHeight = TabScroller.computeHorizontalScrollbarHeight();
-
-        this.area.style.setProperty('margin-bottom', -horizontalScrollbarHeight + 'px');
-        this.area.classList.add('mdc-tab-scroller__scroll-area--scroll');
-    }
-
-    handleInteraction = () => { };
-
-    handleTransitionEnd = () => {
-        if (this.state.isAnimating) {
-            this.setState({ isAnimating: false });
-        }
-    };
-
-    render() {
-        const { align, children } = this.props;
-        const { isAnimating } = this.state;
-        const classNames = classnames('mdc-tab-scroller', {
-            [`mdc-tab-scroller--align-${align}`]: align,
-            'mdc-tab-scroller--animating': isAnimating
-        });
-
-        return (
+    return (
+        <div
+            ref={rootRef}
+            className={classNames}
+            {...props}
+        >
             <div
-                ref={element => this.root = element}
-                className={classNames}
+                ref={scrollAreaRef}
+                className="mdc-tab-scroller__scroll-area"
             >
-                <div
-                    ref={element => this.area = element}
-                    className="mdc-tab-scroller__scroll-area"
-                    onWheel={this.handleInteraction}
-                    onTouchStart={this.handleInteraction}
-                    onPointerDown={this.handleInteraction}
-                    onMouseDown={this.handleInteraction}
-                    onKeyDown={this.handleInteraction}>
-                    <div
-                        ref={element => this.content = element}
-                        className="mdc-tab-scroller__scroll-content"
-                        onTransitionEnd={this.handleTransitionEnd}
-                    >
-                        {children}
-                    </div>
-                </div>
+                {children}
             </div>
-        );
-    }
+        </div>
+    );
 }
+
+TabScroller.displayName = 'MDCTabScroller';

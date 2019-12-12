@@ -1,1 +1,8 @@
 @import '@material/tab-scroller/mdc-tab-scroller';
+
+.mdc-tab-scroller {
+    .mdc-tab-scroller__scroll-area {
+        position: relative;
+        overflow-x: scroll;
+    }
+}
