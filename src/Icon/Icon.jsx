@@ -2,17 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import './index.scss';
-
-Icon.displayName = 'MDCIcon';
-
-Icon.propTypes = {
-    size: PropTypes.string,
-    dark: PropTypes.bool,
-    light: PropTypes.bool,
-    inactive: PropTypes.bool
-};
-
 export default function Icon({
     size,
     dark = false,
@@ -35,3 +24,12 @@ export default function Icon({
         <Element className={classNames} {...props} />
     );
 }
+
+Icon.displayName = 'MDCIcon';
+
+Icon.propTypes = {
+    size: PropTypes.string,
+    dark: PropTypes.bool,
+    light: PropTypes.bool,
+    inactive: PropTypes.bool
+};
