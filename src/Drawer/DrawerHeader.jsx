@@ -1,14 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-DrawerHeader.displayName = 'MDCDrawerHeader';
-
-DrawerHeader.propTypes = {
-    graphic: PropTypes.element,
-    title: PropTypes.string,
-    subtitle: PropTypes.string
-};
-
 export default function DrawerHeader({
     graphic,
     title,
@@ -28,4 +20,12 @@ export default function DrawerHeader({
             {children}
         </div>
     );
+}
+
+DrawerHeader.displayName = 'MDCDrawerHeader';
+
+DrawerHeader.propTypes = {
+    graphic: PropTypes.element,
+    title: PropTypes.string,
+    subtitle: PropTypes.string
 };
