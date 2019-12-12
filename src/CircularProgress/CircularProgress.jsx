@@ -2,14 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-CircularProgress.displayName = 'MDCCircularProgress';
-
-import './index.scss';
-
-CircularProgress.propTypes = {
-    value: PropTypes.number
-};
-
 export default function CircularProgress({ value = 0, className, ...props }) {
     const radius = 22;
     const circumference = 2 * Math.PI * radius;
@@ -37,3 +29,9 @@ export default function CircularProgress({ value = 0, className, ...props }) {
         </svg>
     );
 }
+
+CircularProgress.displayName = 'MDCCircularProgress';
+
+CircularProgress.propTypes = {
+    value: PropTypes.number
+};
