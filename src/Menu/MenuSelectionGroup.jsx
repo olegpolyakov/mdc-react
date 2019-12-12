@@ -1,7 +1,5 @@
 import React from 'react';
 
-MenuSelectionGroup.displayName = 'MDCMenuSelectionGroup';
-
 export default function MenuSelectionGroup({
     element: Element = 'ul',
     ...props
@@ -10,3 +8,5 @@ export default function MenuSelectionGroup({
         <Element className="mdc-menu__selection-group" {...props} />
     );
 }
+
+MenuSelectionGroup.displayName = 'MDCMenuSelectionGroup';

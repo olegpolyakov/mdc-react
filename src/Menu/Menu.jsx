@@ -3,8 +3,6 @@ import classnames from 'classnames';
 
 import { List } from '../List';
 
-Menu.displayName = 'MDCMenu';
-
 export default function Menu({ className, ...props }) {
     const classNames = classnames('mdc-menu', className);
 
@@ -17,3 +15,5 @@ export default function Menu({ className, ...props }) {
         />
     );
 }
+
+Menu.displayName = 'MDCMenu';
