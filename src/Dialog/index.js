@@ -1,4 +1,4 @@
-import './index.scss';
+import '@material/dialog/mdc-dialog.scss';
 
 import Dialog from './Dialog';
 import DialogTitle from './DialogTitle';
@@ -9,4 +9,9 @@ Dialog.Title = DialogTitle;
 Dialog.Content = DialogContent;
 Dialog.Actions = DialogActions;
 
-export { Dialog, DialogTitle, DialogContent, DialogActions };
+export {
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions
+};

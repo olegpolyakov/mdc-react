@@ -3,135 +3,132 @@ import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 
+import { useUpdated } from '../lifecycle-hooks';
 import Modal from '../Modal';
+import DialogTitle from './DialogTitle';
+import DialogContent from './DialogContent';
+import DialogActions from './DialogActions';
 
-export default class Dialog extends React.Component {
-    static displayName = 'MDCDialog';
+const cssClasses = {
+    OPEN: 'mdc-dialog--open',
+    OPENING: 'mdc-dialog--opening',
+    CLOSING: 'mdc-dialog--closing',
+    SCROLLABLE: 'mdc-dialog--scrollable',
+    STACKED: 'mdc-dialog--stacked',
+    SCROLL_LOCK: 'mdc-dialog-scroll-lock'
+};
 
-    static propTypes = {
-        title: PropTypes.string,
-        open: PropTypes.bool,
-        appear: PropTypes.bool,
-        confirmation: PropTypes.bool,
-        onClose: PropTypes.func
-    };
+export default function Dialog({
+    open = false,
+    appear = false,
+    confirmation = false,
+    title,
+    content,
+    actions,
+    onClose = Function.prototype,
 
-    static defaultProps = {
-        open: false,
-        appear: false,
-        confirmation: false,
-        onClose: Function.prototype
-    };
-    
-    static cssClasses = {
-        OPEN: 'mdc-dialog--open',
-        OPENING: 'mdc-dialog--opening',
-        CLOSING: 'mdc-dialog--closing',
-        SCROLLABLE: 'mdc-dialog--scrollable',
-        STACKED: 'mdc-dialog--stacked',
-        SCROLL_LOCK: 'mdc-dialog-scroll-lock'
-    };
+    element: Element = 'div',
+    className,
+    children,
+    ...props
+}) {
+    const rootElement = React.useRef();
+    const classNames = classnames('mdc-dialog', className);
 
-    get isScrollable() {
-        return this.contentElement ? this.contentElement.scrollHeight > this.contentElement.offsetHeight : false;
+    function handleScrimClick() {
+        if (confirmation) return;
+
+        onClose();
     }
 
-    get contentElement() {
-        if (this._contentElement) return this._contentElement;
-
-        if (this.rootElement) {
-            this._contentElement = this.rootElement.querySelector('.mdc-dialog__content');
-            
-            return this._contentElement;
+    useUpdated(() => {
+        if (open) {
+            document.body.classList.add(cssClasses.SCROLL_LOCK);
+        } else {
+            document.body.classList.remove(cssClasses.SCROLL_LOCK);
         }
-    }
+    }, [open]);
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.open === true && prevProps.open === false) {
-            document.body.classList.add(Dialog.cssClasses.SCROLL_LOCK);
+    useUpdated(() => {
+        if (confirmation) return;
 
-            if (this.isScrollable) {
-                this.rootElement.classList.add(Dialog.cssClasses.SCROLLABLE);
-            } else {
-                this.rootElement.classList.remove(Dialog.cssClasses.SCROLLABLE);
-            }
-            
-            if (this.props.confirmation === false) {
-                document.addEventListener('keydown', this.handleDocumentKeyDown);
-            }
-        } else if (this.props.open === false && prevProps.open === true) {
-            document.body.classList.remove(Dialog.cssClasses.SCROLL_LOCK);
-            
-            if (this.props.confirmation === false) {
-                document.removeEventListener('keydown', this.handleDocumentKeyDown);
+        function handleDocumentKeyDown(event) {
+            if (event.key && event.key === 'Escape' || event.keyCode === 27) {
+                onClose();
             }
         }
-    }
-
-    handleDocumentKeyDown = event => {
-        if (this.props.confirmation) return;
-
-        if (event.key && event.key === 'Escape' || event.keyCode === 27) {
-            this.props.onClose();
+        
+        if (open) {
+            document.addEventListener('keydown', handleDocumentKeyDown);
+        } else {
+            document.removeEventListener('keydown', handleDocumentKeyDown);
         }
-    };
+    }, [open]);
 
-    handleScrimClick = event => {
-        if (this.props.confirmation) return;
+    useUpdated(() => {
+        const contentElement = rootElement.current.querySelector('.mdc-dialog__content');
+        const scrollable = contentElement ? contentElement.scrollHeight > contentElement.offsetHeight : false;
+        
+        if (open && scrollable) {
+            rootElement.current.classList.add(cssClasses.SCROLLABLE);
+        } else if (!open && scrollable) {
+            rootElement.current.classList.remove(cssClasses.SCROLLABLE);
+        }
+    }, [open]);
 
-        this.props.onClose();
-    }
+    return (
+        <CSSTransition
+            in={open}
+            timeout={{ enter: 150, exit: 75 }}
+            classNames={{
+                appear: 'mdc-dialog--opening',
+                appearActive: 'mdc-dialog--open',
+                enter: 'mdc-dialog--opening',
+                enterActive: 'mdc-dialog--open',
+                enterDone: 'mdc-dialog--open',
+                exit: 'mdc-dialog--closing'
+            }}
+            appear={appear}
+            mountOnEnter
+            unmountOnExit
+        >
+            <Modal>
+                <Element
+                    className={classNames}
+                    ref={rootElement}
+                    {...props}
+                >
+                    <div className="mdc-dialog__container">
+                        <div
+                            role="alertdialog"
+                            aria-modal="true"
+                            className="mdc-dialog__surface"
+                        >
+                            {title && <DialogTitle>{title}</DialogTitle>}
 
-    render() {
-        const {
-            open,
-            appear,
-            confirmation,
-            title,
+                            {content && <DialogContent>{content}</DialogContent>}
 
-            element: Element = 'div',
-            className,
-            children,
-            ...props
-        } = this.props;
+                            {actions && <DialogActions>{actions}</DialogActions>}
 
-        const classNames = classnames('mdc-dialog', className);
-
-        return (
-            <CSSTransition
-                in={open}
-                timeout={{ enter: 150, exit: 75 }}
-                classNames={{
-                    appear: 'mdc-dialog--opening',
-                    appearActive: 'mdc-dialog--open',
-                    enter: 'mdc-dialog--opening',
-                    enterActive: 'mdc-dialog--open',
-                    enterDone: 'mdc-dialog--open',
-                    exit: 'mdc-dialog--closing'
-                }}
-                appear={appear}
-                mountOnEnter
-                unmountOnExit
-            >
-                <Modal>
-                    <Element
-                        className={classNames}
-                        ref={element => this.rootElement = element}
-                        role="alertdialog"
-                        aria-modal="true"
-                        {...props}
-                    >
-                        <div className="mdc-dialog__container">
-                            <div className="mdc-dialog__surface">
-                                {title && <h2 className="mdc-dialog__title">{title}</h2>}
-                                {children}
-                            </div>
+                            {children}
                         </div>
+                    </div>
 
-                        <div className="mdc-dialog__scrim" onClick={this.handleScrimClick} />
-                    </Element>
-                </Modal>
-            </CSSTransition>
-        ); 
-    }
+                    <div className="mdc-dialog__scrim" onClick={handleScrimClick} />
+                </Element>
+            </Modal>
+        </CSSTransition>
+    );
 }
+
+Dialog.displayName = 'MDCDialog';
+
+Dialog.propTypes = {
+    title: PropTypes.node,
+    content: PropTypes.node,
+    actions: PropTypes.arrayOf(PropTypes.node),
+    open: PropTypes.bool,
+    appear: PropTypes.bool,
+    confirmation: PropTypes.bool,
+    onClose: PropTypes.func
+};

@@ -1,7 +1,5 @@
 import React from 'react';
 
-DialogActions.displayName = 'MDCDialogActions';
-
 export default function DialogActions({ children }) {
     return (
         <div className="mdc-dialog__actions">
@@ -11,3 +9,5 @@ export default function DialogActions({ children }) {
         </div>
     );
 }
+
+DialogActions.displayName = 'MDCDialogActions';
