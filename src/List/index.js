@@ -1,4 +1,4 @@
-import './index.scss';
+import '@material/list/mdc-list.scss';
 
 export { default as List } from './List';
 export { default as ListDivider } from './ListDivider';

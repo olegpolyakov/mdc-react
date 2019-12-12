@@ -1,8 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
 
-ListGroup.displayName = 'MDCListGroup';
-
 export default function ListGroup({
     element: Element = 'div',
     className,
@@ -14,3 +12,5 @@ export default function ListGroup({
         <Element className={classNames} {...props} />
     );
 }
+
+ListGroup.displayName = 'MDCListGroup';

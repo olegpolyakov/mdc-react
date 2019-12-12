@@ -1,8 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
 
-ListItemGraphic.displayName = 'MDCListItemGraphic';
-
 export default function ListItemGraphic({
     className,
     children,
@@ -13,3 +11,5 @@ export default function ListItemGraphic({
         ...props
     });
 }
+
+ListItemGraphic.displayName = 'MDCListItemGraphic';

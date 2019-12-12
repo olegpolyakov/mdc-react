@@ -2,14 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-ListItem.displayName = 'MDCListItem';
-
-ListItem.propTypes = {
-    selected: PropTypes.bool,
-    activated: PropTypes.bool,
-    disabled: PropTypes.bool
-};
-
 export default function ListItem({
     selected = false,
     activated = false,
@@ -30,3 +22,11 @@ export default function ListItem({
         <Element className={classNames} {...props} />
     );
 }
+
+ListItem.displayName = 'MDCListItem';
+
+ListItem.propTypes = {
+    selected: PropTypes.bool,
+    activated: PropTypes.bool,
+    disabled: PropTypes.bool
+};

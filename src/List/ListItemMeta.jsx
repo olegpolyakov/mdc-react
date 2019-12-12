@@ -1,8 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
 
-ListItemMeta.displayName = 'MDCListItemMeta';
-
 export default function ListItemMeta({
     element = 'span',
     component: Element = element,
@@ -25,3 +23,5 @@ export default function ListItemMeta({
         );
     }
 }
+
+ListItemMeta.displayName = 'MDCListItemMeta';
