@@ -2,25 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import './index.scss';
-
-Avatar.displayName = 'MDCAvatar';
-
-Avatar.propTypes = {
-    src: PropTypes.string,
-    small: PropTypes.bool,
-    large: PropTypes.bool
-};
-
 export default function Avatar({
     src,
     small = false,
     large = false,
+    text,
     
     element = 'div',
     component: Element = element,
     className,
-    children,
+    children = text,
     ...props
 }) {
     const classNames = classnames('mdc-avatar', {
@@ -42,4 +33,12 @@ export default function Avatar({
             }
         </Element>
     );
+};
+
+Avatar.displayName = 'MDCAvatar';
+
+Avatar.propTypes = {
+    src: PropTypes.string,
+    small: PropTypes.bool,
+    large: PropTypes.bool
 };
