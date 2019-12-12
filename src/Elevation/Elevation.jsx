@@ -1,9 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import './index.scss';
-
-export default function MDCElevation({
+export default function Elevation({
     z = 0,
     transition = false,
 
@@ -21,3 +19,5 @@ export default function MDCElevation({
         <Element className={classNames} {...props} />
     );
 }
+
+Elevation.displayName = 'MDCElevation';
