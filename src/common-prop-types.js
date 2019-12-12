@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
 
-const commonPropTypes = {
+export default {
     element: PropTypes.string,
     component: PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]),
     className: PropTypes.string,
     children: PropTypes.node
 };
-
-export default commonPropTypes;
