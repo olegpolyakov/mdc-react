@@ -2,13 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-TopAppBarSection.displayName = 'MDCTopAppBarSection';
-
-TopAppBarSection.propTypes = {
-    alignStart: PropTypes.bool,
-    alignEnd: PropTypes.bool
-};
-
 export default function TopAppBarSection({
     alignStart = false,
     alignEnd = false,
@@ -26,3 +19,10 @@ export default function TopAppBarSection({
         <Element className={classNames} {...props} />
     );
 }
+
+TopAppBarSection.displayName = 'MDCTopAppBarSection';
+
+TopAppBarSection.propTypes = {
+    alignStart: PropTypes.bool,
+    alignEnd: PropTypes.bool
+};

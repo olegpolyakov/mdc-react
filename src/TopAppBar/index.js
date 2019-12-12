@@ -1,10 +1,5 @@
 import './index.scss';
 
-import TopAppBar from './TopAppBar';
-import TopAppBarRow from './TopAppBarRow';
-import TopAppBarSection from './TopAppBarSection';
-
-TopAppBar.Row = TopAppBarRow;
-TopAppBar.Section = TopAppBarSection;
-
-export { TopAppBar, TopAppBarRow, TopAppBarSection };
+export { default as TopAppBar } from './TopAppBar';
+export { default as TopAppBarRow } from './TopAppBarRow';
+export { default as TopAppBarSection } from './TopAppBarSection';

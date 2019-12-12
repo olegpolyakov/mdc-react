@@ -10,7 +10,8 @@
 }
 
 .mdc-top-app-bar--sticky {
-    position: fixed;
+    position: sticky;
+    top: 0;
 }
 
 .mdc-top-app-bar--dense {
@@ -29,12 +30,12 @@
     margin-top: 128px;
 }
 
-.mdc-top-app-bar--hidden {
-    transition: transform .2s;
+.mdc-top-app-bar--sticky-hidden {
     transform: translateY(-100%);
+    transition: transform .2s;
 }
 
-.mdc-top-app-bar--shown {
-    transition: transform .2s;
+.mdc-top-app-bar--sticky-shown {
     transform: translateY(0);
+    transition: transform .2s;
 }
