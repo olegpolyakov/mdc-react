@@ -2,15 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import './index.scss';
-
-FormField.displayName = 'MDCFormField';
-
-FormField.propTypes = {
-    label: PropTypes.string,
-    alignEnd: PropTypes.bool
-};
-
 export default function FormField({
     label,
     alignEnd = false,
@@ -27,7 +18,16 @@ export default function FormField({
         <div className={classNames} {...props}>
             {children}
 
-            {label && <label>{label}</label>}
+            {label &&
+                <label>{label}</label>
+            }
         </div>
     );
 }
+
+FormField.displayName = 'MDCFormField';
+
+FormField.propTypes = {
+    label: PropTypes.string,
+    alignEnd: PropTypes.bool
+};
