@@ -2,18 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-LayoutGridCell.displayName = 'MDCLayoutGridCell';
-
-LayoutGridCell.propTypes = {
-    span: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    desktop: PropTypes.number,
-    tablet: PropTypes.number,
-    mobile: PropTypes.number,
-    order: PropTypes.number,
-    align: PropTypes.oneOf(['top', 'middle', 'bottom']),
-    grid: PropTypes.bool
-};
-
 export default function LayoutGridCell({
     span,
     desktop,
@@ -51,3 +39,15 @@ export default function LayoutGridCell({
         </Element>
     );
 }
+
+LayoutGridCell.displayName = 'MDCLayoutGridCell';
+
+LayoutGridCell.propTypes = {
+    span: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    desktop: PropTypes.number,
+    tablet: PropTypes.number,
+    mobile: PropTypes.number,
+    order: PropTypes.number,
+    align: PropTypes.oneOf(['top', 'middle', 'bottom']),
+    grid: PropTypes.bool
+};

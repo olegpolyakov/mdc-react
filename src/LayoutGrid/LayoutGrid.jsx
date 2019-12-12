@@ -2,13 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-LayoutGrid.displayName = 'MDCLayoutGrid';
-
-LayoutGrid.propTypes = {
-    align: PropTypes.oneOf(['left', 'right']),
-    fixedColumnWidth: PropTypes.bool
-};
-
 export default function LayoutGrid({
     align,
     fixedColumnWidth = false,
@@ -31,3 +24,10 @@ export default function LayoutGrid({
         </Element>
     );
 }
+
+LayoutGrid.displayName = 'MDCLayoutGrid';
+
+LayoutGrid.propTypes = {
+    align: PropTypes.oneOf(['left', 'right']),
+    fixedColumnWidth: PropTypes.bool
+};
