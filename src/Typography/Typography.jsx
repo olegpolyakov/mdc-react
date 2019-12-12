@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import './index.scss';
-
 const variants = {
     headline1: 'h1',
     headline2: 'h2',
@@ -20,16 +18,6 @@ const variants = {
     overline: 'span'
 };
 
-Typography.displayName = 'MDCTypography';
-
-Typography.propTypes = {
-    variant: PropTypes.oneOf(['headline1', 'headline2', 'headline3', 'headline4', 'headline5', 'headline6', 'subtitle1', 'subtitle2', 'body1', 'body2', 'button', 'caption', 'overline']),
-    display: PropTypes.oneOf(['block', 'inline', 'inline-block']),
-    align: PropTypes.oneOf(['left', 'center', 'right', 'justify']),
-    noMargin: PropTypes.bool,
-    noWrap: PropTypes.bool
-};
-
 export default function Typography({
     variant = 'body1',
     display,
@@ -42,8 +30,6 @@ export default function Typography({
     className,
     ...props
 }) {
-    if (!variant in variants) throw new Error('Typography variant is invalid');
-
     const classNames = classnames('mdc-typography', `mdc-typography--${variant}`, {
         [`mdc-typography--display-${display}`]: display,
         [`mdc-typography--align-${align}`]: align,
@@ -54,4 +40,14 @@ export default function Typography({
     return (
         <Element className={classNames} {...props} />
     );
+}
+
+Typography.displayName = 'MDCTypography';
+
+Typography.propTypes = {
+    variant: PropTypes.oneOf(Object.keys(variants)),
+    display: PropTypes.oneOf(['block', 'inline', 'inline-block']),
+    align: PropTypes.oneOf(['left', 'center', 'right', 'justify']),
+    noMargin: PropTypes.bool,
+    noWrap: PropTypes.bool
 };
