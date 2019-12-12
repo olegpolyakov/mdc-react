@@ -1,6 +1,6 @@
 {
-  "name": "@codedojo/mdc-react",
-  "version": "0.10.1",
+  "name": "mdc-react",
+  "version": "0.12.0",
   "description": "Material Components for the web implemented in React",
   "main": "index.js",
   "scripts": {
@@ -10,37 +10,38 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "material-components-web": "^3.1.1",
+    "markdown-it": "^10.0.0",
+    "material-components-web": "^4.0.0",
     "prop-types": "^15.7.2",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-router-dom": "^5.0.1",
-    "react-transition-group": "^4.1.1"
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-router-dom": "^5.1.2",
+    "react-transition-group": "^4.3.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/preset-env": "^7.6.0",
-    "@babel/preset-react": "^7.0.0",
-    "autoprefixer": "^9.6.1",
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
+    "autoprefixer": "^9.7.1",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.8",
-    "webpack-dev-server": "^3.8.0"
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
   },
   "author": {
     "name": "Oleg Polyakov",
     "email": "olegpolyakov@outlook.com"
   },
-  "repository": "codedojo/mdc-react",
+  "repository": "mdc-react",
   "keywords": [
     "mdc",
     "react",
