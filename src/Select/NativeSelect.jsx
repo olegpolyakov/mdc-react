@@ -1,8 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
 
-NativeSelect.displayName = 'MDCNativeSelect';
-
 export default function NativeSelect({
     outlined = false,
     required = false,
@@ -31,4 +29,6 @@ export default function NativeSelect({
             </select>
         </div>
     );
-};
+}
+
+NativeSelect.displayName = 'MDCNativeSelect';
