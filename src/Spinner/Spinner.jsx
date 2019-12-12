@@ -2,14 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-Spinner.displayName = 'MDCSpinner';
-
-Spinner.propTypes = {
-    colorful: PropTypes.bool
-};
-
-import './index.scss';
-
 export default function Spinner({
     colorful = false,
 
@@ -26,3 +18,9 @@ export default function Spinner({
         </svg>
     );
 }
+
+Spinner.displayName = 'MDCSpinner';
+
+Spinner.propTypes = {
+    colorful: PropTypes.bool
+};
