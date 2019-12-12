@@ -2,15 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import './index.scss';
-
-NotchedOutline.displayName = 'MDCNotchedOutline';
-
-NotchedOutline.propTypes = {
-    notched: PropTypes.bool,
-    width: PropTypes.number
-};
-
 export default function NotchedOutline({
     notched = false,
     width = 0,
@@ -20,7 +11,8 @@ export default function NotchedOutline({
     ...props
 }) {
     const classNames = classnames('mdc-notched-outline', 'mdc-notched-outline--upgraded', {
-        'mdc-notched-outline--notched': notched
+        'mdc-notched-outline--notched': notched,
+        'mdc-notched-outline--no-label': !children
     }, className);
 
     const style = notched && width > 0 ? {
@@ -39,3 +31,10 @@ export default function NotchedOutline({
         </div>
     );
 }
+
+NotchedOutline.displayName = 'MDCNotchedOutline';
+
+NotchedOutline.propTypes = {
+    notched: PropTypes.bool,
+    width: PropTypes.number
+};
