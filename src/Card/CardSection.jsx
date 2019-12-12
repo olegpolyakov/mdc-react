@@ -2,13 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-CardSection.displayName = 'MDCCardSection';
-
-CardSection.propTypes = {
-    primary: PropTypes.bool,
-    secondary: PropTypes.bool
-};
-
 export default function CardSection({
     primary = false,
     secondary = false,
@@ -27,3 +20,10 @@ export default function CardSection({
         <Element className={classNames} {...props} />
     );
 }
+
+CardSection.displayName = 'MDCCardSection';
+
+CardSection.propTypes = {
+    primary: PropTypes.bool,
+    secondary: PropTypes.bool
+};

@@ -1,10 +1,29 @@
 import './index.scss';
 
-export { default as Card } from './Card';
-export { default as CardAction } from './CardAction';
-export { default as CardActions } from './CardActions';
-export { default as CardActionSection } from './CardActionSection';
-export { default as CardHeader } from './CardHeader';
-export { default as CardMedia } from './CardMedia';
-export { default as CardPrimaryAction } from './CardPrimaryAction';
-export { default as CardSection } from './CardSection';
+import Card from './Card';
+import CardAction from './CardAction';
+import CardActions from './CardActions';
+import CardActionSection from './CardActionSection';
+import CardHeader from './CardHeader';
+import CardMedia from './CardMedia';
+import CardPrimaryAction from './CardPrimaryAction';
+import CardSection from './CardSection';
+
+Card.Action = CardAction;
+Card.Actions = CardActions;
+Card.ActionSection = CardActionSection;
+Card.Header = CardHeader;
+Card.Media = CardMedia;
+Card.PrimaryAction = CardPrimaryAction;
+Card.Section = CardSection;
+
+export {
+    Card,
+    CardAction,
+    CardActions,
+    CardActionSection,
+    CardHeader,
+    CardMedia,
+    CardPrimaryAction,
+    CardSection
+};

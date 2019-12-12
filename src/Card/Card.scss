@@ -1,0 +1,7 @@
+@import '@material/card/mdc-card';
+
+.mdc-card {
+    .mdc-card__actions:last-child {
+        margin-top: auto;
+    }
+}

@@ -2,13 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-CardActionSection.displayName = 'MDCCardActionSection';
-
-CardActionSection.propTypes = {
-    buttons: PropTypes.bool,
-    icons: PropTypes.bool
-};
-
 export default function CardActionSection({
     buttons = false,
     icons = false,
@@ -27,3 +20,10 @@ export default function CardActionSection({
         <Element className={classNames} {...props} />
     );
 }
+
+CardActionSection.displayName = 'MDCCardActionSection';
+
+CardActionSection.propTypes = {
+    buttons: PropTypes.bool,
+    icons: PropTypes.bool
+};

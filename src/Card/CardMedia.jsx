@@ -2,17 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-CardMedia.displayName = 'MDCCardMedia';
-
-CardMedia.propTypes = {
-    image: PropTypes.string,
-    content: PropTypes.node,
-    square: PropTypes.bool,
-    wide: PropTypes.bool
-};
-
 export default function CardMedia({
-    image,
+    imageUrl,
     content,
     square = false,
     wide = false,
@@ -28,14 +19,26 @@ export default function CardMedia({
         'mdc-card__media--16-9': wide,
     }, className);
     
-    const style = image && {
-        backgroundImage: `url(${image})`
+    const style = imageUrl && {
+        backgroundImage: `url(${imageUrl})`
     };
 
     return (
         <Element className={classNames} style={style} {...props}>
-            {content && <div className="mdc-card__media-content">{content}</div>}
+            {content
+                && <div className="mdc-card__media-content">{content}</div>
+            }
+
             {children}
         </Element>
     );
 }
+
+CardMedia.displayName = 'MDCCardMedia';
+
+CardMedia.propTypes = {
+    image: PropTypes.string,
+    content: PropTypes.node,
+    square: PropTypes.bool,
+    wide: PropTypes.bool
+};

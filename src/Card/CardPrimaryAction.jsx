@@ -1,8 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
 
-CardPrimaryAction.displayName = 'MDCCardPrimaryAction';
-
 export default function CardPrimaryAction({
     element = 'div',
     component: Element = element,
@@ -15,3 +13,5 @@ export default function CardPrimaryAction({
         <Element className={classNames} {...props} />
     );
 }
+
+CardPrimaryAction.displayName = 'MDCCardPrimaryAction';
