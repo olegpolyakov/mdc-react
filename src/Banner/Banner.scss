@@ -1,5 +1,6 @@
-@import '@material/theme/mixins';
 @import '@material/ripple/mixins';
+@import '@material/theme/mixins';
+@import '@material/typography/mixins';
 
 .mdc-banner {
     @include mdc-theme-prop(background-color, secondary);
@@ -18,6 +19,7 @@
     }
 
     & &__text {
+        @include mdc-typography-base;
         margin: 0;
 
         a {
