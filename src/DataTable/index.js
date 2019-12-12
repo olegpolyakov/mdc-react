@@ -1,8 +1,23 @@
-import './index.scss';
+import '@material/data-table/mdc-data-table.scss';
 
-export { default as DataTable } from './DataTable';
-export { default as DataTableBody } from './DataTableBody';
-export { default as DataTableCell } from './DataTableCell';
-export { default as DataTableFoot } from './DataTableFoot';
-export { default as DataTableHead } from './DataTableHead';
-export { default as DataTableRow } from './DataTableRow';
+import DataTable from './DataTable';
+import DataTableCell from './DataTableCell';
+import DataTableContent from './DataTableContent';
+import DataTableFoot from './DataTableFoot';
+import DataTableHeader from './DataTableHeader';
+import DataTableRow from './DataTableRow';
+
+DataTable.Cell = DataTableCell;
+DataTable.Content = DataTableContent;
+DataTable.Foot = DataTableFoot;
+DataTable.Header = DataTableHeader;
+DataTable.Row = DataTableRow;
+
+export {
+    DataTable,
+    DataTableCell,
+    DataTableContent,
+    DataTableFoot,
+    DataTableHeader,
+    DataTableRow
+};

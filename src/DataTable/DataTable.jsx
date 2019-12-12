@@ -1,19 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-DataTable.displayName = 'MDCDataTable';
-
-DataTable.propTypes = {
-    selectable: PropTypes.bool
-};
-
-export default function DataTable({ selectable = false, className, ...props }) {
-    const classNames = classnames('mdc-data-table', {
-        'mdc-data-table--selectable': selectable
-    }, className);
+export default function DataTable({ className, children, ...props }) {
+    const classNames = classnames('mdc-data-table', className);
 
     return (
-        <table className={classNames} {...props} />
+        <div className={classNames} {...props}>
+            <table className="mdc-data-table__table">
+                {children}
+            </table>
+        </div>
     );
 }
+
+DataTable.displayName = 'MDCDataTable';

@@ -1,9 +1,12 @@
 import React from 'react';
-
-DataTableFoot.displayName = 'MDCDataTableFoot';
+import classnames from 'classnames';
 
 export default function DataTableFoot(props) {
+    const classNames = classnames('mdc-data-table__foot', className);
+
     return (
-        <tfoot className="mdc-data-table__foot" {...props} />
+        <tfoot className={classNames} {...props} />
     );
 }
+
+DataTableFoot.displayName = 'MDCDataTableFoot';
