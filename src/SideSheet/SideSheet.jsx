@@ -23,6 +23,7 @@ export default function SideSheet({
     appear = false,
     dismissible = false,
     modal = false,
+    appContentSelector,
     onClose = Function.prototype,
 
     element = 'aside',
