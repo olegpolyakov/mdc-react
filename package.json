@@ -6,7 +6,7 @@
   "module": "src/index.js",
   "scripts": {
     "start": "webpack --watch --env.dev --mode=development",
-    "build": "webpack --env.prod --mode=development",
+    "build": "webpack --env.prod --mode=production",
     "prepublish": "npm run build"
   },
   "dependencies": {
