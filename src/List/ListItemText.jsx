@@ -11,17 +11,19 @@ export default function ListItemText({
     return (
         <span className="mdc-list-item__text" {...props}>
             {primary &&
-                React.isValidElement(primary) ?
+                (React.isValidElement(primary) ?
                     React.cloneElement(primary, { className: 'mdc-list-item__primary-text' })
                     :
                     <span className="mdc-list-item__primary-text">{primary}</span>
+                )
             }
 
             {secondary &&
-                React.isValidElement(secondary) ?
+                (React.isValidElement(secondary) ?
                     React.cloneElement(secondary, { className: 'mdc-list-item__secondary-text' })
                     :
                     <span className="mdc-list-item__secondary-text">{secondary}</span>
+                )
             }
 
             {children}
