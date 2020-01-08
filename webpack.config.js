@@ -52,7 +52,10 @@ module.exports = env => {
         output: {
             path: path.resolve(__dirname, 'dist'),
             filename: 'index.js',
-            library: 'mdc-react',
+            library: {
+                root: 'MDCReact',
+                commonjs: 'mdc-react'
+            },
             libraryTarget: 'umd'
         },
 
@@ -84,9 +87,16 @@ module.exports = env => {
         },
 
         externals: {
-            'react': 'react',
-            'react-dom': 'react-dom',
-            'react-transition-group': 'react-transition-group'
+            'react': {
+                root: 'React',
+                commonjs: 'react',
+                commonjs2: 'react'
+            },
+            'react-dom': {
+                root: 'ReactDOM',
+                commonjs: 'react-dom',
+                commonjs2: 'react-dom'
+            }
         }
     };
 };
