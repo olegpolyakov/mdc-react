@@ -1,3 +1,3 @@
-import '@material/tab-indicator/mdc-tab-indicator.scss';
+import './TabIndicator.scss';
 
 export { default } from './TabIndicator';

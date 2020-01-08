@@ -1,3 +1,3 @@
-import '@material/notched-outline/mdc-notched-outline.scss';
+import './NotchedOutline.scss';
 
 export { default } from './NotchedOutline';

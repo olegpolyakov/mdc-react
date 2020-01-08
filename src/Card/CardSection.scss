@@ -1,14 +1,12 @@
-.mdc-card {
-    .mdc-card__section {
-        box-sizing: border-box;
-        
-        
-        &.mdc-card__section--primary {
-            padding: 8px 16px;
-        }
+.mdc-card__section {
+    box-sizing: border-box;
     
-        &.mdc-card__section--secondary {    
-            padding: 0 16px 8px;
-        }
+    
+    &.mdc-card__section--primary {
+        padding: 8px 16px;
+    }
+
+    &.mdc-card__section--secondary {    
+        padding: 0 16px 8px;
     }
 }

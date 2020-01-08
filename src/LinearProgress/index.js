@@ -1,3 +1,3 @@
-import '@material/linear-progress/mdc-linear-progress.scss';
+import './LinearProgress.scss';
 
 export { default } from './LinearProgress';

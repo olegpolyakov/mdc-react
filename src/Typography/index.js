@@ -1,3 +1,3 @@
-import './index.scss';
+import './Typography.scss';
 
 export { default } from './Typography';

@@ -1,3 +1,3 @@
-import '@material/radio/mdc-radio.scss';
+import './Radio.scss';
 
 export { default } from './Radio';

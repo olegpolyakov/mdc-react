@@ -1,8 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import './index.scss';
-
 import { useUpdated } from '../lifecycle-hooks';
 
 export default function TabScroller({

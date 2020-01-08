@@ -1,4 +1,4 @@
-import '@material/data-table/mdc-data-table.scss';
+import './DataTable.scss';
 
 import DataTable from './DataTable';
 import DataTableCell from './DataTableCell';

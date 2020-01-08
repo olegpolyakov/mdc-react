@@ -1,3 +1,3 @@
-import '@material/tab-bar/mdc-tab-bar.scss';
+import './TabBar.scss';
 
 export { default } from './TabBar';

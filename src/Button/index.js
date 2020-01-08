@@ -1,3 +1,3 @@
-import '@material/button/mdc-button.scss';
+import './Button.scss';
 
 export { default } from './Button';

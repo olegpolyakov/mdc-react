@@ -1,3 +1,3 @@
-import '@material/fab/mdc-fab.scss';
+import './FAB.scss';
 
 export { default } from './FAB';

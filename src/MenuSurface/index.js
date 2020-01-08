@@ -1,3 +1,3 @@
-import '@material/menu-surface/mdc-menu-surface.scss';
+import './MenuSurface.scss';
 
 export { default } from './MenuSurface';

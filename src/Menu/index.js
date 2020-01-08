@@ -1,4 +1,4 @@
-import '@material/menu/mdc-menu.scss';
+import './Menu.scss';
 
 export { default as Menu } from './Menu';
 export { default as MenuItem } from './MenuItem';

@@ -1,3 +1,3 @@
-import '@material/elevation/mdc-elevation.scss';
+import './Elevation.scss';
 
 export { default } from './Elevation';

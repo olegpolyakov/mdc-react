@@ -1,3 +1,3 @@
-import '@material/tab/mdc-tab.scss';
+import './Tab.scss';
 
 export { default } from './Tab';

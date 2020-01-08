@@ -1,3 +1,3 @@
-import './index.scss';
+import './FormField.scss';
 
 export { default } from './FormField';

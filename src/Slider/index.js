@@ -1,3 +1,3 @@
-import '@material/slider/mdc-slider.scss';
+import './Slider.scss';
 
 export { default } from './Slider';

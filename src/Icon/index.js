@@ -1,3 +1,3 @@
-import './index.scss';
+import './Icon.scss';
 
 export { default } from './Icon';

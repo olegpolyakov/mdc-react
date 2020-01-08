@@ -1,3 +1,3 @@
-import '@material/line-ripple/mdc-line-ripple.scss';
+import './LineRipple.scss';
 
 export { default } from './LineRipple';

@@ -1,4 +1,4 @@
-import '@material/dialog/mdc-dialog.scss';
+import './Dialog.scss';
 
 import Dialog from './Dialog';
 import DialogTitle from './DialogTitle';

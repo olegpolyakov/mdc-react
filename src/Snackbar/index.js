@@ -1,3 +1,3 @@
-import '@material/snackbar/mdc-snackbar.scss';
+import './Snackbar.scss';
 
 export { default } from './Snackbar';

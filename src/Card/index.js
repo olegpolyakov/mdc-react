@@ -1,4 +1,4 @@
-import './index.scss';
+import './Card.scss';
 
 import Card from './Card';
 import CardAction from './CardAction';

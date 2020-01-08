@@ -1,3 +1,3 @@
-import '@material/checkbox/mdc-checkbox.scss';
+import './Checkbox.scss';
 
 export { default } from './Checkbox';

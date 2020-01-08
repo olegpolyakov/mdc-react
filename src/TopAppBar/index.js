@@ -1,4 +1,4 @@
-import './index.scss';
+import './TopAppBar.scss';
 
 export { default as TopAppBar } from './TopAppBar';
 export { default as TopAppBarRow } from './TopAppBarRow';

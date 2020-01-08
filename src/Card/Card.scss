@@ -1,6 +1,12 @@
+@import '@material/theme/mixins';
+@import '@material/typography/mixins';
 @import '@material/card/mdc-card';
 
 .mdc-card {
+    @import './CardHeader';
+    @import './CardMedia';
+    @import './CardSection';
+
     .mdc-card__actions:last-child {
         margin-top: auto;
     }

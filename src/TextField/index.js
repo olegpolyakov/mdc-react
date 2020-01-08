@@ -1,3 +1,3 @@
-import '@material/textfield/mdc-text-field.scss';
+import './TextField.scss';
 
 export { default } from './TextField';
