@@ -3,6 +3,19 @@
 .mdc-tab-scroller {
     .mdc-tab-scroller__scroll-area {
         position: relative;
+        display: flex;
         overflow-x: scroll;
+    }
+
+    .mdc-tab-scroller--align-start .mdc-tab-scroller__scroll-area {
+        justify-content: flex-start;
+    }
+    
+    .mdc-tab-scroller--align-end .mdc-tab-scroller__scroll-area {
+        justify-content: flex-end;
+    }
+    
+    .mdc-tab-scroller--align-center .mdc-tab-scroller__scroll-area {
+        justify-content: center;
     }
 }
