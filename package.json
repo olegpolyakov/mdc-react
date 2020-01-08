@@ -3,7 +3,6 @@
   "version": "0.13.0",
   "description": "Material Components for the web implemented in React",
   "main": "dist/index.js",
-  "module": "src/index.js",
   "scripts": {
     "start": "webpack --watch --env.dev --mode=development",
     "build": "webpack --env.prod --mode=production",
