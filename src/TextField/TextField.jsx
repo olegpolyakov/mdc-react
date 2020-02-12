@@ -103,7 +103,7 @@ export default function TextField({
                     value={value}
                     placeholder={(fullWidth && !textarea) ? label : undefined}
                     disabled={disabled}
-                    onChange={value ? handleInputChange : undefined}
+                    onChange={typeof value === 'string' ? handleInputChange : undefined}
                     onFocus={handleInputFocus}
                     onBlur={handleInputBlur}
                     onMouseDown={handleInputInteraction}
