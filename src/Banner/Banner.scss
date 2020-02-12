@@ -28,8 +28,8 @@
     }
 
     & &__action {
-        @include mdc-theme-prop(background-color, secondary, true);
-        @include mdc-theme-prop(color, on-secondary, true);
+        @include mdc-theme-prop(background-color, secondary);
+        @include mdc-theme-prop(color, on-secondary);
         @include mdc-states(on-secondary);
         margin-left: 12px;
     }
