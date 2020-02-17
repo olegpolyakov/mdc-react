@@ -1,10 +1,10 @@
-@import '@material/ripple/mixins';
-@import '@material/theme/mixins';
-@import '@material/typography/mixins';
+@use '@material/ripple';
+@use '@material/theme';
+@use '@material/typography';
 
 .mdc-banner {
-    @include mdc-theme-prop(background-color, secondary);
-    @include mdc-theme-prop(color, on-secondary);
+    @include theme.prop(background-color, secondary);
+    @include theme.prop(color, on-secondary);
 
     & &__content {
         display: flex;
@@ -19,7 +19,7 @@
     }
 
     & &__text {
-        @include mdc-typography-base;
+        @include typography.base;
         margin: 0;
 
         a {
@@ -28,9 +28,9 @@
     }
 
     & &__action {
-        @include mdc-theme-prop(background-color, secondary);
-        @include mdc-theme-prop(color, on-secondary);
-        @include mdc-states(on-secondary);
+        @include theme.prop(background-color, secondary);
+        @include theme.prop(color, on-secondary);
+        @include ripple.states(on-secondary);
         margin-left: 12px;
     }
 }

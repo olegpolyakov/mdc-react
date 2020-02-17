@@ -1,4 +1,4 @@
-@import '@material/typography/mixins';
+@use '@material/typography';
 
 $mdc-avatar-size: 40px;
 $mdc-avatar-size-small: 24px;
@@ -40,7 +40,7 @@ $mdc-avatar-text-font-size-large: 32px;
         color: #fafafa;
         text-align: center;
         line-height: $mdc-avatar-size;
-        @include mdc-typography-base;
+        @include typography.base;
     }
 
     &.mdc-avatar--small {

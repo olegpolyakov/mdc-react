@@ -1,8 +1,8 @@
-@import '@material/theme/color-palette';
-@import '@material/animation/variables';
+@use '@material/animation';
+@use '@material/theme';
 
 $mdc-tooltip-text-color: white !default;
-$mdc-tooltip-background-color: $material-color-grey-700 !default;
+$mdc-tooltip-background-color: theme.$grey-700 !default;
 $mdc-tooltip-font-size: 10px !default;
 $mdc-tooltip-font-size-large: 14px !default;
 
@@ -24,7 +24,7 @@ $mdc-tooltip-font-size-large: 14px !default;
 }
 
 .mdc-tooltip--active {
-    animation: pulse 200ms $mdc-animation-deceleration-curve-timing-function forwards;
+    animation: pulse 200ms animation.$deceleration-curve-timing-function forwards;
 }
 
 .mdc-tooltip--large {

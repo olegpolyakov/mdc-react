@@ -1,4 +1,4 @@
-@import '@material/theme/mdc-theme';
+@use '@material/theme';
 
 .mdc-circular-progress {
     width: 100%;
@@ -17,6 +17,6 @@
     }
 
     &__foreground {
-        stroke: $mdc-theme-primary;
+        stroke: theme.$primary;
     }
 }
