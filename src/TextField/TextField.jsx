@@ -92,7 +92,7 @@ export default function TextField({
         <React.Fragment>
             <div className={classNames}>
                 {leadingIcon && React.cloneElement(leadingIcon, {
-                    className: 'mdc-text-field__icon',
+                    className: 'mdc-text-field__icon mdc-text-field__icon--leading',
                     tabIndex: '0',
                     role: 'button'
                 })}
@@ -110,6 +110,12 @@ export default function TextField({
                     onTouchStart={handleInputInteraction}
                     {...props}
                 />
+
+                {trailingIcon && React.cloneElement(trailingIcon, {
+                    className: 'mdc-text-field__icon mdc-text-field__icon--trailing',
+                    tabIndex: '0',
+                    role: 'button'
+                })}
 
                 {label && (textarea || outlined) &&
                     <NotchedOutline
@@ -132,12 +138,6 @@ export default function TextField({
                         {label}
                     </FloatingLabel>
                 }
-
-                {trailingIcon && React.cloneElement(trailingIcon, {
-                    className: 'mdc-text-field__icon',
-                    tabIndex: '0',
-                    role: 'button'
-                })}
 
                 {(!fullWidth && !textarea && !outlined) &&
                     <LineRipple
