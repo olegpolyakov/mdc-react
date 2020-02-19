@@ -1,4 +1,4 @@
-@use '@material/ripple';
+@use '@material/button';
 @use '@material/theme';
 @use '@material/typography';
 
@@ -20,17 +20,17 @@
 
     & &__text {
         @include typography.base;
+        @include theme.prop(color, on-secondary);
         margin: 0;
 
         a {
             color: inherit;
+            text-decoration: underline;
         }
     }
 
     & &__action {
-        @include theme.prop(background-color, secondary);
-        @include theme.prop(color, on-secondary);
-        @include ripple.states(on-secondary);
+        @include button.filled-accessible(theme.prop-value(secondary));
         margin-left: 12px;
     }
 }
