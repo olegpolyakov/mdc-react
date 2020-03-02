@@ -8,7 +8,6 @@ import FloatingLabel from '../FloatingLabel';
 import HelperText from './HelperText';
 
 export default function TextField({
-    type = 'text',
     value,
     outlined = false,
     fullWidth = false,
@@ -161,7 +160,6 @@ export default function TextField({
 TextField.displayName = 'MDCTextField';
 
 TextField.propTypes = {
-    type: PropTypes.string,
     value: PropTypes.any,
     outline: PropTypes.bool,
     fullWidth: PropTypes.bool,
