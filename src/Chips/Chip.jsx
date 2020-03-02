@@ -37,11 +37,13 @@ export default function Chip({
                 })
             }
 
-            <div className="mdc-chip__checkmark">
-                <svg className="mdc-chip__checkmark-svg" viewBox="-2 -3 30 30">
-                    <path className="mdc-chip__checkmark-path" fill="none" stroke="black" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
-                </svg>
-            </div>
+            {selected &&
+                <div className="mdc-chip__checkmark">
+                    <svg className="mdc-chip__checkmark-svg" viewBox="-2 -3 30 30">
+                        <path className="mdc-chip__checkmark-path" fill="none" stroke="black" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+                    </svg>
+                </div>
+            }
 
             <div className="mdc-chip__text">{children}</div>
 
@@ -64,5 +66,6 @@ Chip.propTypes = {
     leadingIcon: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
     tarilingIcon: PropTypes.element,
     selected: PropTypes.bool,
+    outlined: PropTypes.bool,
     onClick: PropTypes.func
 };
