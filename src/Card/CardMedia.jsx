@@ -19,9 +19,9 @@ export default function CardMedia({
         'mdc-card__media--16-9': wide,
     }, className);
     
-    const style = imageUrl && {
+    const style = imageUrl ? {
         backgroundImage: `url(${imageUrl})`
-    };
+    } : undefined;
 
     return (
         <Element className={classNames} style={style} {...props}>
