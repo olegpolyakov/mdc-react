@@ -11,9 +11,9 @@ export default function TextField({
     value,
     outlined = false,
     fullWidth = false,
-    dense = false,
     disabled = false,
     textarea = false,
+    endAligned = false,
     label,
     leadingIcon,
     trailingIcon,
@@ -21,6 +21,7 @@ export default function TextField({
     validationMessage,
 
     className,
+    element: Element = 'div',
     onChange,
     ...props
 }) {
@@ -40,12 +41,13 @@ export default function TextField({
         'mdc-text-field--outlined': outlined && !fullWidth,
         'mdc-text-field--fullwidth': fullWidth,
         'mdc-text-field--textarea': textarea,
-        'mdc-text-field--dense': dense,
         'mdc-text-field--disabled': disabled,
         'mdc-text-field--focused': focused,
         'mdc-text-field--invalid': !isValid && touched,
         'mdc-text-field--with-leading-icon': leadingIcon,
         'mdc-text-field--with-trailing-icon': trailingIcon,
+        'mdc-text-field--no-label': !label,
+        'mdc-text-field--end-aligned': endAligned,
     }, 'mdc-text-field--upgraded', className);
 
     function getValidationMessage() {
@@ -89,7 +91,11 @@ export default function TextField({
     
     return (
         <React.Fragment>
-            <div className={classNames}>
+            <Element className={classNames}>
+                {(!outlined && !textarea) &&
+                    <span class="mdc-text-field__ripple" />
+                }
+
                 {leadingIcon && React.cloneElement(leadingIcon, {
                     className: 'mdc-text-field__icon mdc-text-field__icon--leading',
                     tabIndex: '0',
@@ -116,21 +122,23 @@ export default function TextField({
                     role: 'button'
                 })}
 
-                {label && (textarea || outlined) &&
+                {(outlined || textarea) &&
                     <NotchedOutline
                         notched={focusedOrHasValue}
                         width={notchedOutlineWidth}
                     >
-                        <FloatingLabel
-                            ref={floatingLabelRef}
-                            float={focusedOrHasValue}
-                        >
-                            {label}
-                        </FloatingLabel>
+                        {label &&
+                            <FloatingLabel
+                                ref={floatingLabelRef}
+                                float={focusedOrHasValue}
+                            >
+                                {label}
+                            </FloatingLabel>
+                        }
                     </NotchedOutline>
                 }
 
-                {(label && !textarea && !outlined && !fullWidth) &&
+                {(label && !outlined && !fullWidth && !textarea) &&
                     <FloatingLabel
                         float={focusedOrHasValue}
                     >
@@ -138,13 +146,13 @@ export default function TextField({
                     </FloatingLabel>
                 }
 
-                {(!fullWidth && !textarea && !outlined) &&
+                {(!outlined && !textarea) &&
                     <LineRipple
                         active={focused}
                         center={lineRippleTransformOrigin.current}
                     />
                 }
-            </div>
+            </Element>
 
             {helperText &&
                 <HelperText persistent>{helperText}</HelperText>
