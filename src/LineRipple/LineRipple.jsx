@@ -37,7 +37,7 @@ export default function LineRipple({
     };
     
     return (
-        <div
+        <span
             className={classNames}
             style={style}
             onTransitionEnd={handleTransitionEnd}
