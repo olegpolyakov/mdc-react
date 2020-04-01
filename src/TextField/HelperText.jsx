@@ -6,7 +6,6 @@ export default function HelperText({
     persistent = false,
     validation = false,
 
-    element: Element = 'p',
     ...props
 }) {
     const classNames = classnames('mdc-text-field-helper-text', {
@@ -15,7 +14,9 @@ export default function HelperText({
     });
 
     return (
-        <Element className={classNames} {...props} />
+        <div className="mdc-text-field-helper-line">
+            <p className={classNames} {...props} />
+        </div>
     );
 }
 
