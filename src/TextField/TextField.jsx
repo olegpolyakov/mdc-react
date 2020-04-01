@@ -32,7 +32,7 @@ export default function TextField({
     const [touched, setTouched] = React.useState(false);
 
     const Input = textarea ? 'textarea' : 'input';
-    const focusedOrHasValue = focused || (value !== undefined) ? true : false;
+    const focusedOrHasValue = focused || (value !== undefined && value !== null && value !== '');
     const isValid = inputRef.current ? inputRef.current.validity.valid : true;
     const notchedOutlineWidth = getNotchedOutlineWidth();
 
