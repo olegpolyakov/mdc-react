@@ -32,7 +32,7 @@ export default function TextField({
     const [touched, setTouched] = React.useState(false);
 
     const Input = textarea ? 'textarea' : 'input';
-    const focusedOrHasValue = focused || value ? true : false;
+    const focusedOrHasValue = focused || (value !== undefined) ? true : false;
     const isValid = inputRef.current ? inputRef.current.validity.valid : true;
     const notchedOutlineWidth = getNotchedOutlineWidth();
 
@@ -102,7 +102,7 @@ export default function TextField({
                     value={value}
                     placeholder={(fullWidth && !textarea) ? label : undefined}
                     disabled={disabled}
-                    onChange={typeof value === 'string' ? handleInputChange : undefined}
+                    onChange={handleInputChange}
                     onFocus={handleInputFocus}
                     onBlur={handleInputBlur}
                     onMouseDown={handleInputInteraction}
