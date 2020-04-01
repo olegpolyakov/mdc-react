@@ -5,11 +5,13 @@ export default function ListItemText({
     primary,
     secondary,
 
+    element = 'span',
+    component: Element = element,
     children,
     ...props
 }) {
     return (
-        <span className="mdc-list-item__text" {...props}>
+        <Element className="mdc-list-item__text" {...props}>
             {primary &&
                 (React.isValidElement(primary) ?
                     React.cloneElement(primary, { className: 'mdc-list-item__primary-text' })
@@ -27,7 +29,7 @@ export default function ListItemText({
             }
 
             {children}
-        </span>
+        </Element>
     );
 }
 
