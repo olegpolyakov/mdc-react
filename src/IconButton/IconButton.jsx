@@ -13,7 +13,7 @@ export default function IconButton({
     element = 'button',
     component: Element = element,
     className,
-    children = icon,
+    children,
     ...props
 }) {
     if (React.isValidElement(children)) {
@@ -29,12 +29,17 @@ export default function IconButton({
 
         return (
             <Element className={classNames} {...props}>
-                {React.cloneElement(onIcon, {
+                {onIcon && React.cloneElement(onIcon, {
                     className: 'mdc-icon-button__icon mdc-icon-button__icon--on',
                     title: onLabel
                 })}
                 
-                {React.cloneElement(offIcon, {
+                {offIcon && React.cloneElement(offIcon, {
+                    className: 'mdc-icon-button__icon',
+                    title: offLabel
+                })}
+
+                {icon && React.cloneElement(icon, {
                     className: 'mdc-icon-button__icon',
                     title: offLabel
                 })}
