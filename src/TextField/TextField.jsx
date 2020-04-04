@@ -93,7 +93,7 @@ export default function TextField({
         <React.Fragment>
             <Element className={classNames}>
                 {(!outlined && !textarea) &&
-                    <span class="mdc-text-field__ripple" />
+                    <span className="mdc-text-field__ripple" />
                 }
 
                 {leadingIcon && React.cloneElement(leadingIcon, {

@@ -1,6 +1,6 @@
 {
   "name": "mdc-react",
-  "version": "0.14.5",
+  "version": "0.14.6",
   "description": "Material Components for the web implemented in React",
   "main": "dist/index.js",
   "scripts": {
