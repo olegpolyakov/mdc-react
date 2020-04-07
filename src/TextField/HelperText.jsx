@@ -22,7 +22,7 @@ export default function HelperText({
 
 HelperText.displayName = 'MDCTextFieldHelperText';
 
-HelperText.PropTypes = {
+HelperText.propTypes = {
     persistent: PropTypes.bool,
     validation: PropTypes.bool
 };
