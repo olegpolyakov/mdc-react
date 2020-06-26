@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -7,7 +7,9 @@ import LineRipple from '../LineRipple';
 import FloatingLabel from '../FloatingLabel';
 import HelperText from './HelperText';
 
-export default function TextField({
+export default forwardRef(TextField);
+
+function TextField({
     value,
     outlined = false,
     fullWidth = false,
@@ -24,13 +26,15 @@ export default function TextField({
     element: Element = 'div',
     onChange,
     ...props
-}) {
-    const inputRef = React.useRef();
-    const floatingLabelRef = React.useRef();
-    const lineRippleTransformOrigin = React.useRef();
+}, ref) {
+    const inputRef = useRef();
+    const floatingLabelRef = useRef();
+    const lineRippleTransformOrigin = useRef();
 
-    const [focused, setFocused] = React.useState(false);
-    const [touched, setTouched] = React.useState(false);
+    const [focused, setFocused] = useState(false);
+    const [touched, setTouched] = useState(false);
+
+    useImperativeHandle(ref, () => inputRef.current);
 
     const Input = textarea ? 'textarea' : 'input';
     const focusedOrHasValue = focused || (value !== undefined && value !== null && value !== '');
@@ -70,7 +74,7 @@ export default function TextField({
     function handleInputInteraction(event) {
         const targetClientRect = event.target.getBoundingClientRect();
         const coords = { x: event.clientX, y: event.clientY };
-        
+
         lineRippleTransformOrigin.current = coords.x - targetClientRect.left;
     }
 
@@ -85,10 +89,10 @@ export default function TextField({
         setFocused(false);
     }
 
-    function handleInputChange(event)  {
+    function handleInputChange(event) {
         onChange(inputRef.current.value, inputRef.current, event);
     }
-    
+
     return (
         <React.Fragment>
             <Element className={classNames}>
