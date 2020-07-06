@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 export default function Badge({
     value,
-    overlap = false,
+    inset = false,
     noBackground = false,
 
     element: Element = 'span',
@@ -12,7 +12,7 @@ export default function Badge({
     ...props
 }) {
     const classNames = classnames('mdc-badge', {
-        'mdc-badge--overlap': overlap,
+        'mdc-badge--inset': inset,
         'mdc-badge--no-background': noBackground
     }, className);
 
@@ -32,6 +32,6 @@ Badge.propTypes = {
         PropTypes.number,
         PropTypes.string
     ]).isRequired,
-    overlap: PropTypes.bool,
+    overlap: PropTypes.string,
     noBackground: PropTypes.bool
 };
