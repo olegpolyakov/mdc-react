@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 
+import { useUpdated } from '../lifecycle-hooks';
 import Modal from '../Modal';
 
 export default function Tooltip({
@@ -11,35 +12,42 @@ export default function Tooltip({
     className,
     children
 }) {
+    const tooltipRef = useRef();
+    const targetRef = useRef(null);
+    const [active, setActive] = useState(false);
+
+    useUpdated(() => {
+        const targetRect = targetRef.current?.getBoundingClientRect();
+
+        if (targetRect) {
+            tooltipRef.current.style.top = (window.scrollY + targetRect.top + targetRect.height + 8) + 'px';
+            tooltipRef.current.style.left = (window.scrollX + targetRect.left + targetRect.width * 0.5) + 'px';
+        }
+    }, [active]);
+
+    const handleMouseEnter = useCallback(event => {
+        targetRef.current = event.target;
+        setActive(true);
+    }, []);
+
+    const handleMouseLeave = useCallback(event => {
+        targetRef.current = null;
+        setActive(false);
+    }, []);
+
     const classNames = classnames('mdc-tooltip', {
         'mdc-tooltip--large': large
     }, className);
-    const tooltipRef = React.useRef();
-    const [target, setTarget] = React.useState();
 
-    function handleMouseEnter(event) {
-        setTarget(event.target);
-    }
-
-    function handleMouseLeave(event) {
-        setTarget(null);
-    }
-
-    const targetRect = target ? target.getBoundingClientRect() : null;
-    const style = targetRect ? {
-        left: (targetRect.left + targetRect.width * 0.5) + 'px',
-        top: (targetRect.top + targetRect.height + 8) + 'px'
-    } : null;
-    
     return (
         <>
             {React.cloneElement(children, {
                 onMouseEnter: handleMouseEnter,
                 onMouseLeave: handleMouseLeave
             })}
-            
+
             <CSSTransition
-                in={Boolean(target)}
+                in={active}
                 timeout={{ enter: 150, exit: 0 }}
                 classNames={{
                     enterDone: 'mdc-tooltip--active'
@@ -48,7 +56,12 @@ export default function Tooltip({
                 unmountOnExit
             >
                 <Modal>
-                    <div ref={tooltipRef} className={classNames} style={style}>{label}</div>
+                    <div
+                        ref={tooltipRef}
+                        className={classNames}
+                    >
+                        {label}
+                    </div>
                 </Modal>
             </CSSTransition>
         </>

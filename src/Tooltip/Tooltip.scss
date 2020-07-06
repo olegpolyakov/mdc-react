@@ -24,7 +24,7 @@ $mdc-tooltip-font-size-large: 14px !default;
 }
 
 .mdc-tooltip--active {
-    animation: pulse 200ms animation.$deceleration-curve-timing-function forwards;
+    animation: appear 200ms animation.$deceleration-curve-timing-function forwards;
 }
 
 .mdc-tooltip--large {
@@ -33,7 +33,7 @@ $mdc-tooltip-font-size-large: 14px !default;
     padding: 16px;
 }
 
-@keyframes pulse {
+@keyframes appear {
     0% {
         transform: scale(0) translateX(-50%);
         opacity: 0;
