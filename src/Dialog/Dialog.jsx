@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 
-import { useUpdated } from '../lifecycle-hooks';
+import { useUpdated, useUpdatedLayout } from '../lifecycle-hooks';
 import Modal from '../Modal';
 import DialogTitle from './DialogTitle';
 import DialogContent from './DialogContent';
@@ -19,12 +19,12 @@ const cssClasses = {
 };
 
 export default function Dialog({
-    open = false,
-    appear = false,
-    confirmation = false,
     title,
     content,
     actions,
+    open = false,
+    appear = false,
+    persistent = false,
     onClose = Function.prototype,
 
     element: Element = 'div',
@@ -32,14 +32,8 @@ export default function Dialog({
     children,
     ...props
 }) {
-    const rootElement = React.useRef();
+    const rootElement = useRef();
     const classNames = classnames('mdc-dialog', className);
-
-    function handleScrimClick() {
-        if (confirmation) return;
-
-        onClose();
-    }
 
     useUpdated(() => {
         if (open) {
@@ -50,35 +44,42 @@ export default function Dialog({
     }, [open]);
 
     useUpdated(() => {
-        if (confirmation) return;
+        if (persistent) return;
 
         function handleDocumentKeyDown(event) {
             if (event.key && event.key === 'Escape' || event.keyCode === 27) {
                 onClose();
             }
         }
-        
+
         if (open) {
             document.addEventListener('keydown', handleDocumentKeyDown);
         } else {
             document.removeEventListener('keydown', handleDocumentKeyDown);
         }
-    }, [open]);
+    }, [open, persistent]);
 
     useUpdated(() => {
         const contentElement = rootElement.current.querySelector('.mdc-dialog__content');
-        const scrollable = contentElement ? contentElement.scrollHeight > contentElement.offsetHeight : false;
-        
-        if (open && scrollable) {
+        const shouldScroll = contentElement ? contentElement.scrollHeight > contentElement.offsetHeight : false;
+
+        if (open && shouldScroll) {
             rootElement.current.classList.add(cssClasses.SCROLLABLE);
-        } else if (!open && scrollable) {
+        } else if (!open && shouldScroll) {
             rootElement.current.classList.remove(cssClasses.SCROLLABLE);
         }
     }, [open]);
 
+    const handleScrimClick = useCallback(() => {
+        if (persistent) return;
+
+        onClose();
+    }, [persistent]);
+
     return (
         <CSSTransition
             in={open}
+            appear={appear}
             timeout={{ enter: 150, exit: 75 }}
             classNames={{
                 appear: 'mdc-dialog--opening',
@@ -88,7 +89,6 @@ export default function Dialog({
                 enterDone: 'mdc-dialog--open',
                 exit: 'mdc-dialog--closing'
             }}
-            appear={appear}
             mountOnEnter
             unmountOnExit
         >
@@ -104,11 +104,17 @@ export default function Dialog({
                             aria-modal="true"
                             className="mdc-dialog__surface"
                         >
-                            {title && <DialogTitle>{title}</DialogTitle>}
+                            {title &&
+                                <DialogTitle>{title}</DialogTitle>
+                            }
 
-                            {content && <DialogContent>{content}</DialogContent>}
+                            {content &&
+                                <DialogContent>{content}</DialogContent>
+                            }
 
-                            {actions && <DialogActions>{actions}</DialogActions>}
+                            {actions &&
+                                <DialogActions>{actions}</DialogActions>
+                            }
 
                             {children}
                         </div>
