@@ -47,8 +47,8 @@ export default function Radio({
 Radio.displayName = 'MDCRadio';
 
 Radio.propTypes = {
-    value: PropTypes.string.isRequired,
-    checked: PropTypes.bool.isRequired,
+    value: PropTypes.string,
+    checked: PropTypes.bool,
     disabled: PropTypes.bool,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func
 };
