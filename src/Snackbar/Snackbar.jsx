@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useCallback } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -24,22 +24,18 @@ export default function Snackbar({
     children = label,
     ...props
 }) {
-    const timeoutRef = React.useRef();
+    const timeoutRef = useRef();
 
     const classNames = classnames('mdc-snackbar', {
         'mdc-snackbar--leading': leading,
         'mdc-snackbar--stacked': stacked
     }, className);
 
-    function handleKeyDown(event) {
+    const handleKeyDown = useCallback(event => {
         if (closeOnEscape && event.key === 'Escape' || event.keyCode === 27) {
             onClose();
         }
-    }
-
-    function handleDismiss() {
-        onClose();
-    }
+    }, []);
 
     useUpdated(() => {
         if (open) {
@@ -58,6 +54,7 @@ export default function Snackbar({
     return (
         <CSSTransition
             in={open}
+            appear={appear}
             timeout={{ enter: 150, exit: 75 }}
             classNames={{
                 appear: 'mdc-snackbar--opening',
@@ -67,7 +64,6 @@ export default function Snackbar({
                 enterDone: 'mdc-snackbar--open',
                 exit: 'mdc-snackbar--closing'
             }}
-            appear={appear}
             mountOnEnter
             unmountOnExit
         >
@@ -78,7 +74,7 @@ export default function Snackbar({
                     {...props}
                 >
                     <div className="mdc-snackbar__surface">
-                        <div className="mdc-snackbar__label" role="status" aria-level="polite">{children}</div>
+                        <div className="mdc-snackbar__label" role="status" aria-live="polite">{children}</div>
 
                         <div className="mdc-snackbar__actions">
                             {action &&
@@ -86,7 +82,7 @@ export default function Snackbar({
                             }
 
                             {dismissable &&
-                                <IconButton className="mdc-snackbar__dismiss" onClick={handleDismiss}>
+                                <IconButton className="mdc-snackbar__dismiss" onClick={onClose}>
                                     <Icon>close</Icon>
                                 </IconButton>
                             }
@@ -101,10 +97,13 @@ export default function Snackbar({
 Snackbar.displayName = 'MDCSnackbar';
 
 Snackbar.propTypes = {
+    label: PropTypes.string,
+    action: PropTypes.element,
     open: PropTypes.bool,
     appear: PropTypes.bool,
     leading: PropTypes.bool,
     stacked: PropTypes.bool,
+    dismissable: PropTypes.bool,
     timeout: PropTypes.number,
     closeOnEscape: PropTypes.bool,
     onClose: PropTypes.func
