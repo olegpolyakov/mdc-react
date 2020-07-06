@@ -6,6 +6,7 @@ export default function FormField({
     label,
     alignEnd = false,
 
+    element: Element = 'label',
     className,
     children,
     ...props
@@ -15,13 +16,13 @@ export default function FormField({
     }, className);
 
     return (
-        <div className={classNames} {...props}>
+        <Element className={classNames} {...props}>
             {children}
 
             {label &&
-                <label>{label}</label>
+                <span className="mdc-form-field__label">{label}</span>
             }
-        </div>
+        </Element>
     );
 }
 
