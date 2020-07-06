@@ -1,230 +1,302 @@
-@use '@material/animation';
-@use '@material/elevation';
-@use '@material/rtl';
-@use '@material/shape';
-@use '@material/theme';
-@use '@material/typography';
+@use 'sass:list';
+@use 'sass:meta';
+@use '@material/feature-targeting/functions';
+@use '@material/feature-targeting/mixins' as feature-targeting-mixins;
+@use '@material/animation/functions' as functions2;
+@use '@material/animation/variables' as animation-variables;
+@use '@material/rtl/mixins' as rtl-mixins;
+@use '@material/typography/mixins' as typography-mixins;
+@use '@material/typography/variables' as variables2;
+@use '@material/theme/mixins' as theme-mixins;
+@use '@material/theme/variables' as theme-variables;
+@use '@material/ripple/mixins' as ripple-mixins;
+@use '@material/shape/mixins' as shape-mixins;
+@use '@material/elevation/mixins' as elevation-mixins;
+@use '@material/icon-button' as icon-button-mixins;
+@use './variables';
 
-@use './variables.scss' as *;
+@mixin core-styles($query: functions.all()) {
+  $feat-structure: functions.create-target($query, structure);
+  $feat-animation: functions.create-target($query, animation);
 
-@mixin mdc-side-sheet-outline-color($color) {
-  $value: rgba(theme.prop-value($color), $mdc-side-sheet-outline-opacity);
+  // postcss-bem-linter: define drawer
+  .mdc-side-sheet {
+    @include title-ink-color(variables.$title-ink-color, $query: $query);
+    @include border-color(variables.$divider-color, $query: $query);
+    @include surface-fill-color(variables.$surface-fill-color, $query: $query);
+    @include shape-radius(variables.$shape-radius, $query: $query);
+    @include z-index(variables.$z-index, $query: $query);
+    @include width(variables.$width, $query: $query);
 
-  @include theme.prop(border-color, $value);
-}
-
-@mixin mdc-side-sheet-shape-radius($radius, $side: trailing) {
-  @if length($radius) > 2 {
-    @error "Invalid radius: '#{$radius}'. Component doesn't allow customizing all corners.";
-  }
-  @if $side != leading and $side != trailing {
-    @error "mdc-side-sheet-shape-radius() mixin: $side must be 'leading' or 'trailing', but got '#{$side}'";
-  }
-  @if $side == leading {
-    @if length($radius) == 2 {
-      $radius: 0 nth($radius, 1) nth($radius, 2) 0;
-    } @else {
-      $radius: 0 $radius $radius 0;
+    @include feature-targeting-mixins.targets($feat-structure) {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      height: 100%;
+      /* @noflip */
+      border-left-width: 1px;
+      /* @noflip */
+      border-left-style: solid;
+      overflow: hidden;
     }
-  } @else {
-    @if length($radius) == 2 {
-      $radius: nth($radius, 1) 0 0 nth($radius, 2);
-    } @else {
-      $radius: $radius 0 0 $radius;
-    }
-  }
-  @include shape.radius($radius, $rtl-reflexive: true);
-}
 
-@mixin mdc-side-sheet-scrim-fill-color($color) {
-  $value: rgba(theme.prop-value($color), $mdc-side-sheet-modal-scrim-opacity);
-  ~ .mdc-side-sheet-scrim {
-    @include theme.prop(background-color, $value);
-  }
-}
-
-@mixin mdc-side-sheet-ink-color($color) {
-  $value: rgba(theme.prop-value($color), $mdc-side-sheet-ink-opacity);
-  @include theme.prop(color, $value);
-}
-
-@mixin mdc-side-sheet-surface-fill-color($color) {
-  @include theme.prop(background-color, $color);
-}
-
-@mixin mdc-side-sheet-surface-fill-color-accessible($color) {
-  $accessibleColor: theme.accessible-ink-color($color);
-  @include mdc-side-sheet-ink-color($accessibleColor);
-  @include mdc-side-sheet-surface-fill-color($color);
-}
-
-@mixin mdc-side-sheet-z-index($value) {
-  z-index: $value;
-}
-
-@mixin mdc-side-sheet-width($width, $side: trailing) {
-  width: $width;
-  &.mdc-side-sheet--open:not(&--closing) ~ .mdc-side-sheet-app-content {
-    @include mdc-side-sheet-app-content-margin_($width, $side);
-  }
-}
-
-//
-// Private
-//
-
-@mixin mdc-side-sheet-base_() {
-  @include typography.base;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  // stylelint-disable-next-line declaration-empty-line-before
-  box-sizing: border-box;
-  height: 100%;
-  transition-property: transform;
-  transition-timing-function: animation.$standard-curve-timing-function;
-  overflow: hidden;
-  // stylelint-disable-next-line selector-max-type
-  &--open {
-    transition: animation.standard(
-      transform,
-      $mdc-side-sheet-animation-enter
-    );
-  }
-}
-
-@mixin mdc-side-sheet-transitions_($side: trailing) {
-  $xFactor: if($side == leading, 1, -1);
-  &--animate {
-    transform: translateX(-100% * $xFactor);
-    @include rtl.rtl {
-      transform: translateX(100% * $xFactor);
+    @include feature-targeting-mixins.targets($feat-animation) {
+      transition-property: transform;
+      transition-timing-function: animation-variables.$standard-curve-timing-function;
     }
   }
-  &--opening {
-    transform: translateX(0);
-    transition-duration: $mdc-side-sheet-animation-enter;
-    // Required to level the specificity with animate class.
-    @include rtl.rtl {
+
+  .mdc-side-sheet--animate {
+    @include feature-targeting-mixins.targets($feat-structure) {
+      transform: translateX(100%);
+    }
+  }
+
+  .mdc-side-sheet--opening {
+    @include feature-targeting-mixins.targets($feat-structure) {
       transform: translateX(0);
     }
+
+    @include feature-targeting-mixins.targets($feat-animation) {
+      transition-duration: variables.$animation-enter;
+    }
   }
-  &--closing {
-    transform: translateX(-100% * $xFactor);
-    transition-duration: $mdc-side-sheet-animation-exit;
-    @include rtl.rtl {
-      transform: translateX(100% * $xFactor);
+
+  .mdc-side-sheet--closing {
+    @include feature-targeting-mixins.targets($feat-structure) {
+      transform: translateX(100%);
+    }
+
+    @include feature-targeting-mixins.targets($feat-animation) {
+      transition-duration: variables.$animation-exit;
+    }
+  }
+
+  .mdc-side-sheet__header {
+    @include feature-targeting-mixins.targets($feat-structure) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      min-height: 64px; // same as $mdc-top-app-bar-row-height
+      padding: 0 variables.$surface-padding 4px;
+    }
+  }
+
+  .mdc-side-sheet__title {
+    @include typography-mixins.typography(headline6, $query: $query);
+    margin: 0;
+  }
+
+  .mdc-side-sheet__close-button {
+    @include icon-button-mixins.size(36px);
+    @include icon-button-mixins.ink-color(text-icon-on-light);
+  }
+
+  .mdc-side-sheet__content {
+    @include feature-targeting-mixins.targets($feat-structure) {
+      height: 100%;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  // postcss-bem-linter: end
+}
+
+@mixin dismissible-core-styles($query: functions.all()) {
+  $feat-structure: functions.create-target($query, structure);
+
+  .mdc-side-sheet--dismissible {
+    @include feature-targeting-mixins.targets($feat-structure) {
+      @include rtl-mixins.reflexive-position(right, 0);
+
+      display: none;
+      position: absolute;
+
+      &.mdc-side-sheet--open {
+        display: flex;
+      }
+    }
+  }
+
+  .mdc-side-sheet-app-content {
+    @include feature-targeting-mixins.targets($feat-structure) {
+      @include rtl-mixins.reflexive-box(margin, right, 0);
+
+      position: relative;
     }
   }
 }
 
-@mixin mdc-side-sheet-dismissible_($rootClass, $side: trailing) {
-  display: none;
-  position: absolute;
-  top: 0;
-  &.#{$rootClass}--open {
-    display: flex;
-  }
-  @if $side == leading {
-    @include rtl.reflexive-position(left, 0);
-  } @else if $side == trailing {
-    @include rtl.reflexive-position(right, 0);
-  } @else {
-    @error "mdc-side-sheet-dismissible_() mixin: $side must be 'leading' or 'trailing', but got '#{$side}'";
-  }
-}
+@mixin modal-core-styles($query: functions.all()) {
+  $feat-structure: functions.create-target($query, structure);
+  $feat-animation: functions.create-target($query, animation);
 
-@mixin mdc-side-sheet-modal_($rootClass, $side: trailing) {
-  @include elevation.elevation($mdc-side-sheet-modal-elevation);
-  display: none;
-  position: fixed;
-  top: 0;
-  &.#{$rootClass}--open {
-    display: flex;
-  }
-  @if $side == leading {
-    @include rtl.reflexive-position(left, 0);
-  } @else if $side == trailing {
-    @include rtl.reflexive-position(right, 0);
-  } @else {
-    @error "mdc-side-sheet-modal_() mixin: $side must be 'leading' or 'trailing', but got '#{$side}'";
-  }
-}
+  .mdc-side-sheet--modal {
+    @include scrim-fill-color(variables.$modal-scrim-color, $query: $query);
+    @include elevation-mixins.elevation(
+      variables.$modal-elevation,
+      $query: $query
+    );
 
-@mixin mdc-side-sheet-app-content-margin_($width, $side) {
-  @if $side == leading {
-    @include rtl.reflexive-box(margin, left, $width);
-  } @else if $side == trailing {
-    @include rtl.reflexive-box(margin, right, $width);
-  } @else {
-    @error "$side must be 'leading' or 'trailing', but got '#{$side}'";
-  }
-}
+    @include feature-targeting-mixins.targets($feat-structure) {
+      @include rtl-mixins.reflexive-position(right, 0);
 
-@mixin mdc-side-sheet-content_ {
-  height: 100%;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-@mixin mdc-side-sheet-scrim_($rootClass) {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transition-property: opacity;
-  transition-timing-function: animation.$standard-curve-timing-function;
-  z-index: $mdc-side-sheet-z-index - 1;
-  .#{$rootClass}--open ~ & {
-    display: block;
-  }
-  .#{$rootClass}--animate ~ & {
-    opacity: 0;
-  }
-  .#{$rootClass}--opening ~ & {
-    transition-duration: $mdc-side-sheet-animation-enter;
-    opacity: 1;
-  }
-  .#{$rootClass}--closing ~ & {
-    transition-duration: $mdc-side-sheet-animation-exit;
-    opacity: 0;
-  }
-}
-
-@mixin mdc-side-sheet-app-content_() {
-  position: relative;
-  margin-left: 0;
-  margin-right: 0;
-}
-
-@mixin mdc-side-sheet-outline-right_($width) {
-  border-right-width: $width;
-  border-left-width: 0;
-  border-right-style: solid;
-  border-left-style: none;
-}
-
-@mixin mdc-side-sheet-outline-left_($width) {
-  border-right-width: 0;
-  border-left-width: $width;
-  border-right-style: none;
-  border-left-style: solid;
-}
-
-@mixin mdc-side-sheet-outline-width_($width, $side: trailing) {
-  @if $side == leading {
-    @include mdc-side-sheet-outline-right_($width);
-    @include rtl.rtl {
-      @include mdc-side-sheet-outline-left_($width);
+      display: none;
+      position: fixed;
     }
-  } @else if $side == trailing {
-    @include mdc-side-sheet-outline-left_($width);
-    @include rtl.rtl {
-      @include mdc-side-sheet-outline-right_($width);
+
+    &.mdc-side-sheet--open {
+      @include feature-targeting-mixins.targets($feat-structure) {
+        display: flex;
+      }
     }
+  }
+
+  .mdc-side-sheet-scrim {
+    @include feature-targeting-mixins.targets($feat-structure) {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: variables.$z-index - 1;
+    }
+
+    @include feature-targeting-mixins.targets($feat-animation) {
+      transition-property: opacity;
+      transition-timing-function: animation-variables.$standard-curve-timing-function;
+    }
+
+    .mdc-side-sheet--open + & {
+      @include feature-targeting-mixins.targets($feat-structure) {
+        display: block;
+      }
+    }
+
+    .mdc-side-sheet--animate + & {
+      @include feature-targeting-mixins.targets($feat-structure) {
+        opacity: 0;
+      }
+    }
+
+    .mdc-side-sheet--opening + & {
+      @include feature-targeting-mixins.targets($feat-animation) {
+        transition-duration: variables.$animation-enter;
+      }
+
+      @include feature-targeting-mixins.targets($feat-structure) {
+        opacity: 1;
+      }
+    }
+
+    .mdc-side-sheet--closing + & {
+      @include feature-targeting-mixins.targets($feat-animation) {
+        transition-duration: variables.$animation-exit;
+      }
+
+      @include feature-targeting-mixins.targets($feat-structure) {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+@mixin border-color($color, $query: functions.all()) {
+  $feat-color: functions.create-target($query, color);
+  $value: rgba(theme-variables.prop-value($color), variables.$divider-opacity);
+
+  @include feature-targeting-mixins.targets($feat-color) {
+    @include theme-mixins.prop(border-color, $value);
+  }
+}
+
+@mixin shape-radius($radius, $query: functions.all()) {
+  // Check type since $radius may be a custom property Map
+  $is-list: meta.type-of($radius) == 'list';
+  @if $is-list and list.length($radius) > 2 {
+    @error "Invalid radius: '#{$radius}' component doesn't allow customizing all corners";
+  } @else if $is-list and list.length($radius) == 2 {
+    $radius: 0 list.nth($radius, 1) list.nth($radius, 2) 0;
   } @else {
-    @error "mdc-side-sheet-outline-width_() mixin: $side must be 'leading' or 'trailing', but got '#{$side}'";
+    $radius: 0 $radius $radius 0;
+  }
+
+  @include shape-mixins.radius($radius, $rtl-reflexive: true, $query: $query);
+}
+
+@mixin divider-color($color, $query: functions.all()) {
+  $value: rgba(theme-variables.prop-value($color), variables.$divider-opacity);
+
+  @include list-mixins.divider-color($value, $query: $query);
+}
+
+@mixin title-ink-color($color, $query: functions.all()) {
+  $feat-color: functions.create-target($query, color);
+  $value: rgba(
+    theme-variables.prop-value($color),
+    variables.$title-ink-opacity
+  );
+
+  .mdc-side-sheet__title {
+    @include feature-targeting-mixins.targets($feat-color) {
+      @include theme-mixins.prop(color, $value);
+    }
+  }
+}
+
+@mixin fill-color-accessible($color, $query: functions.all()) {
+  $accessibleColor: theme-variables.accessible-ink-color($color);
+
+  @include title-ink-color($accessibleColor, $query: $query);
+  @include surface-fill-color($color, $query: $query);
+}
+
+@mixin surface-fill-color($color, $query: functions.all()) {
+  $feat-color: functions.create-target($query, color);
+  $value: theme-variables.prop-value($color);
+
+  @include feature-targeting-mixins.targets($feat-color) {
+    @include theme-mixins.prop(background-color, $value);
+  }
+}
+
+@mixin scrim-fill-color($color, $query: functions.all()) {
+  $feat-color: functions.create-target($query, color);
+  $value: rgba(
+    theme-variables.prop-value($color),
+    variables.$modal-scrim-opacity
+  );
+
+  + .mdc-side-sheet-scrim {
+    @include feature-targeting-mixins.targets($feat-color) {
+      @include theme-mixins.prop(background-color, $value);
+    }
+  }
+}
+
+@mixin z-index($value, $query: functions.all()) {
+  $feat-structure: functions.create-target($query, structure);
+
+  @include feature-targeting-mixins.targets($feat-structure) {
+    z-index: $value;
+  }
+}
+
+@mixin width($width, $query: functions.all()) {
+  $feat-structure: functions.create-target($query, structure);
+
+  @include feature-targeting-mixins.targets($feat-structure) {
+    @include theme-mixins.property(width, $width);
+  }
+
+  &.mdc-side-sheet--open:not(.mdc-side-sheet--closing) + .mdc-side-sheet-app-content {
+    @include feature-targeting-mixins.targets($feat-structure) {
+      @include rtl-mixins.reflexive-box(margin, right, $width);
+    }
   }
 }

@@ -1,24 +1,26 @@
 @use '@material/theme';
 
 // Colors
-$mdc-side-sheet-ink-color: theme.prop-value(on-surface);
-$mdc-side-sheet-outline-color: theme.prop-value(on-surface);
-$mdc-side-sheet-surface-fill-color: theme.prop-value(surface);
+$title-ink-color: theme.prop-value(on-surface) !default;
+$divider-color: theme.prop-value(on-surface) !default;
+$surface-fill-color: theme.prop-value(surface) !default;
 
 // Opacity
-$mdc-side-sheet-ink-opacity: theme.text-emphasis(high);
-$mdc-side-sheet-outline-opacity: .12;
+$title-ink-opacity: theme.text-emphasis(high) !default;
+$divider-opacity: .12 !default;
 
 // Widths
-$mdc-side-sheet-width: 256px;
+$width: 256px !default;
+$surface-padding: 16px !default;
+$shape-radius: large !default;
 
 // Animations
-$mdc-side-sheet-animation-enter: 250ms;
-$mdc-side-sheet-animation-exit: 200ms;
+$animation-enter: 250ms !default;
+$animation-exit: 200ms !default;
 
 // Scrim
-$mdc-side-sheet-modal-scrim-color: theme.prop-value(on-surface);
-$mdc-side-sheet-modal-scrim-opacity: .32;
+$modal-scrim-color: theme.prop-value(on-surface) !default;
+$modal-scrim-opacity: .32 !default;
 
-$mdc-side-sheet-z-index: 6;
-$mdc-side-sheet-modal-elevation: 16;
+$z-index: 6 !default;
+$modal-elevation: 16 !default;
