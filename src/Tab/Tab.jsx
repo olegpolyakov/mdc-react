@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -14,7 +14,7 @@ export default function Tab({
     fade = false,
     underline = true,
     previousIndicatorClientRect,
-    onActivate,
+    onActivate = Function.prototype,
 
     element = 'button',
     component: Element = element,
@@ -22,17 +22,17 @@ export default function Tab({
     children = label,
     ...props
 }) {
-    const rootRef = React.useRef();
+    const rootRef = useRef();
+
+    const handleClick = useCallback(() => {
+        onActivate(value, rootRef.current);
+    }, [value]);
 
     const classNames = classnames('mdc-tab', {
         'mdc-tab--active': active,
         'mdc-tab--stacked': stacked,
         'mdc-tab--min-width': minWidth
     }, className);
-
-    function handleClick() {
-        onActivate(value, rootRef.current);
-    }
 
     return (
         <Element
@@ -58,7 +58,7 @@ export default function Tab({
                 active={active}
                 fade={fade}
                 underline={underline}
-                previousIndicatorClientRect={active ? previousIndicatorClientRect : undefined}
+                previousIndicatorClientRect={previousIndicatorClientRect}
             />
 
             <span className="mdc-tab__ripple" />

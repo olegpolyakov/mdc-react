@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import classnames from 'classnames';
 
 import { useUpdated } from '../lifecycle-hooks';
@@ -10,12 +10,8 @@ export default function TabScroller({
     children,
     ...props
 }) {
-    const rootRef = React.useRef();
-    const scrollAreaRef = React.useRef();
-
-    const classNames = classnames('mdc-tab-scroller', {
-        [`mdc-tab-scroller--align-${align}`]: align
-    });
+    const rootRef = useRef();
+    const scrollAreaRef = useRef();
 
     useUpdated(() => {
         const scrollAreaWidth = scrollAreaRef.current.offsetWidth;
@@ -38,6 +34,10 @@ export default function TabScroller({
             });
         }
     }, [activeTab]);
+
+    const classNames = classnames('mdc-tab-scroller', {
+        [`mdc-tab-scroller--align-${align}`]: align
+    });
 
     return (
         <div

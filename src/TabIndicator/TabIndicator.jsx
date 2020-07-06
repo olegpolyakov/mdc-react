@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -12,41 +12,9 @@ export default function TabIndicator({
 
     ...props
 }) {
-    const contentRef = React.useRef();
-    const [isTransitioning, setTransitioning] = React.useState(false);
-    const [hasTransitioned, setTransitioned] = React.useState(false);
-
-    const rootClassNames = classnames('mdc-tab-indicator', {
-        'mdc-tab-indicator--active': active,
-        'mdc-tab-indicator--fade': fade,
-        'mdc-tab-indicator--no-transition': !isTransitioning
-    });
-
-    const contentClassNames = classnames('mdc-tab-indicator__content', {
-        'mdc-tab-indicator__content--underline': underline
-    });
-
-    function getContentStyle() {
-        if (fade || !previousIndicatorClientRect || !contentRef.current) return;
-
-        const contentClientRect = contentRef.current.getBoundingClientRect();
-
-        if (!isTransitioning && !hasTransitioned) {
-            const xPosition = previousIndicatorClientRect.left - contentClientRect.left;
-            const widthDelta = previousIndicatorClientRect.width / contentClientRect.width;
-
-            return { transform: `translateX(${xPosition}px) scaleX(${widthDelta})` };
-        } else if (hasTransitioned) {
-            return { transform: undefined };
-        } else {
-            return {};
-        }
-    }
-
-    function handleTransitionEnd() {
-        setTransitioning(false);
-        setTransitioned(true);
-    }
+    const contentRef = useRef();
+    const [isTransitioning, setTransitioning] = useState(false);
+    const [isTransitioned, setTransitioned] = useState(false);
 
     useUpdated(() => {
         if (fade) return;
@@ -58,9 +26,28 @@ export default function TabIndicator({
             setTransitioning(false);
             setTransitioned(false);
         }
-    }, [active]);
+    }, [active, fade]);
 
-    const contentStyle = getContentStyle();
+    const handleTransitionEnd = useCallback(() => {
+        if (fade) return;
+
+        setTransitioning(false);
+        setTransitioned(true);
+    }, [fade]);
+
+    const rootClassNames = classnames('mdc-tab-indicator', {
+        'mdc-tab-indicator--active': active,
+        'mdc-tab-indicator--fade': fade,
+        'mdc-tab-indicator--no-transition': !isTransitioning
+    });
+
+    const contentClassNames = classnames('mdc-tab-indicator__content', {
+        'mdc-tab-indicator__content--underline': underline
+    });
+
+    const contentStyle = (active && !fade) ?
+        getContentStyle(contentRef.current?.getBoundingClientRect(), previousIndicatorClientRect, isTransitioning, isTransitioned) :
+        undefined;
 
     return (
         <span className={rootClassNames} {...props}>
@@ -68,7 +55,7 @@ export default function TabIndicator({
                 ref={contentRef}
                 className={contentClassNames}
                 style={contentStyle}
-                onTransitionEnd={!fade ? handleTransitionEnd : undefined}
+                onTransitionEnd={handleTransitionEnd}
             />
         </span>
     );
@@ -80,5 +67,21 @@ TabIndicator.propTypes = {
     active: PropTypes.bool,
     fade: PropTypes.bool,
     underline: PropTypes.bool,
-    icon: PropTypes.bool
+    icon: PropTypes.bool,
+    previousIndicatorClientRect: PropTypes.object
 };
+
+function getContentStyle(contentClientRect, previousIndicatorClientRect, isTransitioning, hasTransitioned) {
+    if (!contentClientRect || !previousIndicatorClientRect) return;
+
+    if (!isTransitioning && !hasTransitioned) {
+        const xPosition = previousIndicatorClientRect.left - contentClientRect.left;
+        const widthDelta = previousIndicatorClientRect.width / contentClientRect.width;
+
+        return { transform: `translateX(${xPosition}px) scaleX(${widthDelta})` };
+    } else if (hasTransitioned) {
+        return { transform: undefined };
+    } else {
+        return {};
+    }
+}

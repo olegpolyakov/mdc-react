@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+import { useMounted } from '../lifecycle-hooks';
 import TabScroller from '../TabScroller';
 
 export default function TabBar({
@@ -19,21 +20,25 @@ export default function TabBar({
     children,
     ...props
 }) {
-    const rootRef = React.useRef();
-    const activeTabRef = React.useRef();
-    const previousIndicatorClientRect = React.useRef();
+    const rootRef = useRef();
+    const activeTabRef = useRef();
+    const previousIndicatorClientRect = useRef();
+
+    useMounted(() => {
+        activeTabRef.current = rootRef.current.querySelector('.mdc-tab--active');
+    });
+
+    const handleTabActivate = useCallback((value, element) => {
+        const previousTab = activeTabRef.current;
+
+        previousIndicatorClientRect.current = previousTab.getBoundingClientRect();
+        activeTabRef.current = element;
+
+        onChange(value);
+    }, []);
 
     const classNames = classnames('mdc-tab-bar', className);
 
-    function handleTabActivate(value, element) {
-        activeTabRef.current = element;
-        const previousTab = rootRef.current.querySelector('.mdc-tab--active');
-
-        previousIndicatorClientRect.current = previousTab.getBoundingClientRect();
-
-        onChange(value);
-    }
-    
     return (
         <Element
             ref={rootRef}
@@ -45,7 +50,7 @@ export default function TabBar({
                 align={align}
                 activeTab={activeTabRef.current}
             >
-                {React.Children.map(children, (tab, index) => 
+                {React.Children.map(children, (tab, index) =>
                     React.cloneElement(tab, {
                         value: tab.props.value || index,
                         active: (tab.props.value || index) === value,
