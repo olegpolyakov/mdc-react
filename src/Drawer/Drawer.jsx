@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
@@ -8,6 +8,7 @@ import Modal from '../Modal';
 
 export default function Drawer({
     open = false,
+    appear = true,
     dismissible = false,
     modal = false,
     onClose = Function.prototype,
@@ -18,12 +19,7 @@ export default function Drawer({
     children,
     ...props
 }) {
-    const rootElement = React.useRef();
-
-    const classNames = classnames('mdc-drawer', {
-        'mdc-drawer--dismissible': dismissible,
-        'mdc-drawer--modal': modal
-    }, className);
+    const rootElement = useRef();
 
     useMounted(() => {
         if (dismissible) {
@@ -45,23 +41,28 @@ export default function Drawer({
                 document.removeEventListener('keydown', handleDocumentKeyDown);
             }
         }
-    }, [open]);
-    
+    }, [open, modal]);
+
+    const classNames = classnames(cssClasses.ROOT, {
+        [cssClasses.DISMISSIBLE]: dismissible,
+        [cssClasses.MODAL]: modal
+    }, className);
+
     return (
         <CSSTransition
             in={open}
-            appear={true}
+            appear={appear}
             timeout={{
                 enter: 250,
                 exit: 200
             }}
             classNames={{
-                appear: 'mdc-drawer--open',
-                enter: 'mdc-drawer--open mdc-drawer--animate',
-                enterActive: 'mdc-drawer--open mdc-drawer--opening',
-                enterDone: 'mdc-drawer--open',
-                exit: 'mdc-drawer--open mdc-drawer--closing',
-                exitActive: 'mdc-drawer--closing'
+                appear: cssClasses.OPEN,
+                enter: `${cssClasses.OPEN} ${cssClasses.ANIMATE}`,
+                enterActive: `${cssClasses.OPEN} ${cssClasses.OPENING}`,
+                enterDone: cssClasses.OPEN,
+                exit: `${cssClasses.OPEN} ${cssClasses.CLOSING}`,
+                exitActive: cssClasses.CLOSING
             }}
             mountOnEnter={modal}
             unmountOnExit={modal}
@@ -77,7 +78,7 @@ export default function Drawer({
                     </Element>
 
                     <div
-                        className="mdc-drawer-scrim"
+                        className={cssClasses.SCRIM}
                         onClick={onClose}
                     />
                 </Modal>
@@ -94,10 +95,23 @@ export default function Drawer({
     );
 }
 
+const cssClasses = {
+    ROOT: 'mdc-drawer',
+    DISMISSIBLE: 'mdc-drawer--dismissible',
+    MODAL: 'mdc-drawer--modal',
+    OPEN: 'mdc-drawer--open',
+    ANIMATE: 'mdc-drawer--animate',
+    OPENING: 'mdc-drawer--opening',
+    CLOSING: 'mdc-drawer--closing',
+    APP_CONTENT: 'mdc-drawer-app-content',
+    SCRIM: 'mdc-drawer-scrim',
+};
+
 Drawer.displayName = 'MDCDrawer';
 
 Drawer.propTypes = {
     open: PropTypes.bool,
+    appear: PropTypes.bool,
     dismissible: PropTypes.bool,
     modal: PropTypes.bool,
     onClose: PropTypes.func
