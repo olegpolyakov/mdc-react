@@ -1,25 +1,21 @@
-import React from 'react';
+import React, { forwardRef, useRef, useState, useCallback, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import { useUpdated } from '../lifecycle-hooks';
 
-export default function LineRipple({
+export default forwardRef(LineRipple);
+
+function LineRipple({
     active = false,
-    center = 0,
-    
+
     className,
     ...props
-}) {
-    const [deactivating, setDeactivating] = React.useState(false);
+}, ref) {
+    const elementRef = useRef();
+    const [deactivating, setDeactivating] = useState(false);
 
-    function handleTransitionEnd(event) {
-        if (event.propertyName === 'opacity') {
-            if (deactivating) {
-                setDeactivating(false);
-            }
-        }
-    }
+    useImperativeHandle(ref, () => elementRef.current);
 
     useUpdated(() => {
         if (!active) {
@@ -27,19 +23,23 @@ export default function LineRipple({
         }
     }, [active]);
 
+    const handleTransitionEnd = useCallback(event => {
+        if (event.propertyName === 'opacity') {
+            if (deactivating) {
+                setDeactivating(false);
+            }
+        }
+    }, [deactivating]);
+
     const classNames = classnames('mdc-line-ripple', {
         'mdc-line-ripple--active': active || deactivating,
         'mdc-line-ripple--deactivating': deactivating
     }, className);
 
-    const style = {
-        transformOrigin: center ? `${center}px center` : undefined
-    };
-    
     return (
         <span
+            ref={elementRef}
             className={classNames}
-            style={style}
             onTransitionEnd={handleTransitionEnd}
             {...props}
         />
@@ -49,6 +49,5 @@ export default function LineRipple({
 LineRipple.displayName = 'MDCLineRipple';
 
 LineRipple.propTypes = {
-    active: PropTypes.bool,
-    center: PropTypes.number
+    active: PropTypes.bool
 };
