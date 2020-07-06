@@ -11,25 +11,23 @@ export default function CardMedia({
     element = 'div',
     component: Element = element,
     className,
-    children,
+    children = content,
     ...props
 }) {
     const classNames = classnames('mdc-card__media', {
         'mdc-card__media--square': square,
         'mdc-card__media--16-9': wide,
     }, className);
-    
+
     const style = imageUrl ? {
         backgroundImage: `url(${imageUrl})`
     } : undefined;
 
     return (
         <Element className={classNames} style={style} {...props}>
-            {content
-                && <div className="mdc-card__media-content">{content}</div>
+            {children
+                && <div className="mdc-card__media-content">{children}</div>
             }
-
-            {children}
         </Element>
     );
 }
@@ -37,7 +35,7 @@ export default function CardMedia({
 CardMedia.displayName = 'MDCCardMedia';
 
 CardMedia.propTypes = {
-    image: PropTypes.string,
+    imageUrl: PropTypes.string,
     content: PropTypes.node,
     square: PropTypes.bool,
     wide: PropTypes.bool

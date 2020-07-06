@@ -6,8 +6,8 @@ export default function CardHeader({
     graphic,
     title,
     subtitle,
-    action,
-    large,
+    actions,
+    large = false,
 
     element = 'div',
     component: Element = element,
@@ -19,7 +19,9 @@ export default function CardHeader({
 
     return (
         <Element className={classNames} {...props}>
-            {graphic && React.cloneElement(graphic, { className: 'mdc-card__header__graphic' })}
+            {graphic &&
+                React.cloneElement(graphic, { className: 'mdc-card__header__graphic' })
+            }
 
             <div className="mdc-card__header__text">
                 {React.isValidElement(title) ?
@@ -27,7 +29,7 @@ export default function CardHeader({
                     :
                     <h2 className="mdc-card__header__title">{title}</h2>
                 }
-                
+
                 {subtitle && (React.isValidElement(subtitle) ?
                     React.cloneElement(subtitle, { className: 'mdc-card__header__subtitle' })
                     :
@@ -35,7 +37,13 @@ export default function CardHeader({
                 )}
             </div>
 
-            {action && React.cloneElement(action, { className: 'mdc-card__header__action' })}
+            {actions &&
+                <div className="mdc-card__header__actions">
+                    {React.Children.map(actions, action =>
+                        React.cloneElement(action, { className: 'mdc-card__action' })
+                    )}
+                </div>
+            }
         </Element>
     );
 }
@@ -46,6 +54,9 @@ CardHeader.propTypes = {
     graphic: PropTypes.element,
     title: PropTypes.node,
     subtitle: PropTypes.node,
-    action: PropTypes.element,
+    actions: PropTypes.oneOfType([
+        PropTypes.element,
+        PropTypes.arrayOf(PropTypes.element)
+    ]),
     large: PropTypes.bool
 };

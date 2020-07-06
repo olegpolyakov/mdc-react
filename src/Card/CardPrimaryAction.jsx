@@ -10,7 +10,7 @@ export default function CardPrimaryAction({
     const classNames = classnames('mdc-card__primary-action', className);
 
     return (
-        <Element className={classNames} {...props} />
+        <Element className={classNames} tabIndex="0" {...props} />
     );
 }
 
