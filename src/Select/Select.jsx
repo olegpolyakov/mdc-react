@@ -1,143 +1,127 @@
-import React from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { useMounted, useUpdated } from '../lifecycle-hooks';
-import NotchedOutline from '../NotchedOutline';
-import LineRipple from '../LineRipple';
-import FloatingLabel from '../FloatingLabel';
-import { Menu } from '../Menu';
-import MenuSurface from '../MenuSurface';
+import NotchedOutline from '../NotchedOutline/NotchedOutline';
+import LineRipple from '../LineRipple/LineRipple';
+import FloatingLabel from '../FloatingLabel/FloatingLabel';
+import Menu from '../Menu/Menu';
+import MenuSurface from '../MenuSurface/MenuSurface';
+import DropdownIcon from './DropdownIcon';
+import SelectOption from './SelectOption';
 import HelperText from './HelperText';
 
 export default function Select({
-    value = '',
-    outlined = false,
-    disabled = false,
-    required = false,
+    value,
+    options,
     label,
     leadingIcon,
     helperText,
     helperTextProps = {},
+    filled = false,
+    outlined = false,
+    disabled = false,
+    required = false,
     onChange = Function.prototype,
 
     className,
     children,
     ...props
 }) {
-    const anchorElement = React.useRef();
-    const inputElement = React.useRef();
-    const floatingLabel = React.useRef();
-    const options = React.useRef();
-    const lineRippleTransformOrigin = React.useRef();
+    const anchorElement = useRef();
+    const inputElement = useRef();
+    const lineRippleTransformOrigin = useRef();
 
-    const [activated, setActivated] = React.useState(false);
-    const [focused, setFocused] = React.useState(false);
-    const [touched, setTouched] = React.useState(false);
+    const [activated, setActivated] = useState(false);
+    const [focused, setFocused] = useState(false);
+    const [touched, setTouched] = useState(false);
+    const [selectedText, setSelectedText] = useState();
+
+    useEffect(() => {
+        const selectedOption = (options || React.Children.toArray(children).map(option => option.props))
+            .find(option => option.value === value || option.selected);
+
+        if (selectedOption) {
+            setSelectedText(selectedOption.text || selectedOption.children);
+        }
+    }, [value]);
+
+    const handleAnchorClick = useCallback(event => {
+        const targetClientRect = event.target.getBoundingClientRect();
+        const coords = { x: event.clientX, y: event.clientY };
+
+        lineRippleTransformOrigin.current = coords.x - targetClientRect.left;
+
+        setActivated(true);
+        setFocused(true);
+    }, []);
+
+    const handleOptionClick = useCallback((event, option) => {
+        event.stopPropagation();
+
+        if (option.disabled) return;
+
+        onChange(event, option.value);
+
+        setActivated(false);
+        setFocused(false);
+        setTouched(true);
+    }, []);
+
+    const handleMenuClose = useCallback(() => {
+        setActivated(false);
+        setFocused(false);
+    }, []);
 
     const classNames = classnames('mdc-select', {
+        'mdc-select--filled': filled,
+        'mdc-select--outlined': outlined,
         'mdc-select--activated': activated,
         'mdc-select--disabled': disabled,
         'mdc-select--focused': focused,
-        'mdc-select--outlined': outlined,
         'mdc-select--required': required,
         'mdc-select--invalid': touched && (required && !value),
         'mdc-select--no-label': !label,
         'mdc-select--with-leading-icon': leadingIcon
     }, className);
 
-    const selectedText = options.current && options.current.get(value);
-    const focusedOrHasValue = focused || value ? true : false;
-    const notchedOutlineWidth = getNotchedOutlineWidth();
-
-    function getOptions() {
-        const options = React.Children.toArray(children).map(child =>[
-            child.props.value,
-            child.props.text || child.props.children
-        ]);
-
-        return new Map(options);
-    }
-
-    function getNotchedOutlineWidth() {
-        if (!floatingLabel.current) return;
-
-        const width = floatingLabel.current.width;
-        const labelScale = 0.75;
-
-        return width * labelScale;
-    }
-
-    function handleMenuClose() {
-        setActivated(false);
-        setFocused(false);
-    }
-
-    function handleSelectClick(event) {
-        const targetClientRect = event.target.getBoundingClientRect();
-        const coords = { x: event.clientX, y: event.clientY };
-        
-        lineRippleTransformOrigin.current = coords.x - targetClientRect.left;
-
-        setActivated(true);
-        setFocused(true);
-    }
-
-    function handleOptionClick(value, event) {
-        event.stopPropagation();
-
-        onChange(value, inputElement.current);
-
-        setActivated(false);
-        setFocused(false);
-        setTouched(true);
-    }
-
-    useMounted(() => {
-        options.current = getOptions();
-    });
-
-    useUpdated(() => {
-        options.current = getOptions();
-    }, [value]);
+    const focusedOrHasValue = focused || Boolean(value);
 
     return (
         <React.Fragment>
             <div className={classNames}>
                 <div
-                    className="mdc-select__anchor"
                     ref={anchorElement}
-                    onClick={handleSelectClick}
+                    className="mdc-select__anchor"
+                    onClick={handleAnchorClick}
                 >
                     <input
-                        type="hidden"
                         ref={inputElement}
+                        type="hidden"
                         value={value}
                         required={required}
                         disabled={disabled}
                         {...props}
                     />
 
+                    {!outlined &&
+                        <span className="mdc-select__ripple"></span>
+                    }
+
                     {leadingIcon && React.cloneElement(leadingIcon, {
                         className: 'mdc-select__icon',
                         tabIndex: '0',
                         role: 'button'
                     })}
-        
-                    <i className="mdc-select__dropdown-icon" />
 
                     <div className="mdc-select__selected-text">{selectedText}</div>
 
+                    <DropdownIcon />
+
                     {outlined ?
-                        <NotchedOutline
-                            notched={focusedOrHasValue}
-                            width={notchedOutlineWidth}
-                        >
+                        <NotchedOutline notched={focusedOrHasValue}>
                             {label &&
-                                <FloatingLabel
-                                    ref={floatingLabel}
-                                    float={focusedOrHasValue}
-                                >
+                                <FloatingLabel float={focusedOrHasValue}>
                                     {label}
                                 </FloatingLabel>
                             }
@@ -165,13 +149,24 @@ export default function Select({
                     onClose={handleMenuClose}
                 >
                     <Menu className="mdc-select__menu">
-                        {React.Children.map(children, (option, index) =>
-                            React.cloneElement(option, {
-                                value: undefined,
-                                selected: option.props.value === value,
-                                onClick: option.props.disabled ? undefined : event => handleOptionClick(option.props.value, event)
-                            })
-                        )}
+                        {options ?
+                            options.map(option =>
+                                <SelectOption
+                                    selected={option.selected || option.value === value}
+                                    onClick={event => handleOptionClick(event, option)}
+                                    {...option}
+                                >
+                                    {option.text}
+                                </SelectOption>
+                            )
+                            :
+                            React.Children.map(children, option =>
+                                React.cloneElement(option, {
+                                    value: undefined,
+                                    selected: option.props.selected || option.props.value === value,
+                                    onClick: event => handleOptionClick(event, option.props)
+                                })
+                            )}
                     </Menu>
                 </MenuSurface>
             </div>
@@ -186,9 +181,19 @@ export default function Select({
 Select.displayName = 'MDCSelect';
 
 Select.propTypes = {
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string,
+    options: PropTypes.arrayOf(PropTypes.object),
+    label: PropTypes.string,
+    leadingIcon: PropTypes.element,
+    helperText: PropTypes.string,
+    helperTextProps: PropTypes.object,
+    filled: PropTypes.bool,
     outlined: PropTypes.bool,
     disabled: PropTypes.bool,
-    helperTextProps: PropTypes.object,
+    required: PropTypes.bool,
+    children: PropTypes.oneOfType([
+        PropTypes.element,
+        PropTypes.arrayOf(PropTypes.element)
+    ]),
     onChange: PropTypes.func
 };
