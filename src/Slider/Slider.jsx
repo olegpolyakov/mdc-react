@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -17,81 +17,12 @@ export default function Slider({
     className,
     ...props
 }) {
-    const rootElement = React.useRef();
-    const thumbElement = React.useRef();
-    const clientRect = React.useRef();
+    const rootElement = useRef();
+    const thumbElement = useRef();
+    const clientRect = useRef();
 
-    const [active, setActive] = React.useState(false);
-    const [focused, setFocused] = React.useState(false);
-
-    function updateValue(newValue) {
-        if (newValue === value) return;
-
-        const valueSetToBoundary = newValue === min || newValue === max;
-
-        if (step && !valueSetToBoundary) {
-            newValue = Math.round(newValue / step) * step;
-        }
-
-        if (newValue < min) {
-            newValue = min;
-        } else if (newValue > max) {
-            newValue = max;
-        }
-
-        onChange(newValue);
-    }
-
-    const handleUp = React.useCallback(event => {
-        setActive(false);
-        setFocused(false);
-    }, []);
-    
-    const handleMove = React.useCallback(event => {
-        const pageX = getPageX(event);
-        const offsetX = pageX - clientRect.current.left;
-        const pctComplete = offsetX / clientRect.current.width;
-        // Fit the percentage complete between the range [min,max]
-        // by remapping from [0, 1] to [min, min+(max-min)].
-        const value = min + pctComplete * (max - min);
-
-        updateValue(value);
-    }, []);
-
-    function handleRootInteraction(event) {
-        handleMove(event);
-    }
-
-    function handleThumbDown(event) {
-        setActive(true);
-    }
-
-    function handleThumbUp(event) {
-        setActive(false);
-    }
-
-    function handleKeyDown(event) {
-        event.preventDefault();
-
-        const keyId = getKeyId(event);
-        const newValue = getValueForKeyId(keyId, value, min, max, step);
-        
-        if (isNaN(newValue)) return;
-
-        updateValue(newValue);
-        setFocused(true);
-    };
-
-    function handleFocus() {
-        if (active) return;
-
-        setFocused(true);
-    }
-
-    function handleBlur() {
-        setActive(false);
-        setFocused(false);
-    }
+    const [active, setActive] = useState(false);
+    const [focused, setFocused] = useState(false);
 
     useMounted(() => {
         function handleResize() {
@@ -123,6 +54,70 @@ export default function Slider({
         }
     }, [active]);
 
+    function updateValue(newValue) {
+        if (newValue === value) return;
+
+        const valueSetToBoundary = newValue === min || newValue === max;
+
+        if (step && !valueSetToBoundary) {
+            newValue = Math.round(newValue / step) * step;
+        }
+
+        if (newValue < min) {
+            newValue = min;
+        } else if (newValue > max) {
+            newValue = max;
+        }
+
+        onChange(newValue);
+    }
+
+    const handleUp = useCallback(event => {
+        setActive(false);
+        setFocused(false);
+    }, []);
+
+    const handleMove = useCallback(event => {
+        const pageX = getPageX(event);
+        const offsetX = pageX - clientRect.current.left;
+        const pctComplete = offsetX / clientRect.current.width;
+        // Fit the percentage complete between the range [min,max]
+        // by remapping from [0, 1] to [min, min+(max-min)].
+        const value = min + pctComplete * (max - min);
+
+        updateValue(value);
+    }, []);
+
+    const handleRootInteraction = useCallback(event => handleMove(event), []);
+
+    const handleThumbDown = useCallback(() => setActive(true), []);
+
+    const handleThumbUp = useCallback(() => setActive(false), []);
+
+    function handleKeyDown(event) {
+        event.preventDefault();
+
+        const eventKey = getEventKey(event);
+        const newValue = getValueForEventKey(eventKey, value, min, max, step);
+
+        if (isNaN(newValue)) return;
+
+        updateValue(newValue);
+        setFocused(true);
+    }
+
+    function handleFocus() {
+        if (active) return;
+
+        setFocused(true);
+    }
+
+    function handleBlur() {
+        setActive(false);
+        setFocused(false);
+    }
+
+
     const classNames = classnames('mdc-slider', {
         'mdc-slider--active': active,
         'mdc-slider--focus': focused,
@@ -131,10 +126,9 @@ export default function Slider({
         'mdc-slider--disabled': disabled
     }, className);
 
-    
     const thumbStyle = getThumbStyle(clientRect.current, value, min, max);
     const trackStyle = getTrackStyle(value, min, max);
-    
+
     return (
         <div
             className={classNames}
@@ -157,7 +151,7 @@ export default function Slider({
                 {discrete && displayMarkers &&
                     <div className="mdc-slider__track-marker-container">
                         {new Array(max / step).fill().map((_, index) =>
-                            <div key={index} className="mdc-slider__track-marker"></div>  
+                            <div key={index} className="mdc-slider__track-marker"></div>
                         )}
                     </div>
                 }
@@ -200,7 +194,7 @@ Slider.propTypes = {
     onChange: PropTypes.func
 };
 
-const KEY_IDS = {
+const EVENT_KEY = {
     ARROW_DOWN: 'ArrowDown',
     ARROW_LEFT: 'ArrowLeft',
     ARROW_RIGHT: 'ArrowRight',
@@ -211,51 +205,51 @@ const KEY_IDS = {
     PAGE_UP: 'PageUp',
 };
 
-function getKeyId(event) {
-    if (event.key === KEY_IDS.ARROW_LEFT || event.keyCode === 37) {
-        return KEY_IDS.ARROW_LEFT;
+function getEventKey(event) {
+    if (event.key === EVENT_KEY.ARROW_LEFT || event.keyCode === 37) {
+        return EVENT_KEY.ARROW_LEFT;
     }
-    if (event.key === KEY_IDS.ARROW_RIGHT || event.keyCode === 39) {
-        return KEY_IDS.ARROW_RIGHT;
+    if (event.key === EVENT_KEY.ARROW_RIGHT || event.keyCode === 39) {
+        return EVENT_KEY.ARROW_RIGHT;
     }
-    if (event.key === KEY_IDS.ARROW_UP || event.keyCode === 38) {
-        return KEY_IDS.ARROW_UP;
+    if (event.key === EVENT_KEY.ARROW_UP || event.keyCode === 38) {
+        return EVENT_KEY.ARROW_UP;
     }
-    if (event.key === KEY_IDS.ARROW_DOWN || event.keyCode === 40) {
-        return KEY_IDS.ARROW_DOWN;
+    if (event.key === EVENT_KEY.ARROW_DOWN || event.keyCode === 40) {
+        return EVENT_KEY.ARROW_DOWN;
     }
-    if (event.key === KEY_IDS.HOME || event.keyCode === 36) {
-        return KEY_IDS.HOME;
+    if (event.key === EVENT_KEY.HOME || event.keyCode === 36) {
+        return EVENT_KEY.HOME;
     }
-    if (event.key === KEY_IDS.END || event.keyCode === 35) {
-        return KEY_IDS.END;
+    if (event.key === EVENT_KEY.END || event.keyCode === 35) {
+        return EVENT_KEY.END;
     }
-    if (event.key === KEY_IDS.PAGE_UP || event.keyCode === 33) {
-        return KEY_IDS.PAGE_UP;
+    if (event.key === EVENT_KEY.PAGE_UP || event.keyCode === 33) {
+        return EVENT_KEY.PAGE_UP;
     }
-    if (event.key === KEY_IDS.PAGE_DOWN || event.keyCode === 34) {
-        return KEY_IDS.PAGE_DOWN;
+    if (event.key === EVENT_KEY.PAGE_DOWN || event.keyCode === 34) {
+        return EVENT_KEY.PAGE_DOWN;
     }
 
     return '';
 }
 
-function getValueForKeyId(keyId, value, min, max, step) {
+function getValueForEventKey(eventKey, value, min, max, step) {
     const delta = step || (max - min) / 100;
 
-    switch (keyId) {
-        case KEY_IDS.ARROW_LEFT:
-        case KEY_IDS.ARROW_DOWN:
+    switch (eventKey) {
+        case EVENT_KEY.ARROW_LEFT:
+        case EVENT_KEY.ARROW_DOWN:
             return value - delta;
 
-        case KEY_IDS.ARROW_RIGHT:
-        case KEY_IDS.ARROW_UP:
+        case EVENT_KEY.ARROW_RIGHT:
+        case EVENT_KEY.ARROW_UP:
             return value + delta;
 
-        case KEY_IDS.HOME:
+        case EVENT_KEY.HOME:
             return min;
 
-        case KEY_IDS.END:
+        case EVENT_KEY.END:
             return max;
 
         default:
