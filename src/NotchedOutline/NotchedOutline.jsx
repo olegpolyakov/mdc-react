@@ -1,34 +1,44 @@
-import React from 'react';
+import React, { useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 export default function NotchedOutline({
     notched = false,
-    width = 0,
 
     className,
     children,
     ...props
 }) {
+    const notchRef = useRef();
+
+    useLayoutEffect(() => {
+        if (!notchRef.current) return;
+
+        if (notched) {
+            const { width } = notchRef.current.getBoundingClientRect();
+            notchRef.current.style.width = `${(width + 2) * 0.75}px`;
+        } else {
+            notchRef.current.style.width = 'auto';
+        }
+    }, [notched]);
+
     const classNames = classnames('mdc-notched-outline', 'mdc-notched-outline--upgraded', {
         'mdc-notched-outline--notched': notched,
         'mdc-notched-outline--no-label': !children
     }, className);
 
-    const style = notched && width > 0 ? {
-        width: `${width + 8}px`
-    } : undefined;
-    
     return (
-        <div className={classNames} {...props}>
-            <div className="mdc-notched-outline__leading" />
+        <span className={classNames} {...props}>
+            <span className="mdc-notched-outline__leading" />
 
-            <div className="mdc-notched-outline__notch" style={style}>
-                {children}
-            </div>
+            {children &&
+                <span ref={notchRef} className="mdc-notched-outline__notch">
+                    {children}
+                </span>
+            }
 
-            <div className="mdc-notched-outline__trailing" />
-        </div>
+            <span className="mdc-notched-outline__trailing" />
+        </span>
     );
 }
 
