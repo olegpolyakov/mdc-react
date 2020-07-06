@@ -1,4 +1,4 @@
-import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react';
+import React, { forwardRef, useRef, useState, useCallback, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -11,92 +11,89 @@ export default forwardRef(TextField);
 
 function TextField({
     value,
+    defaultValue,
+    label,
+    leadingIcon,
+    trailingIcon,
+    prefix,
+    suffix,
+    helperText,
+    validationMessage,
+    filled = false,
     outlined = false,
     fullWidth = false,
     disabled = false,
     textarea = false,
     endAligned = false,
-    label,
-    leadingIcon,
-    trailingIcon,
-    helperText,
-    validationMessage,
 
     className,
-    element: Element = 'div',
-    onChange,
+    element: Element = 'label',
+    onChange = Function.prototype,
     ...props
 }, ref) {
     const inputRef = useRef();
     const floatingLabelRef = useRef();
-    const lineRippleTransformOrigin = useRef();
+    const lineRippleRef = useRef();
 
     const [focused, setFocused] = useState(false);
     const [touched, setTouched] = useState(false);
 
     useImperativeHandle(ref, () => inputRef.current);
 
+    const handleInputInteraction = useCallback(event => {
+        const targetClientRect = event.target.getBoundingClientRect();
+        const coords = { x: event.clientX, y: event.clientY };
+        const transformOriginX = coords.x - targetClientRect.left;
+
+        lineRippleRef.current.style.transformOrigin = `${transformOriginX}px center`;
+    }, []);
+
+    const handleInputFocus = useCallback(() => {
+        setFocused(true);
+        setTouched(true);
+    }, []);
+
+    const handleInputBlur = useCallback(() => {
+        setFocused(false);
+    }, []);
+
+    const handleInputChange = useCallback(() => {
+        onChange(event, inputRef.current.value);
+    }, []);
+
     const Input = textarea ? 'textarea' : 'input';
-    const focusedOrHasValue = focused || (value !== undefined && value !== null && value !== '');
+
+    const focusedOrHasValue = (
+        focused ||
+        (value !== undefined && value !== null && value !== '') ||
+        (defaultValue !== undefined && defaultValue !== null && defaultValue !== '') ||
+        Boolean(inputRef.current?.value)
+    );
+
     const isValid = inputRef.current ? inputRef.current.validity.valid : true;
-    const notchedOutlineWidth = getNotchedOutlineWidth();
 
     const classNames = classnames('mdc-text-field', {
+        'mdc-text-field--filled': filled && !fullWidth,
         'mdc-text-field--outlined': outlined && !fullWidth,
-        'mdc-text-field--fullwidth': fullWidth,
         'mdc-text-field--textarea': textarea,
         'mdc-text-field--disabled': disabled,
         'mdc-text-field--focused': focused,
         'mdc-text-field--invalid': !isValid && touched,
+        'mdc-text-field--label-floating': focusedOrHasValue,
+        'mdc-text-field--no-label': !label,
         'mdc-text-field--with-leading-icon': leadingIcon,
         'mdc-text-field--with-trailing-icon': trailingIcon,
-        'mdc-text-field--no-label': !label,
         'mdc-text-field--end-aligned': endAligned,
-    }, 'mdc-text-field--upgraded', className);
-
-    function getValidationMessage() {
-        if (typeof validationMessage === 'string') {
-            return validationMessage;
-        } else if (validationMessage === true) {
-            return inputRef.current ? inputRef.current.validationMessage : undefined;
-        }
-    }
-
-    function getNotchedOutlineWidth() {
-        if (!floatingLabelRef.current) return;
-
-        const width = floatingLabelRef.current.width;
-        const labelScale = 0.75;
-
-        return width * labelScale;
-    }
-
-    function handleInputInteraction(event) {
-        const targetClientRect = event.target.getBoundingClientRect();
-        const coords = { x: event.clientX, y: event.clientY };
-
-        lineRippleTransformOrigin.current = coords.x - targetClientRect.left;
-    }
-
-    function handleInputFocus(event) {
-        setFocused(true);
-        setTouched(true);
-    }
-
-    function handleInputBlur(event) {
-        lineRippleTransformOrigin.current = null;
-
-        setFocused(false);
-    }
-
-    function handleInputChange(event) {
-        onChange(inputRef.current.value, inputRef.current, event);
-    }
+    }, className);
 
     return (
         <React.Fragment>
-            <Element className={classNames}>
-                {(!outlined && !textarea) &&
+            <Element
+                className={classNames}
+                onMouseDown={handleInputInteraction}
+                onTouchStart={handleInputInteraction}
+            >
+                {filled &&
                     <span className="mdc-text-field__ripple" />
                 }
 
@@ -106,19 +103,25 @@ function TextField({
                     role: 'button'
                 })}
 
+                {prefix &&
+                    <span className="mdc-text-field__affix mdc-text-field__affix--prefix">{prefix}</span>
+                }
+
                 <Input
                     className="mdc-text-field__input"
                     ref={inputRef}
                     value={value}
-                    placeholder={(fullWidth && !textarea) ? label : undefined}
+                    defaultValue={defaultValue}
                     disabled={disabled}
                     onChange={handleInputChange}
                     onFocus={handleInputFocus}
                     onBlur={handleInputBlur}
-                    onMouseDown={handleInputInteraction}
-                    onTouchStart={handleInputInteraction}
                     {...props}
                 />
+
+                {suffix &&
+                    <span className="mdc-text-field__affix mdc-text-field__affix--suffix">{suffix}</span>
+                }
 
                 {trailingIcon && React.cloneElement(trailingIcon, {
                     className: 'mdc-text-field__icon mdc-text-field__icon--trailing',
@@ -126,10 +129,9 @@ function TextField({
                     role: 'button'
                 })}
 
-                {(outlined || textarea) &&
+                {outlined &&
                     <NotchedOutline
                         notched={focusedOrHasValue}
-                        width={notchedOutlineWidth}
                     >
                         {label &&
                             <FloatingLabel
@@ -142,7 +144,7 @@ function TextField({
                     </NotchedOutline>
                 }
 
-                {(label && !outlined && !fullWidth && !textarea) &&
+                {(label && !outlined) &&
                     <FloatingLabel
                         float={focusedOrHasValue}
                     >
@@ -150,10 +152,10 @@ function TextField({
                     </FloatingLabel>
                 }
 
-                {(!outlined && !textarea) &&
+                {!outlined &&
                     <LineRipple
+                        ref={lineRippleRef}
                         active={focused}
-                        center={lineRippleTransformOrigin.current}
                     />
                 }
             </Element>
@@ -163,7 +165,7 @@ function TextField({
             }
 
             {(!isValid && validationMessage) &&
-                <HelperText validation>{getValidationMessage()}</HelperText>
+                <HelperText validation>{getValidationMessage(inputRef.current, validationMessage)}</HelperText>
             }
         </React.Fragment>
     );
@@ -173,6 +175,11 @@ TextField.displayName = 'MDCTextField';
 
 TextField.propTypes = {
     value: PropTypes.any,
+    label: PropTypes.string,
+    leadingIcon: PropTypes.element,
+    trailingIcon: PropTypes.element,
+    prefix: PropTypes.string,
+    suffix: PropTypes.string,
     outline: PropTypes.bool,
     fullWidth: PropTypes.bool,
     textarea: PropTypes.bool,
@@ -181,3 +188,11 @@ TextField.propTypes = {
     helperText: PropTypes.string,
     validationMessage: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
 };
+
+function getValidationMessage(input, validationMessage) {
+    if (typeof validationMessage === 'string') {
+        return validationMessage;
+    } else if (validationMessage === true) {
+        return input ? input.validationMessage : undefined;
+    }
+}
