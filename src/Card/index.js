@@ -3,7 +3,8 @@ import './Card.scss';
 import Card from './Card';
 import CardAction from './CardAction';
 import CardActions from './CardActions';
-import CardActionSection from './CardActionSection';
+import CardActionButtons from './CardActionButtons';
+import CardActionIcons from './CardActionIcons';
 import CardHeader from './CardHeader';
 import CardMedia from './CardMedia';
 import CardPrimaryAction from './CardPrimaryAction';
@@ -11,7 +12,8 @@ import CardSection from './CardSection';
 
 Card.Action = CardAction;
 Card.Actions = CardActions;
-Card.ActionSection = CardActionSection;
+Card.CardActionButtons = CardActionButtons;
+Card.CardActionIcons = CardActionIcons;
 Card.Header = CardHeader;
 Card.Media = CardMedia;
 Card.PrimaryAction = CardPrimaryAction;
@@ -21,7 +23,8 @@ export {
     Card,
     CardAction,
     CardActions,
-    CardActionSection,
+    CardActionButtons,
+    CardActionIcons,
     CardHeader,
     CardMedia,
     CardPrimaryAction,
