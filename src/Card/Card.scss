@@ -1,5 +1,6 @@
 @use '@material/theme';
 @use '@material/typography';
+@use '@material/icon-button';
 @use '@material/card/mdc-card';
 
 .mdc-card {
@@ -38,18 +39,16 @@
             margin: 0;
         }
     
-        .mdc-card__header__action {
+        .mdc-card__header__actions {
             margin-left: auto;
         }
     
         .mdc-card__header__graphic,
-        .mdc-card__header__action {
+        .mdc-card__action {
             &.mdc-icon-button,
             .mdc-icon-button {
-                @include theme.prop(color, text-secondary-on-light);
-                width: 32px;
-                height: 32px;
-                padding: 4px;
+                @include icon-button.size(32px);
+                @include icon-button.ink-color(text-secondary-on-light);
             }
         }
     }
