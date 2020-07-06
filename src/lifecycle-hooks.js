@@ -31,3 +31,5 @@ export function useRendered(fn, deps) {
 export function useDestroyed(fn) {
     useEffect(() => () => fn(), []);
 }
+
+export { useEffect };
