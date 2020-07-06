@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 export default function IconButton({
-    on = false,
     icon,
     onIcon,
     offIcon,
     onLabel,
     offLabel,
-    
+    on = false,
+
     element = 'button',
     component: Element = element,
     className,
@@ -33,7 +33,7 @@ export default function IconButton({
                     className: 'mdc-icon-button__icon mdc-icon-button__icon--on',
                     title: onLabel
                 })}
-                
+
                 {offIcon && React.cloneElement(offIcon, {
                     className: 'mdc-icon-button__icon',
                     title: offLabel
@@ -51,10 +51,10 @@ export default function IconButton({
 IconButton.displayName = 'MDCIconButton';
 
 IconButton.propTypes = {
-    on: PropTypes.bool,
     icon: PropTypes.element,
     onIcon: PropTypes.element,
     offIcon: PropTypes.element,
     onLabel: PropTypes.string,
-    offLabel: PropTypes.string
+    offLabel: PropTypes.string,
+    on: PropTypes.bool
 };
