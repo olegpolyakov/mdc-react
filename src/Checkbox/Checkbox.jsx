@@ -1,36 +1,34 @@
-import React from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-
-import { useRendered } from '../lifecycle-hooks';
 
 export default function Checkbox({
     checked = false,
     indeterminate = false,
     disabled = false,
     onChange = Function.prototype,
-    
+
     className,
     ...props
 }) {
-    const input = React.useRef();
+    const inputRef = useRef();
 
-    const handleChange = event => onChange(!checked, input.current, event);
+    useEffect(() => {
+        inputRef.current.indeterminate = indeterminate;
+    }, [indeterminate]);
+
+    const handleChange = useCallback(event => {
+        onChange(event, event.target.checked, event.target);
+    }, []);
 
     const classNames = classnames('mdc-checkbox', {
-        'mdc-checkbox--checked': checked,
-        'mdc-checkbox--indeterminate': indeterminate,
         'mdc-checkbox--disabled': disabled
     }, className);
-
-    useRendered(() => {
-        input.current.blur();
-    }, [checked]);
 
     return (
         <div className={classNames}>
             <input
-                ref={input}
+                ref={inputRef}
                 type="checkbox"
                 className="mdc-checkbox__native-control"
                 checked={checked}
@@ -47,7 +45,7 @@ export default function Checkbox({
                 <div className="mdc-checkbox__mixedmark" />
             </div>
 
-            <div className="mdc-checkbox__ripple"></div>
+            <div className="mdc-checkbox__ripple" />
         </div>
     );
 }
@@ -58,6 +56,5 @@ Checkbox.propTypes = {
     checked: PropTypes.bool,
     indeterminate: PropTypes.bool,
     disabled: PropTypes.bool,
-
     onChange: PropTypes.func
 };
