@@ -1,11 +1,11 @@
-import React from 'react';
+import { useRef } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 import { useCreated, useMounted } from '../lifecycle-hooks';
 
 export default function Modal({ fixed = false, element = 'div', children }) {
-    const root = React.useRef();
+    const root = useRef();
 
     useCreated(() => {
         root.current = document.createElement(element);
@@ -21,7 +21,7 @@ export default function Modal({ fixed = false, element = 'div', children }) {
 
         return () => document.body.removeChild(root.current);
     });
-    
+
     return ReactDOM.createPortal(children, root.current);
 }
 
