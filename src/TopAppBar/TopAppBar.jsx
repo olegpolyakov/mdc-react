@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { useMounted, useDestroyed } from '../lifecycle-hooks';
+import { useMounted } from '../lifecycle-hooks';
 import TopAppBarRow from './TopAppBarRow';
 import TopAppBarSection from './TopAppBarSection';
+import TopAppBarTitle from './TopAppBarTitle';
 
 export default function TopAppBar({
     title,
@@ -15,7 +16,7 @@ export default function TopAppBar({
     dense = false,
     prominent = false,
     short = false,
-    collapsed =false,
+    collapsed = false,
     fixedAdjustSibling = false,
 
     element = 'header',
@@ -24,12 +25,11 @@ export default function TopAppBar({
     children,
     ...props
 }) {
-    const rootRef = React.useRef();
-    const lastScrollPositionRef = React.useRef();
+    const rootRef = useRef();
+    const lastScrollPositionRef = useRef();
+    const [scrolled, setScrolled] = useState(false);
+    const [hidden, setHidden] = useState(false);
 
-    const [scrolled, setScrolled] = React.useState(false);
-    const [hidden, setHidden] = React.useState(false);
-        
     const classNames = classnames('mdc-top-app-bar', {
         'mdc-top-app-bar--fixed': fixed,
         'mdc-top-app-bar--sticky': sticky,
@@ -45,17 +45,17 @@ export default function TopAppBar({
     useMounted(() => {
         function handleScroll(event) {
             const scrollValue = window.pageYOffset;
-            
+
             if (fixed) {
                 setScrolled(scrollValue > 0);
             } else if (sticky) {
                 const currentScrollPosition = Math.max(scrollValue, 0);
-                const laslastScrollPosition = lastScrollPositionRef.current || 0
+                const laslastScrollPosition = lastScrollPositionRef.current || 0;
                 const diff = currentScrollPosition - laslastScrollPosition;
                 const shoudlHide = diff > 0;
-        
+
                 lastScrollPositionRef.current = currentScrollPosition;
-                
+
                 setHidden(shoudlHide);
             }
         }
@@ -69,7 +69,7 @@ export default function TopAppBar({
         return () => {
             window.removeEventListener('scroll', handleScroll);
             rootRef.current.nextSibling.classList.remove('mdc-top-app-bar--fixed-adjust');
-        }
+        };
     });
 
     return (
@@ -79,30 +79,32 @@ export default function TopAppBar({
             {...props}
         >
             <TopAppBarRow>
-                {(navigationIcon || title || actionItems) &&
-                    <TopAppBarSection alignStart>
+                {(navigationIcon || title) &&
+                    <TopAppBarSection align="start">
                         {navigationIcon &&
-                            React.cloneElement(navigationIcon, { className: 'mdc-top-app-bar__navigation-icon' })
+                            React.cloneElement(navigationIcon, {
+                                className: 'mdc-top-app-bar__navigation-icon'
+                            })
                         }
 
                         {title && (React.isValidElement(title) ?
-                            React.cloneElement(title, { className: 'mdc-top-app-bar__title' })
+                            React.cloneElement(title, {
+                                className: 'mdc-top-app-bar__title'
+                            })
                             :
-                            <span className="mdc-top-app-bar__title">{title}</span>
+                            <TopAppBarTitle>{title}</TopAppBarTitle>
                         )}
                     </TopAppBarSection>
                 }
 
-                {children &&
-                    <TopAppBarSection>
-                        {children}
-                    </TopAppBarSection>
-                }
+                {children}
 
-                {(actionItems && actionItems.length > 0) &&
-                    <TopAppBarSection alignEnd>
-                        {actionItems.map((item, key) =>
-                            React.cloneElement(item, { key, className: 'mdc-top-app-bar__action-item' })
+                {actionItems &&
+                    <TopAppBarSection align="end">
+                        {React.Children.map(actionItems, item =>
+                            React.cloneElement(item, {
+                                className: 'mdc-top-app-bar__action-item'
+                            })
                         )}
                     </TopAppBarSection>
                 }
@@ -114,6 +116,9 @@ export default function TopAppBar({
 TopAppBar.displayName = 'MDCTopAppBar';
 
 TopAppBar.propTypes = {
+    title: PropTypes.node,
+    navigationIcon: PropTypes.element,
+    actionItems: PropTypes.arrayOf(PropTypes.element),
     fixed: PropTypes.bool,
     sticky: PropTypes.bool,
     dense: PropTypes.bool,

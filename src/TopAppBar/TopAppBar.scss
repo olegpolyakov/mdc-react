@@ -12,6 +12,7 @@
 .mdc-top-app-bar--sticky {
     position: sticky;
     top: 0;
+    z-index: 7;
 }
 
 .mdc-top-app-bar--dense {
@@ -38,4 +39,8 @@
 .mdc-top-app-bar--sticky-shown {
     transform: translateY(0);
     transition: transform .2s;
+}
+
+.mdc-top-app-bar__section--align-center {
+    justify-content: center;
 }

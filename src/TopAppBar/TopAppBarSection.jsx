@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 export default function TopAppBarSection({
-    alignStart = false,
-    alignEnd = false,
+    align,
 
     element: Element = 'section',
     className,
     ...props
 }) {
     const classNames = classnames('mdc-top-app-bar__section', {
-        'mdc-top-app-bar__section--align-start': alignStart,
-        'mdc-top-app-bar__section--align-end': alignEnd
+        'mdc-top-app-bar__section--align-start': align === 'start',
+        'mdc-top-app-bar__section--align-center': align === 'center',
+        'mdc-top-app-bar__section--align-end': align === 'end'
     }, className);
 
     return (
@@ -23,6 +23,5 @@ export default function TopAppBarSection({
 TopAppBarSection.displayName = 'MDCTopAppBarSection';
 
 TopAppBarSection.propTypes = {
-    alignStart: PropTypes.bool,
-    alignEnd: PropTypes.bool
+    align: PropTypes.string
 };
