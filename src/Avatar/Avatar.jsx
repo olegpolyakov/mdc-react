@@ -4,14 +4,16 @@ import classnames from 'classnames';
 
 export default function Avatar({
     src,
+    icon,
+    text,
     small = false,
     large = false,
-    text,
-    
-    element = 'div',
+
+    element = 'span',
     component: Element = element,
     className,
-    children = text,
+    alt,
+    children = icon || text,
     ...props
 }) {
     const classNames = classnames('mdc-avatar', {
@@ -22,7 +24,7 @@ export default function Avatar({
     return (
         <Element className={classNames} {...props}>
             {src ?
-                <img src={src} className="mdc-avatar__image" />
+                <img className="mdc-avatar__image" src={src} alt={alt} />
                 :
                 React.isValidElement(children) ?
                     React.cloneElement(children, {
@@ -39,6 +41,8 @@ Avatar.displayName = 'MDCAvatar';
 
 Avatar.propTypes = {
     src: PropTypes.string,
+    icon: PropTypes.element,
+    text: PropTypes.string,
     small: PropTypes.bool,
     large: PropTypes.bool
 };
