@@ -4,12 +4,12 @@ import classnames from 'classnames';
 
 export default function Button({
     label,
-    raised = false,
-    unelevated = false,
-    outlined = false,
     icon,
     leadingIcon = icon,
     trailingIcon,
+    raised = false,
+    unelevated = false,
+    outlined = false,
 
     element = 'button',
     component: Element = element,
@@ -27,11 +27,15 @@ export default function Button({
         <Element className={classNames} {...props}>
             <div className="mdc-button__ripple"></div>
 
-            {leadingIcon && React.cloneElement(leadingIcon, { className: 'mdc-button__icon', 'aria-hidden': 'true' })}
-            
+            {leadingIcon &&
+                React.cloneElement(leadingIcon, { className: 'mdc-button__icon', 'aria-hidden': 'true' })
+            }
+
             <span className="mdc-button__label">{children}</span>
 
-            {trailingIcon && React.cloneElement(trailingIcon, { className: 'mdc-button__icon', 'aria-hidden': 'true' })}
+            {trailingIcon &&
+                React.cloneElement(trailingIcon, { className: 'mdc-button__icon', 'aria-hidden': 'true' })
+            }
         </Element>
     );
 }
@@ -40,10 +44,10 @@ Button.displayName = 'MDCButton';
 
 Button.propTypes = {
     label: PropTypes.string,
-    raised: PropTypes.bool,
-    unelevated: PropTypes.bool,
-    outlined: PropTypes.bool,
     icon: PropTypes.element,
     leadingIcon: PropTypes.element,
-    trailingIcon: PropTypes.element
+    trailingIcon: PropTypes.element,
+    raised: PropTypes.bool,
+    unelevated: PropTypes.bool,
+    outlined: PropTypes.bool
 };
