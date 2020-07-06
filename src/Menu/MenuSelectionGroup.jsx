@@ -5,7 +5,9 @@ export default function MenuSelectionGroup({
     ...props
 }) {
     return (
-        <Element className="mdc-menu__selection-group" {...props} />
+        <li>
+            <Element className="mdc-menu__selection-group" {...props} />
+        </li>
     );
 }
 
