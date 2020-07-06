@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -10,14 +10,16 @@ export default function Switch({
     className,
     ...props
 }) {
-    const inputElement = React.useRef();
+    const inputRef = useRef();
+
+    const handleChange = useCallback(event => {
+        onChange(event, event.target.checked, event.target);
+    }, []);
 
     const classNames = classnames('mdc-switch', {
         'mdc-switch--checked': checked,
         'mdc-switch--disabled': disabled
     }, className);
-
-    const handleChange = event => onChange(!checked, inputElement.current, event);
 
     return (
         <div className={classNames}>
@@ -26,7 +28,7 @@ export default function Switch({
             <div className="mdc-switch__thumb-underlay">
                 <div className="mdc-switch__thumb">
                     <input
-                        ref={inputElement}
+                        ref={inputRef}
                         className="mdc-switch__native-control"
                         type="checkbox"
                         role="switch"
