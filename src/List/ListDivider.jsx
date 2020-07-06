@@ -11,8 +11,11 @@ export default function ListDivider({
     ...props
 }) {
     const classNames = classnames('mdc-list-divider', {
-        'mdc-list-divider--inset': inset,
         'mdc-list-divider--padded': padded,
+        'mdc-list-divider--inset': inset === true,
+        'mdc-list-divider--inset-leading': inset === 'leading',
+        'mdc-list-divider--inset-trailing': inset === 'trailing',
+        'mdc-list-divider--inset-padding': inset === 'padding'
     }, className);
 
     return (
@@ -27,6 +30,9 @@ export default function ListDivider({
 ListDivider.displayName = 'MDCListDivider';
 
 ListDivider.propTypes = {
-    inset: PropTypes.bool,
-    padded: PropTypes.bool
+    padded: PropTypes.bool,
+    inset: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.string
+    ])
 };
