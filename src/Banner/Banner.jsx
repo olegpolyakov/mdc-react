@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 export default function Banner({
-    icon,
     text,
-    action,
+    icon,
+    actions,
     persistent = false,
 
     element = 'div',
@@ -20,16 +20,24 @@ export default function Banner({
 
     return (
         <Element className={classNames} {...props}>
-            <div className="mdc-banner__content">
-                {icon && React.cloneElement(icon, { className: 'mdc-banner__icon' })}
+            <div className="mdc-banner__inner">
+                <div className="mdc-banner__content">
+                    {icon && React.cloneElement(icon, { className: 'mdc-banner__icon' })}
 
-                {React.isValidElement(children) ?
-                    React.cloneElement(children, { className: 'mdc-banner__text' })
-                    :
-                    <div className="mdc-banner__text">{children}</div>
+                    {React.isValidElement(children) ?
+                        React.cloneElement(children, { className: 'mdc-banner__text' })
+                        :
+                        <span className="mdc-banner__text">{children}</span>
+                    }
+                </div>
+
+                {actions &&
+                    <div className="mdc-banner__actions">
+                        {React.Children.map(actions, action =>
+                            React.cloneElement(action, { className: 'mdc-banner__action' })
+                        )}
+                    </div>
                 }
-
-                {action && React.cloneElement(action, { className: 'mdc-banner__action' })}
             </div>
         </Element>
     );
@@ -38,8 +46,11 @@ export default function Banner({
 Banner.displayName = 'MDCBanner';
 
 Banner.propTypes = {
-    icon: PropTypes.element,
     text: PropTypes.node,
-    action: PropTypes.node,
+    icon: PropTypes.element,
+    actions: PropTypes.oneOfType([
+        PropTypes.element,
+        PropTypes.arrayOf(PropTypes.element)
+    ]),
     persistent: PropTypes.bool
 };
