@@ -7,7 +7,7 @@ import { ListItem } from '../List';
 export default function MenuItem({
     selected = false,
     disabled = false,
-    
+
     className,
     ...props
 }) {
@@ -18,10 +18,9 @@ export default function MenuItem({
     return (
         <ListItem
             className={classNames}
+            selected={selected}
             role="menuitem"
             tabIndex={disabled ? '-1' : undefined}
-            aria-disabled={disabled && 'true'}
-            selected={selected}
             {...props}
         />
     );
