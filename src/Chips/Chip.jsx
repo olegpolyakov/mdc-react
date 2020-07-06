@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -15,10 +15,9 @@ export default function Chip({
     component: Element = element,
     className,
     children = text,
-
     ...props
 }) {
-    const handleClick = () => onClick(value);
+    const handleClick = useCallback(() => onClick(value), [value]);
 
     const classNames = classnames('mdc-chip', {
         'mdc-chip--selected': selected,
@@ -27,7 +26,7 @@ export default function Chip({
 
     return (
         <Element className={classNames} onClick={handleClick} {...props}>
-            <div className="mdc-chip__ripple"></div>
+            <div className="mdc-chip__ripple" />
 
             {(leadingIcon && React.isValidElement(leadingIcon)) &&
                 React.cloneElement(leadingIcon, {
@@ -62,7 +61,7 @@ Chip.displayName = 'MDCChip';
 
 Chip.propTypes = {
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    text: PropTypes.string.isRequired,
+    text: PropTypes.string,
     leadingIcon: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
     tarilingIcon: PropTypes.element,
     selected: PropTypes.bool,
