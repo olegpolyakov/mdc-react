@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
@@ -14,36 +14,42 @@ export default function MenuSurface({
     bottom = false,
     right = false,
     belowAnchor = false,
+    fixed = false,
+    fullWidth = false,
+    persistent = false,
     onClose = Function.prototype,
 
     element,
     className,
     ...props
 }) {
-    const rootElement = React.useRef();
+    const rootElement = useRef();
 
     useUpdated(() => {
-        const handleBodyClick = () => onClose();
+        const handleBodyClick = () => !persistent && onClose();
 
         if (open) {
+            anchor.classList.add('mdc-menu-surface--anchor');
             document.body.addEventListener('click', handleBodyClick);
         } else {
+            anchor.classList.remove('mdc-menu-surface--anchor');
             document.body.removeEventListener('click', handleBodyClick);
         }
     }, [open]);
 
     useUpdated(() => {
-        if (!open) return;
-        
-        if (!rootElement.current || !anchor) return;
+        if (!open || !rootElement.current || !anchor) return;
 
         const { clientWidth: width, clientHeight: height } = rootElement.current;
+
         const anchorDimensions = anchor.getBoundingClientRect();
         const style = {
-            position: 'absolute',
+            width: fullWidth ? '100%' : undefined,
+            maxWidth: fullWidth ? `${anchorDimensions.width}px` : undefined,
+            position: fixed ? 'fixed' : 'absolute',
             transformOrigin: ''
         };
-        
+
         if (left || !right) {
             const left = anchorDimensions.left;
             const right = left + width;
@@ -67,7 +73,7 @@ export default function MenuSurface({
             style.transformOrigin += ' top';
         } else if (bottom) {
             const top = anchorDimensions.bottom - height + window.scrollY;
-            
+
             style.top = `${top > 0 ? top : 0}px`;
             style.transformOrigin += ' bottom';
         }
@@ -75,8 +81,14 @@ export default function MenuSurface({
         rootElement.current.style.left = style.left;
         rootElement.current.style.top = style.top;
         rootElement.current.style.position = style.position;
+        rootElement.current.style.width = style.width;
+        rootElement.current.style.maxWidth = style.maxWidth;
         rootElement.current.style.transformOrigin = style.transformOrigin;
     }, [open]);
+
+    const classNames = classnames('mdc-menu-surface', {
+        'mdc-menu-surface--fixed': fixed
+    }, className);
 
     return (
         <CSSTransition
@@ -93,8 +105,8 @@ export default function MenuSurface({
         >
             <Modal>
                 <div
-                    className={classnames('mdc-menu-surface', className)}
                     ref={rootElement}
+                    className={classNames}
                     tabIndex={open ? '0' : '-1'}
                     {...props}
                 />
@@ -106,11 +118,15 @@ export default function MenuSurface({
 MenuSurface.displayName = 'MDCMenuSurface';
 
 MenuSurface.propTypes = {
-    open: PropTypes.bool,
     anchor: PropTypes.object,
+    open: PropTypes.bool,
     top: PropTypes.bool,
     left: PropTypes.bool,
     bottom: PropTypes.bool,
     right: PropTypes.bool,
+    belowAnchor: PropTypes.bool,
+    fixed: PropTypes.bool,
+    fullWidth: PropTypes.bool,
+    persistent: PropTypes.bool,
     onClose: PropTypes.func
 };
