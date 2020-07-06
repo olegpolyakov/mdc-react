@@ -1,31 +1,35 @@
-import React from 'react';
+import React, { forwardRef, useRef, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-const FloatingLabel = React.forwardRef(({ float = false, className, ...props }, ref) => {
-    const rootElement = React.useRef();
+export default forwardRef(FloatingLabel);
 
-    const classNames =  classnames('mdc-floating-label', {
-        'mdc-floating-label--float-above': float
-    }, className);
+function FloatingLabel({
+    float = false,
 
-    React.useImperativeHandle(ref, () => ({
+    className, ...props
+}, ref) {
+    const rootElement = useRef();
+
+    useImperativeHandle(ref, () => ({
         width: rootElement.current ? rootElement.current.offsetWidth : 0
     }));
 
+    const classNames = classnames('mdc-floating-label', {
+        'mdc-floating-label--float-above': float
+    }, className);
+
     return (
-        <label
+        <span
             ref={rootElement}
             className={classNames}
             {...props}
         />
     );
-});
+}
 
 FloatingLabel.displayName = 'MDCFloatingLabel';
 
 FloatingLabel.propTypes = {
     float: PropTypes.bool
 };
-
-export default FloatingLabel;
