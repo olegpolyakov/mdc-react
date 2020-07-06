@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 const CssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -14,7 +13,7 @@ const loaders = {
             options: {
                 presets: ['@babel/preset-env', '@babel/preset-react'],
                 plugins: [
-                    ['@babel/plugin-proposal-class-properties', { loose: true }]
+                    ['@babel/plugin-proposal-optional-chaining']
                 ]
             }
         }
