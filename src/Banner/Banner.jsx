@@ -22,10 +22,16 @@ export default function Banner({
         <Element className={classNames} {...props}>
             <div className="mdc-banner__inner">
                 <div className="mdc-banner__content">
-                    {icon && React.cloneElement(icon, { className: 'mdc-banner__icon' })}
+                    {icon &&
+                        React.cloneElement(icon, {
+                            className: 'mdc-banner__icon'
+                        })
+                    }
 
                     {React.isValidElement(children) ?
-                        React.cloneElement(children, { className: 'mdc-banner__text' })
+                        React.cloneElement(children, {
+                            className: 'mdc-banner__text'
+                        })
                         :
                         <span className="mdc-banner__text">{children}</span>
                     }
@@ -34,7 +40,9 @@ export default function Banner({
                 {actions &&
                     <div className="mdc-banner__actions">
                         {React.Children.map(actions, action =>
-                            React.cloneElement(action, { className: 'mdc-banner__action' })
+                            React.cloneElement(action, {
+                                className: 'mdc-banner__action'
+                            })
                         )}
                     </div>
                 }

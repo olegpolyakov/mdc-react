@@ -21,7 +21,7 @@ export default function LinearProgress({
     const bufferStyle = {
         transform: buffer ? `scaleX(${indeterminate ? 1 : buffer * 0.01})` : undefined
     };
-    
+
     const primaryBarStyle = {
         transform: `scaleX(${indeterminate ? 1 : value * 0.01})`
     };
@@ -32,16 +32,17 @@ export default function LinearProgress({
             role="progressbar"
             {...props}
         >
-            <div className="mdc-linear-progress__buffering-dots"></div>
-
-            <div className="mdc-linear-progress__buffer" style={bufferStyle}></div>
+            <div className="mdc-linear-progress__buffer" style={bufferStyle}>
+                <div className="mdc-linear-progress__buffer-bar" />
+                <div className="mdc-linear-progress__buffer-dots" />
+            </div>
 
             <div className="mdc-linear-progress__bar mdc-linear-progress__primary-bar" style={primaryBarStyle}>
-                <span className="mdc-linear-progress__bar-inner"></span>
+                <span className="mdc-linear-progress__bar-inner" />
             </div>
 
             <div className="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
-                <span className="mdc-linear-progress__bar-inner"></span>
+                <span className="mdc-linear-progress__bar-inner" />
             </div>
         </div>
     );

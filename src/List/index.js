@@ -1,10 +1,25 @@
 import './List.scss';
 
-export { default as List } from './List';
-export { default as ListDivider } from './ListDivider';
-export { default as ListItem } from './ListItem';
-export { default as ListItemGraphic } from './ListItemGraphic';
-export { default as ListItemText } from './ListItemText';
-export { default as ListItemMeta } from './ListItemMeta';
-export { default as ListGroup } from './ListGroup';
-export { default as ListGroupSubheader } from './ListGroupSubheader';
+import List from './List';
+import ListDivider from './ListDivider';
+import ListItem from './ListItem';
+import ListItemGraphic from './ListItemGraphic';
+import ListItemText from './ListItemText';
+import ListItemMeta from './ListItemMeta';
+import ListGroup from './ListGroup';
+import ListGroupSubheader from './ListGroupSubheader';
+
+List.Item = ListItem;
+List.Divider = ListDivider;
+List.Group = ListGroup;
+
+export {
+    List,
+    ListDivider,
+    ListItem,
+    ListItemGraphic,
+    ListItemText,
+    ListItemMeta,
+    ListGroup,
+    ListGroupSubheader
+};

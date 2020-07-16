@@ -10,7 +10,7 @@ export default function FAB({
     mini = false,
     extended = false,
     exited = false,
-    
+
     element = 'button',
     component: Element = element,
     className,
@@ -25,10 +25,12 @@ export default function FAB({
 
     return (
         <Element className={classNames} {...props}>
-            <div className="mdc-fab__ripple"></div>
+            <div className="mdc-fab__ripple" />
 
             {leadingIcon &&
-                React.cloneElement(leadingIcon, { className: 'mdc-fab__icon' })
+                React.cloneElement(leadingIcon, {
+                    className: 'mdc-fab__icon'
+                })
             }
 
             {children &&
@@ -36,7 +38,9 @@ export default function FAB({
             }
 
             {trailingIcon &&
-                React.cloneElement(trailingIcon, { className: 'mdc-fab__icon' })
+                React.cloneElement(trailingIcon, {
+                    className: 'mdc-fab__icon'
+                })
             }
         </Element>
     );

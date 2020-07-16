@@ -25,16 +25,22 @@ export default function Button({
 
     return (
         <Element className={classNames} {...props}>
-            <div className="mdc-button__ripple"></div>
+            <div className="mdc-button__ripple" />
 
             {leadingIcon &&
-                React.cloneElement(leadingIcon, { className: 'mdc-button__icon', 'aria-hidden': 'true' })
+                React.cloneElement(leadingIcon, {
+                    className: 'mdc-button__icon',
+                    'aria-hidden': 'true'
+                })
             }
 
             <span className="mdc-button__label">{children}</span>
 
             {trailingIcon &&
-                React.cloneElement(trailingIcon, { className: 'mdc-button__icon', 'aria-hidden': 'true' })
+                React.cloneElement(trailingIcon, {
+                    className: 'mdc-button__icon',
+                    'aria-hidden': 'true'
+                })
             }
         </Element>
     );

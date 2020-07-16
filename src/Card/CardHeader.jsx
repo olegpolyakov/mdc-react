@@ -20,18 +20,24 @@ export default function CardHeader({
     return (
         <Element className={classNames} {...props}>
             {graphic &&
-                React.cloneElement(graphic, { className: 'mdc-card__header__graphic' })
+                React.cloneElement(graphic, {
+                    className: 'mdc-card__header__graphic'
+                })
             }
 
             <div className="mdc-card__header__text">
                 {React.isValidElement(title) ?
-                    React.cloneElement(title, { className: 'mdc-card__header__title' })
+                    React.cloneElement(title, {
+                        className: 'mdc-card__header__title'
+                    })
                     :
                     <h2 className="mdc-card__header__title">{title}</h2>
                 }
 
                 {subtitle && (React.isValidElement(subtitle) ?
-                    React.cloneElement(subtitle, { className: 'mdc-card__header__subtitle' })
+                    React.cloneElement(subtitle, {
+                        className: 'mdc-card__header__subtitle'
+                    })
                     :
                     <h3 className="mdc-card__header__subtitle">{subtitle}</h3>
                 )}
@@ -40,10 +46,14 @@ export default function CardHeader({
             {actions &&
                 <div className="mdc-card__header__actions">
                     {React.Children.map(actions, action =>
-                        React.cloneElement(action, { className: 'mdc-card__action' })
+                        React.cloneElement(action, {
+                            className: 'mdc-card__action'
+                        })
                     )}
                 </div>
             }
+
+            {children}
         </Element>
     );
 }

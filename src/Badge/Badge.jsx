@@ -17,11 +17,7 @@ export default function Badge({
     }, className);
 
     return (
-        <Element
-            className={classNames}
-            data-badge={value}
-            {...props}
-        />
+        <Element className={classNames} data-badge={value} {...props} />
     );
 }
 

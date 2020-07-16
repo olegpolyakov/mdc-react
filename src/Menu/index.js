@@ -1,6 +1,17 @@
 import './Menu.scss';
 
-export { default as Menu } from './Menu';
-export { default as MenuItem } from './MenuItem';
-export { default as MenuSelectionGroup } from './MenuSelectionGroup';
-export { default as MenuSelectionGroupIcon } from './MenuSelectionGroupIcon';
+import Menu from './Menu';
+import MenuItem from './MenuItem';
+import MenuSelectionGroup from './MenuSelectionGroup';
+import MenuSelectionGroupIcon from './MenuSelectionGroupIcon';
+
+Menu.Item = MenuItem;
+Menu.SelectionGroup = MenuSelectionGroup;
+Menu.SelectionGroupIcon = MenuSelectionGroupIcon;
+
+export {
+    Menu,
+    MenuItem,
+    MenuSelectionGroup,
+    MenuSelectionGroupIcon
+};
