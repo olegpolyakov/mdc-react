@@ -6,6 +6,7 @@ export default forwardRef(FloatingLabel);
 
 function FloatingLabel({
     float = false,
+    required = false,
 
     className, ...props
 }, ref) {
@@ -16,7 +17,8 @@ function FloatingLabel({
     }));
 
     const classNames = classnames('mdc-floating-label', {
-        'mdc-floating-label--float-above': float
+        'mdc-floating-label--float-above': float,
+        'mdc-floating-label--required': required
     }, className);
 
     return (
