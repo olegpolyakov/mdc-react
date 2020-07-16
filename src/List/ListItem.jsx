@@ -2,7 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+import ListItemGraphic from './ListItemGraphic';
+import ListItemText from './ListItemText';
+import ListItemMeta from './ListItemMeta';
+
 export default function ListItem({
+    graphic,
+    text,
+    primaryText = text,
+    secondaryText,
+    meta,
     activated = false,
     selected = false,
     disabled = false,
@@ -21,7 +30,23 @@ export default function ListItem({
 
     return (
         <Element className={classNames} {...props}>
-            <span className="mdc-list-item__ripple"></span>
+            <span className="mdc-list-item__ripple" />
+
+            {graphic &&
+                <ListItemGraphic>{graphic}</ListItemGraphic>
+            }
+
+            {(primaryText || secondaryText) &&
+                <ListItemText
+                    primary={primaryText}
+                    secondary={secondaryText}
+                />
+            }
+
+            {meta &&
+                <ListItemMeta>{meta}</ListItemMeta>
+            }
+
             {children}
         </Element>
     );
@@ -30,7 +55,16 @@ export default function ListItem({
 ListItem.displayName = 'MDCListItem';
 
 ListItem.propTypes = {
+    graphic: PropTypes.element,
+    text: PropTypes.node,
+    primaryText: PropTypes.node,
+    secondaryText: PropTypes.node,
+    meta: PropTypes.node,
     activated: PropTypes.bool,
     selected: PropTypes.bool,
     disabled: PropTypes.bool
 };
+
+ListItem.Graphic = ListItemGraphic;
+ListItem.Text = ListItemText;
+ListItem.Meta = ListItemMeta;
