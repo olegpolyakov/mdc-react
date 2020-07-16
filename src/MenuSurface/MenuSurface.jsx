@@ -1,10 +1,9 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 
 import { useUpdated } from '../lifecycle-hooks';
-import Modal from '../Modal';
+import Layer from '../Layer';
 
 export default function MenuSurface({
     anchor,
@@ -91,7 +90,8 @@ export default function MenuSurface({
     }, className);
 
     return (
-        <CSSTransition
+        <Layer
+            modal
             in={open}
             timeout={{ enter: 120, exit: 75 }}
             classNames={{
@@ -103,15 +103,13 @@ export default function MenuSurface({
             mountOnEnter
             unmountOnExit
         >
-            <Modal>
-                <div
-                    ref={rootElement}
-                    className={classNames}
-                    tabIndex={open ? '0' : '-1'}
-                    {...props}
-                />
-            </Modal>
-        </CSSTransition>
+            <div
+                ref={rootElement}
+                className={classNames}
+                tabIndex={open ? '0' : '-1'}
+                {...props}
+            />
+        </Layer>
     );
 }
 

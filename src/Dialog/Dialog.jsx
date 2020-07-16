@@ -1,10 +1,9 @@
 import React, { useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 
-import { useUpdated, useUpdatedLayout } from '../lifecycle-hooks';
-import Modal from '../Modal';
+import { useUpdated } from '../lifecycle-hooks';
+import Layer from '../Layer';
 import DialogTitle from './DialogTitle';
 import DialogContent from './DialogContent';
 import DialogActions from './DialogActions';
@@ -36,14 +35,6 @@ export default function Dialog({
     const classNames = classnames('mdc-dialog', className);
 
     useUpdated(() => {
-        if (open) {
-            document.body.classList.add(cssClasses.SCROLL_LOCK);
-        } else {
-            document.body.classList.remove(cssClasses.SCROLL_LOCK);
-        }
-    }, [open]);
-
-    useUpdated(() => {
         if (persistent) return;
 
         function handleDocumentKeyDown(event) {
@@ -57,6 +48,8 @@ export default function Dialog({
         } else {
             document.removeEventListener('keydown', handleDocumentKeyDown);
         }
+
+        return () => document.removeEventListener('keydown', handleDocumentKeyDown);
     }, [open, persistent]);
 
     useUpdated(() => {
@@ -70,6 +63,14 @@ export default function Dialog({
         }
     }, [open]);
 
+    const handleEnter = useCallback(() => {
+        document.body.classList.add(cssClasses.SCROLL_LOCK);
+    }, []);
+
+    const handleExited = useCallback(() => {
+        document.body.classList.remove(cssClasses.SCROLL_LOCK);
+    }, []);
+
     const handleScrimClick = useCallback(() => {
         if (persistent) return;
 
@@ -77,7 +78,8 @@ export default function Dialog({
     }, [persistent]);
 
     return (
-        <CSSTransition
+        <Layer
+            modal
             in={open}
             appear={appear}
             timeout={{ enter: 150, exit: 75 }}
@@ -89,41 +91,41 @@ export default function Dialog({
                 enterDone: 'mdc-dialog--open',
                 exit: 'mdc-dialog--closing'
             }}
+            onEnter={handleEnter}
+            onExited={handleExited}
             mountOnEnter
             unmountOnExit
         >
-            <Modal>
-                <Element
-                    className={classNames}
-                    ref={rootElement}
-                    {...props}
-                >
-                    <div className="mdc-dialog__container">
-                        <div
-                            role="alertdialog"
-                            aria-modal="true"
-                            className="mdc-dialog__surface"
-                        >
-                            {title &&
-                                <DialogTitle>{title}</DialogTitle>
-                            }
+            <Element
+                ref={rootElement}
+                className={classNames}
+                {...props}
+            >
+                <div className="mdc-dialog__container">
+                    <div
+                        role="alertdialog"
+                        aria-modal="true"
+                        className="mdc-dialog__surface"
+                    >
+                        {title &&
+                            <DialogTitle>{title}</DialogTitle>
+                        }
 
-                            {content &&
-                                <DialogContent>{content}</DialogContent>
-                            }
+                        {content &&
+                            <DialogContent>{content}</DialogContent>
+                        }
 
-                            {actions &&
-                                <DialogActions>{actions}</DialogActions>
-                            }
+                        {actions &&
+                            <DialogActions>{actions}</DialogActions>
+                        }
 
-                            {children}
-                        </div>
+                        {children}
                     </div>
+                </div>
 
-                    <div className="mdc-dialog__scrim" onClick={handleScrimClick} />
-                </Element>
-            </Modal>
-        </CSSTransition>
+                <div className="mdc-dialog__scrim" onClick={handleScrimClick} />
+            </Element>
+        </Layer>
     );
 }
 

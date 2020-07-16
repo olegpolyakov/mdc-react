@@ -1,16 +1,16 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 
-import { useMounted, useUpdated } from '../lifecycle-hooks';
-import Modal from '../Modal';
+import { useUpdated, useEffect } from '../lifecycle-hooks';
+import Layer from '../Layer';
 
 export default function Drawer({
     open = false,
     appear = true,
     dismissible = false,
     modal = false,
+    appContentSelector,
     onClose = Function.prototype,
 
     element = 'aside',
@@ -21,26 +21,34 @@ export default function Drawer({
 }) {
     const rootElement = useRef();
 
-    useMounted(() => {
-        if (dismissible) {
-            rootElement.current.nextElementSibling.classList.add('mdc-drawer-app-content');
-        }
-    });
+    useEffect(() => {
+        if (!dismissible) return;
+
+        const appContentElement = appContentSelector ?
+            document.querySelector(appContentSelector) :
+            rootElement.current.nextElementSibling;
+
+        appContentElement.classList.add(cssClasses.APP_CONTENT);
+
+        return () => appContentElement.classList.remove(cssClasses.APP_CONTENT);
+    }, [dismissible, appContentSelector]);
 
     useUpdated(() => {
+        if (!modal) return;
+
         function handleDocumentKeyDown(event) {
             if (event.key && event.key === 'Escape' || event.keyCode === 27) {
                 onClose();
             }
         }
 
-        if (modal) {
-            if (open) {
-                document.addEventListener('keydown', handleDocumentKeyDown);
-            } else {
-                document.removeEventListener('keydown', handleDocumentKeyDown);
-            }
+        if (open) {
+            document.addEventListener('keydown', handleDocumentKeyDown);
+        } else {
+            document.removeEventListener('keydown', handleDocumentKeyDown);
         }
+
+        return () => document.removeEventListener('keydown', handleDocumentKeyDown);
     }, [open, modal]);
 
     const classNames = classnames(cssClasses.ROOT, {
@@ -49,7 +57,9 @@ export default function Drawer({
     }, className);
 
     return (
-        <CSSTransition
+        <Layer
+            modal={modal}
+            fixed={modal}
             in={open}
             appear={appear}
             timeout={{
@@ -67,22 +77,7 @@ export default function Drawer({
             mountOnEnter={modal}
             unmountOnExit={modal}
         >
-            {modal ?
-                <Modal fixed>
-                    <Element
-                        ref={rootElement}
-                        className={classNames}
-                        {...props}
-                    >
-                        {children}
-                    </Element>
-
-                    <div
-                        className={cssClasses.SCRIM}
-                        onClick={onClose}
-                    />
-                </Modal>
-                :
+            <>
                 <Element
                     ref={rootElement}
                     className={classNames}
@@ -90,8 +85,15 @@ export default function Drawer({
                 >
                     {children}
                 </Element>
-            }
-        </CSSTransition>
+
+                {modal &&
+                    <div
+                        className={cssClasses.SCRIM}
+                        onClick={onClose}
+                    />
+                }
+            </>
+        </Layer>
     );
 }
 
@@ -114,5 +116,6 @@ Drawer.propTypes = {
     appear: PropTypes.bool,
     dismissible: PropTypes.bool,
     modal: PropTypes.bool,
+    appContentSelector: PropTypes.string,
     onClose: PropTypes.func
 };
