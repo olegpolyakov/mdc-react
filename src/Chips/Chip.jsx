@@ -5,7 +5,8 @@ import classnames from 'classnames';
 export default function Chip({
     value,
     text,
-    leadingIcon,
+    icon,
+    leadingIcon = icon,
     trailingIcon,
     selected = false,
     outlined = false,
