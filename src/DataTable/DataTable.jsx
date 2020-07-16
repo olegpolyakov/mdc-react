@@ -2,15 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+import LinearProgress from '../LinearProgress/LinearProgress';
+
 export default function DataTable({
     stickyHeader = false,
+    inProgress = false,
 
     className,
     children,
     ...props
 }) {
     const classNames = classnames('mdc-data-table', {
-        'mdc-data-table--sticky-header': stickyHeader
+        'mdc-data-table--sticky-header': stickyHeader,
+        'mdc-data-table--in-progress': inProgress
     }, className);
 
     return (
@@ -20,6 +24,14 @@ export default function DataTable({
                     {children}
                 </table>
             </div>
+
+            {inProgress &&
+                <div className="mdc-data-table__progress-indicator">
+                    <div className="mdc-data-table__scrim" />
+
+                    <LinearProgress className="mdc-data-table__linear-progress" indeterminate />
+                </div>
+            }
         </div>
     );
 }
@@ -27,5 +39,6 @@ export default function DataTable({
 DataTable.displayName = 'MDCDataTable';
 
 DataTable.propTypes = {
-    stickyHeader: PropTypes.bool
+    stickyHeader: PropTypes.bool,
+    inProgress: PropTypes.bool
 };
