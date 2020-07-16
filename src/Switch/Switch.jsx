@@ -46,7 +46,7 @@ export default function Switch({
 Switch.displayName = 'MDCSwitch';
 
 Switch.propTypes = {
-    checked: PropTypes.bool.isRequired,
+    checked: PropTypes.bool,
     disabled: PropTypes.bool,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func
 };
