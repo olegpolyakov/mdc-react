@@ -5,6 +5,7 @@ import classnames from 'classnames';
 export default function FormField({
     label,
     alignEnd = false,
+    nowrap = false,
 
     element: Element = 'label',
     className,
@@ -12,7 +13,8 @@ export default function FormField({
     ...props
 }) {
     const classNames = classnames('mdc-form-field', {
-        'mdc-form-field--align-end': alignEnd
+        'mdc-form-field--align-end': alignEnd,
+        'mdc-form-field--nowrap': nowrap
     }, className);
 
     return (
