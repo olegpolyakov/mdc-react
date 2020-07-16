@@ -36,7 +36,7 @@ export default function ListItem({
                 <ListItemGraphic>{graphic}</ListItemGraphic>
             }
 
-            {(primaryText || secondaryText) &&
+            {(text || primaryText || secondaryText) &&
                 <ListItemText
                     text={text}
                     primary={primaryText}
