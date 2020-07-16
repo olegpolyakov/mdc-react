@@ -10,16 +10,16 @@ HelperText.propTypes = {
 };
 
 export default function HelperText({
-    persistent = false,
     validation = false,
+    persistent = false,
 
     element: Element = 'p',
     children,
     ...props
 }) {
     const classNames = classnames('mdc-select-helper-text', {
-        'mdc-select-helper-text--persistent': persistent,
-        'mdc-select-helper-text--validation-msg': validation
+        'mdc-select-helper-text--validation-msg': validation,
+        'mdc-select-helper-text--validation-msg-persistent': persistent
     });
 
     return (
