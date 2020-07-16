@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function ListItemText({
+    text,
     primary,
     secondary,
 
     element = 'span',
     component: Element = element,
-    children,
+    children = text,
     ...props
 }) {
     return (
@@ -36,6 +37,7 @@ export default function ListItemText({
 ListItemText.displayName = 'MDCListItemText';
 
 ListItemText.propTypes = {
+    text: PropTypes.node,
     primary: PropTypes.node,
     secondary: PropTypes.node
 };

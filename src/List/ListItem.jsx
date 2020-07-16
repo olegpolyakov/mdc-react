@@ -9,7 +9,7 @@ import ListItemMeta from './ListItemMeta';
 export default function ListItem({
     graphic,
     text,
-    primaryText = text,
+    primaryText,
     secondaryText,
     meta,
     activated = false,
@@ -38,6 +38,7 @@ export default function ListItem({
 
             {(primaryText || secondaryText) &&
                 <ListItemText
+                    text={text}
                     primary={primaryText}
                     secondary={secondaryText}
                 />
