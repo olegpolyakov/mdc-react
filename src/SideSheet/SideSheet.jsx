@@ -5,6 +5,19 @@ import classnames from 'classnames';
 import { useUpdated, useEffect } from '../lifecycle-hooks';
 import Layer from '../Layer';
 
+const cssClasses = {
+    ROOT: 'mdc-side-sheet',
+    CONTENT: 'mdc-side-sheet__content',
+    DISMISSIBLE: 'mdc-side-sheet--dismissible',
+    MODAL: 'mdc-side-sheet--modal',
+    OPEN: 'mdc-side-sheet--open',
+    ANIMATE: 'mdc-side-sheet--animate',
+    OPENING: 'mdc-side-sheet--opening',
+    CLOSING: 'mdc-side-sheet--closing',
+    APP_CONTENT: 'mdc-side-sheet-app-content',
+    SCRIM: 'mdc-side-sheet-scrim',
+};
+
 export default function SideSheet({
     title,
     open = false,
@@ -121,19 +134,6 @@ function SideSheetContent({ children }) {
         </section>
     );
 }
-
-const cssClasses = {
-    ROOT: 'mdc-side-sheet',
-    CONTENT: 'mdc-side-sheet__content',
-    DISMISSIBLE: 'mdc-side-sheet--dismissible',
-    MODAL: 'mdc-side-sheet--modal',
-    OPEN: 'mdc-side-sheet--open',
-    ANIMATE: 'mdc-side-sheet--animate',
-    OPENING: 'mdc-side-sheet--opening',
-    CLOSING: 'mdc-side-sheet--closing',
-    APP_CONTENT: 'mdc-side-sheet-app-content',
-    SCRIM: 'mdc-side-sheet-scrim',
-};
 
 SideSheet.displayName = 'MDCSideSheet';
 

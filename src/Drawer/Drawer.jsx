@@ -5,6 +5,18 @@ import classnames from 'classnames';
 import { useUpdated, useEffect } from '../lifecycle-hooks';
 import Layer from '../Layer';
 
+const cssClasses = {
+    ROOT: 'mdc-drawer',
+    DISMISSIBLE: 'mdc-drawer--dismissible',
+    MODAL: 'mdc-drawer--modal',
+    OPEN: 'mdc-drawer--open',
+    ANIMATE: 'mdc-drawer--animate',
+    OPENING: 'mdc-drawer--opening',
+    CLOSING: 'mdc-drawer--closing',
+    APP_CONTENT: 'mdc-drawer-app-content',
+    SCRIM: 'mdc-drawer-scrim',
+};
+
 export default function Drawer({
     open = false,
     appear = true,
@@ -96,18 +108,6 @@ export default function Drawer({
         </Layer>
     );
 }
-
-const cssClasses = {
-    ROOT: 'mdc-drawer',
-    DISMISSIBLE: 'mdc-drawer--dismissible',
-    MODAL: 'mdc-drawer--modal',
-    OPEN: 'mdc-drawer--open',
-    ANIMATE: 'mdc-drawer--animate',
-    OPENING: 'mdc-drawer--opening',
-    CLOSING: 'mdc-drawer--closing',
-    APP_CONTENT: 'mdc-drawer-app-content',
-    SCRIM: 'mdc-drawer-scrim',
-};
 
 Drawer.displayName = 'MDCDrawer';
 
