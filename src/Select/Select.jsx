@@ -13,6 +13,7 @@ import HelperText from './HelperText';
 
 export default function Select({
     value,
+    name,
     options,
     label,
     leadingIcon,
@@ -69,7 +70,7 @@ export default function Select({
 
         if (option.disabled) return;
 
-        event.target = { name: event.target.name, value: option.value };
+        event.target = { name, value: option.value };
 
         onChange(event, option.value);
 
@@ -111,6 +112,7 @@ export default function Select({
                     <input
                         ref={inputElement}
                         type="hidden"
+                        name={value}
                         value={value}
                         required={required}
                         disabled={disabled}
