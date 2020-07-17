@@ -41,11 +41,13 @@ function TextField({
     useImperativeHandle(ref, () => inputRef.current);
 
     const handleInputInteraction = useCallback(event => {
-        const targetClientRect = event.target.getBoundingClientRect();
-        const coords = { x: event.clientX, y: event.clientY };
-        const transformOriginX = coords.x - targetClientRect.left;
+        if (lineRippleRef.current) {
+            const targetClientRect = event.target.getBoundingClientRect();
+            const coords = { x: event.clientX, y: event.clientY };
+            const transformOriginX = coords.x - targetClientRect.left;
 
-        lineRippleRef.current.style.transformOrigin = `${transformOriginX}px center`;
+            lineRippleRef.current.style.transformOrigin = `${transformOriginX}px center`;
+        }
     }, []);
 
     const handleInputFocus = useCallback(() => {
