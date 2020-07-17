@@ -112,7 +112,7 @@ export default function Select({
                     <input
                         ref={inputElement}
                         type="hidden"
-                        name={value}
+                        name={name}
                         value={value}
                         required={required}
                         disabled={disabled}
