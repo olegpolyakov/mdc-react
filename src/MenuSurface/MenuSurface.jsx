@@ -25,7 +25,7 @@ export default function MenuSurface({
     const rootElement = useRef();
 
     useUpdated(() => {
-        const handleBodyClick = () => !persistent && onClose();
+        const handleBodyClick = event => !persistent && onClose(event);
 
         if (open) {
             anchor.classList.add('mdc-menu-surface--anchor');
