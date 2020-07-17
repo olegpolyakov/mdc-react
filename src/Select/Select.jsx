@@ -30,7 +30,7 @@ export default function Select({
 }) {
     const anchorElement = useRef();
     const inputElement = useRef();
-    const lineRippleTransformOrigin = useRef();
+    const lineRippleRef = useRef();
 
     const [activated, setActivated] = useState(false);
     const [focused, setFocused] = useState(false);
@@ -39,7 +39,7 @@ export default function Select({
 
     useEffect(() => {
         const selectedOption = (options || React.Children.toArray(children).map(option => option.props))
-            .find(option => option.value === value || option.selected);
+            .find(option => option.value === value);
 
         if (selectedOption) {
             setSelectedText(selectedOption.text || selectedOption.children);
@@ -47,19 +47,29 @@ export default function Select({
     }, [value]);
 
     const handleAnchorClick = useCallback(event => {
-        const targetClientRect = event.target.getBoundingClientRect();
-        const coords = { x: event.clientX, y: event.clientY };
+        if (activated) {
+            setActivated(false);
+            setFocused(false);
+        } else {
+            if (lineRippleRef.current) {
+                const targetClientRect = event.target.getBoundingClientRect();
+                const coords = { x: event.clientX, y: event.clientY };
+                const transformOriginX = coords.x - targetClientRect.left;
 
-        lineRippleTransformOrigin.current = coords.x - targetClientRect.left;
+                lineRippleRef.current.style.transformOrigin = `${transformOriginX}px center`;
+            }
 
-        setActivated(true);
-        setFocused(true);
-    }, []);
+            setActivated(true);
+            setFocused(true);
+        }
+    }, [activated]);
 
     const handleOptionClick = useCallback((event, option) => {
         event.stopPropagation();
 
         if (option.disabled) return;
+
+        event.target = { name, value: option.value };
 
         onChange(event, option.value);
 
@@ -68,7 +78,9 @@ export default function Select({
         setTouched(true);
     }, []);
 
-    const handleMenuClose = useCallback(() => {
+    const handleMenuClose = useCallback(event => {
+        if (event.target.classList.contains('mdc-select__anchor')) return;
+
         setActivated(false);
         setFocused(false);
     }, []);
@@ -93,6 +105,7 @@ export default function Select({
                 <div
                     ref={anchorElement}
                     className="mdc-select__anchor"
+                    tabIndex={!disabled ? 0 : undefined}
                     onClick={handleAnchorClick}
                 >
                     <input
@@ -135,15 +148,15 @@ export default function Select({
                             }
 
                             <LineRipple
+                                ref={lineRippleRef}
                                 active={focused}
-                                center={lineRippleTransformOrigin.current}
                             />
                         </>
                     }
                 </div>
 
                 <MenuSurface
-                    open={focused}
+                    open={activated}
                     anchor={anchorElement.current}
                     belowAnchor
                     onClose={handleMenuClose}
@@ -152,18 +165,16 @@ export default function Select({
                         {options ?
                             options.map(option =>
                                 <SelectOption
-                                    selected={option.selected || option.value === value}
+                                    selected={option.value === value}
                                     onClick={event => handleOptionClick(event, option)}
                                     {...option}
-                                >
-                                    {option.text}
-                                </SelectOption>
+                                />
                             )
                             :
                             React.Children.map(children, option =>
                                 React.cloneElement(option, {
                                     value: undefined,
-                                    selected: option.props.selected || option.props.value === value,
+                                    selected: option.props.value === value,
                                     onClick: event => handleOptionClick(event, option.props)
                                 })
                             )}
