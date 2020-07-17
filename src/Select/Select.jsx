@@ -69,7 +69,7 @@ export default function Select({
 
         if (option.disabled) return;
 
-        event.target = { name, value: option.value };
+        event.target = { name: event.target.name, value: option.value };
 
         onChange(event, option.value);
 
