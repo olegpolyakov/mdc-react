@@ -6,7 +6,6 @@ import NotchedOutline from '../NotchedOutline/NotchedOutline';
 import LineRipple from '../LineRipple/LineRipple';
 import FloatingLabel from '../FloatingLabel/FloatingLabel';
 import Menu from '../Menu/Menu';
-import MenuSurface from '../MenuSurface/MenuSurface';
 import DropdownIcon from './DropdownIcon';
 import SelectOption from './SelectOption';
 import HelperText from './HelperText';
@@ -18,12 +17,14 @@ export default function Select({
     label,
     leadingIcon,
     helperText,
-    helperTextProps = {},
     filled = false,
     outlined = false,
+    multiple = false,
     disabled = false,
     required = false,
     onChange = Function.prototype,
+    menuProps = {},
+    helperTextProps = {},
 
     className,
     children,
@@ -39,13 +40,21 @@ export default function Select({
     const [selectedText, setSelectedText] = useState();
 
     useEffect(() => {
-        const selectedOption = (options || React.Children.toArray(children).map(option => option.props))
-            .find(option => option.value === value);
+        if (multiple) {
+            const selectedOptions = (options || React.Children.toArray(children).map(option => option.props))
+                .filter(option => value.includes(option.value));
 
-        if (selectedOption) {
-            setSelectedText(selectedOption.text || selectedOption.children);
+            const selectedText = selectedOptions.map(option => option.text || option.children).join(', ');
+            setSelectedText(selectedText);
+        } else {
+            const selectedOption = (options || React.Children.toArray(children).map(option => option.props))
+                .find(option => option.value === value);
+
+            if (selectedOption) {
+                setSelectedText(selectedOption.text || selectedOption.children);
+            }
         }
-    }, [value]);
+    }, [value, multiple]);
 
     const handleAnchorClick = useCallback(event => {
         if (activated) {
@@ -70,17 +79,59 @@ export default function Select({
 
         if (option.disabled) return;
 
-        event.target = { name, value: option.value };
+        if (multiple) {
+            const values = new Set(value);
 
-        onChange(event, option.value);
+            values.has(option.value) ?
+                values.delete(option.value) :
+                values.add(option.value);
 
-        setActivated(false);
-        setFocused(false);
+            event.target = { name, value: [...values] };
+
+            onChange(event, [...values]);
+        } else {
+            event.target = { name, value: option.value };
+
+            onChange(event, option.value);
+
+            setActivated(false);
+            setFocused(false);
+        }
+
         setTouched(true);
-    }, []);
+    }, [value, multiple]);
 
     const handleMenuClose = useCallback(event => {
         if (event.target.classList.contains('mdc-select__anchor')) return;
+        if (multiple && event.target.classList.contains('mdc-menu-item')) return;
+
+        setActivated(false);
+        setFocused(false);
+    }, [multiple]);
+
+    const handleKeyDown = useCallback(event => {
+        event.stopPropagation();
+
+        if (
+            event.key === ' ' ||
+            event.key === 'Enter' ||
+            event.key === 'ArrowDown' ||
+            event.key === 'ArrowUp'
+        ) {
+            event.preventDefault();
+            setActivated(true);
+        } else if (event.key === 'Escape') {
+            event.preventDefault();
+            setActivated(false);
+        }
+    }, []);
+
+    const handleFocus = useCallback(() => {
+        setFocused(true);
+    }, []);
+
+    const handleBlur = useCallback(event => {
+        if (event.relatedTarget?.classList.contains('mdc-menu')) return;
 
         setActivated(false);
         setFocused(false);
@@ -98,7 +149,7 @@ export default function Select({
         'mdc-select--with-leading-icon': leadingIcon
     }, className);
 
-    const focusedOrHasValue = focused || Boolean(value);
+    const focusedOrHasValue = focused || (Array.isArray(value) ? value.length > 0 : Boolean(value));
 
     return (
         <React.Fragment>
@@ -107,6 +158,9 @@ export default function Select({
                     ref={anchorElement}
                     className="mdc-select__anchor"
                     tabIndex={!disabled ? 0 : undefined}
+                    onFocus={handleFocus}
+                    //onBlur={handleBlur}
+                    onKeyDown={handleKeyDown}
                     onClick={handleAnchorClick}
                 >
                     <input
@@ -157,31 +211,34 @@ export default function Select({
                     }
                 </div>
 
-                <MenuSurface
+                <Menu
+                    className="mdc-select__menu"
                     open={activated}
                     anchor={anchorElement.current}
                     belowAnchor
                     onClose={handleMenuClose}
+                    {...menuProps}
                 >
-                    <Menu className="mdc-select__menu">
-                        {options ?
-                            options.map(option =>
-                                <SelectOption
-                                    selected={option.value === value}
-                                    onClick={event => handleOptionClick(event, option)}
-                                    {...option}
-                                />
-                            )
-                            :
-                            React.Children.map(children, option =>
-                                React.cloneElement(option, {
-                                    value: undefined,
-                                    selected: option.props.value === value,
-                                    onClick: event => handleOptionClick(event, option.props)
-                                })
-                            )}
-                    </Menu>
-                </MenuSurface>
+                    {options ?
+                        options.map(option =>
+                            <SelectOption
+                                {...option}
+                                value={undefined}
+                                data-value={option.value}
+                                selected={multiple ? value.includes(option.value) : option.value === value}
+                                onClick={event => handleOptionClick(event, option)}
+                            />
+                        )
+                        :
+                        React.Children.map(children, option =>
+                            React.cloneElement(option, {
+                                value: undefined,
+                                'data-value': option.props.value,
+                                selected: multiple ? value.includes(option.props.value) : option.props.value === value,
+                                onClick: event => handleOptionClick(event, option.props)
+                            })
+                        )}
+                </Menu>
             </div>
 
             {helperText &&
@@ -194,19 +251,24 @@ export default function Select({
 Select.displayName = 'MDCSelect';
 
 Select.propTypes = {
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array
+    ]),
     options: PropTypes.arrayOf(PropTypes.object),
     label: PropTypes.string,
     leadingIcon: PropTypes.element,
     helperText: PropTypes.string,
-    helperTextProps: PropTypes.object,
     filled: PropTypes.bool,
     outlined: PropTypes.bool,
+    multiple: PropTypes.bool,
     disabled: PropTypes.bool,
     required: PropTypes.bool,
     children: PropTypes.oneOfType([
         PropTypes.element,
         PropTypes.arrayOf(PropTypes.element)
     ]),
+    menuProps: PropTypes.object,
+    helperTextProps: PropTypes.object,
     onChange: PropTypes.func
 };
