@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function Button({
+export default forwardRef(Button);
+
+function Button({
     label,
     icon,
     leadingIcon = icon,
@@ -16,7 +18,7 @@ export default function Button({
     className,
     children = label,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-button', {
         'mdc-button--raised': raised,
         'mdc-button--unelevated': unelevated,
@@ -24,7 +26,7 @@ export default function Button({
     }, className);
 
     return (
-        <Element className={classNames} {...props}>
+        <Element ref={ref} className={classNames} {...props}>
             <div className="mdc-button__ripple" />
 
             {leadingIcon &&
