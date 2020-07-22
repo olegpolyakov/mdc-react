@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function List({
+export default forwardRef(List);
+
+function List({
     dense = false,
     textualList = false,
     avatarList = false,
@@ -15,7 +17,7 @@ export default function List({
     element: Element = 'ul',
     className,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-list', {
         'mdc-list--dense': dense,
         'mdc-list--textual-list': textualList,
@@ -28,7 +30,7 @@ export default function List({
     }, className);
 
     return (
-        <Element className={classNames} {...props} />
+        <Element ref={ref} className={classNames} {...props} />
     );
 }
 
