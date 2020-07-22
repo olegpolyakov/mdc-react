@@ -11,7 +11,7 @@ export default function MenuItem({
     className,
     ...props
 }) {
-    const classNames = classnames({
+    const classNames = classnames('mdc-menu-item', {
         'mdc-menu-item--selected': selected
     }, className);
 
