@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useState, useCallback, useImperativeHandle } from 'react';
+import React, { forwardRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -12,10 +12,7 @@ function LineRipple({
     className,
     ...props
 }, ref) {
-    const elementRef = useRef();
     const [deactivating, setDeactivating] = useState(false);
-
-    useImperativeHandle(ref, () => elementRef.current);
 
     useUpdated(() => {
         if (!active) {
@@ -38,7 +35,7 @@ function LineRipple({
 
     return (
         <span
-            ref={elementRef}
+            ref={ref}
             className={classNames}
             onTransitionEnd={handleTransitionEnd}
             {...props}
