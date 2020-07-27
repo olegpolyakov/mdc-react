@@ -10,7 +10,9 @@ import DropdownIcon from './DropdownIcon';
 import SelectOption from './SelectOption';
 import HelperText from './HelperText';
 
-export default function Select({
+export default React.forwardRef(Select);
+
+function Select({
     value,
     name,
     options,
@@ -29,9 +31,10 @@ export default function Select({
     className,
     children,
     ...props
-}) {
-    const anchorElement = useRef();
-    const inputElement = useRef();
+}, ref) {
+    const anchorRef = useRef();
+    const inputRef = useRef();
+    const menuRef = useRef();
     const lineRippleRef = useRef();
 
     const [activated, setActivated] = useState(false);
@@ -74,8 +77,10 @@ export default function Select({
         }
     }, [activated]);
 
-    const handleOptionClick = useCallback((event, option) => {
-        event.stopPropagation();
+    const handleOptionInteraction = useCallback(event => {
+        if (event.type === 'keydown' && event.key !== ' ' && event.key !== 'Enter') return;
+
+        const option = event.target.dataset;
 
         if (option.disabled) return;
 
@@ -102,16 +107,14 @@ export default function Select({
     }, [value, multiple]);
 
     const handleMenuClose = useCallback(event => {
-        if (event.target.classList.contains('mdc-select__anchor')) return;
-        if (multiple && event.target.classList.contains('mdc-menu-item')) return;
+        if (event.type === 'click' && event.target === anchorRef.current) return;
+        if (multiple && event.type === 'click' && event.target.classList.contains('mdc-menu-item')) return;
 
         setActivated(false);
         setFocused(false);
-    }, [multiple]);
+    }, [activated, multiple]);
 
     const handleKeyDown = useCallback(event => {
-        event.stopPropagation();
-
         if (
             event.key === ' ' ||
             event.key === 'Enter' ||
@@ -119,10 +122,8 @@ export default function Select({
             event.key === 'ArrowUp'
         ) {
             event.preventDefault();
+
             setActivated(true);
-        } else if (event.key === 'Escape') {
-            event.preventDefault();
-            setActivated(false);
         }
     }, []);
 
@@ -131,7 +132,7 @@ export default function Select({
     }, []);
 
     const handleBlur = useCallback(event => {
-        if (event.relatedTarget?.classList.contains('mdc-menu')) return;
+        if (event.relatedTarget === menuRef.current) return;
 
         setActivated(false);
         setFocused(false);
@@ -153,18 +154,18 @@ export default function Select({
 
     return (
         <React.Fragment>
-            <div className={classNames}>
+            <div ref={ref} className={classNames}>
                 <div
-                    ref={anchorElement}
+                    ref={anchorRef}
                     className="mdc-select__anchor"
                     tabIndex={!disabled ? 0 : undefined}
                     onFocus={handleFocus}
-                    //onBlur={handleBlur}
+                    onBlur={handleBlur}
                     onKeyDown={handleKeyDown}
                     onClick={handleAnchorClick}
                 >
                     <input
-                        ref={inputElement}
+                        ref={inputRef}
                         type="hidden"
                         name={name}
                         value={value}
@@ -212,9 +213,10 @@ export default function Select({
                 </div>
 
                 <Menu
+                    ref={menuRef}
                     className="mdc-select__menu"
                     open={activated}
-                    anchor={anchorElement.current}
+                    anchor={anchorRef.current}
                     belowAnchor
                     onClose={handleMenuClose}
                     {...menuProps}
@@ -226,7 +228,8 @@ export default function Select({
                                 value={undefined}
                                 data-value={option.value}
                                 selected={multiple ? value.includes(option.value) : option.value === value}
-                                onClick={event => handleOptionClick(event, option)}
+                                onClick={handleOptionInteraction}
+                                onKeyDown={handleOptionInteraction}
                             />
                         )
                         :
@@ -235,7 +238,8 @@ export default function Select({
                                 value: undefined,
                                 'data-value': option.props.value,
                                 selected: multiple ? value.includes(option.props.value) : option.props.value === value,
-                                onClick: event => handleOptionClick(event, option.props)
+                                onClick: handleOptionInteraction,
+                                onKeyDown: handleOptionInteraction
                             })
                         )}
                 </Menu>
