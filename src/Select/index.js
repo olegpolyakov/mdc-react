@@ -1,4 +1,11 @@
 import './Select.scss';
 
-export { default as Select } from './Select';
-export { default as SelectOption } from './SelectOption';
+import Select from './Select';
+import SelectOption from './SelectOption';
+
+Select.Option = SelectOption;
+
+export {
+    Select,
+    SelectOption
+};

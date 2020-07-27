@@ -1,4 +1,11 @@
 import './LayoutGrid.scss';
 
-export { default as LayoutGrid } from './LayoutGrid';
-export { default as LayoutGridCell } from './LayoutGridCell';
+import LayoutGrid from './LayoutGrid';
+import LayoutGridCell from './LayoutGridCell';
+
+LayoutGrid.Cell = LayoutGridCell;
+
+export {
+    LayoutGrid,
+    LayoutGridCell
+};

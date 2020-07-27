@@ -12,6 +12,9 @@ import ListGroupSubheader from './ListGroupSubheader';
 List.Item = ListItem;
 List.Divider = ListDivider;
 List.Group = ListGroup;
+ListItem.Graphic = ListItemGraphic;
+ListItem.Text = ListItemText;
+ListItem.Meta = ListItemMeta;
 
 export {
     List,
