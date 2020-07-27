@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function CardSection({
+export default React.forwardRef(CardSection);
+
+function CardSection({
     primary = false,
     secondary = false,
 
@@ -10,14 +12,14 @@ export default function CardSection({
     component: Element = element,
     className,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-card__section', {
         'mdc-card__section--primary': primary,
         'mdc-card__section--secondary': secondary,
     }, className);
 
     return (
-        <Element className={classNames} {...props} />
+        <Element ref={ref} className={classNames} {...props} />
     );
 }
 

@@ -1,11 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useRef, useImperativeHandle, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import { useUpdated } from '../lifecycle-hooks';
 import Layer from '../Layer';
 
-export default function MenuSurface({
+export default React.forwardRef(MenuSurface);
+
+function MenuSurface({
     anchor,
     open = false,
     top = false,
@@ -17,15 +19,20 @@ export default function MenuSurface({
     fullWidth = false,
     persistent = false,
     onClose = Function.prototype,
+    onKeyDown = Function.prototype,
 
     element,
     className,
     ...props
-}) {
-    const rootElement = useRef();
+}, ref) {
+    const rootRef = useRef();
+
+    useImperativeHandle(ref, () => rootRef.current);
 
     useUpdated(() => {
-        const handleBodyClick = event => !persistent && onClose(event);
+        function handleBodyClick(event) {
+            if (!persistent) onClose(event);
+        }
 
         if (open) {
             anchor.classList.add('mdc-menu-surface--anchor');
@@ -37,9 +44,9 @@ export default function MenuSurface({
     }, [open]);
 
     useUpdated(() => {
-        if (!open || !rootElement.current || !anchor) return;
+        if (!open || !rootRef.current || !anchor) return;
 
-        const { clientWidth: width, clientHeight: height } = rootElement.current;
+        const { clientWidth: width, clientHeight: height } = rootRef.current;
 
         const anchorDimensions = anchor.getBoundingClientRect();
         const style = {
@@ -77,13 +84,22 @@ export default function MenuSurface({
             style.transformOrigin += ' bottom';
         }
 
-        rootElement.current.style.left = style.left;
-        rootElement.current.style.top = style.top;
-        rootElement.current.style.position = style.position;
-        rootElement.current.style.width = style.width;
-        rootElement.current.style.maxWidth = style.maxWidth;
-        rootElement.current.style.transformOrigin = style.transformOrigin;
+        rootRef.current.style.left = style.left;
+        rootRef.current.style.top = style.top;
+        rootRef.current.style.position = style.position;
+        rootRef.current.style.width = style.width;
+        rootRef.current.style.maxWidth = style.maxWidth;
+        rootRef.current.style.transformOrigin = style.transformOrigin;
     }, [open]);
+
+    const handleKeyDown = useCallback(event => {
+        if (event.key === 'Escape' && !persistent) {
+            event.stopPropagation();
+            onClose(event);
+        }
+
+        onKeyDown(event);
+    }, []);
 
     const classNames = classnames('mdc-menu-surface', {
         'mdc-menu-surface--fixed': fixed
@@ -104,9 +120,10 @@ export default function MenuSurface({
             unmountOnExit
         >
             <div
-                ref={rootElement}
+                ref={rootRef}
                 className={classNames}
                 tabIndex={open ? '0' : '-1'}
+                onKeyDown={handleKeyDown}
                 {...props}
             />
         </Layer>

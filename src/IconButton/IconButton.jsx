@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function IconButton({
+export default React.forwardRef(IconButton);
+
+function IconButton({
     icon,
     onIcon,
     offIcon,
@@ -15,7 +17,7 @@ export default function IconButton({
     className,
     children,
     ...props
-}) {
+}, ref) {
     if (React.isValidElement(children)) {
         return React.cloneElement(children, {
             component: Element,
@@ -28,7 +30,7 @@ export default function IconButton({
         }, className);
 
         return (
-            <Element className={classNames} {...props}>
+            <Element ref={ref} className={classNames} {...props}>
                 {onIcon && React.cloneElement(onIcon, {
                     className: 'mdc-icon-button__icon mdc-icon-button__icon--on',
                     title: onLabel

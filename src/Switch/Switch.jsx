@@ -2,14 +2,16 @@ import React, { useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function Switch({
+export default React.forwardRef(Switch);
+
+function Switch({
     checked = false,
     disabled = false,
     onChange = Function.prototype,
 
     className,
     ...props
-}) {
+}, ref) {
     const inputRef = useRef();
 
     const handleChange = useCallback(event => {
@@ -22,22 +24,22 @@ export default function Switch({
     }, className);
 
     return (
-        <div className={classNames}>
+        <div ref={ref} className={classNames}>
             <div className="mdc-switch__track" />
 
             <div className="mdc-switch__thumb-underlay">
-                <div className="mdc-switch__thumb">
-                    <input
-                        ref={inputRef}
-                        className="mdc-switch__native-control"
-                        type="checkbox"
-                        role="switch"
-                        checked={checked}
-                        disabled={disabled}
-                        onChange={handleChange}
-                        {...props}
-                    />
-                </div>
+                <div className="mdc-switch__thumb" />
+
+                <input
+                    ref={inputRef}
+                    className="mdc-switch__native-control"
+                    type="checkbox"
+                    role="switch"
+                    checked={checked}
+                    disabled={disabled}
+                    onChange={handleChange}
+                    {...props}
+                />
             </div>
         </div>
     );

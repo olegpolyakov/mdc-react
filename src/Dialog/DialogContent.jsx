@@ -1,8 +1,10 @@
 import React from 'react';
 
-export default function DialogContent({ children }) {
+export default React.forwardRef(DialogContent);
+
+function DialogContent({ children }, ref) {
     return (
-        <div className="mdc-dialog__content">
+        <div ref={ref} className="mdc-dialog__content">
             {children}
         </div>
     );

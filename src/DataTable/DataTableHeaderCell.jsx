@@ -5,7 +5,9 @@ import classnames from 'classnames';
 import Icon from '../Icon/Icon';
 import IconButton from '../IconButton/IconButton';
 
-export default function DataTableHeaderCell({
+export default React.forwardRef(DataTableHeaderCell);
+
+function DataTableHeaderCell({
     label,
     value,
     checkbox = false,
@@ -21,7 +23,7 @@ export default function DataTableHeaderCell({
     className,
     children = label,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-data-table__header-cell', {
         'mdc-data-table__header-cell--checkbox': checkbox,
         'mdc-data-table__header-cell--numeric': numeric,
@@ -31,7 +33,13 @@ export default function DataTableHeaderCell({
     }, className);
 
     return (
-        <Element className={classNames} role={role} scope={scope} {...props}>
+        <Element
+            ref={ref}
+            className={classNames}
+            role={role}
+            scope={scope}
+            {...props}
+        >
             {withSort ?
                 <div className="mdc-data-table__header-cell-wrapper">
                     <div className="mdc-data-table__header-cell-label">

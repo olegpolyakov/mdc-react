@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function Icon({
+export default React.forwardRef(Icon);
+
+function Icon({
     size,
     dark = false,
     light = false,
@@ -12,7 +14,7 @@ export default function Icon({
     component: Element = element,
     className,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-icon', 'material-icons', {
         [`mdc-icon--${size}`]: size,
         'mdc-icon--dark': dark,
@@ -21,7 +23,7 @@ export default function Icon({
     }, className);
 
     return (
-        <Element className={classNames} {...props} />
+        <Element ref={ref} className={classNames} {...props} />
     );
 }
 

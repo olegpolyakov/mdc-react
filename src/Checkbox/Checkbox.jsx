@@ -2,7 +2,9 @@ import React, { useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function Checkbox({
+export default React.forwardRef(Checkbox);
+
+function Checkbox({
     checked = false,
     indeterminate = false,
     disabled = false,
@@ -10,7 +12,7 @@ export default function Checkbox({
 
     className,
     ...props
-}) {
+}, ref) {
     const inputRef = useRef();
 
     useEffect(() => {
@@ -26,7 +28,7 @@ export default function Checkbox({
     }, className);
 
     return (
-        <div className={classNames}>
+        <div ref={ref} className={classNames}>
             <input
                 ref={inputRef}
                 type="checkbox"

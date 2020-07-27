@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -17,7 +17,9 @@ const cssClasses = {
     SCROLL_LOCK: 'mdc-dialog-scroll-lock'
 };
 
-export default function Dialog({
+export default React.forwardRef(Dialog);
+
+function Dialog({
     title,
     content,
     actions,
@@ -30,9 +32,11 @@ export default function Dialog({
     className,
     children,
     ...props
-}) {
-    const rootElement = useRef();
+}, ref) {
+    const rootRef = useRef();
     const classNames = classnames('mdc-dialog', className);
+
+    useImperativeHandle(ref, () => rootRef.current);
 
     useUpdated(() => {
         if (persistent) return;
@@ -53,13 +57,13 @@ export default function Dialog({
     }, [open, persistent]);
 
     useUpdated(() => {
-        const contentElement = rootElement.current.querySelector('.mdc-dialog__content');
+        const contentElement = rootRef.current.querySelector('.mdc-dialog__content');
         const shouldScroll = contentElement ? contentElement.scrollHeight > contentElement.offsetHeight : false;
 
         if (open && shouldScroll) {
-            rootElement.current.classList.add(cssClasses.SCROLLABLE);
+            rootRef.current.classList.add(cssClasses.SCROLLABLE);
         } else if (!open && shouldScroll) {
-            rootElement.current.classList.remove(cssClasses.SCROLLABLE);
+            rootRef.current.classList.remove(cssClasses.SCROLLABLE);
         }
     }, [open]);
 
@@ -97,7 +101,7 @@ export default function Dialog({
             unmountOnExit
         >
             <Element
-                ref={rootElement}
+                ref={rootRef}
                 className={classNames}
                 {...props}
             >

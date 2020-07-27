@@ -2,21 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function ImageList({
+export default React.forwardRef(ImageList);
+
+function ImageList({
     masonry = false,
     withTextProtection = false,
 
     element: Element = 'ul',
     className,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-image-list', {
         'mdc-image-list--masonry': masonry,
         'mdc-image-list--with-text-protection': withTextProtection
     }, className);
 
     return (
-        <Element className={classNames} {...props} />
+        <Element ref={ref} className={classNames} {...props} />
     );
 }
 

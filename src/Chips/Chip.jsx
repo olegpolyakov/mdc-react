@@ -2,7 +2,9 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function Chip({
+export default React.forwardRef(Chip);
+
+function Chip({
     value,
     text,
     icon,
@@ -17,7 +19,7 @@ export default function Chip({
     className,
     children = text,
     ...props
-}) {
+}, ref) {
     const handleClick = useCallback(() => onClick(value), [value]);
 
     const classNames = classnames('mdc-chip', {
@@ -26,7 +28,13 @@ export default function Chip({
     }, className);
 
     return (
-        <Element className={classNames} onClick={handleClick} {...props}>
+        <Element
+            ref={ref}
+            className={classNames}
+            onClick={handleClick}
+            data-value={value}
+            {...props}
+        >
             <div className="mdc-chip__ripple" />
 
             {(leadingIcon && React.isValidElement(leadingIcon)) &&

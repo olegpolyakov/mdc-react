@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function TopAppBarSection({
+export default React.forwardRef(TopAppBarSection);
+
+function TopAppBarSection({
     align,
 
     element: Element = 'section',
     className,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-top-app-bar__section', {
         'mdc-top-app-bar__section--align-start': align === 'start',
         'mdc-top-app-bar__section--align-center': align === 'center',
@@ -16,7 +18,7 @@ export default function TopAppBarSection({
     }, className);
 
     return (
-        <Element className={classNames} {...props} />
+        <Element ref={ref} className={classNames} {...props} />
     );
 }
 

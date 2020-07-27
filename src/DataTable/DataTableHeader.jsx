@@ -1,11 +1,13 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function DataTableHeader({ className, ...props }) {
+export default React.forwardRef(DataTableHeader);
+
+function DataTableHeader({ className, ...props }, ref) {
     const classNames = classnames('mdc-data-table__header', className);
 
     return (
-        <thead className={classNames} {...props} />
+        <thead ref={ref} className={classNames} {...props} />
     );
 }
 

@@ -38,8 +38,6 @@ function TextField({
     const [focused, setFocused] = useState(false);
     const [touched, setTouched] = useState(false);
 
-    useImperativeHandle(ref, () => inputRef.current);
-
     const handleInputInteraction = useCallback(event => {
         if (lineRippleRef.current) {
             const targetClientRect = event.target.getBoundingClientRect();
@@ -91,6 +89,7 @@ function TextField({
     return (
         <React.Fragment>
             <Element
+                ref={ref}
                 className={classNames}
                 onMouseDown={handleInputInteraction}
                 onTouchStart={handleInputInteraction}

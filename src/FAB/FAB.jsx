@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function FAB({
+export default React.forwardRef(FAB);
+
+function FAB({
     icon,
     leadingIcon = icon,
     trailingIcon,
@@ -16,7 +18,7 @@ export default function FAB({
     className,
     children = label,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-fab', {
         'mdc-fab--mini': mini,
         'mdc-fab--extended': label,
@@ -24,7 +26,7 @@ export default function FAB({
     }, className);
 
     return (
-        <Element className={classNames} {...props}>
+        <Element ref={ref} className={classNames} {...props}>
             <div className="mdc-fab__ripple" />
 
             {leadingIcon &&

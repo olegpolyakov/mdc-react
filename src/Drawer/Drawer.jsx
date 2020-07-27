@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -17,7 +17,9 @@ const cssClasses = {
     SCRIM: 'mdc-drawer-scrim',
 };
 
-export default function Drawer({
+export default React.forwardRef(Drawer);
+
+function Drawer({
     open = false,
     appear = true,
     dismissible = false,
@@ -30,15 +32,17 @@ export default function Drawer({
     className,
     children,
     ...props
-}) {
-    const rootElement = useRef();
+}, ref) {
+    const rootRef = useRef();
+
+    useImperativeHandle(ref, () => rootRef.current);
 
     useEffect(() => {
         if (!dismissible) return;
 
         const appContentElement = appContentSelector ?
             document.querySelector(appContentSelector) :
-            rootElement.current.nextElementSibling;
+            rootRef.current.nextElementSibling;
 
         appContentElement.classList.add(cssClasses.APP_CONTENT);
 
@@ -91,7 +95,7 @@ export default function Drawer({
         >
             <>
                 <Element
-                    ref={rootElement}
+                    ref={rootRef}
                     className={classNames}
                     {...props}
                 >

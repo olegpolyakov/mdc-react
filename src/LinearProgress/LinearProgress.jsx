@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function LinearProgress({
+export default React.forwardRef(LinearProgress);
+
+function LinearProgress({
     value = 0,
     buffer = 0,
     indeterminate = false,
@@ -11,7 +13,7 @@ export default function LinearProgress({
 
     className,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-linear-progress', {
         'mdc-linear-progress--indeterminate': indeterminate,
         'mdc-linear-progress--reversed': reversed,
@@ -28,6 +30,7 @@ export default function LinearProgress({
 
     return (
         <div
+            ref={ref}
             className={classNames}
             role="progressbar"
             {...props}

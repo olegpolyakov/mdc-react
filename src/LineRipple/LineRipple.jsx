@@ -1,10 +1,10 @@
-import React, { forwardRef, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import { useUpdated } from '../lifecycle-hooks';
 
-export default forwardRef(LineRipple);
+export default React.forwardRef(LineRipple);
 
 function LineRipple({
     active = false,

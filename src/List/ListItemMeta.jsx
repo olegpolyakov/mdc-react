@@ -1,27 +1,27 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function ListItemMeta({
+export default React.forwardRef(ListItemMeta);
+
+function ListItemMeta({
     element = 'span',
     component: Element = element,
     className,
     children,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-list-item__meta', className);
 
-    if (React.isValidElement(children)) {
-        return React.cloneElement(children, {
+    return React.isValidElement(children) ?
+        React.cloneElement(children, {
+            ref,
             className: classNames,
             ...props
-        });
-    } else {
-        return (
-            <Element className={classNames} {...props}>
+        }) : (
+            <Element ref={ref} className={classNames} {...props}>
                 {children}
             </Element>
         );
-    }
 }
 
 ListItemMeta.displayName = 'MDCListItemMeta';

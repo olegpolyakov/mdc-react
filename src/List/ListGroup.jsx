@@ -4,18 +4,20 @@ import classnames from 'classnames';
 
 import ListGroupSubheader from './ListGroupSubheader';
 
-export default function ListGroup({
+export default React.forwardRef(ListGroup);
+
+function ListGroup({
     subheader,
 
     element: Element = 'div',
     className,
     children,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-list-group', className);
 
     return (
-        <Element className={classNames} {...props}>
+        <Element ref={ref} className={classNames} {...props}>
             {subheader &&
                 <ListGroupSubheader>{subheader}</ListGroupSubheader>
             }

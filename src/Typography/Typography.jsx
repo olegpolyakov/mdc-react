@@ -18,7 +18,9 @@ const variants = {
     overline: 'span'
 };
 
-export default function Typography({
+export default React.forwardRef(Typography);
+
+function Typography({
     variant = 'body1',
     display,
     align,
@@ -29,7 +31,7 @@ export default function Typography({
     component: Element = element,
     className,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-typography', `mdc-typography--${variant}`, {
         [`mdc-typography--display-${display}`]: display,
         [`mdc-typography--align-${align}`]: align,
@@ -38,7 +40,7 @@ export default function Typography({
     }, className);
 
     return (
-        <Element className={classNames} {...props} />
+        <Element ref={ref} className={classNames} {...props} />
     );
 }
 

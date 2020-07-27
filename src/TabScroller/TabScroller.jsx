@@ -3,14 +3,15 @@ import classnames from 'classnames';
 
 import { useUpdated } from '../lifecycle-hooks';
 
-export default function TabScroller({
+export default React.forwardRef(TabScroller);
+
+function TabScroller({
     align,
     activeTab,
 
     children,
     ...props
-}) {
-    const rootRef = useRef();
+}, ref) {
     const scrollAreaRef = useRef();
 
     useUpdated(() => {
@@ -40,15 +41,8 @@ export default function TabScroller({
     });
 
     return (
-        <div
-            ref={rootRef}
-            className={classNames}
-            {...props}
-        >
-            <div
-                ref={scrollAreaRef}
-                className="mdc-tab-scroller__scroll-area"
-            >
+        <div ref={ref} className={classNames} {...props}>
+            <div ref={scrollAreaRef} className="mdc-tab-scroller__scroll-area">
                 {children}
             </div>
         </div>

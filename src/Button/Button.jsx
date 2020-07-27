@@ -1,8 +1,8 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default forwardRef(Button);
+export default React.forwardRef(Button);
 
 function Button({
     label,

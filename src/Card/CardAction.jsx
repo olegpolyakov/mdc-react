@@ -5,7 +5,7 @@ import classnames from 'classnames';
 export default function CardAction({
     button = false,
     icon = false,
-    
+
     component,
     children,
     ...props

@@ -28,7 +28,7 @@ export default function TabBar({
         activeTabRef.current = rootRef.current.querySelector('.mdc-tab--active');
     });
 
-    const handleTabActivate = useCallback((value, element) => {
+    const handleTabClick = useCallback((element, value) => {
         const previousTab = activeTabRef.current;
 
         previousIndicatorClientRect.current = previousTab.getBoundingClientRect();
@@ -59,7 +59,7 @@ export default function TabBar({
                         fade,
                         underline,
                         previousIndicatorClientRect: previousIndicatorClientRect.current,
-                        onActivate: handleTabActivate
+                        onClick: handleTabClick
                     })
                 )}
             </TabScroller>

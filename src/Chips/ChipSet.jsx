@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function ChipSet({
+export default React.forwardRef(ChipSet);
+
+function ChipSet({
     choice = false,
     filter = false,
     input = false,
@@ -11,7 +13,7 @@ export default function ChipSet({
     component: Element = element,
     className,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-chip-set', {
         'mdc-chip-set--choice': choice,
         'mdc-chip-set--filter': filter,
@@ -19,7 +21,7 @@ export default function ChipSet({
     }, className);
 
     return (
-        <Element className={classNames} {...props} />
+        <Element ref={ref} className={classNames} {...props} />
     );
 }
 

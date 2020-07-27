@@ -3,11 +3,13 @@ import classnames from 'classnames';
 
 import IconButton from '../IconButton/IconButton';
 
-export default function TopAppBarNavigationIcon({ className, ...props }) {
+export default React.forwardRef(TopAppBarNavigationIcon);
+
+function TopAppBarNavigationIcon({ className, ...props }, ref) {
     const classNames = classnames('mdc-top-app-bar__action-item', className);
 
     return (
-        <IconButton className={classNames} {...props} />
+        <IconButton ref={ref} className={classNames} {...props} />
     );
 }
 

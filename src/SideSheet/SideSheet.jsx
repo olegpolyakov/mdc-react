@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -18,7 +18,9 @@ const cssClasses = {
     SCRIM: 'mdc-side-sheet-scrim',
 };
 
-export default function SideSheet({
+export default React.forwardRef(SideSheet);
+
+function SideSheet({
     title,
     open = false,
     appear = false,
@@ -32,15 +34,17 @@ export default function SideSheet({
     className,
     children,
     ...props
-}) {
-    const rootElement = useRef();
+}, ref) {
+    const rootRef = useRef();
+
+    useImperativeHandle(ref, () => rootRef.current);
 
     useEffect(() => {
         if (!dismissible) return;
 
         const appContentElement = appContentSelector ?
             document.querySelector(appContentSelector) :
-            rootElement.current.nextElementSibling;
+            rootRef.current.nextElementSibling;
 
         appContentElement.classList.add(cssClasses.APP_CONTENT);
 
@@ -93,7 +97,7 @@ export default function SideSheet({
         >
             <>
                 <Element
-                    ref={rootElement}
+                    ref={rootRef}
                     className={classNames}
                     {...props}
                 >

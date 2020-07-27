@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ListItemGraphic } from '../List';
+import ListItemGraphic from '../List/ListItemGraphic';
 
 export default function MenuSelectionGroupIcon(props) {
     return (

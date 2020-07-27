@@ -4,25 +4,36 @@ import ReactDOM from 'react-dom';
 
 import { useCreated, useMounted } from '../lifecycle-hooks';
 
-export default function Modal({ fixed = false, element = 'div', children }) {
-    const root = useRef();
+export default function Modal({
+    fixed = false,
+    element = 'div',
+    children
+}) {
+    const rootRef = useRef();
 
     useCreated(() => {
-        root.current = document.createElement(element);
-        root.current.className = 'mdc-modal';
+        rootRef.current = document.createElement(element);
+        rootRef.current.className = 'mdc-modal';
 
         if (fixed) {
-            root.current.classList.add('mdc-modal--fixed');
+            rootRef.current.classList.add('mdc-modal--fixed');
         }
     });
 
     useMounted(() => {
-        document.body.appendChild(root.current);
+        const activeElement = document.activeElement;
 
-        return () => document.body.removeChild(root.current);
+        document.body.appendChild(rootRef.current);
+        rootRef.current.firstChild.focus();
+
+        return () => {
+            rootRef.current.firstChild.blur();
+            activeElement.focus();
+            document.body.removeChild(rootRef.current);
+        };
     });
 
-    return ReactDOM.createPortal(children, root.current);
+    return ReactDOM.createPortal(children, rootRef.current);
 }
 
 Modal.displayName = 'MDCModal';

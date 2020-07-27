@@ -6,7 +6,9 @@ import ListItemGraphic from './ListItemGraphic';
 import ListItemText from './ListItemText';
 import ListItemMeta from './ListItemMeta';
 
-export default function ListItem({
+export default React.forwardRef(ListItem);
+
+function ListItem({
     graphic,
     text,
     primaryText,
@@ -21,7 +23,7 @@ export default function ListItem({
     className,
     children,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-list-item', {
         'mdc-list-item--activated': activated,
         'mdc-list-item--selected': selected,
@@ -29,7 +31,7 @@ export default function ListItem({
     }, className);
 
     return (
-        <Element className={classNames} {...props}>
+        <Element ref={ref} className={classNames} {...props}>
             <span className="mdc-list-item__ripple" />
 
             {graphic &&
@@ -65,7 +67,3 @@ ListItem.propTypes = {
     selected: PropTypes.bool,
     disabled: PropTypes.bool
 };
-
-ListItem.Graphic = ListItemGraphic;
-ListItem.Text = ListItemText;
-ListItem.Meta = ListItemMeta;

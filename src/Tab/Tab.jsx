@@ -1,10 +1,12 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import TabIndicator from '../TabIndicator';
 
-export default function Tab({
+export default React.forwardRef(Tab);
+
+function Tab({
     value,
     icon,
     label,
@@ -14,18 +16,20 @@ export default function Tab({
     fade = false,
     underline = true,
     previousIndicatorClientRect,
-    onActivate = Function.prototype,
+    onClick = Function.prototype,
 
     element = 'button',
     component: Element = element,
     className,
     children = label,
     ...props
-}) {
+}, ref) {
     const rootRef = useRef();
 
+    useImperativeHandle(ref, () => rootRef.current);
+
     const handleClick = useCallback(() => {
-        onActivate(value, rootRef.current);
+        onClick(rootRef.current, value);
     }, [value]);
 
     const classNames = classnames('mdc-tab', {
@@ -38,15 +42,17 @@ export default function Tab({
         <Element
             ref={rootRef}
             className={classNames}
-            role='tab'
+            role="tab"
             aria-selected={active ? 'true' : 'false'}
-            tabIndex={active ? '0' : '-1'}
+            tabIndex={active ? 0 : -1}
             onClick={handleClick}
             {...props}
         >
             <div className="mdc-tab__content">
                 {icon &&
-                    React.cloneElement(icon, { className: 'mdc-tab__icon' })
+                    React.cloneElement(icon, {
+                        className: 'mdc-tab__icon'
+                    })
                 }
 
                 {children &&

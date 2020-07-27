@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function FormField({
+export default React.forwardRef(FormField);
+
+function FormField({
     label,
     alignEnd = false,
     nowrap = false,
@@ -11,14 +13,14 @@ export default function FormField({
     className,
     children,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-form-field', {
         'mdc-form-field--align-end': alignEnd,
         'mdc-form-field--nowrap': nowrap
     }, className);
 
     return (
-        <Element className={classNames} {...props}>
+        <Element ref={ref} className={classNames} {...props}>
             {children}
 
             {label &&

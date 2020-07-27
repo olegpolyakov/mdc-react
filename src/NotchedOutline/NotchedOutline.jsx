@@ -2,13 +2,15 @@ import React, { useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function NotchedOutline({
+export default React.forwardRef(NotchedOutline);
+
+function NotchedOutline({
     notched = false,
 
     className,
     children,
     ...props
-}) {
+}, ref) {
     const notchRef = useRef();
 
     useLayoutEffect(() => {
@@ -28,7 +30,7 @@ export default function NotchedOutline({
     }, className);
 
     return (
-        <span className={classNames} {...props}>
+        <span ref={ref} className={classNames} {...props}>
             <span className="mdc-notched-outline__leading" />
 
             {children &&

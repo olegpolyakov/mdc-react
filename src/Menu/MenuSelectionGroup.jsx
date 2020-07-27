@@ -1,11 +1,13 @@
 import React from 'react';
 
-export default function MenuSelectionGroup({
+export default React.forwardRef(MenuSelectionGroup);
+
+function MenuSelectionGroup({
     element: Element = 'ul',
     ...props
-}) {
+}, ref) {
     return (
-        <li>
+        <li ref={ref}>
             <Element className="mdc-menu__selection-group" {...props} />
         </li>
     );

@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function CircularProgress({
+export default React.forwardRef(CircularProgress);
+
+function CircularProgress({
     value = 0,
     size,
     indeterminate = false,
@@ -11,7 +13,7 @@ export default function CircularProgress({
 
     className,
     ...props
-}) {
+}, ref) {
     const progress = value > 1 ? (value / 100) : Number(value);
     const { viewBox, radius, strokeDasharray, indeterminateStrokeDashoffset } = getSizeProps(size);
     const cx = viewBox / 2, cy = viewBox / 2;
@@ -26,7 +28,15 @@ export default function CircularProgress({
     });
 
     return (
-        <div className={classNames} role="progressbar" aria-valuemin={0} aria-valuemax={1} aria-valuenow={progress} {...props}>
+        <div
+            ref={ref}
+            className={classNames}
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={1}
+            aria-valuenow={progress}
+            {...props}
+        >
             {!indeterminate &&
                 <div className="mdc-circular-progress__determinate-container">
                     <svg className="mdc-circular-progress__determinate-circle-graphic" viewBox={`0 0 ${viewBox} ${viewBox}`} xmlns="http://www.w3.org/2000/svg">

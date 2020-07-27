@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function Badge({
+export default React.forwardRef(Badge);
+
+function Badge({
     value,
     inset = false,
     noBackground = false,
@@ -10,14 +12,14 @@ export default function Badge({
     element: Element = 'span',
     className,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-badge', {
         'mdc-badge--inset': inset,
         'mdc-badge--no-background': noBackground
     }, className);
 
     return (
-        <Element className={classNames} data-badge={value} {...props} />
+        <Element ref={ref} className={classNames} data-badge={value} {...props} />
     );
 }
 

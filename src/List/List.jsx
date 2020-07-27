@@ -1,8 +1,8 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default forwardRef(List);
+export default React.forwardRef(List);
 
 function List({
     dense = false,

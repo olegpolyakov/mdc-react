@@ -1,20 +1,23 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { CSSTransition } from 'react-transition-group';
+import React, { useRef, useState, useCallback, useImperativeHandle } from 'react';
 import classnames from 'classnames';
 
 import { useUpdated } from '../lifecycle-hooks';
-import Modal from '../Modal';
+import Layer from '../Layer';
 
-export default function Tooltip({
+export default React.forwardRef(Tooltip);
+
+function Tooltip({
     label,
     large = false,
 
     className,
     children
-}) {
+}, ref) {
     const tooltipRef = useRef();
     const targetRef = useRef(null);
     const [active, setActive] = useState(false);
+
+    useImperativeHandle(ref, () => tooltipRef.current);
 
     useUpdated(() => {
         const targetRect = targetRef.current?.getBoundingClientRect();
@@ -30,7 +33,7 @@ export default function Tooltip({
         setActive(true);
     }, []);
 
-    const handleMouseLeave = useCallback(event => {
+    const handleMouseLeave = useCallback(() => {
         targetRef.current = null;
         setActive(false);
     }, []);
@@ -46,7 +49,8 @@ export default function Tooltip({
                 onMouseLeave: handleMouseLeave
             })}
 
-            <CSSTransition
+            <Layer
+                modal
                 in={active}
                 timeout={{ enter: 150, exit: 0 }}
                 classNames={{
@@ -55,15 +59,10 @@ export default function Tooltip({
                 mountOnEnter
                 unmountOnExit
             >
-                <Modal>
-                    <div
-                        ref={tooltipRef}
-                        className={classNames}
-                    >
-                        {label}
-                    </div>
-                </Modal>
-            </CSSTransition>
+                <div ref={tooltipRef} className={classNames}>
+                    {label}
+                </div>
+            </Layer>
         </>
     );
 }

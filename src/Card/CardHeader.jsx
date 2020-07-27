@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function CardHeader({
+export default React.forwardRef(CardHeader);
+
+function CardHeader({
     graphic,
     title,
     subtitle,
@@ -14,11 +16,11 @@ export default function CardHeader({
     className,
     children,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-card__header', className);
 
     return (
-        <Element className={classNames} {...props}>
+        <Element ref={ref} className={classNames} {...props}>
             {graphic &&
                 React.cloneElement(graphic, {
                     className: 'mdc-card__header__graphic'

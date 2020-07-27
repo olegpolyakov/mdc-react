@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function Banner({
+export default React.forwardRef(Banner);
+
+function Banner({
     text,
     icon,
     actions,
@@ -13,13 +15,13 @@ export default function Banner({
     className,
     children = text,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-banner', {
         'mdc-banner--persistent': persistent
     }, className);
 
     return (
-        <Element className={classNames} {...props}>
+        <Element ref={ref} className={classNames} {...props}>
             <div className="mdc-banner__inner">
                 <div className="mdc-banner__content">
                     {icon &&

@@ -2,19 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function ImageListItem({
+export default React.forwardRef(ImageListItem);
+
+function ImageListItem({
     imageSrc,
     label,
 
     element: Element = 'li',
-    className
-}) {
+    className,
+    ...props
+}, ref) {
     const classNames = classnames('mdc-image-list__item', className);
 
     return (
-        <Element
-            className={classNames}
-        >
+        <Element ref={ref} className={classNames} {...props}>
             <div className="mdc-image-list__image-aspect-container">
                 <img className="mdc-image-list__image" src={imageSrc} alt={label} />
             </div>

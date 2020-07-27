@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function Avatar({
+export default React.forwardRef(Avatar);
+
+function Avatar({
     src,
     icon,
     text,
@@ -15,14 +17,14 @@ export default function Avatar({
     alt,
     children = icon || text,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-avatar', {
         'mdc-avatar--small': small,
         'mdc-avatar--large': large
     }, className);
 
     return (
-        <Element className={classNames} {...props}>
+        <Element ref={ref} className={classNames} {...props}>
             {src ?
                 <img className="mdc-avatar__image" src={src} alt={alt} />
                 :

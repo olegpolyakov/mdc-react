@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { MenuItem } from '../Menu';
+import MenuItem from '../Menu/MenuItem';
 
-export default function SelectOption(props) {
+export default React.forwardRef(SelectOption);
+
+function SelectOption(props) {
     return <MenuItem {...props} />;
 }
 

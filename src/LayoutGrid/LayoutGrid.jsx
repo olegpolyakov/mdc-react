@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function LayoutGrid({
+export default React.forwardRef(LayoutGrid);
+
+function LayoutGrid({
     align,
     fixedColumnWidth = false,
 
@@ -11,7 +13,7 @@ export default function LayoutGrid({
     className,
     children,
     ...props
-}) {
+}, ref) {
     const Element = component;
     const classNames = classnames('mdc-layout-grid', {
         [`mdc-layout-grid--align-${align}`]: align,
@@ -19,7 +21,7 @@ export default function LayoutGrid({
     }, className);
 
     return (
-        <Element className={classNames} {...props}>
+        <Element ref={ref} className={classNames} {...props}>
             <div className="mdc-layout-grid__inner">{children}</div>
         </Element>
     );

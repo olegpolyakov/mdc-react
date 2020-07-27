@@ -4,14 +4,16 @@ import classnames from 'classnames';
 
 import { useUpdated } from '../lifecycle-hooks';
 
-export default function TabIndicator({
+export default React.forwardRef(TabIndicator);
+
+function TabIndicator({
     active = false,
     fade = false,
     underline = true,
     previousIndicatorClientRect,
 
     ...props
-}) {
+}, ref) {
     const contentRef = useRef();
     const [isTransitioning, setTransitioning] = useState(false);
     const [isTransitioned, setTransitioned] = useState(false);
@@ -50,7 +52,7 @@ export default function TabIndicator({
         undefined;
 
     return (
-        <span className={rootClassNames} {...props}>
+        <span ref={ref} className={rootClassNames} {...props}>
             <span
                 ref={contentRef}
                 className={contentClassNames}

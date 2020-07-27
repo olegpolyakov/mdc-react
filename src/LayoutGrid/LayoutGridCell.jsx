@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function LayoutGridCell({
+export default React.forwardRef(LayoutGridCell);
+
+function LayoutGridCell({
     span,
     desktop,
     tablet,
@@ -16,7 +18,7 @@ export default function LayoutGridCell({
     className,
     children,
     ...props
-}) {
+}, ref) {
     const Element = component;
     const classNames = classnames('mdc-layout-grid__cell', {
         [`mdc-layout-grid__cell--span-${span}`]: span,
@@ -28,7 +30,7 @@ export default function LayoutGridCell({
     }, className);
 
     return (
-        <Element className={classNames} {...props}>
+        <Element ref={ref} className={classNames} {...props}>
             {grid ?
                 <div className="mdc-layout-grid__inner">
                     {children}

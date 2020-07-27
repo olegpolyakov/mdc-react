@@ -4,7 +4,9 @@ import classnames from 'classnames';
 
 import { useMounted, useUpdated } from '../lifecycle-hooks';
 
-export default function Slider({
+export default React.forwardRef(Slider);
+
+function Slider({
     value = 0,
     min = 0,
     max = 100,
@@ -16,9 +18,9 @@ export default function Slider({
 
     className,
     ...props
-}) {
-    const rootElement = useRef();
-    const thumbElement = useRef();
+}, ref) {
+    const rootRef = useRef();
+    const thumbRef = useRef();
     const clientRect = useRef();
 
     const [active, setActive] = useState(false);
@@ -26,9 +28,9 @@ export default function Slider({
 
     useMounted(() => {
         function handleResize() {
-            clientRect.current = rootElement.current.getBoundingClientRect();
+            clientRect.current = rootRef.current.getBoundingClientRect();
             const { transform } = getThumbStyle(clientRect.current, value, min, max);
-            thumbElement.current.style.transform = transform;
+            thumbRef.current.style.transform = transform;
         }
 
         handleResize();
@@ -72,7 +74,7 @@ export default function Slider({
         onChange(newValue);
     }
 
-    const handleUp = useCallback(event => {
+    const handleUp = useCallback(() => {
         setActive(false);
         setFocused(false);
     }, []);
@@ -94,7 +96,7 @@ export default function Slider({
 
     const handleThumbUp = useCallback(() => setActive(false), []);
 
-    function handleKeyDown(event) {
+    const handleKeyDown = useCallback(event => {
         event.preventDefault();
 
         const eventKey = getEventKey(event);
@@ -104,19 +106,18 @@ export default function Slider({
 
         updateValue(newValue);
         setFocused(true);
-    }
+    }, []);
 
-    function handleFocus() {
+    const handleFocus = useCallback(() => {
         if (active) return;
 
         setFocused(true);
-    }
+    }, [active]);
 
-    function handleBlur() {
+    const handleBlur = useCallback(() => {
         setActive(false);
         setFocused(false);
-    }
-
+    }, []);
 
     const classNames = classnames('mdc-slider', {
         'mdc-slider--active': active,
@@ -131,19 +132,20 @@ export default function Slider({
 
     return (
         <div
+            ref={rootRef}
             className={classNames}
             role="slider"
-            tabIndex="0"
+            tabIndex={0}
             aria-valuemin={min}
             aria-valuemax={max}
             aria-valuenow={value}
             aria-disabled={disabled}
-            ref={rootElement}
             onMouseDown={handleRootInteraction}
             onTouchStart={handleRootInteraction}
             onKeyDown={handleKeyDown}
             onFocus={handleFocus}
             onBlur={handleBlur}
+            {...props}
         >
             <div className="mdc-slider__track-container">
                 <div className="mdc-slider__track" style={trackStyle} />
@@ -158,7 +160,7 @@ export default function Slider({
             </div>
 
             <div
-                ref={thumbElement}
+                ref={thumbRef}
                 className="mdc-slider__thumb-container"
                 style={thumbStyle}
                 onMouseDown={handleThumbDown}

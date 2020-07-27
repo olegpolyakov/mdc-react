@@ -1,11 +1,17 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function TopAppBarRow({ element: Element = 'div', className, ...props }) {
+export default React.forwardRef(TopAppBarRow);
+
+function TopAppBarRow({
+    element: Element = 'div',
+    className,
+    ...props
+}, ref) {
     const classNames = classnames('mdc-top-app-bar__row', className);
 
     return (
-        <Element className={classNames} {...props} />
+        <Element ref={ref} className={classNames} {...props} />
     );
 }
 

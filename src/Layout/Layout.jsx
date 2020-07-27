@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function Layout({
+export default React.forwardRef(Layout);
+
+function Layout({
     row,
     column,
     direction,
@@ -14,7 +16,7 @@ export default function Layout({
     component: Element = element,
     className,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-layout', {
         'mdc-layout--row': row,
         'mdc-layout--column': column,
@@ -25,7 +27,7 @@ export default function Layout({
     }, className);
 
     return (
-        <Element className={classNames} {...props} />
+        <Element ref={ref} className={classNames} {...props} />
     );
 }
 

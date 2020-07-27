@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -7,7 +7,9 @@ import TopAppBarRow from './TopAppBarRow';
 import TopAppBarSection from './TopAppBarSection';
 import TopAppBarTitle from './TopAppBarTitle';
 
-export default function TopAppBar({
+export default React.forwardRef(TopAppBar);
+
+function TopAppBar({
     title,
     navigationIcon,
     actionItems,
@@ -24,23 +26,13 @@ export default function TopAppBar({
     className,
     children,
     ...props
-}) {
+}, ref) {
     const rootRef = useRef();
     const lastScrollPositionRef = useRef();
     const [scrolled, setScrolled] = useState(false);
     const [hidden, setHidden] = useState(false);
 
-    const classNames = classnames('mdc-top-app-bar', {
-        'mdc-top-app-bar--fixed': fixed,
-        'mdc-top-app-bar--sticky': sticky,
-        'mdc-top-app-bar--dense': dense,
-        'mdc-top-app-bar--prominent': prominent,
-        'mdc-top-app-bar--short': short,
-        'mdc-top-app-bar--short-collapsed': short && collapsed,
-        'mdc-top-app-bar--fixed-scrolled': fixed && scrolled,
-        'mdc-top-app-bar--sticky-hidden': sticky && hidden,
-        'mdc-top-app-bar--sticky-shown': sticky && !hidden
-    }, className);
+    useImperativeHandle(ref, () => rootRef);
 
     useMounted(() => {
         function handleScroll(event) {
@@ -71,6 +63,18 @@ export default function TopAppBar({
             rootRef.current.nextSibling.classList.remove('mdc-top-app-bar--fixed-adjust');
         };
     });
+
+    const classNames = classnames('mdc-top-app-bar', {
+        'mdc-top-app-bar--fixed': fixed,
+        'mdc-top-app-bar--sticky': sticky,
+        'mdc-top-app-bar--dense': dense,
+        'mdc-top-app-bar--prominent': prominent,
+        'mdc-top-app-bar--short': short,
+        'mdc-top-app-bar--short-collapsed': short && collapsed,
+        'mdc-top-app-bar--fixed-scrolled': fixed && scrolled,
+        'mdc-top-app-bar--sticky-hidden': sticky && hidden,
+        'mdc-top-app-bar--sticky-shown': sticky && !hidden
+    }, className);
 
     return (
         <Element

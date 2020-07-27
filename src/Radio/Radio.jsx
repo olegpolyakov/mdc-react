@@ -2,7 +2,9 @@ import React, { useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function Radio({
+export default React.forwardRef(Radio);
+
+function Radio({
     value,
     checked = false,
     disabled = false,
@@ -10,7 +12,7 @@ export default function Radio({
 
     className,
     ...props
-}) {
+}, ref) {
     const inputRef = useRef();
 
     const handleChange = useCallback(event => {
@@ -22,7 +24,7 @@ export default function Radio({
     }, className);
 
     return (
-        <div className={classNames}>
+        <div ref={ref} className={classNames}>
             <input
                 ref={inputRef}
                 className="mdc-radio__native-control"

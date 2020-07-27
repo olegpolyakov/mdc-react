@@ -1,12 +1,15 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function ListItemGraphic({
+export default React.forwardRef(ListItemGraphic);
+
+function ListItemGraphic({
     className,
     children,
     ...props
-}) {
-    return React.cloneElement(React.Children.only(children), {
+}, ref) {
+    return React.cloneElement(children, {
+        ref,
         className: classnames('mdc-list-item__graphic', className),
         ...props
     });

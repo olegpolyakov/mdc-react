@@ -4,21 +4,23 @@ import classnames from 'classnames';
 
 import LinearProgress from '../LinearProgress/LinearProgress';
 
-export default function DataTable({
+export default React.forwardRef(DataTable);
+
+function DataTable({
     stickyHeader = false,
     inProgress = false,
 
     className,
     children,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-data-table', {
         'mdc-data-table--sticky-header': stickyHeader,
         'mdc-data-table--in-progress': inProgress
     }, className);
 
     return (
-        <div className={classNames} {...props}>
+        <div ref={ref} className={classNames} {...props}>
             <div className="mdc-data-table__table-container">
                 <table className="mdc-data-table__table">
                     {children}

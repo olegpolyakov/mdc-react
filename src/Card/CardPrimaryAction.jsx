@@ -1,16 +1,18 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default function CardPrimaryAction({
+export default React.forwardRef(CardPrimaryAction);
+
+function CardPrimaryAction({
     element = 'div',
     component: Element = element,
     className,
     ...props
-}) {
+}, ref) {
     const classNames = classnames('mdc-card__primary-action', className);
 
     return (
-        <Element className={classNames} tabIndex="0" {...props} />
+        <Element ref={ref} className={classNames} tabIndex="0" {...props} />
     );
 }
 
