@@ -79,8 +79,8 @@ function Select({
 
     const handleOptionInteraction = useCallback(event => {
         if (event.type === 'keydown' && event.key !== ' ' && event.key !== 'Enter') return;
-
-        const option = event.target.dataset;
+        ;
+        const option = event.currentTarget.dataset;
 
         if (option.disabled) return;
 
@@ -102,16 +102,15 @@ function Select({
             setActivated(false);
             setFocused(false);
         }
-
-        setTouched(true);
     }, [value, multiple]);
 
     const handleMenuClose = useCallback(event => {
         if (event.type === 'click' && event.target === anchorRef.current) return;
-        if (multiple && event.type === 'click' && event.target.classList.contains('mdc-menu-item')) return;
+        if (multiple && event.type === 'click' && event.path.includes(menuRef.current)) return;
 
         setActivated(false);
         setFocused(false);
+        setTouched(true);
     }, [activated, multiple]);
 
     const handleKeyDown = useCallback(event => {
@@ -138,6 +137,9 @@ function Select({
         setFocused(false);
     }, []);
 
+    const hasValue = (Array.isArray(value) ? value.length > 0 : Boolean(value));
+    const focusedOrHasValue = focused || hasValue;
+
     const classNames = classnames('mdc-select', {
         'mdc-select--filled': filled,
         'mdc-select--outlined': outlined,
@@ -145,12 +147,10 @@ function Select({
         'mdc-select--disabled': disabled,
         'mdc-select--focused': focused,
         'mdc-select--required': required,
-        'mdc-select--invalid': touched && (required && !value),
+        'mdc-select--invalid': touched && (required && !hasValue),
         'mdc-select--no-label': !label,
         'mdc-select--with-leading-icon': leadingIcon
     }, className);
-
-    const focusedOrHasValue = focused || (Array.isArray(value) ? value.length > 0 : Boolean(value));
 
     return (
         <React.Fragment>
@@ -158,6 +158,7 @@ function Select({
                 <div
                     ref={anchorRef}
                     className="mdc-select__anchor"
+                    aria-required={required || undefined}
                     tabIndex={!disabled ? 0 : undefined}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
@@ -228,6 +229,7 @@ function Select({
                                 value={undefined}
                                 data-value={option.value}
                                 selected={multiple ? value.includes(option.value) : option.value === value}
+                                checkbox={multiple}
                                 onClick={handleOptionInteraction}
                                 onKeyDown={handleOptionInteraction}
                             />
@@ -238,6 +240,7 @@ function Select({
                                 value: undefined,
                                 'data-value': option.props.value,
                                 selected: multiple ? value.includes(option.props.value) : option.props.value === value,
+                                checkbox: multiple,
                                 onClick: handleOptionInteraction,
                                 onKeyDown: handleOptionInteraction
                             })
