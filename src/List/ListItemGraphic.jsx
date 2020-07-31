@@ -4,15 +4,19 @@ import classnames from 'classnames';
 export default React.forwardRef(ListItemGraphic);
 
 function ListItemGraphic({
+    element = 'span',
+    component: Element = element,
     className,
     children,
     ...props
 }, ref) {
-    return React.cloneElement(children, {
-        ref,
-        className: classnames('mdc-list-item__graphic', className),
-        ...props
-    });
+    const classNames = classnames('mdc-list-item__graphic', className);
+
+    return (
+        <Element ref={ref} className={classNames} {...props}>
+            {children}
+        </Element>
+    );
 }
 
 ListItemGraphic.displayName = 'MDCListItemGraphic';
