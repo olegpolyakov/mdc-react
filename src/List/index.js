@@ -9,12 +9,13 @@ import ListItemMeta from './ListItemMeta';
 import ListGroup from './ListGroup';
 import ListGroupSubheader from './ListGroupSubheader';
 
-List.Item = ListItem;
-List.Divider = ListDivider;
-List.Group = ListGroup;
 ListItem.Graphic = ListItemGraphic;
 ListItem.Text = ListItemText;
 ListItem.Meta = ListItemMeta;
+ListGroup.Subheader = ListGroupSubheader;
+List.Item = ListItem;
+List.Divider = ListDivider;
+List.Group = ListGroup;
 
 export {
     List,
