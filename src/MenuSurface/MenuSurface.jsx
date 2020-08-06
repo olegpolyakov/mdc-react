@@ -71,14 +71,14 @@ function MenuSurface({
         }
 
         if (top || !bottom) {
-            const top = anchorDimensions.top + (belowAnchor ? anchorDimensions.height : 0) + window.scrollY;
+            const top = anchorDimensions.top + (belowAnchor ? anchorDimensions.height : 0) + (fixed ? 0 : window.scrollY);
             const bottom = anchorDimensions.top + (belowAnchor ? anchorDimensions.height : 0) + height;
             const delta = window.innerHeight - bottom;
 
             style.top = `${delta > 0 ? top : top - Math.abs(delta)}px`;
             style.transformOrigin += ' top';
         } else if (bottom) {
-            const top = anchorDimensions.bottom - height + window.scrollY;
+            const top = anchorDimensions.bottom - height + (fixed ? 0 : window.scrollY);
 
             style.top = `${top > 0 ? top : 0}px`;
             style.transformOrigin += ' bottom';
