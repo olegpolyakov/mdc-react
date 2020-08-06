@@ -8,46 +8,42 @@ function IconButton({
     icon,
     onIcon,
     offIcon,
-    onLabel,
-    offLabel,
-    on = false,
+    onTitle,
+    offTitle,
+    on,
 
     element = 'button',
     component: Element = element,
     className,
-    children,
+    children = icon,
     ...props
 }, ref) {
-    if (React.isValidElement(children)) {
-        return React.cloneElement(children, {
-            component: Element,
-            className: classnames('mdc-icon-button', className),
-            ...props
-        });
-    } else {
-        const classNames = classnames('mdc-icon-button', {
-            'mdc-icon-button--on': on
-        }, className);
+    const classNames = classnames('mdc-icon-button', {
+        'mdc-icon-button--on': on,
+        'material-icons': typeof children === 'string'
+    }, className);
 
-        return (
-            <Element ref={ref} className={classNames} {...props}>
-                {onIcon && React.cloneElement(onIcon, {
-                    className: 'mdc-icon-button__icon mdc-icon-button__icon--on',
-                    title: onLabel
-                })}
+    const title = typeof on === 'boolean' ? (on ? onTitle : offTitle) : on;
 
-                {offIcon && React.cloneElement(offIcon, {
-                    className: 'mdc-icon-button__icon',
-                    title: offLabel
-                })}
+    return (
+        <Element ref={ref} className={classNames} title={title} {...props}>
+            {onIcon && React.cloneElement(onIcon, {
+                className: 'mdc-icon-button__icon mdc-icon-button__icon--on'
+            })}
 
-                {icon && React.cloneElement(icon, {
-                    className: 'mdc-icon-button__icon',
-                    title: offLabel
-                })}
-            </Element>
-        );
-    }
+            {offIcon && React.cloneElement(offIcon, {
+                className: 'mdc-icon-button__icon'
+            })}
+
+            {React.isValidElement(children) ?
+                React.cloneElement(children, {
+                    className: 'mdc-icon-button__icon'
+                })
+                :
+                children
+            }
+        </Element>
+    );
 }
 
 IconButton.displayName = 'MDCIconButton';
@@ -56,7 +52,7 @@ IconButton.propTypes = {
     icon: PropTypes.element,
     onIcon: PropTypes.element,
     offIcon: PropTypes.element,
-    onLabel: PropTypes.string,
-    offLabel: PropTypes.string,
+    onTitle: PropTypes.string,
+    offTitle: PropTypes.string,
     on: PropTypes.bool
 };
