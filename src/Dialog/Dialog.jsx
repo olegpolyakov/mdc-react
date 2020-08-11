@@ -2,7 +2,7 @@ import React, { useRef, useCallback, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { useUpdated } from '../lifecycle-hooks';
+import { useUpdated, useDestroyed } from '../lifecycle-hooks';
 import Layer from '../Layer';
 import DialogTitle from './DialogTitle';
 import DialogContent from './DialogContent';
@@ -65,9 +65,9 @@ function Dialog({
         } else if (!open && shouldScroll) {
             rootRef.current.classList.remove(cssClasses.SCROLLABLE);
         }
-
-        return () => rootRef.current.classList.remove(cssClasses.SCROLLABLE);
     }, [open]);
+
+    useDestroyed(() => document.body.classList.remove(cssClasses.SCROLL_LOCK));
 
     const handleEnter = useCallback(() => {
         document.body.classList.add(cssClasses.SCROLL_LOCK);
