@@ -65,6 +65,8 @@ function Dialog({
         } else if (!open && shouldScroll) {
             rootRef.current.classList.remove(cssClasses.SCROLLABLE);
         }
+
+        return () => rootRef.current.classList.remove(cssClasses.SCROLLABLE);
     }, [open]);
 
     const handleEnter = useCallback(() => {
