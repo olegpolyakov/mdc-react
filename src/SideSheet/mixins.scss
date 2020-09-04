@@ -294,7 +294,7 @@
     @include theme-mixins.property(width, $width);
   }
 
-  &.mdc-side-sheet--open:not(.mdc-side-sheet--closing) + .mdc-side-sheet-app-content {
+  &.mdc-side-sheet--open:not(.mdc-side-sheet--closing) ~ .mdc-side-sheet-app-content {
     @include feature-targeting-mixins.targets($feat-structure) {
       @include rtl-mixins.reflexive-box(margin, right, $width);
     }
