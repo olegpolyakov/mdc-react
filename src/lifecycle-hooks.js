@@ -3,13 +3,10 @@ import { useState, useEffect, useLayoutEffect } from 'react';
 export function useCreated(fn) {
     const [created, setCreated] = useState(false);
 
-    useEffect(() => {
-        if (created) return;
+    if (created) return;
 
-        setCreated(true);
-
-        return fn();
-    }, [created]);
+    fn();
+    setCreated(true);
 }
 
 export function useMounted(fn) {
