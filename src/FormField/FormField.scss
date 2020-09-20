@@ -1,1 +1,28 @@
+@use '@material/form-field/variables';
 @use '@material/form-field/mdc-form-field';
+
+.mdc-form-field--nowrap {
+    .mdc-form-field__label {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+}
+
+.mdc-form-field--align-end {
+    .mdc-form-field__label {
+        margin-left: auto;
+        margin-right: 0px;
+        padding-left: 0px;
+        padding-right: variables.$item-spacing;
+        order: -1;
+    }
+}
+
+.mdc-form-field--space-between {
+    justify-content: space-between;
+
+    .mdc-form-field__label {
+        margin: 0;
+    }
+}
