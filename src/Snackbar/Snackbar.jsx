@@ -39,6 +39,8 @@ function Snackbar({
                 timeoutRef.current = null;
             }
         }
+
+        return () => clearTimeout(timeoutRef.current);
     }, [open]);
 
     const handleKeyDown = useCallback(event => {
