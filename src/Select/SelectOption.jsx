@@ -10,25 +10,16 @@ function SelectOption({
     selected,
     checkbox = false,
     onClick,
-
-    children,
     ...props
 }, ref) {
     return (
         <MenuItem
             ref={ref}
+            graphic={checkbox && <Checkbox checked={selected} />}
             selected={selected}
             onClick={onClick}
             {...props}
-        >
-            {checkbox &&
-                <ListItem.Graphic>
-                    <Checkbox checked={selected} />
-                </ListItem.Graphic>
-            }
-
-            {children}
-        </MenuItem>
+        />
     );
 }
 
