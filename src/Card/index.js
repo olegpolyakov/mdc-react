@@ -20,7 +20,7 @@ Card.PrimaryAction = CardPrimaryAction;
 Card.Section = CardSection;
 
 export {
-    Card,
+    Card as default,
     CardAction,
     CardActions,
     CardActionButtons,

@@ -8,7 +8,7 @@ Drawer.Header = DrawerHeader;
 Drawer.Content = DrawerContent;
 
 export {
-    Drawer,
+    Drawer as default,
     DrawerHeader,
     DrawerContent
 };

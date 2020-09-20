@@ -6,6 +6,6 @@ import LayoutGridCell from './LayoutGridCell';
 LayoutGrid.Cell = LayoutGridCell;
 
 export {
-    LayoutGrid,
+    LayoutGrid as default,
     LayoutGridCell
 };

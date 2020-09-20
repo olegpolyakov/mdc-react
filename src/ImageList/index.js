@@ -1,4 +1,11 @@
 import './ImageList.scss';
 
-export { default as ImageList } from './ImageList';
-export { default as ImageListItem } from './ImageListItem';
+import ImageList from './ImageList';
+import ImageListItem from './ImageListItem';
+
+ImageList.Item = ImageListItem;
+
+export {
+    ImageList as default,
+    ImageListItem
+};

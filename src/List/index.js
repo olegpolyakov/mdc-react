@@ -18,7 +18,7 @@ List.Divider = ListDivider;
 List.Group = ListGroup;
 
 export {
-    List,
+    List as default,
     ListDivider,
     ListItem,
     ListItemGraphic,

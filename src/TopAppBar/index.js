@@ -14,7 +14,7 @@ TopAppBar.Section = TopAppBarSection;
 TopAppBar.Title = TopAppBarTitle;
 
 export {
-    TopAppBar,
+    TopAppBar as default,
     TopAppBarActionItem,
     TopAppBarNavigationIcon,
     TopAppBarRow,

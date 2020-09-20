@@ -18,7 +18,7 @@ DataTable.HeaderRow = DataTableHeaderRow;
 DataTable.Row = DataTableRow;
 
 export {
-    DataTable,
+    DataTable as default,
     DataTableCell,
     DataTableContent,
     DataTableFooter,

@@ -10,7 +10,7 @@ Menu.SelectionGroup = MenuSelectionGroup;
 Menu.SelectionGroupIcon = MenuSelectionGroupIcon;
 
 export {
-    Menu,
+    Menu as default,
     MenuItem,
     MenuSelectionGroup,
     MenuSelectionGroupIcon

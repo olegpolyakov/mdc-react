@@ -10,7 +10,7 @@ Dialog.Content = DialogContent;
 Dialog.Actions = DialogActions;
 
 export {
-    Dialog,
+    Dialog as default,
     DialogTitle,
     DialogContent,
     DialogActions
