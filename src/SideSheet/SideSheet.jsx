@@ -4,6 +4,8 @@ import classnames from 'classnames';
 
 import { useUpdated, useEffect } from '../lifecycle-hooks';
 import Layer from '../Layer';
+import SideSheetHeader from './SideSheetHeader';
+import SideSheetContent from './SideSheetContent';
 
 const cssClasses = {
     ROOT: 'mdc-side-sheet',
@@ -22,6 +24,7 @@ export default React.forwardRef(SideSheet);
 
 function SideSheet({
     title,
+    content,
     open = false,
     appear = false,
     dismissible = false,
@@ -84,7 +87,6 @@ function SideSheet({
                 enter: 250,
                 exit: 200
             }}
-            className={classNames}
             classNames={{
                 appear: cssClasses.OPEN,
                 enter: `${cssClasses.OPEN} ${cssClasses.ANIMATE}`,
@@ -96,48 +98,33 @@ function SideSheet({
             mountOnEnter={modal}
             unmountOnExit={modal}
         >
-            <Element
-                ref={rootRef}
-                {...props}
-            >
-                {(title || onClose) &&
-                    <SideSheetHeader title={title} onClose={onClose} />
-                }
+            <>
+                <Element
+                    ref={rootRef}
+                    className={classNames}
+                    {...props}
+                >
+                    {(title || onClose) &&
+                        <SideSheetHeader title={title} onClose={onClose} />
+                    }
 
-                <SideSheetContent>
+                    {content &&
+                        <SideSheetContent>
+                            {content}
+                        </SideSheetContent>
+                    }
+
                     {children}
-                </SideSheetContent>
-            </Element>
+                </Element>
 
-            {modal &&
-                <div
-                    className={cssClasses.SCRIM}
-                    onClick={onClose}
-                />
-            }
+                {modal &&
+                    <div
+                        className={cssClasses.SCRIM}
+                        onClick={onClose}
+                    />
+                }
+            </>
         </Layer>
-    );
-}
-
-function SideSheetHeader({ title, onClose }) {
-    return (
-        <header className="mdc-side-sheet__header">
-            {title &&
-                <h3 className="mdc-side-sheet__title">{title}</h3>
-            }
-
-            {onClose &&
-                <i className="mdc-icon mdc-icon-button material-icons mdc-side-sheet__close-button" onClick={onClose}>close</i>
-            }
-        </header>
-    );
-}
-
-function SideSheetContent({ children }) {
-    return (
-        <section className="mdc-side-sheet__content">
-            {children}
-        </section>
     );
 }
 
