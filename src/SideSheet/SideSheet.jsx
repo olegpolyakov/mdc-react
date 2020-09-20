@@ -84,6 +84,7 @@ function SideSheet({
                 enter: 250,
                 exit: 200
             }}
+            className={classNames}
             classNames={{
                 appear: cssClasses.OPEN,
                 enter: `${cssClasses.OPEN} ${cssClasses.ANIMATE}`,
@@ -95,28 +96,25 @@ function SideSheet({
             mountOnEnter={modal}
             unmountOnExit={modal}
         >
-            <>
-                <Element
-                    ref={rootRef}
-                    className={classNames}
-                    {...props}
-                >
-                    {title &&
-                        <SideSheetHeader title={title} onClose={onClose} />
-                    }
-
-                    <SideSheetContent>
-                        {children}
-                    </SideSheetContent>
-                </Element>
-
-                {modal &&
-                    <div
-                        className={cssClasses.SCRIM}
-                        onClick={onClose}
-                    />
+            <Element
+                ref={rootRef}
+                {...props}
+            >
+                {(title || onClose) &&
+                    <SideSheetHeader title={title} onClose={onClose} />
                 }
-            </>
+
+                <SideSheetContent>
+                    {children}
+                </SideSheetContent>
+            </Element>
+
+            {modal &&
+                <div
+                    className={cssClasses.SCRIM}
+                    onClick={onClose}
+                />
+            }
         </Layer>
     );
 }
@@ -124,9 +122,13 @@ function SideSheet({
 function SideSheetHeader({ title, onClose }) {
     return (
         <header className="mdc-side-sheet__header">
-            <h3 className="mdc-side-sheet__title">{title}</h3>
+            {title &&
+                <h3 className="mdc-side-sheet__title">{title}</h3>
+            }
 
-            <i className="mdc-icon mdc-icon-button material-icons mdc-side-sheet__close-button" onClick={onClose}>close</i>
+            {onClose &&
+                <i className="mdc-icon mdc-icon-button material-icons mdc-side-sheet__close-button" onClick={onClose}>close</i>
+            }
         </header>
     );
 }
