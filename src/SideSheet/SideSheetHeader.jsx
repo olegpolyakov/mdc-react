@@ -15,7 +15,7 @@ function SideSheetHeader({
                 <h3 className="mdc-side-sheet__title">{title}</h3>
             }
 
-            {onClose &&
+            {closeIcon &&
                 <IconButton
                     className="mdc-side-sheet__close-button"
                     icon={closeIcon}

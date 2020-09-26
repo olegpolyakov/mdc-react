@@ -29,6 +29,7 @@ function SideSheet({
     appear = false,
     dismissible = false,
     modal = false,
+    closeIcon,
     appContentSelector,
     onClose = Function.prototype,
 
@@ -104,8 +105,12 @@ function SideSheet({
                     className={classNames}
                     {...props}
                 >
-                    {(title || onClose) &&
-                        <SideSheetHeader title={title} onClose={onClose} />
+                    {(title || closeIcon) &&
+                        <SideSheetHeader
+                            title={title}
+                            onClose={onClose}
+                            closeIcon={closeIcon}
+                        />
                     }
 
                     {content &&
