@@ -71,8 +71,8 @@ function MenuSurface({
         }
 
         if (top || !bottom) {
-            const top = anchorDimensions.top + (belowAnchor ? anchorDimensions.height : 0) + (fixed ? 0 : window.scrollY);
-            const bottom = anchorDimensions.top + (belowAnchor ? anchorDimensions.height : 0) + height;
+            const top = (belowAnchor ? anchorDimensions.bottom : anchorDimensions.top) + (fixed ? 0 : window.scrollY);
+            const bottom = top + height;
             const delta = window.innerHeight - bottom;
 
             style.top = `${delta > 0 ? top : top - Math.abs(delta)}px`;
