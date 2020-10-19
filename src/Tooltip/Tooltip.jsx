@@ -10,6 +10,7 @@ function Tooltip({
     label,
     large = false,
 
+    element: Element = 'div',
     className,
     children
 }, ref) {
@@ -59,9 +60,9 @@ function Tooltip({
                 mountOnEnter
                 unmountOnExit
             >
-                <div ref={tooltipRef} className={classNames}>
+                <Element ref={tooltipRef} className={classNames}>
                     {label}
-                </div>
+                </Element>
             </Layer>
         </>
     );
