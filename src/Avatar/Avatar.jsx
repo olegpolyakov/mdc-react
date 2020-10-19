@@ -30,7 +30,7 @@ function Avatar({
                 :
                 React.isValidElement(children) ?
                     React.cloneElement(children, {
-                        className: 'mdc-avatar__icon'
+                        className: classnames('mdc-avatar__icon', children.props.className)
                     })
                     :
                     <span className="mdc-avatar__text">{children}</span>
