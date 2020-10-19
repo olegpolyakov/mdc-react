@@ -4,7 +4,8 @@ import classnames from 'classnames';
 export default React.forwardRef(TopAppBarActionItem);
 
 function TopAppBarActionItem({
-    element: Element = 'span',
+    element = 'span',
+    component: Element = element,
     className,
     ...props
 }, ref) {
