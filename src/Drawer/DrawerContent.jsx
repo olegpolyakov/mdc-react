@@ -1,8 +1,10 @@
 import React from 'react';
 
-export default function DrawerContent(props) {
+export default React.forwardRef(DrawerContent);
+
+function DrawerContent({ element: Element = 'div', ...props }, ref) {
     return (
-        <div className="mdc-drawer__content" {...props} />
+        <Element ref={ref} className="mdc-drawer__content" {...props} />
     );
 }
 
