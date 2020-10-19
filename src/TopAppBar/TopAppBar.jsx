@@ -20,6 +20,7 @@ function TopAppBar({
     short = false,
     collapsed = false,
     fixedAdjustSibling = false,
+    fixedAdjustSelector,
 
     element = 'header',
     component: Element = element,
@@ -58,9 +59,20 @@ function TopAppBar({
             rootRef.current.nextSibling.classList.add('mdc-top-app-bar--fixed-adjust');
         }
 
+        if (fixedAdjustSelector) {
+            document.querySelector(fixedAdjustSelector)?.classList.add('mdc-top-app-bar--fixed-adjust');
+        }
+
         return () => {
             window.removeEventListener('scroll', handleScroll);
-            rootRef.current.nextSibling.classList.remove('mdc-top-app-bar--fixed-adjust');
+
+            if (fixedAdjustSibling) {
+                rootRef.current.nextSibling.classList.remove('mdc-top-app-bar--fixed-adjust');
+            }
+
+            if (fixedAdjustSelector) {
+                document.querySelector(fixedAdjustSelector)?.classList.remove('mdc-top-app-bar--fixed-adjust');
+            }
         };
     });
 
@@ -88,13 +100,13 @@ function TopAppBar({
                         <TopAppBarSection align="start">
                             {navigationIcon &&
                                 React.cloneElement(navigationIcon, {
-                                    className: 'mdc-top-app-bar__navigation-icon'
+                                    className: classnames('mdc-top-app-bar__navigation-icon', navigationIcon.props.className)
                                 })
                             }
 
                             {title && (React.isValidElement(title) ?
                                 React.cloneElement(title, {
-                                    className: 'mdc-top-app-bar__title'
+                                    className: classnames('mdc-top-app-bar__title', title.props.className)
                                 })
                                 :
                                 <TopAppBarTitle>{title}</TopAppBarTitle>
@@ -106,7 +118,7 @@ function TopAppBar({
                         <TopAppBarSection align="end">
                             {React.Children.map(actionItems, item =>
                                 React.cloneElement(item, {
-                                    className: 'mdc-top-app-bar__action-item'
+                                    className: classnames('mdc-top-app-bar__action-item', item.props.className)
                                 })
                             )}
                         </TopAppBarSection>
