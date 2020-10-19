@@ -21,6 +21,7 @@ function Snackbar({
     closeOnEscape = true,
     onClose = Function.prototype,
 
+    element: Element = 'div',
     className,
     children = label,
     ...props
@@ -71,7 +72,7 @@ function Snackbar({
             mountOnEnter
             unmountOnExit
         >
-            <div
+            <Element
                 ref={ref}
                 className={classNames}
                 onKeyDown={handleKeyDown}
@@ -82,7 +83,9 @@ function Snackbar({
 
                     <div className="mdc-snackbar__actions">
                         {action &&
-                            React.cloneElement(action, { className: 'mdc-snackbar__action' })
+                            React.cloneElement(action, {
+                                className: classnames('mdc-snackbar__action', action.props.className)
+                            })
                         }
 
                         {dismissable &&
@@ -92,7 +95,7 @@ function Snackbar({
                         }
                     </div>
                 </div>
-            </div>
+            </Element>
         </Layer>
     );
 }

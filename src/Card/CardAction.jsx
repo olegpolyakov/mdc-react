@@ -7,15 +7,16 @@ export default function CardAction({
     icon = false,
 
     component,
-    children,
+    className,
+    children = component,
     ...props
 }) {
     return (
-        React.cloneElement(component || React.Children.only(children), {
+        React.cloneElement(children, {
             className: classnames('mdc-card__action', {
                 'mdc-card__action--button': button,
                 'mdc-card__action--icon': icon
-            }),
+            }, children.props.className),
             ...props
         })
     );

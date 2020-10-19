@@ -22,7 +22,7 @@ function DataTableCell({
     return (
         <Element ref={ref} className={classNames} scope={scope} {...props}>
             {(checkbox ? React.cloneElement(children, {
-                className: 'mdc-data-table__row-checkbox'
+                className: classnames('mdc-data-table__row-checkbox', children.props.className)
             }) : children)}
         </Element>
     );

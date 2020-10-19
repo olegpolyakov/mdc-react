@@ -31,7 +31,7 @@ function Button({
 
             {leadingIcon &&
                 React.cloneElement(leadingIcon, {
-                    className: 'mdc-button__icon',
+                    className: classnames('mdc-button__icon', leadingIcon.props.className),
                     'aria-hidden': 'true'
                 })
             }
@@ -40,7 +40,7 @@ function Button({
 
             {trailingIcon &&
                 React.cloneElement(trailingIcon, {
-                    className: 'mdc-button__icon',
+                    className: classnames('mdc-button__icon', trailingIcon.props.className),
                     'aria-hidden': 'true'
                 })
             }

@@ -1,25 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function DrawerHeader({
+export default React.forwardRef(DrawerHeader);
+
+function DrawerHeader({
     graphic,
     title,
     subtitle,
 
+    element: Element = 'header',
     children,
     ...props
-}) {
+}, ref) {
     return (
-        <div className="mdc-drawer__header" {...props}>
+        <Element ref={ref} className="mdc-drawer__header" {...props}>
             {graphic &&
                 React.cloneElement(graphic, {
-                    className: 'mdc-drawer__graphic'
+                    className: classnames('mdc-drawer__graphic', graphic.props.className)
                 })
             }
 
             {title && (React.isValidElement(title) ?
                 React.cloneElement(title, {
-                    className: 'mdc-drawer__title'
+                    className: classnames('mdc-drawer__title', title.props.className)
                 })
                 :
                 <h3 className="mdc-drawer__title">{title}</h3>
@@ -27,14 +30,14 @@ export default function DrawerHeader({
 
             {subtitle && (React.isValidElement(subtitle) ?
                 React.cloneElement(subtitle, {
-                    className: 'mdc-drawer__subtitle'
+                    className: classnames('mdc-drawer__subtitle', subtitle.props.className)
                 })
                 :
                 <h6 className="mdc-drawer__subtitle">{subtitle}</h6>
             )}
 
             {children}
-        </div>
+        </Element>
     );
 }
 

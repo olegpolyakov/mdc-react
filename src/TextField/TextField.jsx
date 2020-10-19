@@ -57,7 +57,7 @@ function TextField({
         setFocused(false);
     }, []);
 
-    const handleInputChange = useCallback(() => {
+    const handleInputChange = useCallback(event => {
         onChange(event, inputRef.current.value);
     }, []);
 
@@ -99,7 +99,7 @@ function TextField({
                 }
 
                 {leadingIcon && React.cloneElement(leadingIcon, {
-                    className: 'mdc-text-field__icon mdc-text-field__icon--leading',
+                    className: classnames('mdc-text-field__icon mdc-text-field__icon--leading', leadingIcon.props.className),
                     tabIndex: '0',
                     role: 'button'
                 })}
@@ -125,7 +125,7 @@ function TextField({
                 }
 
                 {trailingIcon && React.cloneElement(trailingIcon, {
-                    className: 'mdc-text-field__icon mdc-text-field__icon--trailing',
+                    className: classnames('mdc-text-field__icon mdc-text-field__icon--trailing', trailingIcon.props.className),
                     tabIndex: '0',
                     role: 'button'
                 })}

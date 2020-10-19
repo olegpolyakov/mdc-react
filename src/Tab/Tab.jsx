@@ -51,7 +51,7 @@ function Tab({
             <div className="mdc-tab__content">
                 {icon &&
                     React.cloneElement(icon, {
-                        className: 'mdc-tab__icon'
+                        className: classnames('mdc-tab__icon', icon.props.className)
                     })
                 }
 

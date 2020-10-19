@@ -21,7 +21,9 @@ function ListItemText({
         <Element ref={ref} className={classNames} {...props}>
             {primary &&
                 (React.isValidElement(primary) ?
-                    React.cloneElement(primary, { className: 'mdc-list-item__primary-text' })
+                    React.cloneElement(primary, {
+                        className: classnames('mdc-list-item__primary-text', primary.props.className)
+                    })
                     :
                     <span className="mdc-list-item__primary-text">{primary}</span>
                 )
@@ -29,7 +31,9 @@ function ListItemText({
 
             {secondary &&
                 (React.isValidElement(secondary) ?
-                    React.cloneElement(secondary, { className: 'mdc-list-item__secondary-text' })
+                    React.cloneElement(secondary, {
+                        className: classnames('mdc-list-item__secondary-text', secondary.props.className)
+                    })
                     :
                     <span className="mdc-list-item__secondary-text">{secondary}</span>
                 )

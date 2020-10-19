@@ -16,7 +16,7 @@ function CardActionIcons({
         <Element ref={ref} className={classNames} {...props}>
             {React.Children.map(children, child =>
                 React.cloneElement(child, {
-                    className: 'mdc-card__action mdc-card__action--icon'
+                    className: classnames('mdc-card__action mdc-card__action--icon', child.props.className)
                 })
             )}
         </Element>

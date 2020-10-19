@@ -23,14 +23,14 @@ function CardHeader({
         <Element ref={ref} className={classNames} {...props}>
             {graphic &&
                 React.cloneElement(graphic, {
-                    className: 'mdc-card__header__graphic'
+                    className: classnames(graphic.props.className, 'mdc-card__header__graphic')
                 })
             }
 
             <div className="mdc-card__header__text">
                 {React.isValidElement(title) ?
                     React.cloneElement(title, {
-                        className: 'mdc-card__header__title'
+                        className: classnames(title.props.className, 'mdc-card__header__title')
                     })
                     :
                     <h2 className="mdc-card__header__title">{title}</h2>
@@ -38,24 +38,24 @@ function CardHeader({
 
                 {subtitle && (React.isValidElement(subtitle) ?
                     React.cloneElement(subtitle, {
-                        className: 'mdc-card__header__subtitle'
+                        className: classnames(subtitle.props.className, 'mdc-card__header__subtitle')
                     })
                     :
                     <h3 className="mdc-card__header__subtitle">{subtitle}</h3>
                 )}
             </div>
 
+            {children}
+
             {actions &&
                 <div className="mdc-card__header__actions">
                     {React.Children.map(actions, action =>
                         React.cloneElement(action, {
-                            className: 'mdc-card__action'
+                            className: classnames(action.props.className, 'mdc-card__action')
                         })
                     )}
                 </div>
             }
-
-            {children}
         </Element>
     );
 }

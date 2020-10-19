@@ -26,13 +26,13 @@ function Banner({
                 <div className="mdc-banner__content">
                     {icon &&
                         React.cloneElement(icon, {
-                            className: 'mdc-banner__icon'
+                            className: classnames('mdc-banner__icon', icon.props.className)
                         })
                     }
 
                     {React.isValidElement(children) ?
                         React.cloneElement(children, {
-                            className: 'mdc-banner__text'
+                            className: classnames('mdc-banner__text', children.props.className)
                         })
                         :
                         <span className="mdc-banner__text">{children}</span>
@@ -43,7 +43,7 @@ function Banner({
                     <div className="mdc-banner__actions">
                         {React.Children.map(actions, action =>
                             React.cloneElement(action, {
-                                className: 'mdc-banner__action'
+                                className: classnames('mdc-banner__action', action.props.className)
                             })
                         )}
                     </div>

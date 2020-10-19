@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -32,6 +32,10 @@ function DataTableHeaderCell({
         'mdc-data-table__header-cell--sorted-descending': sorted === 'desc'
     }, className);
 
+    const handleSortIconClick = useCallback(() => {
+        onSort({ label, value });
+    }, [label, value]);
+
     return (
         <Element
             ref={ref}
@@ -46,19 +50,24 @@ function DataTableHeaderCell({
                         {children}
                     </div>
 
-                    {React.cloneElement(
-                        sortIconButton || <IconButton icon={<Icon>arrow_upward</Icon>} />,
-                        {
-                            className: 'mdc-data-table__sort-icon-button ',
-                            onClick: () => onSort({ label, value })
-                        }
-                    )}
+                    {React.isValidElement(sortIconButton) ?
+                        React.cloneElement(sortIconButton, {
+                            className: classnames('mdc-data-table__sort-icon-button', sortIconButton.props.className),
+                            onClick: handleSortIconClick
+                        })
+                        :
+                        <IconButton
+                            className="mdc-data-table__sort-icon-button"
+                            icon={<Icon>arrow_upward</Icon>}
+                            onClick={handleSortIconClick}
+                        />
+                    }
 
                     <div className="mdc-data-table__sort-status-label" aria-hidden="true" />
                 </div>
                 :
                 (checkbox ? React.cloneElement(children, {
-                    className: 'mdc-data-table__header-row-checkbox'
+                    className: classnames('mdc-data-table__header-row-checkbox', children.props.className)
                 }) : children)
             }
         </Element>

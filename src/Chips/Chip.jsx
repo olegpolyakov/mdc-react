@@ -41,7 +41,7 @@ function Chip({
                 React.cloneElement(leadingIcon, {
                     className: classnames('mdc-chip__icon mdc-chip__icon--leading', {
                         'mdc-chip__icon--leading-hidden': selected
-                    })
+                    }, leadingIcon.props.className)
                 })
             }
 
@@ -57,7 +57,7 @@ function Chip({
 
             {trailingIcon &&
                 React.cloneElement(trailingIcon, {
-                    className: classnames('mdc-chip__icon mdc-chip__icon--trailing'),
+                    className: classnames('mdc-chip__icon mdc-chip__icon--trailing', trailingIcon.props.className),
                     tabIndex: '0',
                     role: 'button'
                 })

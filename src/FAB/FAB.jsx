@@ -31,7 +31,7 @@ function FAB({
 
             {leadingIcon &&
                 React.cloneElement(leadingIcon, {
-                    className: 'mdc-fab__icon'
+                    className: classnames('mdc-fab__icon', leadingIcon.props.className)
                 })
             }
 
@@ -41,7 +41,7 @@ function FAB({
 
             {trailingIcon &&
                 React.cloneElement(trailingIcon, {
-                    className: 'mdc-fab__icon'
+                    className: classnames('mdc-fab__icon', trailingIcon.props.className)
                 })
             }
         </Element>

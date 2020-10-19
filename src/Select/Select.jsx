@@ -180,7 +180,7 @@ function Select({
                     }
 
                     {leadingIcon && React.cloneElement(leadingIcon, {
-                        className: 'mdc-select__icon',
+                        className: classnames('mdc-select__icon', leadingIcon.props.className),
                         tabIndex: '0',
                         role: 'button'
                     })}
