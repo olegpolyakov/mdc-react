@@ -12,8 +12,8 @@ import CardSection from './CardSection';
 
 Card.Action = CardAction;
 Card.Actions = CardActions;
-Card.CardActionButtons = CardActionButtons;
-Card.CardActionIcons = CardActionIcons;
+Card.ActionButtons = CardActionButtons;
+Card.ActionIcons = CardActionIcons;
 Card.Header = CardHeader;
 Card.Media = CardMedia;
 Card.PrimaryAction = CardPrimaryAction;
