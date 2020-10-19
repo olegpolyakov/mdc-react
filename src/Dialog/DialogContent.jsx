@@ -2,11 +2,9 @@ import React from 'react';
 
 export default React.forwardRef(DialogContent);
 
-function DialogContent({ children }, ref) {
+function DialogContent(props, ref) {
     return (
-        <div ref={ref} className="mdc-dialog__content">
-            {children}
-        </div>
+        <div ref={ref} className="mdc-dialog__content" {...props} />
     );
 }
 
