@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-const variants = {
+const types = {
     headline1: 'h1',
     headline2: 'h2',
     headline3: 'h3',
@@ -21,18 +21,18 @@ const variants = {
 export default React.forwardRef(Typography);
 
 function Typography({
-    variant = 'body1',
+    type = 'body1',
     display,
     align,
     noMargin = false,
     noWrap = false,
 
-    element = variants[variant],
+    element = types[type],
     component: Element = element,
     className,
     ...props
 }, ref) {
-    const classNames = classnames('mdc-typography', `mdc-typography--${variant}`, {
+    const classNames = classnames('mdc-typography', `mdc-typography--${type}`, {
         [`mdc-typography--display-${display}`]: display,
         [`mdc-typography--align-${align}`]: align,
         'mdc-typography--no-margin': noMargin,
@@ -47,7 +47,7 @@ function Typography({
 Typography.displayName = 'MDCTypography';
 
 Typography.propTypes = {
-    variant: PropTypes.oneOf(Object.keys(variants)),
+    type: PropTypes.oneOf(Object.keys(types)),
     display: PropTypes.oneOf(['block', 'inline', 'inline-block']),
     align: PropTypes.oneOf(['left', 'center', 'right', 'justify']),
     noMargin: PropTypes.bool,
