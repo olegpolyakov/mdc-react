@@ -2,11 +2,9 @@ import React from 'react';
 
 export default React.forwardRef(SideSheetContent);
 
-function SideSheetContent({ children }, ref) {
+function SideSheetContent({ element: Element = 'div', ...props }, ref) {
     return (
-        <section ref={ref} className="mdc-side-sheet__content">
-            {children}
-        </section>
+        <Element ref={ref} className="mdc-side-sheet__content" {...props} />
     );
 }
 

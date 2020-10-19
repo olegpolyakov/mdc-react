@@ -7,10 +7,13 @@ export default React.forwardRef(SideSheetHeader);
 function SideSheetHeader({
     title,
     closeIcon = 'close',
-    onClose
+    onClose,
+
+    element: Element = 'header',
+    ...props
 }, ref) {
     return (
-        <header ref={ref} className="mdc-side-sheet__header">
+        <Element ref={ref} className="mdc-side-sheet__header" {...props}>
             {title &&
                 <h3 className="mdc-side-sheet__title">{title}</h3>
             }
@@ -22,7 +25,7 @@ function SideSheetHeader({
                     onClick={onClose}
                 />
             }
-        </header>
+        </Element>
     );
 }
 
