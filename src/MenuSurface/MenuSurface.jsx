@@ -2,7 +2,7 @@ import React, { useRef, useImperativeHandle, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { useUpdated, useLayoutUpdated } from '../lifecycle-hooks';
+import { useUpdated } from '../lifecycle-hooks';
 import Layer from '../Layer';
 
 export default React.forwardRef(MenuSurface);
@@ -43,7 +43,7 @@ function MenuSurface({
         }
     }, [open]);
 
-    useLayoutUpdated(() => {
+    useUpdated(() => {
         if (!open || !rootRef.current || !anchor) return;
 
         const { clientWidth: width, clientHeight: height } = rootRef.current;
@@ -72,7 +72,7 @@ function MenuSurface({
         if (top || !bottom) {
             const top = (belowAnchor ? anchorDimensions.bottom : anchorDimensions.top) + (fixed ? 0 : window.scrollY);
             const bottom = top + height;
-            const delta = window.innerHeight - bottom;
+            const delta = (fixed ? 0 : window.scrollY) + window.innerHeight - bottom;
 
             style.top = `${delta > 0 ? top : top - Math.abs(delta)}px`;
             style.transformOrigin += ' top';
@@ -110,6 +110,7 @@ function MenuSurface({
             in={open}
             timeout={{ enter: 120, exit: 75 }}
             classNames={{
+                enter: 'mdc-menu-surface--animating-open',
                 enterActive: 'mdc-menu-surface--animating-open',
                 enterDone: 'mdc-menu-surface--open',
                 exit: 'mdc-menu-surface--animating-closed'
