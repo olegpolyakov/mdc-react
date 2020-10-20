@@ -28,8 +28,10 @@ function Menu({
     }, [open]);
 
     useUpdated(() => {
-        listRef.current.children[focusedChildIndex]?.focus();
-    }, [focusedChildIndex]);
+        if (open) {
+            listRef.current.children[focusedChildIndex]?.focus();
+        }
+    }, [focusedChildIndex, open]);
 
     const handleKeyDown = useCallback(event => {
         event.preventDefault();
