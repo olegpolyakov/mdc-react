@@ -2,7 +2,7 @@ import React, { useRef, useImperativeHandle, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { useUpdated } from '../lifecycle-hooks';
+import { useUpdated, useLayoutUpdated } from '../lifecycle-hooks';
 import Layer from '../Layer';
 
 export default React.forwardRef(MenuSurface);
@@ -43,11 +43,10 @@ function MenuSurface({
         }
     }, [open]);
 
-    useUpdated(() => {
+    useLayoutUpdated(() => {
         if (!open || !rootRef.current || !anchor) return;
 
         const { clientWidth: width, clientHeight: height } = rootRef.current;
-
         const anchorDimensions = anchor.getBoundingClientRect();
         const style = {
             width: fullWidth ? '100%' : undefined,
@@ -111,8 +110,7 @@ function MenuSurface({
             in={open}
             timeout={{ enter: 120, exit: 75 }}
             classNames={{
-                enter: 'mdc-menu-surface--animating-open',
-                enterActive: 'mdc-menu-surface--open',
+                enterActive: 'mdc-menu-surface--animating-open',
                 enterDone: 'mdc-menu-surface--open',
                 exit: 'mdc-menu-surface--animating-closed'
             }}
