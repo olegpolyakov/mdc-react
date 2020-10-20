@@ -23,6 +23,16 @@ export function useUpdated(fn, deps) {
     }, deps);
 }
 
+export function useLayoutUpdated(fn, deps) {
+    const [created, setCreated] = useState(false);
+
+    useLayoutEffect(() => {
+        if (!created) return setCreated(true);
+
+        return fn();
+    }, deps);
+}
+
 export function useRendered(fn, deps) {
     useLayoutEffect(() => fn(), deps);
 }
