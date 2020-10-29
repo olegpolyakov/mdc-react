@@ -121,7 +121,6 @@ function MenuSurface({
             <div
                 ref={rootRef}
                 className={classNames}
-                tabIndex={open ? '0' : '-1'}
                 onKeyDown={handleKeyDown}
                 {...props}
             />

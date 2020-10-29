@@ -66,7 +66,7 @@ function Menu({
                 role="menu"
                 aria-hidden="true"
                 aria-orientation="vertical"
-                tabIndex={-1}
+                tabIndex={open ? 0 : -1}
                 {...listProps}
             >
                 {React.Children.map(children, (child, index) =>
