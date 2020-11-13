@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import LinearProgress from '../LinearProgress/LinearProgress';
+import DataTableProgressIndicator from './DataTableProgressIndicator';
+import DataTablePagination from './DataTablePagination';
 
 export default React.forwardRef(DataTable);
 
 function DataTable({
     stickyHeader = false,
     inProgress = false,
+    pagination,
 
     className,
     children,
@@ -28,11 +30,15 @@ function DataTable({
             </div>
 
             {inProgress &&
-                <div className="mdc-data-table__progress-indicator">
-                    <div className="mdc-data-table__scrim" />
+                <DataTableProgressIndicator />
+            }
 
-                    <LinearProgress className="mdc-data-table__linear-progress" indeterminate />
-                </div>
+            {pagination &&
+                (React.isValidElement(pagination) ?
+                    pagination
+                    :
+                    <DataTablePagination {...pagination} />
+                )
             }
         </div>
     );
