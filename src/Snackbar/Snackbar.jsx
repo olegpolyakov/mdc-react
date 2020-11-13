@@ -4,7 +4,6 @@ import classnames from 'classnames';
 
 import { useUpdated } from '../lifecycle-hooks';
 import Layer from '../Layer';
-import Icon from '../Icon';
 import IconButton from '../IconButton';
 
 export default React.forwardRef(Snackbar);
@@ -16,7 +15,7 @@ function Snackbar({
     appear = false,
     leading = false,
     stacked = false,
-    dismissable = true,
+    dismissible = true,
     timeout = 5000,
     closeOnEscape = true,
     onClose = Function.prototype,
@@ -88,10 +87,8 @@ function Snackbar({
                             })
                         }
 
-                        {dismissable &&
-                            <IconButton className="mdc-snackbar__dismiss" onClick={onClose}>
-                                <Icon>close</Icon>
-                            </IconButton>
+                        {dismissible &&
+                            <IconButton className="mdc-snackbar__dismiss" icon="close" onClick={onClose} />
                         }
                     </div>
                 </div>
@@ -109,7 +106,7 @@ Snackbar.propTypes = {
     appear: PropTypes.bool,
     leading: PropTypes.bool,
     stacked: PropTypes.bool,
-    dismissable: PropTypes.bool,
+    dismissible: PropTypes.bool,
     timeout: PropTypes.number,
     closeOnEscape: PropTypes.bool,
     onClose: PropTypes.func
