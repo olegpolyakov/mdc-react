@@ -1,12 +1,12 @@
-@use '@material/theme';
+@use '@material/theme/theme-color';
 
 // Colors
-$title-ink-color: theme.prop-value(on-surface) !default;
-$divider-color: theme.prop-value(on-surface) !default;
-$surface-fill-color: theme.prop-value(surface) !default;
+$title-ink-color: theme-color.prop-value(on-surface) !default;
+$divider-color: theme-color.prop-value(on-surface) !default;
+$surface-fill-color: theme-color.prop-value(surface) !default;
 
 // Opacity
-$title-ink-opacity: theme.text-emphasis(high) !default;
+$title-ink-opacity: theme-color.text-emphasis(high) !default;
 $divider-opacity: .12 !default;
 
 // Widths
@@ -19,7 +19,7 @@ $animation-enter: 250ms !default;
 $animation-exit: 200ms !default;
 
 // Scrim
-$modal-scrim-color: theme.prop-value(on-surface) !default;
+$modal-scrim-color: theme-color.prop-value(on-surface) !default;
 $modal-scrim-opacity: .32 !default;
 
 $z-index: 6 !default;
