@@ -25,6 +25,7 @@ export { default as Menu, MenuItem, MenuSelectionGroup, MenuSelectionGroupIcon }
 export { default as MenuSurface } from './MenuSurface';
 export { default as NotchedOutline } from './NotchedOutline';
 export { default as Radio } from './Radio';
+export { default as SegmentedButton, SegmentedButtonSegment } from './SegmentedButton';
 export { default as SideSheet, SideSheetHeader, SideSheetContent } from './SideSheet';
 export { default as Select, SelectOption } from './Select';
 export { default as Slider } from './Slider';
