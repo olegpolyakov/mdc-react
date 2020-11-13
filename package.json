@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "material-components-web": "^7.0.0",
+    "material-components-web": "^8.0.0",
     "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-transition-group": "^4.4.1"
   },
   "devDependencies": {
