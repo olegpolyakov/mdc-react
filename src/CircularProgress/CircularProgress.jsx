@@ -4,6 +4,33 @@ import classnames from 'classnames';
 
 export default React.forwardRef(CircularProgress);
 
+const sizeProps = {
+    large: {
+        viewBox: 48,
+        radius: 18,
+        strokeWidth: 4,
+        gapPatchStrokeWidth: 3.2,
+        strokeDasharray: 113.097,
+        indeterminateStrokeDashoffset: 56.549
+    },
+    medium: {
+        viewBox: 32,
+        radius: 12.5,
+        strokeWidth: 3,
+        gapPatchStrokeWidth: 2.4,
+        strokeDasharray: 78.54,
+        indeterminateStrokeDashoffset: 39.27
+    },
+    small: {
+        viewBox: 24,
+        radius: 8.75,
+        strokeWidth: 2.5,
+        gapPatchStrokeWidth: 2,
+        strokeDasharray: 54.978,
+        indeterminateStrokeDashoffset: 27.489
+    }
+};
+
 function CircularProgress({
     value = 0,
     size,
@@ -15,7 +42,7 @@ function CircularProgress({
     ...props
 }, ref) {
     const progress = value > 1 ? (value / 100) : Number(value);
-    const { viewBox, radius, strokeDasharray, indeterminateStrokeDashoffset } = getSizeProps(size);
+    const { viewBox, radius, strokeDasharray, strokeWidth, gapPatchStrokeWidth, indeterminateStrokeDashoffset } = sizeProps[size];
     const cx = viewBox / 2, cy = viewBox / 2;
     const strokeDashoffset = (2 * Math.PI * radius) * (1 - progress);
 
@@ -40,7 +67,8 @@ function CircularProgress({
             {!indeterminate &&
                 <div className="mdc-circular-progress__determinate-container">
                     <svg className="mdc-circular-progress__determinate-circle-graphic" viewBox={`0 0 ${viewBox} ${viewBox}`} xmlns="http://www.w3.org/2000/svg">
-                        <circle className="mdc-circular-progress__determinate-circle" cx={cx} cy={cy} r={radius} strokeDasharray={strokeDasharray} strokeDashoffset={strokeDashoffset} />
+                        <circle className="mdc-circular-progress__determinate-track" cx={cx} cy={cy} r={radius} strokeWidth={strokeWidth} />
+                        <circle className="mdc-circular-progress__determinate-circle" cx={cx} cy={cy} r={radius} strokeWidth={strokeWidth} strokeDasharray={strokeDasharray} strokeDashoffset={strokeDashoffset} />
                     </svg>
                 </div>
             }
@@ -51,15 +79,15 @@ function CircularProgress({
                         <div key={n} className={classnames('mdc-circular-progress__spinner-layer', { [`mdc-circular-progress__color-${n}`]: n })}>
                             <div className="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-left">
                                 <svg className="mdc-circular-progress__indeterminate-circle-graphic" viewBox={`0 0 ${viewBox} ${viewBox}`} xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx={cx} cy={cy} r={radius} strokeDasharray={strokeDasharray} strokeDashoffset={indeterminateStrokeDashoffset} />
+                                    <circle cx={cx} cy={cy} r={radius} strokeWidth={strokeWidth} strokeDasharray={strokeDasharray} strokeDashoffset={indeterminateStrokeDashoffset} />
                                 </svg>
                             </div><div className="mdc-circular-progress__gap-patch">
                                 <svg className="mdc-circular-progress__indeterminate-circle-graphic" viewBox={`0 0 ${viewBox} ${viewBox}`} xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx={cx} cy={cy} r={radius} strokeDasharray={strokeDasharray} strokeDashoffset={indeterminateStrokeDashoffset} />
+                                    <circle cx={cx} cy={cy} r={radius} strokeWidth={gapPatchStrokeWidth} strokeDasharray={strokeDasharray} strokeDashoffset={indeterminateStrokeDashoffset} />
                                 </svg>
                             </div><div className="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-right">
                                 <svg className="mdc-circular-progress__indeterminate-circle-graphic" viewBox={`0 0 ${viewBox} ${viewBox}`} xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx={cx} cy={cy} r={radius} strokeDasharray={strokeDasharray} strokeDashoffset={indeterminateStrokeDashoffset} />
+                                    <circle cx={cx} cy={cy} r={radius} strokeWidth={strokeWidth} strokeDasharray={strokeDasharray} strokeDashoffset={indeterminateStrokeDashoffset} />
                                 </svg>
                             </div>
                         </div>
@@ -75,28 +103,3 @@ CircularProgress.displayName = 'MDCCircularProgress';
 CircularProgress.propTypes = {
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
-
-const sizeProps = {
-    large: {
-        viewBox: 48,
-        radius: 18,
-        strokeDasharray: 113.097,
-        indeterminateStrokeDashoffset: 56.549
-    },
-    medium: {
-        viewBox: 32,
-        radius: 12.5,
-        strokeDasharray: 78.54,
-        indeterminateStrokeDashoffset: 39.27
-    },
-    small: {
-        viewBox: 24,
-        radius: 8.75,
-        strokeDasharray: 54.978,
-        indeterminateStrokeDashoffset: 27.489
-    }
-};
-
-function getSizeProps(size = 'large') {
-    return sizeProps[size];
-}
