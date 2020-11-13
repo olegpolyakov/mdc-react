@@ -13,8 +13,8 @@ import HelperText from './HelperText';
 export default React.forwardRef(Select);
 
 function Select({
-    value,
     name,
+    value,
     options,
     label,
     leadingIcon,
@@ -130,13 +130,6 @@ function Select({
         setFocused(true);
     }, []);
 
-    const handleBlur = useCallback(event => {
-        if (event.relatedTarget === menuRef.current) return;
-
-        setActivated(false);
-        setFocused(false);
-    }, []);
-
     const hasValue = (Array.isArray(value) ? value.length > 0 : Boolean(value));
     const focusedOrHasValue = focused || hasValue;
 
@@ -155,16 +148,7 @@ function Select({
     return (
         <React.Fragment>
             <div ref={ref} className={classNames}>
-                <div
-                    ref={anchorRef}
-                    className="mdc-select__anchor"
-                    aria-required={required || undefined}
-                    tabIndex={!disabled ? 0 : undefined}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                    onKeyDown={handleKeyDown}
-                    onClick={handleAnchorClick}
-                >
+                {name &&
                     <input
                         ref={inputRef}
                         type="hidden"
@@ -174,21 +158,17 @@ function Select({
                         disabled={disabled}
                         {...props}
                     />
+                }
 
-                    {!outlined &&
-                        <span className="mdc-select__ripple"></span>
-                    }
-
-                    {leadingIcon && React.cloneElement(leadingIcon, {
-                        className: classnames('mdc-select__icon', leadingIcon.props.className),
-                        tabIndex: '0',
-                        role: 'button'
-                    })}
-
-                    <div className="mdc-select__selected-text">{selectedText}</div>
-
-                    <DropdownIcon />
-
+                <div
+                    ref={anchorRef}
+                    className="mdc-select__anchor"
+                    aria-required={required || undefined}
+                    tabIndex={!disabled ? 0 : undefined}
+                    onFocus={handleFocus}
+                    onKeyDown={handleKeyDown}
+                    onClick={handleAnchorClick}
+                >
                     {outlined ?
                         <NotchedOutline notched={focusedOrHasValue}>
                             {label &&
@@ -199,17 +179,33 @@ function Select({
                         </NotchedOutline>
                         :
                         <>
+                            <span className="mdc-select__ripple" />
+
                             {label &&
                                 <FloatingLabel float={focusedOrHasValue}>
                                     {label}
                                 </FloatingLabel>
                             }
-
-                            <LineRipple
-                                ref={lineRippleRef}
-                                active={focused}
-                            />
                         </>
+                    }
+
+                    {leadingIcon && React.cloneElement(leadingIcon, {
+                        className: classnames('mdc-select__icon', leadingIcon.props.className),
+                        tabIndex: '0',
+                        role: 'button'
+                    })}
+
+                    <span className="mdc-select__selected-text-container">
+                        <span className="mdc-select__selected-text">{selectedText}</span>
+                    </span>
+
+                    <DropdownIcon />
+
+                    {!outlined &&
+                        <LineRipple
+                            ref={lineRippleRef}
+                            active={focused}
+                        />
                     }
                 </div>
 
@@ -219,6 +215,7 @@ function Select({
                     open={activated}
                     anchor={anchorRef.current}
                     belowAnchor
+                    fullWidth
                     onClose={handleMenuClose}
                     {...menuProps}
                 >

@@ -1,1 +1,8 @@
-@use '@material/select/mdc-select';
+@use '@material/select/styles';
+
+.mdc-select {
+    &--filled,
+    &--filled &__anchor {
+        overflow: hidden;
+    }
+}
