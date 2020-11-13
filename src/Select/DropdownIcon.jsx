@@ -6,6 +6,7 @@ export default function DropdownIcon() {
             <svg
                 className="mdc-select__dropdown-icon-graphic"
                 viewBox="7 10 10 5"
+                focusable="false"
             >
                 <polygon
                     className="mdc-select__dropdown-icon-inactive"
