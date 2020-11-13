@@ -2,7 +2,6 @@ const path = require('path');
 const CssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const autoprefixer = require('autoprefixer');
 
 const loaders = {
     babel: {
@@ -29,7 +28,9 @@ const loaders = {
             {
                 loader: 'postcss-loader',
                 options: {
-                    plugins: [autoprefixer]
+                    postcssOptions: {
+                        plugins: ['postcss-preset-env']
+                    }
                 }
             },
             {
