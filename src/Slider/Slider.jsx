@@ -2,7 +2,7 @@ import React, { useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { useMounted, useUpdated } from '../lifecycle-hooks';
+import { useUpdated } from '../lifecycle-hooks';
 
 export default React.forwardRef(Slider);
 
@@ -11,8 +11,9 @@ function Slider({
     min = 0,
     max = 100,
     step = 0,
+    range = false,
     discrete = false,
-    displayMarkers = false,
+    tickMarks = false,
     disabled = false,
     onChange = Function.prototype,
 
@@ -20,25 +21,10 @@ function Slider({
     ...props
 }, ref) {
     const rootRef = useRef();
-    const thumbRef = useRef();
-    const clientRect = useRef();
+    const trackRef = useRef();
 
     const [active, setActive] = useState(false);
     const [focused, setFocused] = useState(false);
-
-    useMounted(() => {
-        function handleResize() {
-            clientRect.current = rootRef.current.getBoundingClientRect();
-            const { transform } = getThumbStyle(clientRect.current, value, min, max);
-            thumbRef.current.style.transform = transform;
-        }
-
-        handleResize();
-
-        window.addEventListener('resize', handleResize);
-
-        return () => window.removeEventListener('resize', handleResize);
-    });
 
     useUpdated(() => {
         if (disabled) return;
@@ -56,7 +42,7 @@ function Slider({
         }
     }, [active]);
 
-    function updateValue(newValue) {
+    const updateValue = useCallback(newValue => {
         if (newValue === value) return;
 
         const valueSetToBoundary = newValue === min || newValue === max;
@@ -72,29 +58,19 @@ function Slider({
         }
 
         onChange(newValue);
-    }
-
-    const handleUp = useCallback(() => {
-        setActive(false);
-        setFocused(false);
-    }, []);
+    }, [value, min, max, step]);
 
     const handleMove = useCallback(event => {
+        const trackClientRect = trackRef.current.getBoundingClientRect();
         const pageX = getPageX(event);
-        const offsetX = pageX - clientRect.current.left;
-        const pctComplete = offsetX / clientRect.current.width;
-        // Fit the percentage complete between the range [min,max]
-        // by remapping from [0, 1] to [min, min+(max-min)].
-        const value = min + pctComplete * (max - min);
+        const offsetX = pageX - trackClientRect.left;
+        const percent = offsetX / trackClientRect.width;
+        const value = min + percent * (max - min);
 
         updateValue(value);
     }, []);
 
     const handleRootInteraction = useCallback(event => handleMove(event), []);
-
-    const handleThumbDown = useCallback(() => setActive(true), []);
-
-    const handleThumbUp = useCallback(() => setActive(false), []);
 
     const handleKeyDown = useCallback(event => {
         event.preventDefault();
@@ -106,7 +82,16 @@ function Slider({
 
         updateValue(newValue);
         setFocused(true);
+    }, [value]);
+
+    const handleUp = useCallback(() => {
+        setActive(false);
+        setFocused(false);
     }, []);
+
+    const handleThumbDown = useCallback(() => setActive(true), []);
+
+    const handleThumbUp = useCallback(() => setActive(false), []);
 
     const handleFocus = useCallback(() => {
         if (active) return;
@@ -122,64 +107,80 @@ function Slider({
     const classNames = classnames('mdc-slider', {
         'mdc-slider--active': active,
         'mdc-slider--focus': focused,
+        'mdc-slider--disabled': disabled,
+        'mdc-slider--range': range,
         'mdc-slider--discrete': discrete,
-        'mdc-slider--display-markers': displayMarkers,
-        'mdc-slider--disabled': disabled
+        'mdc-slider--tick-marks': tickMarks
     }, className);
 
-    const thumbStyle = getThumbStyle(clientRect.current, value, min, max);
     const trackStyle = getTrackStyle(value, min, max);
+    const thumbStyle = getThumbStyle(value, min, max);
 
     return (
         <div
             ref={rootRef}
             className={classNames}
-            role="slider"
-            tabIndex={0}
-            aria-valuemin={min}
-            aria-valuemax={max}
-            aria-valuenow={value}
-            aria-disabled={disabled}
             onMouseDown={handleRootInteraction}
             onTouchStart={handleRootInteraction}
-            onKeyDown={handleKeyDown}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
             {...props}
         >
-            <div className="mdc-slider__track-container">
-                <div className="mdc-slider__track" style={trackStyle} />
+            <div ref={trackRef} className="mdc-slider__track">
+                <div className="mdc-slider__track--inactive" />
 
-                {discrete && displayMarkers &&
-                    <div className="mdc-slider__track-marker-container">
-                        {new Array(max / step).fill().map((_, index) =>
-                            <div key={index} className="mdc-slider__track-marker"></div>
+                <div className="mdc-slider__track--active">
+                    <div className="mdc-slider__track--active_fill" style={trackStyle} />
+                </div>
+
+                {discrete && tickMarks &&
+                    <div className="mdc-slider__tick-marks">
+                        {Array.from(new Array(max / step + 1)).map((_, i) => i * step).map((tickValue, index) =>
+                            <div
+                                key={index}
+                                className={
+                                    classnames({
+                                        'mdc-slider__tick-mark--active': tickValue <= value,
+                                        'mdc-slider__tick-mark--inactive': tickValue > value
+                                    })
+                                }
+                            />
                         )}
                     </div>
                 }
             </div>
 
             <div
-                ref={thumbRef}
-                className="mdc-slider__thumb-container"
+                className={classnames('mdc-slider__thumb', { 'mdc-slider__thumb--with-indicator': discrete && active })}
+                role="slider"
+                tabIndex={disabled ? '-1' : '0'}
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="50"
+                aria-disabled={disabled || undefined}
                 style={thumbStyle}
                 onMouseDown={handleThumbDown}
                 onMouseUp={handleThumbUp}
                 onTouchStart={handleThumbDown}
                 onTouchEnd={handleThumbUp}
+                onKeyDown={handleKeyDown}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
             >
                 {discrete &&
-                    <div className="mdc-slider__pin">
-                        <span className="mdc-slider__pin-value-marker">{value}</span>
+                    <div className="mdc-slider__value-indicator-container">
+                        <div className="mdc-slider__value-indicator">
+                            <span className="mdc-slider__value-indicator-text">{value}</span>
+                        </div>
                     </div>
                 }
 
-                <svg className="mdc-slider__thumb" width="21" height="21">
-                    <circle cx="10.5" cy="10.5" r="7.875" />
-                </svg>
-
-                <div className="mdc-slider__focus-ring" />
+                <div className="mdc-slider__thumb-knob" />
             </div>
+
+            {range &&
+                <div className="mdc-slider__thumb" role="slider" tabIndex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+                    <div className="mdc-slider__thumb-knob" />
+                </div>
+            }
         </div>
     );
 }
@@ -267,19 +268,18 @@ function getPageX(event) {
     return event.pageX;
 }
 
-function getThumbStyle(clientRect = { top: 0, right: 0, bottom: 0, left: 0, width: 0, height: 0 }, value, min, max) {
-    const pctComplete = (value - min) / (max - min);
-    const translateX = pctComplete * clientRect.width;
-
-    return {
-        transform: `translateX(${translateX}px) translateX(-50%)`
-    };
-}
-
 function getTrackStyle(value, min, max) {
     const scaleX = (value - min) / (max - min);
 
     return {
         transform: `scaleX(${scaleX})`
+    };
+}
+
+function getThumbStyle(value, min, max) {
+    const percent = (value - min) / (max - min);
+
+    return {
+        left: `calc(${percent * 100}% - 24px)`
     };
 }
