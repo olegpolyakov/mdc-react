@@ -98,6 +98,29 @@ function TextField({
                     <span className="mdc-text-field__ripple" />
                 }
 
+                {outlined &&
+                    <NotchedOutline
+                        notched={focusedOrHasValue}
+                    >
+                        {label &&
+                            <FloatingLabel
+                                ref={floatingLabelRef}
+                                float={focusedOrHasValue}
+                            >
+                                {label}
+                            </FloatingLabel>
+                        }
+                    </NotchedOutline>
+                }
+
+                {(label && !outlined) &&
+                    <FloatingLabel
+                        float={focusedOrHasValue}
+                    >
+                        {label}
+                    </FloatingLabel>
+                }
+
                 {leadingIcon && React.cloneElement(leadingIcon, {
                     className: classnames('mdc-text-field__icon mdc-text-field__icon--leading', leadingIcon.props.className),
                     tabIndex: '0',
@@ -129,29 +152,6 @@ function TextField({
                     tabIndex: '0',
                     role: 'button'
                 })}
-
-                {outlined &&
-                    <NotchedOutline
-                        notched={focusedOrHasValue}
-                    >
-                        {label &&
-                            <FloatingLabel
-                                ref={floatingLabelRef}
-                                float={focusedOrHasValue}
-                            >
-                                {label}
-                            </FloatingLabel>
-                        }
-                    </NotchedOutline>
-                }
-
-                {(label && !outlined) &&
-                    <FloatingLabel
-                        float={focusedOrHasValue}
-                    >
-                        {label}
-                    </FloatingLabel>
-                }
 
                 {!outlined &&
                     <LineRipple
