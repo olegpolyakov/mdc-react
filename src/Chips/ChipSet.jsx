@@ -57,20 +57,23 @@ function ChipSet({
 
     return (
         <Element ref={ref} className={classNames} {...props}>
-            {React.Children.map(children, child => {
-                const isValidElement = React.isValidElement(child);
-                const childProps = isValidElement ? child.props : child;
-                const isSelected = !value ? childProps.selected :
-                    (choice ? value === childProps.value : value.includes(childProps.value));
-                const props = {
-                    selected: isSelected,
-                    onClickCapture: (choice || filter && !isUndefined(value)) ? handleClick : undefined,
-                };
+            {value ?
+                React.Children.map(children, child => {
+                    const isValidElement = React.isValidElement(child);
+                    const childProps = isValidElement ? child.props : child;
+                    const isSelected = choice ? value === childProps.value : value.includes(childProps.value);
+                    const props = {
+                        selected: isSelected,
+                        onClickCapture: (choice || filter) ? handleClick : undefined,
+                    };
 
-                return isValidElement ?
-                    React.cloneElement(child, props) :
-                    React.createElement(Chip, { ...child, ...props });
-            })}
+                    return isValidElement ?
+                        React.cloneElement(child, props) :
+                        React.createElement(Chip, { ...child, ...props });
+                })
+                :
+                children
+            }
 
             {input &&
                 <Chip className="mdc-chip mdc-chip-set__input" outlined onClick={handleFocus}>
