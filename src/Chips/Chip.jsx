@@ -37,7 +37,7 @@ function Chip({
         >
             <div className="mdc-chip__ripple" />
 
-            {(leadingIcon && React.isValidElement(leadingIcon)) &&
+            {leadingIcon &&
                 React.cloneElement(leadingIcon, {
                     className: classnames('mdc-chip__icon mdc-chip__icon--leading', {
                         'mdc-chip__icon--leading-hidden': selected
@@ -72,7 +72,7 @@ Chip.propTypes = {
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     text: PropTypes.string,
     leadingIcon: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
-    tarilingIcon: PropTypes.element,
+    trailingIcon: PropTypes.element,
     selected: PropTypes.bool,
     outlined: PropTypes.bool,
     onClick: PropTypes.func

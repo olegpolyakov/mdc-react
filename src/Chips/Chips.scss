@@ -1,5 +1,15 @@
 @use '@material/chips/mdc-chips';
 
+.mdc-chip-set {
+    &__input {
+        span {
+            min-width: 1px;
+            display: inline-block;
+            outline: none;
+        }
+    }
+}
+
 .mdc-chip {
     &.mdc-chip--outlined {
         border: 1px solid #e0e0e0;
