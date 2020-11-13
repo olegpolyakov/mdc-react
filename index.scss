@@ -1,4 +1,4 @@
-@forward '@material/theme' as theme-*;
+@forward '@material/theme';
 
 @forward './src/Avatar/Avatar' as avatar-*;
 @forward './src/Badge/Badge' as badge-*;
