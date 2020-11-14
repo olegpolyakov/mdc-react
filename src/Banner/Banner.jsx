@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useCallback } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -11,8 +11,7 @@ function Banner({
     action,
     primaryAction = action,
     secondaryAction,
-    open = true,
-    appear = true,
+    open = false,
     fixed = false,
     centered = false,
     mobileStacked = false,
@@ -23,13 +22,25 @@ function Banner({
     children = text,
     ...props
 }, ref) {
+    const contentRef = useRef();
+
+    const handleEntering = useCallback(node => {
+        const { height } = node.firstChild.getBoundingClientRect();
+        node.style.height = `${height}px`;
+    }, []);
+
+    const handleExiting = useCallback(node => {
+        node.style.height = '0px';
+    }, []);
+
     const classNames = classnames('mdc-banner', {
+        'mdc-banner--fixed': fixed,
         'mdc-banner--centered': centered,
         'mdc-banner--mobile-stacked': mobileStacked
     }, className);
 
     const content = (
-        <div className="mdc-banner__content">
+        <div ref={contentRef} className="mdc-banner__content">
             <div className="mdc-banner__graphic-text-wrapper">
                 {icon &&
                     <div className="mdc-banner__graphic">
@@ -67,27 +78,26 @@ function Banner({
     return (
         <CSSTransition
             in={open}
-            appear={appear}
+            appear
             timeout={{
                 enter: 300,
                 exit: 250
             }}
             classNames={{
-                appear: 'mdc-banner--open',
+                appear: 'mdc-banner--opening',
                 appearDone: 'mdc-banner--open',
                 enter: 'mdc-banner--opening',
+                enterActive: 'mdc-banner--open',
                 enterDone: 'mdc-banner--open',
                 exit: 'mdc-banner--closing'
             }}
+            mountOnEnter
+            unmountOnExit
+            onEntering={handleEntering}
+            onExiting={handleExiting}
         >
             <Element ref={ref} className={classNames} {...props}>
-                {fixed ?
-                    <div class="mdc-banner__fixed">
-                        {content}
-                    </div>
-                    :
-                    content
-                }
+                {content}
             </Element>
         </CSSTransition>
     );

@@ -1,1 +1,7 @@
 @use '@material/banner/styles';
+
+.mdc-banner {
+    &.mdc-banner--fixed {
+        position: fixed;
+    }
+}
