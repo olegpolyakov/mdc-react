@@ -52,7 +52,7 @@ function CircularProgress({
         'mdc-circular-progress--small': size === 'small',
         'mdc-circular-progress--indeterminate': indeterminate,
         'mdc-circular-progress--closed': closed
-    });
+    }, className);
 
     return (
         <div
