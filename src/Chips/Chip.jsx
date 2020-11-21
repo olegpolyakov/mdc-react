@@ -12,7 +12,6 @@ function Chip({
     trailingIcon,
     selected = false,
     outlined = false,
-    onClick = Function.prototype,
 
     element = 'div',
     component: Element = element,
@@ -20,8 +19,6 @@ function Chip({
     children = text,
     ...props
 }, ref) {
-    const handleClick = useCallback(() => onClick(value), [value]);
-
     const classNames = classnames('mdc-chip', {
         'mdc-chip--selected': selected,
         'mdc-chip--outlined': outlined
@@ -31,7 +28,6 @@ function Chip({
         <Element
             ref={ref}
             className={classNames}
-            onClick={handleClick}
             data-value={value}
             {...props}
         >

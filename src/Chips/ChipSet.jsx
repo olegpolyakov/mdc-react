@@ -57,7 +57,7 @@ function ChipSet({
 
     return (
         <Element ref={ref} className={classNames} {...props}>
-            {value ?
+            {!isUndefined(value) ?
                 React.Children.map(children, child => {
                     const isValidElement = React.isValidElement(child);
                     const childProps = isValidElement ? child.props : child;
