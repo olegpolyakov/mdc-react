@@ -1,12 +1,13 @@
 {
   "name": "mdc-react",
-  "version": "0.19.5",
+  "version": "0.19.6",
   "description": "Material Components for the web implemented in React",
   "main": "dist/index.js",
   "scripts": {
     "start": "webpack --watch --env.dev --mode=development",
     "build": "webpack --env.prod --mode=production",
-    "prepublish": "npm run build"
+    "lint": "eslint ./src",
+    "prepublish": "npm run lint && npm run build"
   },
   "dependencies": {
     "classnames": "^2.2.6",
