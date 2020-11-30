@@ -16,17 +16,20 @@ function LinearProgress({
 }, ref) {
     const classNames = classnames('mdc-linear-progress', {
         'mdc-linear-progress--indeterminate': indeterminate,
+        'mdc-linear-progress--animation-ready': indeterminate,
         'mdc-linear-progress--reversed': reversed,
         'mdc-linear-progress--closed': closed
     }, className);
 
-    const bufferStyle = {
-        transform: buffer ? `scaleX(${indeterminate ? 1 : buffer * 0.01})` : undefined
+    const primaryBarStyle = {
+        transform: `scaleX(${indeterminate ? 1 : (value > 1 ? (value * 0.01) : value)})`
     };
 
-    const primaryBarStyle = {
-        transform: `scaleX(${indeterminate ? 1 : value * 0.01})`
+    const bufferStyle = {
+        flexBasis: buffer ? `${indeterminate ? 1 : (buffer < 1 ? (buffer * 100) : buffer)}%` : undefined
     };
+
+    console.log(bufferStyle, primaryBarStyle);
 
     return (
         <div
@@ -35,8 +38,8 @@ function LinearProgress({
             role="progressbar"
             {...props}
         >
-            <div className="mdc-linear-progress__buffer" style={bufferStyle}>
-                <div className="mdc-linear-progress__buffer-bar" />
+            <div className="mdc-linear-progress__buffer">
+                <div className="mdc-linear-progress__buffer-bar" style={bufferStyle} />
                 <div className="mdc-linear-progress__buffer-dots" />
             </div>
 
