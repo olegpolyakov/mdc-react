@@ -29,8 +29,6 @@ function LinearProgress({
         flexBasis: buffer ? `${indeterminate ? 1 : (buffer < 1 ? (buffer * 100) : buffer)}%` : undefined
     };
 
-    console.log(bufferStyle, primaryBarStyle);
-
     return (
         <div
             ref={ref}
