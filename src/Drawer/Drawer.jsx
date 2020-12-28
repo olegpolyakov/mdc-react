@@ -42,11 +42,11 @@ function Drawer({
 
         const appContentElement = appContentSelector ?
             document.querySelector(appContentSelector) :
-            rootRef.current.nextElementSibling;
+            rootRef.current?.nextElementSibling;
 
-        appContentElement.classList.add(cssClasses.APP_CONTENT);
+        appContentElement?.classList.add(cssClasses.APP_CONTENT);
 
-        return () => appContentElement.classList.remove(cssClasses.APP_CONTENT);
+        return () => appContentElement?.classList.remove(cssClasses.APP_CONTENT);
     }, [dismissible, appContentSelector]);
 
     useUpdated(() => {
