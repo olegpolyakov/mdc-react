@@ -11,22 +11,21 @@
         border-radius: 2px 2px 0 0;
     
         .mdc-card__header__graphic {
-            @include theme.property(color, text-secondary-on-light);
+            flex-shrink: 0;
             margin-right: 16px;
+            @include theme.property(color, text-secondary-on-light);
         }
     
         .mdc-card__header__text {
             flex: 1;
             overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
         }
     
         .mdc-card__header__title {
-            @include typography.typography(headline6);
-            @include typography.overflow-ellipsis;
-            @include theme.property(color, text-primary-on-light);
             margin: 0;
+            @include typography.typography(headline6);
+            @include theme.property(color, text-primary-on-light);
+            @include typography.overflow-ellipsis;
     
             + .mdc-card__header__subtitle {
                 line-height: 1.5rem;
@@ -34,9 +33,9 @@
         }
     
         .mdc-card__header__subtitle {
+            margin: 0;
             @include typography.typography(body2);
             @include theme.property(color, text-secondary-on-light);
-            margin: 0;
         }
     
         .mdc-card__header__actions {
