@@ -17,13 +17,26 @@ export type RefAttributes<C, TRef> = {
 export type RefForwardingProps<
     TName extends HTMLElementTagName,
     TRef extends HTMLElementMap<TName>,
-    C extends InferredComponent<C>
+    C extends InferredComponent<C> = void
 > = React.PropsWithChildren<{
     element?: ElementType<C, TName>;
     component?: C;
 }> &
     InferredProps<C> &
     RefAttributes<C, TRef>;
+
+export type PropsWithElementAndComponent<
+    P extends {},
+    TName extends HTMLElementTagName = 'span',
+    TRef extends HTMLElementMap<TName>,
+    TComponent extends InferredComponent<TComponent>
+> = P & RefForwardingProps<TName, TRef, TComponent>;
+
+export type PropsWithElement<
+    P extends {},
+    TName extends HTMLElementTagName = 'span',
+    TRef extends HTMLElementMap<TName>
+> = P & Omit<RefForwardingProps<TName, TRef>, 'component'>;
 
 export type HTMLElementMap<T extends HTMLElementTagName> = T extends 'span'
     ? HTMLSpanElement
@@ -67,20 +80,12 @@ export type HTMLElementMap<T extends HTMLElementTagName> = T extends 'span'
     ? HTMLLIElement
     : T extends 'col'
     ? HTMLTableColElement
-    : T extends 'colgroup'
-    ? HTMLTableColElement
     : T extends 'table'
     ? HTMLTableElement
-    : T extends 'tbody'
-    ? HTMLTableSectionElement
     : T extends 'td'
     ? HTMLTableDataCellElement
-    : T extends 'tfoot'
-    ? HTMLTableSectionElement
     : T extends 'th'
     ? HTMLTableHeaderCellElement
-    : T extends 'thead'
-    ? HTMLTableSectionElement
     : T extends 'tr'
     ? HTMLTableRowElement
     : HTMLElement;
