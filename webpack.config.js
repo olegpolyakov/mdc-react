@@ -4,6 +4,11 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const loaders = {
+    typescript: {
+        test: /\.(ts|tsx)?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+    },
     babel: {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -11,13 +16,10 @@ const loaders = {
             loader: 'babel-loader',
             options: {
                 presets: ['@babel/preset-env', '@babel/preset-react'],
-                plugins: [
-                    ['@babel/plugin-proposal-optional-chaining']
-                ]
+                plugins: [['@babel/plugin-proposal-optional-chaining']]
             }
         }
     },
-
     styles: {
         test: /\.scss$/,
         use: [
@@ -46,9 +48,12 @@ const loaders = {
     }
 };
 
-module.exports = env => {
+module.exports = () => {
     return {
-        entry: './src/index.js',
+        entry: {
+            js: './src/index.js'
+            // ts: './src/index.js',
+        },
 
         output: {
             path: path.resolve(__dirname, 'dist'),
@@ -61,7 +66,7 @@ module.exports = env => {
         },
 
         module: {
-            rules: [loaders.babel, loaders.styles]
+            rules: [loaders.typescript, loaders.babel, loaders.styles]
         },
 
         resolve: {
@@ -88,7 +93,7 @@ module.exports = env => {
         },
 
         externals: {
-            'react': {
+            react: {
                 root: 'React',
                 commonjs: 'react',
                 commonjs2: 'react'

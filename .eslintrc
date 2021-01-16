@@ -1,5 +1,5 @@
 {
-    "parser": "babel-eslint",
+    "parser": "@typescript-eslint/parser",
     "env": {
         "es6": true,
         "browser": true,
@@ -7,8 +7,10 @@
         "mocha": true
     },
     "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "prettier",
+        "plugin:@typescript-eslint/recommended",
+        "prettier/@typescript-eslint"
     ],
     "parserOptions": {
         "ecmaVersion": 2020,
@@ -28,29 +30,23 @@
         ],
         "linebreak-style": [
             "error",
-            "windows"
+            "unix"
         ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ],
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"],
         "no-console": "error",
         "react/prop-types": "off"
     },
-    "plugins": [
-        "react"
-    ],
+    "plugins": ["react"],
     "overrides": [
         {
-            "files": [
-                "*.js",
-                ".jsx"
-            ],
-            "excludedFiles": "*/public/*.js"
+            "files": ["*.js", ".jsx"],
+            "excludedFiles": "*/public/*.js",
+            "rules": {
+                "@typescript-eslint/no-var-requires": "off"
+            }
         }
     ]
 }
