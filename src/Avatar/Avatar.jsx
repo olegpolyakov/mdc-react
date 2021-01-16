@@ -37,7 +37,7 @@ function Avatar({
             }
         </Element>
     );
-};
+}
 
 Avatar.displayName = 'MDCAvatar';
 
