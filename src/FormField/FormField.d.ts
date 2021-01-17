@@ -1,4 +1,4 @@
-import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
+import { HTMLElementTagName, PropsWithElement } from '../types';
 
 type Props = {
     label?: string;
@@ -8,8 +8,6 @@ type Props = {
     className?: string;
 };
 
-export type FormFieldProps<E, R> = PropsWithElement<E, R> & Props;
+export type FormFieldProps<E = any> = PropsWithElement<E> & Props;
 
-export default function <TElement extends HTMLElementTagName = 'span', TRef extends HTMLElementMap<TElement>>(
-    props: FormFieldProps<TElement, TRef>
-): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'span'>(props: FormFieldProps<TElement>): JSX.Element;
