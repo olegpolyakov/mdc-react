@@ -1,7 +1,7 @@
 import React from 'react';
 
 export type MenuSurfaceProps = {
-    anchor?: object;
+    anchor?: HTMLElement | any;
     open?: boolean;
     top?: boolean;
     left?: boolean;
