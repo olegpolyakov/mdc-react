@@ -1,4 +1,4 @@
-import React, {ForwardedRef} from 'react';
+import React, { ForwardedRef } from 'react';
 
 export type CheckboxProps = {
     checked?: boolean;
