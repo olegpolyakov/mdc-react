@@ -15,14 +15,8 @@ type Props = {
     scope?: 'col' | 'row' | 'colgroup' | 'rowgroup';
 };
 
-// prettier-ignore
-export type DataTableHeaderCellProps<
-  T extends HTMLElementTagName,
-  R extends HTMLElementMap<R>,
-  > = PropsWithElement<Props, T, R>;
+export type DataTableHeaderCellProps<E, R> = PropsWithElement<T, R> & Props;
 
-// prettier-ignore
-export default function <
-  TName extends HTMLElementTagName = 'th',
-  TRef extends HTMLElementMap<TName>,
-  >(props: DataTableHeaderCellProps<TName, TRef>): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'th', TRef extends HTMLElementMap<TElement>>(
+    props: DataTableHeaderCellProps<TElement, TRef>
+): JSX.Element;

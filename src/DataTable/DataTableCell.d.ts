@@ -7,14 +7,8 @@ type Props = {
     className?: string;
 };
 
-// prettier-ignore
-export type DataTableCellProps<
-  T extends HTMLElementTagName,
-  R extends HTMLElementMap<R>,
-  > = PropsWithElement<Props, T, R>;
+export type DataTableCellProps<E, R> = PropsWithElement<E, R> & Props;
 
-// prettier-ignore
-export default function <
-  TName extends HTMLElementTagName = 'th',
-  TRef extends HTMLElementMap<TName>,
-  >(props: DataTableCellProps<TName, TRef>): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'th', TRef extends HTMLElementMap<TElement>>(
+    props: DataTableCellProps<TElement, TRef>
+): JSX.Element;
