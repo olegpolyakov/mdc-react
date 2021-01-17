@@ -1,7 +1,7 @@
 import React from 'react';
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, RefForwardingProps} from '../types';
+import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
 
-type TabProps = {
+type Props = {
     value?: string | number;
     icon?: React.ReactElement;
     label?: React.ReactNode;
@@ -10,7 +10,7 @@ type TabProps = {
     minWidth?: boolean;
     fade?: boolean;
     underline?: boolean;
-    // BoudaryRect??
+    // BoundingClientRect??
     previousIndicatorClientRect?: ClientRect | any;
     // TODO: Specify arguments
     onClick?: () => void;
@@ -18,9 +18,10 @@ type TabProps = {
 };
 
 // useImperativeHandle(ref, () => rootRef.current);
+export type TabProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
 
 export default function <
-    TName extends HTMLElementTagName = 'span',
-    TRef extends HTMLElementMap<TName>,
-    TComponent extends InferredComponent<TComponent>
->(props: TabProps & RefForwardingProps<TName, TRef, TComponent>): JSX.Element;
+    TElement extends HTMLElementTagName = 'button',
+    TComponent extends InferredComponent<TComponent>,
+    TRef extends HTMLElementMap<TElement>
+>(props: TabProps<TElement, TComponent, TRef>): JSX.Element;
