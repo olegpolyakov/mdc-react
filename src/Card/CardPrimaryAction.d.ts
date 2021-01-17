@@ -1,18 +1,13 @@
-import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
+import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
 
 type Props = {
-    fullBleed?: boolean;
     className?: string;
 };
 
-// prettier-ignore
-export type CardPrimaryAction<
-  T extends HTMLElementTagName,
-  R extends HTMLElementMap<R>,
-  > = PropsWithElement<Props, T, R>;
+export type CardPrimaryActionProps<E, R, C> = PropsWithElementAndComponent<E, R, C> & Props;
 
-// prettier-ignore
 export default function <
-  TName extends HTMLElementTagName = 'div',
-  TRef extends HTMLElementMap<TName>,
-  >(props: CardPrimaryAction<TName, TRef>): JSX.Element;
+    TElement extends HTMLElementTagName = 'div',
+    TComponent extends InferredComponent<TComponent>,
+    TRef extends HTMLElementMap<TElement>
+>(props: CardPrimaryActionProps<TElement, TComponent, TRef>): JSX.Element;

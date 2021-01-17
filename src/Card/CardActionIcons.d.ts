@@ -2,11 +2,7 @@ import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementA
 
 type Props = {className?: string};
 
-export type CardActionIconsProps<
-    T extends HTMLElementTagName,
-    R extends HTMLElementMap<R>,
-    C extends InferredComponent<C>
-> = PropsWithElementAndComponent<Props, T, R, C>;
+export type CardActionIconsProps<E, C, R> = PropsWithElementAndComponent<E, R, C> & Props;
 
 export default function <
     TName extends HTMLElementTagName = 'div',

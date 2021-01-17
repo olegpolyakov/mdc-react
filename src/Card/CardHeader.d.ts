@@ -2,7 +2,7 @@ import React from 'react';
 import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
 
 type Props = {
-    graphic?: React.ReactNode; // Element ?
+    graphic?: React.ReactNode;
     title?: React.ReactNode;
     subtitle?: React.ReactNode;
     actions?: React.ReactNode | React.ReactNode[];
@@ -10,11 +10,7 @@ type Props = {
     className?: string;
 };
 
-export type CardHeaderProps<
-    T extends HTMLElementTagName,
-    R extends HTMLElementMap<R>,
-    C extends InferredComponent<C>
-> = PropsWithElementAndComponent<Props, T, R, C>;
+export type CardHeaderProps<E, R, C> = PropsWithElementAndComponent<E, R, C> & Props;
 
 export default function <
     TName extends HTMLElementTagName = 'div',

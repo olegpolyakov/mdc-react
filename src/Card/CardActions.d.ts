@@ -5,14 +5,8 @@ type Props = {
     className?: string;
 };
 
-// prettier-ignore
-export type CardActionsProps<
-  T extends HTMLElementTagName,
-  R extends HTMLElementMap<R>,
-  > = PropsWithElement<Props, T, R>;
+export type CardActionsProps<E, R> = PropsWithElement<E, R> & Props;
 
-// prettier-ignore
-export default function <
-  TName extends HTMLElementTagName = 'div',
-  TRef extends HTMLElementMap<TName>,
-  >(props: CardActionsProps<TName, TRef>): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'div', TRef extends HTMLElementMap<TElement>>(
+    props: CardActionsProps<TElement, TRef>
+): JSX.Element;
