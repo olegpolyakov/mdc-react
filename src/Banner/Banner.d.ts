@@ -1,4 +1,4 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
+import { HTMLElementTagName, InferredComponent, PropsWithElementAndComponent } from '../types';
 import React from 'react';
 
 type Props = {
@@ -14,10 +14,9 @@ type Props = {
     className?: string;
 };
 
-export type BannerProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+export type BannerProps<E = any, C = any> = PropsWithElementAndComponent<E, C> & Props;
 
 export default function <
     TElement extends HTMLElementTagName = 'span',
-    TComponent extends InferredComponent<TComponent>,
-    TRef extends HTMLElementMap<TElement>
->(props: BannerProps<TElement, TComponent, TRef>): JSX.Element;
+    TComponent extends InferredComponent<TComponent>
+>(props: BannerProps<TElement, TComponent>): JSX.Element;
