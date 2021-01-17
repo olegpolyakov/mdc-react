@@ -1,13 +1,15 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, RefForwardingProps} from '../types';
+import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
 
-export type ElevationProps = {
+type Props = {
     z?: number;
     transition?: boolean;
     className?: string;
 };
 
+export type ElevationProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+
 export default function <
-    TName extends HTMLElementTagName = 'span',
-    TRef extends HTMLElementMap<TName>,
-    TComponent extends InferredComponent<TComponent>
->(props: ElevationProps & RefForwardingProps<TName, TRef, TComponent>): JSX.Element;
+    TElement extends HTMLElementTagName = 'span',
+    TComponent extends InferredComponent<TComponent>,
+    TRef extends HTMLElementMap<TElement>
+>(props: ElevationProps<TElement, TComponent, TRef>): JSX.Element;
