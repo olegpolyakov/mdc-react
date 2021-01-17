@@ -1,10 +1,10 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, RefForwardingProps} from '../types';
+import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
 import React from 'react';
 
-export type FABProps = {
-    icon: React.ReactElement;
-    leadingIcon?: React.ReactElement;
-    trailingIcon?: React.ReactElement;
+type Props = {
+    icon?: React.ReactNode;
+    leadingIcon?: React.ReactNode;
+    trailingIcon?: React.ReactNode;
     label?: string;
     mini?: boolean;
     extended?: boolean;
@@ -12,8 +12,10 @@ export type FABProps = {
     className: string;
 };
 
+export type FABProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+
 export default function <
-    TName extends HTMLElementTagName = 'span',
-    TRef extends HTMLElementMap<TName>,
-    TComponent extends InferredComponent<TComponent>
->(props: FABProps & RefForwardingProps<TName, TRef, TComponent>): JSX.Element;
+    TElement extends HTMLElementTagName = 'span',
+    TComponent extends InferredComponent<TComponent>,
+    TRef extends HTMLElementMap<TElement>
+>(props: FABProps<TElement, TComponent, TRef>): JSX.Element;

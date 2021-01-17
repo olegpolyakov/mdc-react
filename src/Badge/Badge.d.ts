@@ -1,16 +1,14 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, RefForwardingProps} from '../types';
+import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
 
-export type BadgeProps = {
-    value: string | number;
+type Props = {
+    value?: string | number;
     inset?: boolean;
     noBackground?: boolean;
-
-    className;
-    // TODO: add component props or remove from types
+    className?: string;
 };
 
-export default function <
-    TName extends HTMLElementTagName = 'span',
-    TRef extends HTMLElementMap<TName>,
-    TComponent extends InferredComponent<TComponent>
->(props: BadgeProps & RefForwardingProps<TName, TRef, TComponent>): JSX.Element;
+export type BadgeProps<E, R> = PropsWithElement<E, R> & Props;
+
+export default function <TElement extends HTMLElementTagName = 'span', TRef extends HTMLElementMap<TElement>>(
+    props: BadgeProps<TElement, TRef>
+): JSX.Element;

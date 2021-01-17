@@ -19,5 +19,5 @@
         "noImplicitReturns": true,
         "isolatedModules": true
     },
-    "include": ["../stories/**/*.ts", "../stories/**/*.tsx", "../src/**/*.d.ts"]
+    "include": ["./stories/**/*.ts", "./stories/**/*.tsx", "./src/**/*.d.ts"]
 }

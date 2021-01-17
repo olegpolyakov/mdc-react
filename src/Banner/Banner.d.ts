@@ -1,12 +1,12 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, RefForwardingProps} from '../types';
+import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
 import React from 'react';
 
-export type BannerProps = {
-    text: React.ReactNode;
-    icon: React.ReactElement;
-    action: React.ReactElement;
-    primaryAction?: React.ReactElement;
-    secondaryAction: React.ReactElement;
+type Props = {
+    text?: React.ReactNode;
+    icon?: React.ReactNode;
+    action?: React.ReactNode;
+    primaryAction?: React.ReactNode;
+    secondaryAction: React.ReactNode;
     open?: boolean;
     fixed?: boolean;
     centered?: boolean;
@@ -14,8 +14,10 @@ export type BannerProps = {
     className?: string;
 };
 
+export type BannerProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+
 export default function <
-    TName extends HTMLElementTagName = 'span',
-    TRef extends HTMLElementMap<TName>,
-    TComponent extends InferredComponent<TComponent>
->(props: BannerProps & RefForwardingProps<TName, TRef, TComponent>): JSX.Element;
+    TElement extends HTMLElementTagName = 'span',
+    TComponent extends InferredComponent<TComponent>,
+    TRef extends HTMLElementMap<TElement>
+>(props: BannerProps<TElement, TComponent, TRef>): JSX.Element;
