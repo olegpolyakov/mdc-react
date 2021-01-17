@@ -1,5 +1,5 @@
 import React from 'react';
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
+import { HTMLElementTagName, InferredComponent, PropsWithElementAndComponent } from '../types';
 
 type Props = {
     className?: string;
@@ -16,10 +16,8 @@ type Props = {
     fixedAdjustSibling: boolean;
 };
 
-export type TopAppBarProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+export type TopAppBarProps<E = any, C = any> = PropsWithElementAndComponent<E, C> & Props;
 
-export default function <
-    TElement extends HTMLElementTagName = 'div',
-    TComponent extends InferredComponent<TComponent>,
-    TRef extends HTMLElementMap<TElement>
->(props: TopAppBarProps<TElement, TComponent, TRef>): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'div', TComponent extends InferredComponent<TComponent>>(
+    props: TopAppBarProps<TElement, TComponent>
+): JSX.Element;

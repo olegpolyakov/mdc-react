@@ -1,1 +1,1 @@
-export {default, IconButtonProps as TopAppBarNavigationIconProps} from '../IconButton/IconButton';
+export { default, IconButtonProps as TopAppBarNavigationIconProps } from '../IconButton/IconButton';

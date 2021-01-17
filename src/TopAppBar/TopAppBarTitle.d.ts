@@ -1,11 +1,11 @@
-import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
+import { HTMLElementTagName, PropsWithElement } from '../types';
 
 type Props = {
     className?: string;
 };
 
-export type TopAppBarTitleProps<E, R> = PropsWithElement<E, R> & Props;
+export type TopAppBarTitleProps<E = any> = PropsWithElement<E> & Props;
 
-export default function <TElement extends HTMLElementTagName = 'span', TRef extends HTMLElementMap<TElement>>(
-    props: TopAppBarTitleProps<TElement, TRef>
+export default function <TElement extends HTMLElementTagName = 'span'>(
+    props: TopAppBarTitleProps<TElement>
 ): JSX.Element;
