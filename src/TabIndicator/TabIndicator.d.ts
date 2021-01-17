@@ -1,11 +1,11 @@
 import React from 'react';
 
-type TabIndicatorProps = {
+export type TabIndicatorProps = {
     active?: boolean;
     fade?: boolean;
     underline?: boolean;
-    previousIndicatorClientRect: ClientRect;
-    ref: React.ForwardedRef<HTMLSpanElement>;
+    previousIndicatorClientRect?: ClientRect;
+    ref?: React.ForwardedRef<HTMLSpanElement>;
 } & Ract.HTMLProps<HTMLSpanElement>;
 
 export default function (props: TabIndicatorProps): JSX.Element;
