@@ -1,7 +1,7 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, RefForwardingProps} from '../types';
-import React from 'react';
+import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
+import React, {PropsWithChildren} from 'react';
 
-export type AvatarProps = {
+export type Props = {
     large?: boolean;
     small?: boolean;
     src: string;
@@ -11,8 +11,10 @@ export type AvatarProps = {
     alt?: string;
 };
 
+export type AvatarProps<E, R, C> = PropsWithElementAndComponent<E, R, C> & PropsWithChildren<Props>;
+
 export default function <
-    TName extends HTMLElementTagName = 'span',
-    TRef extends HTMLElementMap<TName>,
+    TElement extends HTMLElementTagName = 'span',
+    TRef extends HTMLElementMap<TElement>,
     TComponent extends InferredComponent<TComponent>
->(props: AvatarProps & RefForwardingProps<TName, TRef, TComponent>): JSX.Element;
+>(props: AvatarProps<TElement, TRef, TComponent>): JSX.Element;
