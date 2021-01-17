@@ -1,16 +1,17 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, RefForwardingProps} from '../types';
+import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
 
-type IconSize = 'small' | 'medium' | 'large';
-type IconProps = {
-    size: IconSize;
+type Props = {
+    size?: 'small' | 'medium' | 'large';
     dark?: boolean;
     light?: boolean;
     inactive?: boolean;
     className?: string;
 };
 
+export type IconProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+
 export default function <
-    TName extends HTMLElementTagName = 'span',
-    TRef extends HTMLElementMap<TName>,
-    TComponent extends InferredComponent<TComponent>
->(props: IconProps & RefForwardingProps<TName, TRef, TComponent>): JSX.Element;
+    TElement extends HTMLElementTagName = 'i',
+    TComponent extends InferredComponent<TComponent>,
+    TRef extends HTMLElementMap<TElement>
+>(props: IconProps<TElement, TComponent, TRef>): JSX.Element;
