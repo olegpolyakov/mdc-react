@@ -1,10 +1,11 @@
-import React, {ForwardRefExoticComponent, ComponentType, RefObject} from 'react';
+import React, {ForwardRefExoticComponent, ComponentType, RefObject, HTMLProps, ElementRef} from 'react';
 
+// React.ComponentProps is the same
 export type InferredProps<C> = C extends ComponentType<infer P> ? P : {};
 
 export type InferredComponent<C> = ComponentType<InferredProps<C>> | void;
 
-export type ElementType<C, TName> = C extends ComponentType<any> ? undefined : TName;
+export type ElementORNothing<C, TElement> = C extends ComponentType<any> ? undefined : TElement;
 
 export type HTMLElementTagName = keyof JSX.IntrinsicElements;
 
@@ -14,78 +15,22 @@ export type RefAttributes<C, TRef> = {
     >;
 };
 
+export type RestProps<C, TRef> = C extends ComponentType<infer P> ? P : TRef extends HTMLElement ? HTMLProps<TRef> : {};
+
 export type RefForwardingProps<
-    TName extends HTMLElementTagName,
-    TRef extends HTMLElementMap<TName>,
+    TElement extends HTMLElementTagName,
+    TRef extends HTMLElementMap<TElement>,
     C extends InferredComponent<C> = void
-> = React.PropsWithChildren<{
-    element?: ElementType<C, TName>;
+> = {
+    element?: ElementORNothing<C, TElement>;
     component?: C;
-}> &
-    InferredProps<C> &
+} & RestProps<C, TRef> &
     RefAttributes<C, TRef>;
 
-export type PropsWithElementAndComponent<
-    P extends {},
-    TName extends HTMLElementTagName = 'span',
-    TRef extends HTMLElementMap<TName>,
-    TComponent extends InferredComponent<TComponent>
-> = P & RefForwardingProps<TName, TRef, TComponent>;
+export type PropsWithElementAndComponent<E, R, C> = RefForwardingProps<E, R, C>;
 
-export type PropsWithElement<
-    P extends {},
-    TName extends HTMLElementTagName = 'span',
-    TRef extends HTMLElementMap<TName>
-> = P & Omit<RefForwardingProps<TName, TRef>, 'component'>;
+export type PropsWithElement<E, R> = Omit<RefForwardingProps<E, R>, 'component'>;
 
-export type HTMLElementMap<T extends HTMLElementTagName> = T extends 'span'
-    ? HTMLSpanElement
-    : T extends 'div'
-    ? HTMLDivElement
-    : T extends 'button'
-    ? HTMLButtonElement
-    : T extends 'pre'
-    ? HTMLPreElement
-    : T extends 'img'
-    ? HTMLImageElement
-    : T extends 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-    ? HTMLHeadingElement
-    : T extends 'p'
-    ? HTMLParagraphElement
-    : T extends 'a'
-    ? HTMLAnchorElement
-    : T extends 'form'
-    ? HTMLFormElement
-    : T extends 'fieldset'
-    ? HTMLFieldSetElement
-    : T extends 'input'
-    ? HTMLInputElement
-    : T extends 'label'
-    ? HTMLLabelElement
-    : T extends 'textarea'
-    ? HTMLTextAreaElement
-    : T extends 'legend'
-    ? HTMLLegendElement
-    : T extends 'select'
-    ? HTMLSelectElement
-    : T extends 'optgroup'
-    ? HTMLOptGroupElement
-    : T extends 'option'
-    ? HTMLOptionElement
-    : T extends 'ol'
-    ? HTMLOListElement
-    : T extends 'ul'
-    ? HTMLUListElement
-    : T extends 'li'
-    ? HTMLLIElement
-    : T extends 'col'
-    ? HTMLTableColElement
-    : T extends 'table'
-    ? HTMLTableElement
-    : T extends 'td'
-    ? HTMLTableDataCellElement
-    : T extends 'th'
-    ? HTMLTableHeaderCellElement
-    : T extends 'tr'
-    ? HTMLTableRowElement
-    : HTMLElement;
+export type HTMLElementMap<E extends keyof JSX.IntrinsicElements = any> = ElementRef<E> extends HTMLElement
+    ? ElementRef<E>
+    : never;
