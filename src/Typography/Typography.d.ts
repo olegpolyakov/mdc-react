@@ -1,6 +1,6 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, RefForwardingProps} from '../types';
+import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
 
-type TypographyType = {
+export type TypographyType = {
     headline1: 'h1';
     headline2: 'h2';
     headline3: 'h3';
@@ -16,7 +16,7 @@ type TypographyType = {
     overline: 'span';
 };
 
-type TypographyProps = {
+type Props = {
     type?: keyof TypographyType;
     display?: 'block' | 'inline' | 'inline-block';
     align?: 'left' | 'center' | 'right' | 'justify';
@@ -25,8 +25,10 @@ type TypographyProps = {
     className?: string;
 };
 
+export type TypographyProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+
 export default function <
-    TName extends HTMLElementTagName = 'p',
-    TRef extends HTMLElementMap<TName>,
+    TElement extends HTMLElementTagName = TypographyType['body1'],
+    TRef extends HTMLElementMap<TElement>,
     TComponent extends InferredComponent<TComponent>
->(props: TypographyProps & RefForwardingProps<TName, TRef, TComponent>): JSX.Element;
+>(props: TypographyProps<TElement, TRef, TComponent>): JSX.Element;
