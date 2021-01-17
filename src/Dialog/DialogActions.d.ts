@@ -1,5 +1,5 @@
-import React, {PropsWithChildren} from 'react';
+import React from 'react';
 
-export type DialogActionsProps = PropsWithChildren & {ref?: React.ForwardedRef<HTMLDivElement>};
+export type DialogActionsProps = {ref?: React.ForwardedRef<HTMLDivElement>};
 
 export default function (props: DialogActionsProps): JSX.Element;

@@ -2,7 +2,7 @@ import React from 'react';
 import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
 
 type Props = {
-    title: React.ReactNode;
+    title?: React.ReactNode;
     content: React.ReactNode;
     actions?: React.ReactNode[];
     open?: boolean;
@@ -12,14 +12,8 @@ type Props = {
     className?: string;
 };
 
-// prettier-ignore
-export type DialogProps<
-  T extends HTMLElementTagName,
-  R extends HTMLElementMap<R>,
-  > = PropsWithElement<Props, T, R>;
+export type DialogProps<T, R> = PropsWithElement<T, R> & Props;
 
-// prettier-ignore
-export default function <
-  TName extends HTMLElementTagName = 'div',
-  TRef extends HTMLElementMap<TName>,
-  >(props: DialogProps<TName, TRef>): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'div', TRef extends HTMLElementMap<TElement>>(
+    props: DialogProps<TElement, TRef>
+): JSX.Element;
