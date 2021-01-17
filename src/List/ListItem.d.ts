@@ -1,5 +1,5 @@
 import React from 'react';
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
+import { HTMLElementTagName, InferredComponent, PropsWithElementAndComponent } from '../types';
 
 type Props = {
     graphic?: React.ReactNode;
@@ -13,10 +13,8 @@ type Props = {
     className?: string;
 };
 
-export type ListItemProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+export type ListItemProps<E = any, C = any> = PropsWithElementAndComponent<E, C> & Props;
 
-export default function <
-    TElement extends HTMLElementTagName = 'li',
-    TComponent extends InferredComponent<TComponent>,
-    TRef extends HTMLElementMap<TElement>
->(props: ListItemProps<TElement, TComponent, TRef>): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'li', TComponent extends InferredComponent<TComponent>>(
+    props: ListItemProps<TElement, TComponent>
+): JSX.Element;

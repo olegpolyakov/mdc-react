@@ -1,12 +1,12 @@
-import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
+import { HTMLElementTagName, PropsWithElement } from '../types';
 
 type Props = {
     title?: string;
     className?: string;
 };
 
-export type ListGroupSubheaderProps<E, R> = PropsWithElement<E, R> & Props;
+export type ListGroupSubheaderProps<E = any> = PropsWithElement<E> & Props;
 
-export default function <TElement extends HTMLElementTagName = 'h3', TRef extends HTMLElementMap<TElement>>(
-    props: ListGroupSubheaderProps<TElement, TRef>
+export default function <TElement extends HTMLElementTagName = 'h3'>(
+    props: ListGroupSubheaderProps<TElement>
 ): JSX.Element;
