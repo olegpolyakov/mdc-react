@@ -6,7 +6,7 @@ type RadioProps = {
     disabled?: boolean;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     className?: string;
-    ref: React.ForwardedRef<HTMLDivElement>;
+    ref?: React.ForwardedRef<HTMLDivElement>;
 } & React.HTMLProps<HTMLDivElement>;
 
 export default function (props: RadioProps): JSX.Element;
