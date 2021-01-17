@@ -1,10 +1,4 @@
-import {
-    HTMLElementMap,
-    HTMLElementTagName,
-    InferredComponent,
-    PropsWithElementAndComponent,
-    RefForwardingProps
-} from '../types';
+import { HTMLElementTagName, InferredComponent, PropsWithElementAndComponent } from '../types';
 import React from 'react';
 
 type Props = {
@@ -18,10 +12,9 @@ type Props = {
     className?: string;
 };
 
-export type ButtonProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+export type ButtonProps<E = any, C = any> = PropsWithElementAndComponent<E, C> & Props;
 
 export default function <
     TElement extends HTMLElementTagName = 'button',
-    TComponent extends InferredComponent<TComponent>,
-    TRef extends HTMLElementMap<TElement>
->(props: ButtonProps & RefForwardingProps<TElement, TComponent, TRef>): JSX.Element;
+    TComponent extends InferredComponent<TComponent>
+>(props: ButtonProps<TElement, TComponent>): JSX.Element;
