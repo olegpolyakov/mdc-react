@@ -1,5 +1,5 @@
 import React from 'react';
-import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
+import { HTMLElementTagName, PropsWithElement } from '../types';
 
 type Props = {
     graphic?: React.ReactNode;
@@ -7,8 +7,8 @@ type Props = {
     subtitle?: React.ReactNode;
 };
 
-export type DrawerHeaderProps<E, R> = PropsWithElement<E, R> & Props;
+export type DrawerHeaderProps<E = any> = PropsWithElement<E> & Props;
 
-export default function <TElement extends HTMLElementTagName = 'header', TRef extends HTMLElementMap<TElement>>(
-    props: DrawerHeaderProps<TElement, TRef>
+export default function <TElement extends HTMLElementTagName = 'header'>(
+    props: DrawerHeaderProps<TElement>
 ): JSX.Element;

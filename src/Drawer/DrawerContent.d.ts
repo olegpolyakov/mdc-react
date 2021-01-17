@@ -1,7 +1,5 @@
-import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
+import { HTMLElementTagName, PropsWithElement } from '../types';
 
-export type DrawerContentProps<E, R> = PropsWithElement<E, R>;
+export type DrawerContentProps<E = any> = PropsWithElement<E>;
 
-export default function <TElement extends HTMLElementTagName = 'div', TRef extends HTMLElementMap<TElement>>(
-    props: DrawerContentProps<TElement, TRef>
-): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'div'>(props: DrawerContentProps<TElement>): JSX.Element;

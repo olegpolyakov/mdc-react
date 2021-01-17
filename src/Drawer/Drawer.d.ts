@@ -1,4 +1,4 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
+import { HTMLElementTagName, InferredComponent, PropsWithElementAndComponent } from '../types';
 
 type Props = {
     open?: boolean;
@@ -10,10 +10,9 @@ type Props = {
     className?: string;
 };
 
-export type DrawerProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+export type DrawerProps<E = any, C = any> = PropsWithElementAndComponent<E, C> & Props;
 
 export default function <
     TElement extends HTMLElementTagName = 'aside',
-    TComponent extends InferredComponent<TComponent>,
-    TRef extends HTMLElementMap<TElement>
->(props: DrawerProps<TElement, TComponent, TRef>): JSX.Element;
+    TComponent extends InferredComponent<TComponent>
+>(props: DrawerProps<TElement, TComponent>): JSX.Element;
