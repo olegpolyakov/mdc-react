@@ -1,6 +1,6 @@
 import React from 'react';
 
-type MenuSurfaceProps = {
+export type MenuSurfaceProps = {
     anchor?: object;
     open?: boolean;
     top?: boolean;
@@ -17,7 +17,7 @@ type MenuSurfaceProps = {
     className?: string;
     // Note: ref is forwarded as instance of HTMLDIvElement without MutableRefObject wrapper
     // Use without .current field
-    ref: HTMLDivElement;
+    ref?: HTMLDivElement;
 } & React.HTMLProps<HTMLDivElement>;
 
 export default function (props: MenuSurfaceProps): JSX.Element;
