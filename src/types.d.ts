@@ -1,4 +1,4 @@
-import React, {ForwardRefExoticComponent, ComponentType, DetailedHTMLProps, ElementRef, ComponentProps} from 'react';
+import React, { ForwardRefExoticComponent, ComponentType, DetailedHTMLProps, ElementRef, ComponentProps } from 'react';
 
 /**
  * Give component type with props
@@ -40,7 +40,7 @@ export type RestProps<C, E> = C extends ComponentType<infer P> ? P : E extends H
 /**
  * RefAttributes gives type of ref prop
  * Type will take ref from passed ForwardRefExoticComponent
- * This type makes impossible passing any ref when component is not a ForwardRefExoticComponent
+ * This type makes impossible passing any ref when component which is not a ForwardRefExoticComponent
  */
 export type RefAttributes<C, TRef> = {
     ref?: React.ForwardedRef<
@@ -71,4 +71,4 @@ export type PropsWithElementAndComponent<
  */
 export type PropsWithElement<TElement extends HTMLElementTagName, TRef extends HTMLElementMap<TElement>> = {
     element?: TElement;
-} & {ref?: React.ForwardedRef<TRef>} & JSXElementMap<TElement>;
+} & { ref?: React.ForwardedRef<TRef> } & JSXElementMap<TElement>;
