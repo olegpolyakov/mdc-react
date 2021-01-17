@@ -1,11 +1,10 @@
-import React, {PropsWithChildren} from 'react';
+import React from 'react';
 
-type TabScrollerProps = PropsWithChildren<{
+export type TabScrollerProps = {
     align?: 'start' | 'center' | 'end';
     // TODO: Specify current element type
     activeTab: HTMLElement;
     ref: React.ForwardedRef<HTMLDivElement>;
-}> &
-    React.HTMLProps<HTMLDivElement>;
+} & React.HTMLProps<HTMLDivElement>;
 
 export default function (props: TabScrollerProps): JSX.Element;
