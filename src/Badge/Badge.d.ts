@@ -1,14 +1,12 @@
-import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
+import { HTMLElementTagName, PropsWithElement } from '../types';
 
 type Props = {
-    value?: string | number;
+    className?: string;
     inset?: boolean;
     noBackground?: boolean;
-    className?: string;
+    value?: string | number;
 };
 
-export type BadgeProps<E, R> = PropsWithElement<E, R> & Props;
+export type BadgeProps<E = any> = PropsWithElement<E> & Props;
 
-export default function <TElement extends HTMLElementTagName = 'span', TRef extends HTMLElementMap<TElement>>(
-    props: BadgeProps<TElement, TRef>
-): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'span'>(props: BadgeProps<TElement>): JSX.Element;
