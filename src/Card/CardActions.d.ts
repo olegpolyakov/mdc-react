@@ -1,12 +1,10 @@
-import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
+import { HTMLElementTagName, PropsWithElement } from '../types';
 
 type Props = {
     fullBleed?: boolean;
     className?: string;
 };
 
-export type CardActionsProps<E, R> = PropsWithElement<E, R> & Props;
+export type CardActionsProps<E = any> = PropsWithElement<E> & Props;
 
-export default function <TElement extends HTMLElementTagName = 'div', TRef extends HTMLElementMap<TElement>>(
-    props: CardActionsProps<TElement, TRef>
-): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'div'>(props: CardActionsProps<TElement>): JSX.Element;
