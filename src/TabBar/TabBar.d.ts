@@ -1,6 +1,6 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, RefForwardingProps} from '../types';
+import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
 
-type TabBarProps = {
+type Props = {
     value?: string | number;
     stacked?: boolean;
     minWidth?: boolean;
@@ -12,8 +12,10 @@ type TabBarProps = {
     className?: string;
 };
 
+export type TabBarProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+
 export default function <
-    TName extends HTMLElementTagName = 'span',
-    TRef extends HTMLElementMap<TName>,
-    TComponent extends InferredComponent<TComponent>
->(props: TabBarProps & RefForwardingProps<TName, TRef, TComponent>): JSX.Element;
+    TElement extends HTMLElementTagName = 'nav',
+    TComponent extends InferredComponent<TComponent>,
+    TRef extends HTMLElementMap<TElement>
+>(props: TabBarProps<TElement, TComponent, TRef>): JSX.Element;
