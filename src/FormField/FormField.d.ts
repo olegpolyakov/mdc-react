@@ -1,17 +1,15 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, RefForwardingProps} from '../types';
+import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
 
-export type FormField = {
-    label: string;
+type Props = {
+    label?: string;
     alignEnd?: boolean;
     nowrap?: boolean;
     spaceBetween?: boolean;
-
-    className: string;
-    // TODO: remove from types component prop
+    className?: string;
 };
 
-export default function <
-    TName extends HTMLElementTagName = 'span',
-    TRef extends HTMLElementMap<TName>,
-    TComponent extends InferredComponent<TComponent>
->(props: FormField & RefForwardingProps<TName, TRef, TComponent>): JSX.Element;
+export type FormFieldProps<E, R> = PropsWithElement<E, R> & Props;
+
+export default function <TElement extends HTMLElementTagName = 'span', TRef extends HTMLElementMap<TElement>>(
+    props: FormFieldProps<TElement, TRef>
+): JSX.Element;
