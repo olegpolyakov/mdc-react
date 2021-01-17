@@ -1,4 +1,4 @@
-import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
+import { HTMLElementTagName, PropsWithElement } from '../types';
 import React from 'react';
 
 type Props = {
@@ -15,8 +15,8 @@ type Props = {
     scope?: 'col' | 'row' | 'colgroup' | 'rowgroup';
 };
 
-export type DataTableHeaderCellProps<E, R> = PropsWithElement<T, R> & Props;
+export type DataTableHeaderCellProps<E = any> = PropsWithElement<E> & Props;
 
-export default function <TElement extends HTMLElementTagName = 'th', TRef extends HTMLElementMap<TElement>>(
-    props: DataTableHeaderCellProps<TElement, TRef>
+export default function <TElement extends HTMLElementTagName = 'th'>(
+    props: DataTableHeaderCellProps<TElement>
 ): JSX.Element;
