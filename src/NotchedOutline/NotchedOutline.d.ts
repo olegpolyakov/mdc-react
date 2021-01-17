@@ -1,10 +1,9 @@
-import React, {PropsWithChildren} from 'react';
+import React from 'react';
 
-type NotchedOutlineProps = PropsWithChildren<{
+type NotchedOutlineProps = {
     notched?: boolean;
     className?: string;
-    ref: React.ForwardedRef<HTMLSpanElement>;
-}> &
-    React.HTMLProps<HTMLSpanElement>;
+    ref?: React.ForwardedRef<HTMLSpanElement>;
+} & React.HTMLProps<HTMLSpanElement>;
 
 export default function (props: NotchedOutlineProps): JSX.Element;
