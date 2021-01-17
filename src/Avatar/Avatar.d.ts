@@ -1,5 +1,5 @@
 import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
-import React, {PropsWithChildren} from 'react';
+import React from 'react';
 
 export type Props = {
     large?: boolean;
@@ -11,10 +11,10 @@ export type Props = {
     alt?: string;
 };
 
-export type AvatarProps<E, R, C> = PropsWithElementAndComponent<E, R, C> & PropsWithChildren<Props>;
+export type AvatarProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
 
 export default function <
     TElement extends HTMLElementTagName = 'span',
-    TRef extends HTMLElementMap<TElement>,
-    TComponent extends InferredComponent<TComponent>
->(props: AvatarProps<TElement, TRef, TComponent>): JSX.Element;
+    TComponent extends InferredComponent<TComponent>,
+    TRef extends HTMLElementMap<TElement>
+>(props: AvatarProps<TElement, TComponent, TRef>): JSX.Element;
