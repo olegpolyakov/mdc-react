@@ -1,8 +1,16 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, RefForwardingProps} from '../types';
+import {
+    HTMLElementMap,
+    HTMLElementTagName,
+    InferredComponent,
+    PropsWithElementAndComponent,
+    RefForwardingProps
+} from '../types';
+import {PropsWithChildren} from 'react';
+import {Props} from './Chip';
 
-export type ChipSetProps = {
+type Props = {
     // chips???
-    value: string | number;
+    value?: string | number;
     input?: boolean;
     choice?: boolean;
     filter?: boolean;
@@ -10,8 +18,10 @@ export type ChipSetProps = {
     onChange?: () => void;
 };
 
+export type ChipSetProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & PropsWithChildren<Props>;
+
 export default function <
-    TName extends HTMLElementTagName = 'div',
-    TRef extends HTMLElementMap<TName>,
-    TComponent extends InferredComponent<TComponent>
->(props: ChipSetProps & RefForwardingProps<TName, TRef, TComponent>): JSX.Element;
+    TElement extends HTMLElementTagName = 'div',
+    TComponent extends InferredComponent<TComponent>,
+    TRef extends HTMLElementMap<TElement>
+>(props: ChipSetProps<TElement, TComponent, TRef>): JSX.Element;
