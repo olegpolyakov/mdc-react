@@ -1,10 +1,8 @@
 import React from 'react';
 
-type CircularProgressSize = 'large' | 'medium' | 'small';
-
 export type CircularProgressProps = {
     value?: number;
-    size: CircularProgressSize;
+    size?: 'large' | 'medium' | 'small';
     indeterminate?: boolean;
     closed?: boolean;
     colorful?: boolean;
