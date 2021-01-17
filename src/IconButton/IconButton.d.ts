@@ -1,12 +1,15 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, RefForwardingProps} from '../types';
+import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
+import React from 'react';
 
-type IconButtonProps = {
-    icon?: React.ReactElement;
+type Props = {
+    icon?: React.ReactNode;
     className?: string;
 };
 
+export type IconButtonProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+
 export default function <
-    TName extends HTMLElementTagName = 'span',
-    TRef extends HTMLElementMap<TName>,
-    TComponent extends InferredComponent<TComponent>
->(props: IconButtonProps & RefForwardingProps<TName, TRef, TComponent>): JSX.Element;
+    TElement extends HTMLElementTagName = 'button',
+    TComponent extends InferredComponent<TComponent>,
+    TRef extends HTMLElementMap<TElement>
+>(props: IconButtonProps<TElement, TComponent, TRef>): JSX.Element;
