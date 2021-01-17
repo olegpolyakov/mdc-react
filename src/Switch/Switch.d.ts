@@ -5,9 +5,8 @@ type SwitchProps = {
     disabled?: boolean;
     // Todo: Specify arguments
     onChange?: () => void;
-
     className?: string;
-    ref: React.ForwardedRef<HTMLDivElement>;
+    ref?: React.ForwardedRef<HTMLDivElement>;
 } & React.HTMLProps<HTMLDivElement>;
 
 export default function (props: SwitchProps): JSX.Element;
