@@ -1,1 +1,1 @@
-export {default} from './Elevation';
+export { default } from './Elevation';
