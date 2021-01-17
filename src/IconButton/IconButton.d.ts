@@ -1,4 +1,4 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
+import { HTMLElementTagName, InferredComponent, PropsWithElementAndComponent } from '../types';
 import React from 'react';
 
 type Props = {
@@ -6,10 +6,9 @@ type Props = {
     className?: string;
 };
 
-export type IconButtonProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+export type IconButtonProps<E = any, C = any> = PropsWithElementAndComponent<E, C> & Props;
 
 export default function <
     TElement extends HTMLElementTagName = 'button',
-    TComponent extends InferredComponent<TComponent>,
-    TRef extends HTMLElementMap<TElement>
->(props: IconButtonProps<TElement, TComponent, TRef>): JSX.Element;
+    TComponent extends InferredComponent<TComponent>
+>(props: IconButtonProps<TElement, TComponent>): JSX.Element;
