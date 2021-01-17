@@ -2,9 +2,13 @@ import React, {ForwardRefExoticComponent, ComponentType, HTMLProps, ElementRef, 
 
 export type InferredComponent<C> = ComponentType<ComponentProps<C>> | void;
 
-export type ElementORNothing<C, TElement> = C extends ComponentType<any> ? undefined : TElement;
+export type ElementOrNothing<C, TElement> = C extends ComponentType<any> ? undefined : TElement;
 
 export type HTMLElementTagName = keyof JSX.IntrinsicElements;
+
+export type HTMLElementMap<E extends HTMLElementTagName> = ElementRef<E> extends HTMLElement ? ElementRef<E> : never;
+
+export type RestProps<C, TRef> = C extends ComponentType<infer P> ? P : TRef extends HTMLElement ? HTMLProps<TRef> : {};
 
 export type RefAttributes<C, TRef> = {
     ref?: React.ForwardedRef<
@@ -12,20 +16,16 @@ export type RefAttributes<C, TRef> = {
     >;
 };
 
-export type RestProps<C, TRef> = C extends ComponentType<infer P> ? P : TRef extends HTMLElement ? HTMLProps<TRef> : {};
-
-export type HTMLElementMap<E extends HTMLElementTagName> = ElementRef<E> extends HTMLElement ? ElementRef<E> : never;
-
 export type RefForwardingProps<
     TElement extends HTMLElementTagName,
-    TRef extends HTMLElementMap<TElement>,
-    C extends InferredComponent<C> = void
+    TComponent extends InferredComponent<TComponent> = void,
+    TRef extends HTMLElementMap<TElement>
 > = {
-    element?: ElementORNothing<C, TElement>;
-    component?: C;
-} & RefAttributes<C, TRef> &
-    RestProps<C, TRef>;
+    element?: ElementOrNothing<TComponent, TElement>;
+    component?: TComponent;
+} & RefAttributes<TComponent, TRef> &
+    RestProps<TComponent, TRef>;
 
-export type PropsWithElementAndComponent<E, R, C> = RefForwardingProps<E, R, C>;
+export type PropsWithElementAndComponent<E, C, R> = RefForwardingProps<E, C, R>;
 
 export type PropsWithElement<E, R> = Omit<RefForwardingProps<E, R>, 'component'>;
