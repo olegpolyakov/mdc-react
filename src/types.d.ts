@@ -56,8 +56,8 @@ export type RefAttributes<C, TRef> = {
  */
 export type PropsWithElementAndComponent<
     TElement extends HTMLElementTagName,
-    TRef extends HTMLElementMap<TElement>,
-    TComponent extends InferredComponent<TComponent> = void
+    TComponent extends InferredComponent<TComponent> = void,
+    TRef extends HTMLElementMap<TElement>
 > = {
     element?: ElementOrNothing<TComponent, TElement>;
     component?: TComponent;
