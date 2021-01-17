@@ -12,7 +12,7 @@ type SliderProps = {
     // TODO: Specify arguments
     onChange?: () => void;
     className?: string;
-    ref: React.ForwardedRef<HTMLDivElement>;
+    ref?: React.ForwardedRef<HTMLDivElement>;
 } & React.HTMLProps<HTMLDivElement>;
 
 export default function (props: SliderProps): JSX.Element;
