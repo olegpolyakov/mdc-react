@@ -1,5 +1,5 @@
 import React from 'react';
-import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
+import { HTMLElementTagName, PropsWithElement } from '../types';
 
 type Props = {
     title?: React.ReactNode;
@@ -12,8 +12,6 @@ type Props = {
     className?: string;
 };
 
-export type DialogProps<T, R> = PropsWithElement<T, R> & Props;
+export type DialogProps<E = any> = PropsWithElement<E> & Props;
 
-export default function <TElement extends HTMLElementTagName = 'div', TRef extends HTMLElementMap<TElement>>(
-    props: DialogProps<TElement, TRef>
-): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'div'>(props: DialogProps<TElement>): JSX.Element;
