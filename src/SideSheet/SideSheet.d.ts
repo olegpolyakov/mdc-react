@@ -1,5 +1,5 @@
 import React from 'react';
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
+import { HTMLElementTagName, InferredComponent, PropsWithElementAndComponent } from '../types';
 
 type Props = {
     title?: string;
@@ -14,10 +14,9 @@ type Props = {
     className?: string;
 };
 
-export type SideSheetProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+export type SideSheetProps<E = any, C = any> = PropsWithElementAndComponent<E, C> & Props;
 
 export default function <
     TElement extends HTMLElementTagName = 'aside',
-    TComponent extends InferredComponent<TComponent>,
-    TRef extends HTMLElementMap<TElement>
->(props: SideSheetProps<TElement, TComponent, TRef>): JSX.Element;
+    TComponent extends InferredComponent<TComponent>
+>(props: SideSheetProps<TElement, TComponent>): JSX.Element;
