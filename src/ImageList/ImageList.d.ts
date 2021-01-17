@@ -1,4 +1,4 @@
-import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
+import { HTMLElementTagName, PropsWithElement } from '../types';
 
 type Props = {
     masonry: boolean;
@@ -6,8 +6,6 @@ type Props = {
     withTextProtection: boolean;
 };
 
-export type ImageListProps<E, R> = PropsWithElement<E, R> & Props;
+export type ImageListProps<E = any> = PropsWithElement<E> & Props;
 
-export default function <TElement extends HTMLElementTagName = 'ul', TRef extends HTMLElementMap<TElement>>(
-    props: ImageListProps<TElement, TRef>
-): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'ul'>(props: ImageListProps<TElement>): JSX.Element;

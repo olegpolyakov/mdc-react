@@ -1,4 +1,4 @@
-import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
+import { HTMLElementTagName, PropsWithElement } from '../types';
 
 type Props = {
     src?: string;
@@ -6,8 +6,6 @@ type Props = {
     className?: string;
 };
 
-export type ImageListItemProps<E, R> = PropsWithElement<E, R> & Props;
+export type ImageListItemProps<E = any> = PropsWithElement<E> & Props;
 
-export default function <TElement extends HTMLElementTagName = 'li', TRef extends HTMLElementMap<TElement>>(
-    props: ImageListItemProps<TElement, TRef>
-): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'li'>(props: ImageListItemProps<TElement>): JSX.Element;
