@@ -1,5 +1,5 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
-import {Props} from './Chip';
+import { HTMLElementTagName, InferredComponent, PropsWithElementAndComponent } from '../types';
+import { Props } from './Chip';
 
 type Props = {
     // chips???
@@ -11,10 +11,8 @@ type Props = {
     onChange?: () => void;
 };
 
-export type ChipSetProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+export type ChipSetProps<E = any, C = any> = PropsWithElementAndComponent<E, C> & Props;
 
-export default function <
-    TElement extends HTMLElementTagName = 'div',
-    TComponent extends InferredComponent<TComponent>,
-    TRef extends HTMLElementMap<TElement>
->(props: ChipSetProps<TElement, TComponent, TRef>): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'div', TComponent extends InferredComponent<TComponent>>(
+    props: ChipSetProps<TElement, TComponent>
+): JSX.Element;
