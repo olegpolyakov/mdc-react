@@ -1,11 +1,4 @@
-import {
-    HTMLElementMap,
-    HTMLElementTagName,
-    InferredComponent,
-    PropsWithElementAndComponent,
-    RefForwardingProps
-} from '../types';
-import {PropsWithChildren} from 'react';
+import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
 import {Props} from './Chip';
 
 type Props = {
@@ -18,7 +11,7 @@ type Props = {
     onChange?: () => void;
 };
 
-export type ChipSetProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & PropsWithChildren<Props>;
+export type ChipSetProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
 
 export default function <
     TElement extends HTMLElementTagName = 'div',

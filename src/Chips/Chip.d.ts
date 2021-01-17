@@ -1,5 +1,5 @@
 import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
-import React, {PropsWithChildren} from 'react';
+import React from 'react';
 
 type Props = {
     value: string | number;
@@ -11,7 +11,7 @@ type Props = {
     onClick?: () => void;
 };
 
-export type ChipProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & PropsWithChildren<Props>;
+export type ChipProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
 
 export default function <
     TElement extends HTMLElementTagName = 'div',
