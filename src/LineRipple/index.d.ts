@@ -1,1 +1,1 @@
-export {default} from './LineRipple';
+export { default } from './LineRipple';
