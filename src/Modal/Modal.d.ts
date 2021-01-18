@@ -1,5 +1,5 @@
 import React from 'react';
-import {HTMLElementTagName} from '../types';
+import { HTMLElementTagName } from '../types';
 
 type ModalProps = {
     fixed?: boolean;
