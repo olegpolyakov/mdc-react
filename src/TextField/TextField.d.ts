@@ -1,5 +1,5 @@
 import React from 'react';
-import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
+import { HTMLElementTagName, PropsWithElement } from '../types';
 
 type Props = {
     value?: any;
@@ -23,8 +23,6 @@ type Props = {
     onChange: () => void;
 };
 
-export type TextFieldProps<E, R> = PropsWithElement<E, R> & Props;
+export type TextFieldProps<E = any> = PropsWithElement<E> & Props;
 
-export default function <TElement extends HTMLElementTagName = 'th', TRef extends HTMLElementMap<TElement>>(
-    props: TextFieldProps<TElement, TRef>
-): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'th'>(props: TextFieldProps<TElement>): JSX.Element;
