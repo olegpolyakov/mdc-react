@@ -1,1 +1,1 @@
-export {default} from './TabScroller';
+export { default } from './TabScroller';
