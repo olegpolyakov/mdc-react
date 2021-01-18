@@ -1,5 +1,5 @@
 import React from 'react';
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
+import { HTMLElementTagName, InferredComponent, PropsWithElementAndComponent } from '../types';
 
 type Props = {
     value?: string | number;
@@ -18,10 +18,9 @@ type Props = {
 };
 
 // useImperativeHandle(ref, () => rootRef.current);
-export type TabProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+export type TabProps<E = any, C = any> = PropsWithElementAndComponent<E, C> & Props;
 
 export default function <
     TElement extends HTMLElementTagName = 'button',
-    TComponent extends InferredComponent<TComponent>,
-    TRef extends HTMLElementMap<TElement>
->(props: TabProps<TElement, TComponent, TRef>): JSX.Element;
+    TComponent extends InferredComponent<TComponent>
+>(props: TabProps<TElement, TComponent>): JSX.Element;
