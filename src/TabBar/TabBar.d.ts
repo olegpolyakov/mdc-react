@@ -1,4 +1,4 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
+import { HTMLElementTagName, InferredComponent, PropsWithElementAndComponent } from '../types';
 
 type Props = {
     value?: string | number;
@@ -12,10 +12,8 @@ type Props = {
     className?: string;
 };
 
-export type TabBarProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+export type TabBarProps<E = any, C = any> = PropsWithElementAndComponent<E, C> & Props;
 
-export default function <
-    TElement extends HTMLElementTagName = 'nav',
-    TComponent extends InferredComponent<TComponent>,
-    TRef extends HTMLElementMap<TElement>
->(props: TabBarProps<TElement, TComponent, TRef>): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'nav', TComponent extends InferredComponent<TComponent>>(
+    props: TabBarProps<TElement, TComponent>
+): JSX.Element;
