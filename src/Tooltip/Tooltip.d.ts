@@ -1,5 +1,5 @@
 import React from 'react';
-import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
+import { HTMLElementTagName, PropsWithElement } from '../types';
 
 type Props = {
     label?: React.ReactNode;
@@ -9,8 +9,6 @@ type Props = {
 };
 
 // useImperativeHandle
-export type TooltipProps<E, R> = PropsWithElement<E, R> & Props;
+export type TooltipProps<E = any> = PropsWithElement<E> & Props;
 
-export default function <TElement extends HTMLElementTagName = 'span', TRef extends HTMLElementMap<TElement>>(
-    props: TooltipProps<TElement, TRef>
-): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'span'>(props: TooltipProps<TElement>): JSX.Element;
