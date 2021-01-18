@@ -1,1 +1,1 @@
-export {default} from './MenuSurface';
+export { default } from './MenuSurface';

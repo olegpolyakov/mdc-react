@@ -15,7 +15,7 @@ export type MenuSurfaceProps = {
     onClose?: () => void;
     onKeyDown: () => void;
     className?: string;
-    // Note: ref is forwarded as instance of HTMLDIvElement without MutableRefObject wrapper
+    // Note: ref is forwarded as instance
     // Use without .current field
     ref?: HTMLDivElement;
 } & React.HTMLProps<HTMLDivElement>;
