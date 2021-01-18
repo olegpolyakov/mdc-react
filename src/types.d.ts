@@ -1,7 +1,7 @@
 import React, { ForwardRefExoticComponent, ComponentType, DetailedHTMLProps, ElementRef, ComponentProps } from 'react';
 
 /**
- * Give component type with props
+ * Gives component type with props
  */
 export type InferredComponent<C> = ComponentType<ComponentProps<C>> | void;
 
@@ -34,34 +34,40 @@ export type JSXElementMap<E extends HTMLElementTagName> = {
  * RestProps returns type of passed component's props or JSX element's props or nothing
  * This is needed for passing props with spread operator like {...props}
  */
-// prettier-ignore
-export type RestProps<C, E> = C extends ComponentType<infer P> ? P : E extends HTMLElementTagName ? JSXElementMap<E> : {};
+export type RestProps<C, E> = C extends ComponentType<infer CProps>
+    ? CProps
+    : E extends HTMLElementTagName
+    ? JSXElementMap<E>
+    : { [k: keyof any]: never };
 
 /**
  * RefAttributes gives type of ref prop
  * Type will take ref from passed ForwardRefExoticComponent
  * This type makes impossible passing any ref when component which is not a ForwardRefExoticComponent
  */
-export type RefAttributes<C, TRef> = {
+export type RefAttributes<C, E> = {
     ref?: React.ForwardedRef<
-        C extends ForwardRefExoticComponent<any> ? ElementRef<C> : C extends ComponentType<any> ? null : TRef
+        C extends ForwardRefExoticComponent<any>
+            ? ElementRef<C>
+            : C extends ComponentType<any>
+            ? null
+            : HTMLElementMap<E>
     >;
 };
 
 /**
  * {
  * element: keyof JSX.IntrinsicElements;
- * component: ForwardRefExoticComponent<any>>
+ * component: React.ComponentType<any>
  * }
  */
 export type PropsWithElementAndComponent<
     TElement extends HTMLElementTagName,
-    TComponent extends InferredComponent<TComponent> = void,
-    TRef extends HTMLElementMap<TElement>
+    TComponent extends InferredComponent<TComponent> = void
 > = {
     element?: ElementOrNothing<TComponent, TElement>;
     component?: TComponent;
-} & RefAttributes<TComponent, TRef> &
+} & RefAttributes<TComponent, TElement> &
     RestProps<TComponent, TElement>;
 
 /**
@@ -69,6 +75,6 @@ export type PropsWithElementAndComponent<
  * element: keyof JSX.IntrinsicElements;
  * }
  */
-export type PropsWithElement<TElement extends HTMLElementTagName, TRef extends HTMLElementMap<TElement>> = {
+export type PropsWithElement<TElement extends HTMLElementTagName> = {
     element?: TElement;
-} & { ref?: React.ForwardedRef<TRef> } & JSXElementMap<TElement>;
+} & { ref?: React.ForwardedRef<HTMLElementMap<TElement>> } & JSXElementMap<TElement>;
