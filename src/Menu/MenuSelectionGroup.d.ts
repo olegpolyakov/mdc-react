@@ -1,7 +1,7 @@
-import React, {ElementRef} from 'react';
-import {HTMLElementTagName} from '../types';
+import React, { ElementRef } from 'react';
+import { HTMLElementTagName } from '../types';
 
-type MenuSectionGroupProps<E> = {
+type MenuSectionGroupProps<E = any> = {
     element?: E;
     ref?: React.ForwardedRef<HTMLLIElement>;
 } & React.HTMLProps<ElementRef<E>>;

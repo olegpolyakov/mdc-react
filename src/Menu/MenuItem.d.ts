@@ -1,11 +1,9 @@
-import {HTMLElementMap, HTMLElementTagName} from '../types';
-import {ListItemProps} from '../List/ListItem';
+import { HTMLElementTagName } from '../types';
+import { ListItemProps } from '../List/ListItem';
 
-export type MenuItemProps<E = any, R = any> = {
+export type MenuItemProps<E = any> = {
     selected?: boolean;
     disabled?: boolean;
-} & ListItemProps<E, R>;
+} & ListItemProps<E>;
 
-export default function <TElement extends HTMLElementTagName = 'li', TRef extends HTMLElementMap<TElement>>(
-    props: MenuItemProps<TElement, TRef>
-): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'li'>(props: MenuItemProps<TElement>): JSX.Element;

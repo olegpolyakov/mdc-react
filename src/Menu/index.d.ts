@@ -7,4 +7,4 @@ Menu.Item = MenuItem;
 Menu.SelectionGroup = MenuSelectionGroup;
 Menu.SelectionGroupIcon = MenuSelectionGroupIcon;
 
-export {Menu as default, MenuItem, MenuSelectionGroup, MenuSelectionGroupIcon};
+export { Menu as default, MenuItem, MenuSelectionGroup, MenuSelectionGroupIcon };

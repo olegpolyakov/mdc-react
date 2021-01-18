@@ -1,16 +1,13 @@
-import {MenuSurfaceProps} from '../MenuSurface/MenuSurface';
-import {ListProps} from '../List/List';
-import {HTMLElementMap, HTMLElementTagName} from '../types';
+import { HTMLElementTagName } from '../types';
+import { MenuSurfaceProps } from '../MenuSurface/MenuSurface';
+import { ListProps } from '../List/List';
 
-export type MenuProps<E = any, R = any, LE = any, LR = any> = {
-    listProps?: ListProps<LE, LR>;
+export type MenuProps<E = any, LE = any> = {
+    listProps?: ListProps<LE>;
     className?: string;
     open?: boolean;
-} & MenuSurfaceProps<E, R>;
+} & MenuSurfaceProps<E>;
 
-export default function <
-    TElement extends HTMLElementTagName = 'div',
-    TRef extends HTMLElementMap<TElement>,
-    TListElement extends HTMLElementTagName = 'ul',
-    TListRef extends HTMLElementMap<TListElement>
->(props: MenuProps<TElement, TRef, TListElement, TListRef>): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'div', TListElement extends HTMLElementTagName = 'ul'>(
+    props: MenuProps<TElement, TRef, TListElement, TListRef>
+): JSX.Element;

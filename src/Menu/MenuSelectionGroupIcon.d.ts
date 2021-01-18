@@ -1,1 +1,1 @@
-export {default, ListItemGraphicProps as MenuSelectionGroupIcon} from '../List/ListItemGraphic';
+export { default, ListItemGraphicProps as MenuSelectionGroupIcon } from '../List/ListItemGraphic';
