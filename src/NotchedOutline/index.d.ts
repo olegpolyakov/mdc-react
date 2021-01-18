@@ -1,1 +1,1 @@
-export {default} from './NotchedOutline';
+export { default } from './NotchedOutline';
