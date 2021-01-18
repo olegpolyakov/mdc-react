@@ -1,1 +1,1 @@
-export {default} from './TabIndicator';
+export { default } from './TabIndicator';
