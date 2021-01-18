@@ -1,5 +1,5 @@
 import React from 'react';
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
+import { HTMLElementTagName, InferredComponent, PropsWithElementAndComponent } from '../types';
 
 type Props = {
     label?: string;
@@ -9,10 +9,9 @@ type Props = {
     className?: string;
 };
 
-export type SegmentedButtonSegmentProps<E = any, C = any, R = any> = PropsWithElementAndComponent<E, C, R> & Props;
+export type SegmentedButtonSegmentProps<E = any, C = any> = PropsWithElementAndComponent<E, C> & Props;
 
 export default function <
     TElement extends HTMLElementTagName = 'button',
-    TComponent extends InferredComponent<TComponent>,
-    TRef extends HTMLElementMap<TElement>
->(props: SegmentedButtonSegmentProps<TElement, TComponent, TRef>): JSX.Element;
+    TComponent extends InferredComponent<TComponent>
+>(props: SegmentedButtonSegmentProps<TElement, TComponent>): JSX.Element;

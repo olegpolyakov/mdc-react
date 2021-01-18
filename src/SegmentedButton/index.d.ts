@@ -5,4 +5,4 @@ import SegmentedButtonSegment from './SegmentedButtonSegment';
 
 SegmentedButton.Segment = SegmentedButtonSegment;
 
-export {SegmentedButton as default, SegmentedButtonSegment};
+export { SegmentedButton as default, SegmentedButtonSegment };
