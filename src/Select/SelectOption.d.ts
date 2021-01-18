@@ -1,12 +1,10 @@
-import {HTMLElementTagName, HTMLElementMap} from '../types';
-import {MenuItemProps} from '../Menu/MenuItem';
+import { HTMLElementTagName } from '../types';
+import { MenuItemProps } from '../Menu/MenuItem';
 
-export type SelectOptionProps<E = any, R = any> = {
+export type SelectOptionProps<E = any> = {
     selected?: boolean;
     checkbox?: boolean;
     onClick?: () => void;
-} & MenuItemProps<E, R>;
+} & MenuItemProps<E>;
 
-export default function <TElement extends HTMLElementTagName = 'li', TRef extends HTMLElementMap<TElement>>(
-    props: SelectOptionProps<TElement, TRef>
-): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'li'>(props: SelectOptionProps<TElement>): JSX.Element;

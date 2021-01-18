@@ -1,4 +1,4 @@
-import {HTMLElementTagName} from '../types';
+import { HTMLElementTagName } from '../types';
 
 export type SelectHelperTextProps<TElement extends HTMLElementTagName = any> = {
     validation?: boolean;

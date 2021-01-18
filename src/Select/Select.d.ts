@@ -1,6 +1,6 @@
 import React from 'react';
-import {SelectHelperTextProps} from './HelperText';
-import {MenuProps} from '../Menu/Menu';
+import { SelectHelperTextProps } from './HelperText';
+import { MenuProps } from '../Menu/Menu';
 
 export type SelectProps = {
     name?: string;
