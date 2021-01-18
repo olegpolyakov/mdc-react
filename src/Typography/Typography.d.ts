@@ -1,4 +1,4 @@
-import {HTMLElementMap, HTMLElementTagName, InferredComponent, PropsWithElementAndComponent} from '../types';
+import { HTMLElementTagName, InferredComponent, PropsWithElementAndComponent } from '../types';
 
 export type TypographyType = {
     headline1: 'h1';
@@ -25,10 +25,9 @@ type Props = {
     className?: string;
 };
 
-export type TypographyProps<E, C, R> = PropsWithElementAndComponent<E, C, R> & Props;
+export type TypographyProps<E = any, C = any> = PropsWithElementAndComponent<E, C> & Props;
 
 export default function <
     TElement extends HTMLElementTagName = TypographyType['body1'],
-    TRef extends HTMLElementMap<TElement>,
     TComponent extends InferredComponent<TComponent>
->(props: TypographyProps<TElement, TRef, TComponent>): JSX.Element;
+>(props: TypographyProps<TElement, TComponent>): JSX.Element;
