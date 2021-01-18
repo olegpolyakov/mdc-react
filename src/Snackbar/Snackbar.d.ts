@@ -1,5 +1,5 @@
 import React from 'react';
-import {HTMLElementMap, HTMLElementTagName, PropsWithElement} from '../types';
+import { HTMLElementTagName, PropsWithElement } from '../types';
 
 type Props = {
     label?: string;
@@ -15,8 +15,6 @@ type Props = {
     className?: string;
 };
 
-type SnackbarProps<E, R> = PropsWithElement<E, R> & Props;
+export type SnackbarProps<E = any> = PropsWithElement<E> & Props;
 
-export default function <TElement extends HTMLElementTagName = 'div', TRef extends HTMLElementMap<TElement>>(
-    props: SnackbarProps<TElement, TRef>
-): JSX.Element;
+export default function <TElement extends HTMLElementTagName = 'div'>(props: SnackbarProps<TElement>): JSX.Element;
