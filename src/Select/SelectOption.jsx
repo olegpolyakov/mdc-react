@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Checkbox from '../Checkbox/Checkbox';
-import ListItem from '../List/ListItem';
 import MenuItem from '../Menu/MenuItem';
 
 export default React.forwardRef(SelectOption);

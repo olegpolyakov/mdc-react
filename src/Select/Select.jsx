@@ -79,7 +79,7 @@ function Select({
 
     const handleOptionInteraction = useCallback(event => {
         if (event.type === 'keydown' && event.key !== ' ' && event.key !== 'Enter') return;
-        ;
+
         const option = event.currentTarget.dataset;
 
         if (option.disabled) return;
@@ -223,6 +223,7 @@ function Select({
                         options.map(option =>
                             <SelectOption
                                 {...option}
+                                key={option.key}
                                 value={undefined}
                                 data-value={option.value}
                                 selected={multiple ? value.includes(option.value) : option.value === value}
