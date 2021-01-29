@@ -33,7 +33,7 @@ function TopAppBar({
     const [scrolled, setScrolled] = useState(false);
     const [hidden, setHidden] = useState(false);
 
-    useImperativeHandle(ref, () => rootRef);
+    useImperativeHandle(ref, () => rootRef.current);
 
     useMounted(() => {
         function handleScroll(event) {
