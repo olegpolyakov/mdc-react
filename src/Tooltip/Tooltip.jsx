@@ -36,7 +36,7 @@ function Tooltip({
     }, [active]);
 
     const handleMouseEnter = useCallback(event => {
-        targetRef.current = event.target;
+        targetRef.current = event.currentTarget;
         setActive(true);
     }, []);
 
