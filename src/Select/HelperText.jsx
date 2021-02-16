@@ -14,7 +14,6 @@ export default function HelperText({
     persistent = false,
 
     element: Element = 'p',
-    children,
     ...props
 }) {
     const classNames = classnames('mdc-select-helper-text', {
