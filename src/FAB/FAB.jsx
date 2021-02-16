@@ -10,7 +10,6 @@ function FAB({
     trailingIcon,
     label,
     mini = false,
-    extended = false,
     exited = false,
 
     element = 'button',
@@ -54,6 +53,5 @@ FAB.propTypes = {
     icon: PropTypes.element,
     label: PropTypes.string,
     mini: PropTypes.bool,
-    extended: PropTypes.bool,
     exited: PropTypes.bool
 };
