@@ -36,20 +36,20 @@ function TopAppBar({
     useImperativeHandle(ref, () => rootRef.current);
 
     useMounted(() => {
-        function handleScroll(event) {
+        function handleScroll() {
             const scrollValue = window.pageYOffset;
 
             if (fixed) {
                 setScrolled(scrollValue > 0);
             } else if (sticky) {
                 const currentScrollPosition = Math.max(scrollValue, 0);
-                const laslastScrollPosition = lastScrollPositionRef.current || 0;
-                const diff = currentScrollPosition - laslastScrollPosition;
-                const shoudlHide = diff > 0;
+                const lastScrollPosition = lastScrollPositionRef.current || 0;
+                const diff = currentScrollPosition - lastScrollPosition;
+                const shouldHide = diff > 0;
 
                 lastScrollPositionRef.current = currentScrollPosition;
 
-                setHidden(shoudlHide);
+                setHidden(shouldHide);
             }
         }
 
