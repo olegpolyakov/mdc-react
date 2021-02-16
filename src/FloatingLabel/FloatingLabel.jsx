@@ -23,5 +23,6 @@ function FloatingLabel({
 FloatingLabel.displayName = 'MDCFloatingLabel';
 
 FloatingLabel.propTypes = {
-    float: PropTypes.bool
+    float: PropTypes.bool,
+    required: PropTypes.bool
 };
