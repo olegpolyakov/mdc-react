@@ -28,7 +28,7 @@ function SegmentedButton({
             );
 
         onChange(newValue);
-    }, [value]);
+    }, [value, singleSelect, onChange]);
 
     const ariaProp = singleSelect ? 'aria-checked' : 'aria-pressed';
     const classNames = classnames('mdc-segmented-button', {

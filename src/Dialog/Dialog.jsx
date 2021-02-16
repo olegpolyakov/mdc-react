@@ -81,7 +81,7 @@ function Dialog({
         if (persistent) return;
 
         onClose();
-    }, [persistent]);
+    }, [persistent, onClose]);
 
     return (
         <Layer

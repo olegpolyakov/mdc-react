@@ -17,7 +17,7 @@ function Radio({
 
     const handleChange = useCallback(event => {
         onChange(event, event.target.value, event.target);
-    }, []);
+    }, [onChange]);
 
     const classNames = classnames('mdc-radio', {
         'mdc-radio--disabled': disabled

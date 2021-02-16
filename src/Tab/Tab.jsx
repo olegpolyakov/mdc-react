@@ -30,7 +30,7 @@ function Tab({
 
     const handleClick = useCallback(() => {
         onClick(rootRef.current, value);
-    }, [value]);
+    }, [value, onClick]);
 
     const classNames = classnames('mdc-tab', {
         'mdc-tab--active': active,

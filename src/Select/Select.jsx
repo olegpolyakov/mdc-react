@@ -57,7 +57,7 @@ function Select({
                 setSelectedText(selectedOption.text || selectedOption.children);
             }
         }
-    }, [value, multiple]);
+    }, [value, options, multiple, children]);
 
     const handleAnchorClick = useCallback(event => {
         if (activated) {
@@ -102,7 +102,7 @@ function Select({
             setActivated(false);
             setFocused(false);
         }
-    }, [value, multiple]);
+    }, [value, name, multiple, onChange]);
 
     const handleMenuClose = useCallback(event => {
         if (event.type === 'click' && event.target === anchorRef.current) return;
@@ -111,7 +111,7 @@ function Select({
         setActivated(false);
         setFocused(false);
         setTouched(true);
-    }, [activated, multiple]);
+    }, [multiple]);
 
     const handleKeyDown = useCallback(event => {
         if (

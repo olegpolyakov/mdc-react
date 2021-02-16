@@ -47,7 +47,7 @@ function Snackbar({
         if (closeOnEscape && event.key === 'Escape' || event.keyCode === 27) {
             onClose();
         }
-    }, []);
+    }, [closeOnEscape, onClose]);
 
     const classNames = classnames('mdc-snackbar', {
         'mdc-snackbar--leading': leading,

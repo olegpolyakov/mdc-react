@@ -35,7 +35,7 @@ export default function TabBar({
         activeTabRef.current = element;
 
         onChange(value);
-    }, []);
+    }, [onChange]);
 
     const classNames = classnames('mdc-tab-bar', className);
 

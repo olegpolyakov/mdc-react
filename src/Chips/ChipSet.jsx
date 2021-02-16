@@ -32,7 +32,7 @@ function ChipSet({
             );
 
         onChange(newValue);
-    }, [value]);
+    }, [value, choice, onChange]);
 
     const handleFocus = useCallback(() => {
         inputRef.current.focus();
@@ -47,7 +47,7 @@ function ChipSet({
 
             onChange(value.concat(newValue));
         }
-    }, [value]);
+    }, [value, onChange]);
 
     const classNames = classnames('mdc-chip-set', {
         'mdc-chip-set--choice': choice,

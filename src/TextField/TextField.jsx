@@ -59,7 +59,7 @@ function TextField({
 
     const handleInputChange = useCallback(event => {
         onChange(event, inputRef.current.value);
-    }, []);
+    }, [onChange]);
 
     const Input = textarea ? 'textarea' : 'input';
 

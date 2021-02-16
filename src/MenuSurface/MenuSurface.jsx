@@ -21,7 +21,6 @@ function MenuSurface({
     onClose = Function.prototype,
     onKeyDown = Function.prototype,
 
-    element,
     className,
     ...props
 }, ref) {
@@ -98,7 +97,7 @@ function MenuSurface({
         }
 
         onKeyDown(event);
-    }, []);
+    }, [persistent, onKeyDown, onClose]);
 
     const classNames = classnames('mdc-menu-surface', {
         'mdc-menu-surface--fixed': fixed

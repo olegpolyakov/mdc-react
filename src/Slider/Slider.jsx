@@ -20,7 +20,6 @@ function Slider({
     className,
     ...props
 }, ref) {
-    const rootRef = useRef();
     const trackRef = useRef();
 
     const [active, setActive] = useState(false);
@@ -58,7 +57,7 @@ function Slider({
         }
 
         onChange(newValue);
-    }, [value, min, max, step]);
+    }, [value, min, max, step, onChange]);
 
     const handleMove = useCallback(event => {
         const trackClientRect = trackRef.current.getBoundingClientRect();
@@ -68,9 +67,9 @@ function Slider({
         const value = min + percent * (max - min);
 
         updateValue(value);
-    }, []);
+    }, [max, min, updateValue]);
 
-    const handleRootInteraction = useCallback(event => handleMove(event), []);
+    const handleRootInteraction = useCallback(event => handleMove(event), [handleMove]);
 
     const handleKeyDown = useCallback(event => {
         event.preventDefault();
@@ -82,7 +81,7 @@ function Slider({
 
         updateValue(newValue);
         setFocused(true);
-    }, [value]);
+    }, [value, max, min, step, updateValue]);
 
     const handleUp = useCallback(() => {
         setActive(false);
@@ -118,7 +117,7 @@ function Slider({
 
     return (
         <div
-            ref={rootRef}
+            ref={ref}
             className={classNames}
             onMouseDown={handleRootInteraction}
             onTouchStart={handleRootInteraction}

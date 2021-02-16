@@ -21,7 +21,7 @@ function Checkbox({
 
     const handleChange = useCallback(event => {
         onChange(event, event.target.checked, event.target);
-    }, []);
+    }, [onChange]);
 
     const classNames = classnames('mdc-checkbox', {
         'mdc-checkbox--disabled': disabled

@@ -25,7 +25,7 @@ function Menu({
                 React.Children.toArray(children).findIndex(i => i.props.selected)
             );
         }
-    }, [open]);
+    }, [open, children]);
 
     useUpdated(() => {
         if (open) {
