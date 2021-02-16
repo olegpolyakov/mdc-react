@@ -25,5 +25,5 @@ function TopAppBarSection({
 TopAppBarSection.displayName = 'MDCTopAppBarSection';
 
 TopAppBarSection.propTypes = {
-    align: PropTypes.string
+    align: PropTypes.oneOf(['start', 'center', 'end'])
 };
