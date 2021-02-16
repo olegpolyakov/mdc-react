@@ -5,7 +5,7 @@ import classnames from 'classnames';
 export default React.forwardRef(ImageListItem);
 
 function ImageListItem({
-    imageSrc,
+    src,
     label,
 
     element: Element = 'li',
@@ -17,7 +17,7 @@ function ImageListItem({
     return (
         <Element ref={ref} className={classNames} {...props}>
             <div className="mdc-image-list__image-aspect-container">
-                <img className="mdc-image-list__image" src={imageSrc} alt={label} />
+                <img className="mdc-image-list__image" src={src} alt={label} />
             </div>
 
             {label &&
