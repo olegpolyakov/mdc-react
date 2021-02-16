@@ -15,7 +15,7 @@ function Elevation({
     const classNames = classnames('mdc-elevation', {
         [`mdc-elevation--z${z}`]: z,
         'mdc-elevation-transition': transition
-    });
+    }, className);
 
     return (
         <Element ref={ref} className={classNames} {...props} />
