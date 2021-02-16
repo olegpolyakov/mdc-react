@@ -36,5 +36,7 @@ FormField.displayName = 'MDCFormField';
 
 FormField.propTypes = {
     label: PropTypes.string,
-    alignEnd: PropTypes.bool
+    alignEnd: PropTypes.bool,
+    nowrap: PropTypes.bool,
+    spaceBetween: PropTypes.bool
 };
