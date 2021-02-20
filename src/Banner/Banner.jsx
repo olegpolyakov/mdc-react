@@ -2,6 +2,9 @@ import React, { useRef, useCallback } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { cssClasses, numbers } from '@material/banner';
+
+import Icon from '../Icon';
 
 export default React.forwardRef(Banner);
 
@@ -24,9 +27,16 @@ function Banner({
 }, ref) {
     const contentRef = useRef();
 
+    // useMounted(() => {
+    //     if (open) {
+    //         const { height } = contentRef.current?.getBoundingClientRect();
+
+    //         console.log(height);
+    //     }
+    // });
+
     const handleEntering = useCallback(node => {
-        const { height } = node.firstChild.getBoundingClientRect();
-        node.style.height = `${height}px`;
+        node.style.height = `${contentRef.current.offsetHeight}px`;
     }, []);
 
     const handleExiting = useCallback(node => {
@@ -40,11 +50,11 @@ function Banner({
     }, className);
 
     const content = (
-        <div ref={contentRef} className="mdc-banner__content">
+        <div ref={contentRef} className="mdc-banner__content" role="status">
             <div className="mdc-banner__graphic-text-wrapper">
                 {icon &&
                     <div className="mdc-banner__graphic">
-                        {React.cloneElement(icon, {
+                        {React.cloneElement((React.isValidElement(icon) ? icon : React.createElement(Icon)), {
                             className: classnames('mdc-banner__icon', icon.props.className)
                         })}
                     </div>
@@ -78,25 +88,25 @@ function Banner({
     return (
         <CSSTransition
             in={open}
-            appear
+            appear={open}
             timeout={{
-                enter: 300,
-                exit: 250
+                enter: numbers.BANNER_ANIMATION_OPEN_TIME_MS,
+                exit: numbers.BANNER_ANIMATION_CLOSE_TIME_MS
             }}
             classNames={{
-                appear: 'mdc-banner--opening',
-                appearDone: 'mdc-banner--open',
-                enter: 'mdc-banner--opening',
-                enterActive: 'mdc-banner--open',
-                enterDone: 'mdc-banner--open',
-                exit: 'mdc-banner--closing'
+                appear: cssClasses.OPEN,
+                appearDone: cssClasses.OPEN,
+                enter: cssClasses.OPENING,
+                enterActive: cssClasses.OPEN,
+                enterDone: cssClasses.OPEN,
+                exit: cssClasses.CLOSING
             }}
             mountOnEnter
             unmountOnExit
             onEntering={handleEntering}
             onExiting={handleExiting}
         >
-            <Element ref={ref} className={classNames} {...props}>
+            <Element ref={ref} className={classNames} role="banner" {...props}>
                 {content}
             </Element>
         </CSSTransition>
@@ -106,7 +116,7 @@ function Banner({
 Banner.displayName = 'MDCBanner';
 
 Banner.propTypes = {
-    text: PropTypes.node,
+    text: PropTypes.node.isRequired,
     icon: PropTypes.element,
     action: PropTypes.element,
     primaryAction: PropTypes.element,
