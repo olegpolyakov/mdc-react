@@ -19,8 +19,6 @@ function TopAppBar({
     prominent = false,
     short = false,
     collapsed = false,
-    fixedAdjustSibling = false,
-    fixedAdjustSelector,
 
     element = 'header',
     component: Element = element,
@@ -55,24 +53,8 @@ function TopAppBar({
 
         window.addEventListener('scroll', handleScroll);
 
-        if (fixedAdjustSibling) {
-            rootRef.current.nextSibling.classList.add('mdc-top-app-bar--fixed-adjust');
-        }
-
-        if (fixedAdjustSelector) {
-            document.querySelector(fixedAdjustSelector)?.classList.add('mdc-top-app-bar--fixed-adjust');
-        }
-
         return () => {
             window.removeEventListener('scroll', handleScroll);
-
-            if (fixedAdjustSibling) {
-                rootRef.current.nextSibling.classList.remove('mdc-top-app-bar--fixed-adjust');
-            }
-
-            if (fixedAdjustSelector) {
-                document.querySelector(fixedAdjustSelector)?.classList.remove('mdc-top-app-bar--fixed-adjust');
-            }
         };
     });
 
