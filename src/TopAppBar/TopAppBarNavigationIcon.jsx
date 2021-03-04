@@ -6,7 +6,7 @@ import IconButton from '../IconButton/IconButton';
 export default React.forwardRef(TopAppBarNavigationIcon);
 
 function TopAppBarNavigationIcon({ className, ...props }, ref) {
-    const classNames = classnames('mdc-top-app-bar__action-item', className);
+    const classNames = classnames('mdc-top-app-bar__navigation-icon', className);
 
     return (
         <IconButton ref={ref} className={classNames} {...props} />
