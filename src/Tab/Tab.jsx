@@ -42,6 +42,7 @@ function Tab({
         <Element
             ref={rootRef}
             className={classNames}
+            data-value={value}
             role="tab"
             aria-selected={active ? 'true' : 'false'}
             tabIndex={active ? 0 : -1}
