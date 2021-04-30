@@ -8,6 +8,7 @@ import { getEventKey, getValueForEventKey, getPageX, getTrackStyle, getThumbStyl
 export default React.forwardRef(Slider);
 
 function Slider({
+    name,
     value = 0,
     min = 0,
     max = 100,
@@ -122,6 +123,15 @@ function Slider({
             onTouchStart={handleRootInteraction}
             {...props}
         >
+            {range ?
+                <>
+                    <input className="mdc-slider__input" type="hidden" name={`${name}Start`} value={value} min="0" max="100" step={step} disabled={disabled} />
+                    <input className="mdc-slider__input" type="hidden" name={`${name}End`} value={value} min="0" max="100" step={step} disabled={disabled} />
+                </>
+                :
+                <input className="mdc-slider__input" type="hidden" name={name} value={value} min="0" max="100" step={step} disabled={disabled} />
+            }
+
             <div ref={trackRef} className="mdc-slider__track">
                 <div className="mdc-slider__track--inactive" />
 
@@ -179,7 +189,7 @@ function Slider({
                     <div className="mdc-slider__thumb-knob" />
                 </div>
             }
-        </div>
+        </div >
     );
 }
 
