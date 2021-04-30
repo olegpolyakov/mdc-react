@@ -1,11 +1,13 @@
-import React, { useRef, useCallback } from 'react';
+import React, { farwardRef, useRef, useCallback, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { useMounted } from '../lifecycle-hooks';
+import { useMounted, useUpdated } from '../lifecycle-hooks';
 import TabScroller from '../TabScroller';
 
-export default function TabBar({
+export default farwardRef(TabBar);
+
+function TabBar({
     value,
     stacked = false,
     minWidth = false,
@@ -19,21 +21,25 @@ export default function TabBar({
     className,
     children,
     ...props
-}) {
+}, ref) {
     const rootRef = useRef();
     const activeTabRef = useRef();
+    const previousTabRef = useRef();
     const previousIndicatorClientRect = useRef();
+
+    useImperativeHandle(ref, () => rootRef.current);
 
     useMounted(() => {
         activeTabRef.current = rootRef.current.querySelector('.mdc-tab--active');
     });
 
+    useUpdated(() => {
+        previousIndicatorClientRect.current = previousTabRef.current.getBoundingClientRect();
+    }, [value]);
+
     const handleTabClick = useCallback((element, value) => {
-        const previousTab = activeTabRef.current;
-
-        previousIndicatorClientRect.current = previousTab.getBoundingClientRect();
+        previousTabRef.current = activeTabRef.current;
         activeTabRef.current = element;
-
         onChange(value);
     }, [onChange]);
 
@@ -46,23 +52,27 @@ export default function TabBar({
             role="tablist"
             {...props}
         >
-            <TabScroller
-                align={align}
-                activeTab={activeTabRef.current}
-            >
-                {React.Children.map(children, (tab, index) =>
-                    React.cloneElement(tab, {
-                        value: tab.props.value || index,
-                        active: (tab.props.value || index) === value,
-                        stacked: tab.props.stacked || stacked,
-                        minWidth: tab.props.minWidth || minWidth,
-                        fade,
-                        underline,
-                        previousIndicatorClientRect: previousIndicatorClientRect.current,
-                        onClick: handleTabClick
-                    })
-                )}
-            </TabScroller>
+            {value ?
+                <TabScroller
+                    align={align}
+                    activeTab={activeTabRef.current}
+                >
+                    {React.Children.map(children, (tab, index) =>
+                        React.cloneElement(tab, {
+                            value: tab.props.value || index,
+                            active: (tab.props.value || index) === value,
+                            stacked: tab.props.stacked || stacked,
+                            minWidth: tab.props.minWidth || minWidth,
+                            fade,
+                            underline,
+                            previousIndicatorClientRect: previousIndicatorClientRect.current,
+                            onClick: handleTabClick
+                        })
+                    )}
+                </TabScroller>
+                :
+                children
+            }
         </Element>
     );
 }
