@@ -26,6 +26,7 @@ function Select({
     required = false,
     onChange = Function.prototype,
     menuProps = {},
+    listProps = {},
     helperTextProps = {},
 
     className,
@@ -217,6 +218,7 @@ function Select({
                     belowAnchor
                     fullWidth
                     onClose={handleMenuClose}
+                    {...listProps}
                     {...menuProps}
                 >
                     {options ?
