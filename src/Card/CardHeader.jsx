@@ -9,7 +9,6 @@ function CardHeader({
     title,
     subtitle,
     actions,
-    large = false,
 
     element = 'div',
     component: Element = element,
@@ -69,6 +68,5 @@ CardHeader.propTypes = {
     actions: PropTypes.oneOfType([
         PropTypes.element,
         PropTypes.arrayOf(PropTypes.element)
-    ]),
-    large: PropTypes.bool
+    ])
 };
