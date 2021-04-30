@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import { useUpdated } from '../lifecycle-hooks';
+import { getEventKey, getValueForEventKey, getPageX, getTrackStyle, getThumbStyle } from './utils';
 
 export default React.forwardRef(Slider);
 
@@ -42,8 +43,6 @@ function Slider({
     }, [active]);
 
     const updateValue = useCallback(newValue => {
-        if (newValue === value) return;
-
         const valueSetToBoundary = newValue === min || newValue === max;
 
         if (step && !valueSetToBoundary) {
@@ -57,7 +56,7 @@ function Slider({
         }
 
         onChange(newValue);
-    }, [value, min, max, step, onChange]);
+    }, [min, max, step]);
 
     const handleMove = useCallback(event => {
         const trackClientRect = trackRef.current.getBoundingClientRect();
@@ -67,7 +66,7 @@ function Slider({
         const value = min + percent * (max - min);
 
         updateValue(value);
-    }, [max, min, updateValue]);
+    }, [max, min]);
 
     const handleRootInteraction = useCallback(event => handleMove(event), [handleMove]);
 
@@ -81,7 +80,7 @@ function Slider({
 
         updateValue(newValue);
         setFocused(true);
-    }, [value, max, min, step, updateValue]);
+    }, [value, max, min, step]);
 
     const handleUp = useCallback(() => {
         setActive(false);
@@ -195,90 +194,3 @@ Slider.propTypes = {
     disabled: PropTypes.bool,
     onChange: PropTypes.func
 };
-
-const EVENT_KEY = {
-    ARROW_DOWN: 'ArrowDown',
-    ARROW_LEFT: 'ArrowLeft',
-    ARROW_RIGHT: 'ArrowRight',
-    ARROW_UP: 'ArrowUp',
-    END: 'End',
-    HOME: 'Home',
-    PAGE_DOWN: 'PageDown',
-    PAGE_UP: 'PageUp',
-};
-
-function getEventKey(event) {
-    if (event.key === EVENT_KEY.ARROW_LEFT || event.keyCode === 37) {
-        return EVENT_KEY.ARROW_LEFT;
-    }
-    if (event.key === EVENT_KEY.ARROW_RIGHT || event.keyCode === 39) {
-        return EVENT_KEY.ARROW_RIGHT;
-    }
-    if (event.key === EVENT_KEY.ARROW_UP || event.keyCode === 38) {
-        return EVENT_KEY.ARROW_UP;
-    }
-    if (event.key === EVENT_KEY.ARROW_DOWN || event.keyCode === 40) {
-        return EVENT_KEY.ARROW_DOWN;
-    }
-    if (event.key === EVENT_KEY.HOME || event.keyCode === 36) {
-        return EVENT_KEY.HOME;
-    }
-    if (event.key === EVENT_KEY.END || event.keyCode === 35) {
-        return EVENT_KEY.END;
-    }
-    if (event.key === EVENT_KEY.PAGE_UP || event.keyCode === 33) {
-        return EVENT_KEY.PAGE_UP;
-    }
-    if (event.key === EVENT_KEY.PAGE_DOWN || event.keyCode === 34) {
-        return EVENT_KEY.PAGE_DOWN;
-    }
-
-    return '';
-}
-
-function getValueForEventKey(eventKey, value, min, max, step) {
-    const delta = step || (max - min) / 100;
-
-    switch (eventKey) {
-        case EVENT_KEY.ARROW_LEFT:
-        case EVENT_KEY.ARROW_DOWN:
-            return value - delta;
-
-        case EVENT_KEY.ARROW_RIGHT:
-        case EVENT_KEY.ARROW_UP:
-            return value + delta;
-
-        case EVENT_KEY.HOME:
-            return min;
-
-        case EVENT_KEY.END:
-            return max;
-
-        default:
-            return NaN;
-    }
-}
-
-function getPageX(event) {
-    if (event.targetTouches && event.targetTouches.length > 0) {
-        return event.targetTouches[0].pageX;
-    }
-
-    return event.pageX;
-}
-
-function getTrackStyle(value, min, max) {
-    const scaleX = (value - min) / (max - min);
-
-    return {
-        transform: `scaleX(${scaleX})`
-    };
-}
-
-function getThumbStyle(value, min, max) {
-    const percent = (value - min) / (max - min);
-
-    return {
-        left: `calc(${percent * 100}% - 24px)`
-    };
-}
