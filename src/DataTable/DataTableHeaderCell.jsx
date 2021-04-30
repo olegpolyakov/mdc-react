@@ -34,7 +34,7 @@ function DataTableHeaderCell({
 
     const handleSortIconClick = useCallback(() => {
         onSort({ label, value });
-    }, [label, value]);
+    }, [label, value, onSort]);
 
     return (
         <Element
