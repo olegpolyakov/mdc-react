@@ -8,6 +8,7 @@ function Layout({
     row,
     column,
     direction,
+    wrap,
     alignItems,
     alignSelf,
     justifyContent,
@@ -21,6 +22,8 @@ function Layout({
         'mdc-layout--row': row,
         'mdc-layout--column': column,
         [`mdc-layout--direction--${direction}`]: direction,
+        'mdc-layout--wrap': wrap,
+        'mdc-layout--wrap-reverse': wrap === 'reverse',
         [`mdc-layout--align-items--${alignItems}`]: alignItems,
         [`mdc-layout--align-self--${alignSelf}`]: alignSelf,
         [`mdc-layout--justify-content--${justifyContent}`]: justifyContent
@@ -36,6 +39,8 @@ Layout.displayName = 'MDCLayout';
 Layout.propTypes = {
     row: PropTypes.bool,
     column: PropTypes.bool,
+    direction: PropTypes.oneOf(['row', 'column']),
+    wrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     alignItems: PropTypes.oneOf(['start', 'center', 'end']),
     alignSelf: PropTypes.oneOf(['start', 'center', 'end']),
     justifyContent: PropTypes.oneOf(['start', 'center', 'end', 'around', 'between'])

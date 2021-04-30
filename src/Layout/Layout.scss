@@ -1,5 +1,3 @@
-.mdc-layout {}
-
 .mdc-layout--row,
 .mdc-layout--direction--row {
     display: flex;
@@ -10,6 +8,14 @@
 .mdc-layout--direction-column {
     display: flex;
     flex-direction: column;
+}
+
+.mdc-layout--wrap {
+    flex-wrap: wrap;
+}
+
+.mdc-layout--wrap-reverse {
+    flex-wrap: wrap-reverse;
 }
 
 .mdc-layout--align-items--start {
