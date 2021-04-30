@@ -15,6 +15,8 @@ function TabScroller({
     const scrollAreaRef = useRef();
 
     useUpdated(() => {
+        if (!activeTab) return;
+
         const scrollAreaWidth = scrollAreaRef.current.offsetWidth;
         const tabWidth = activeTab.offsetWidth;
         const tabHalfWidth = tabWidth * 0.5;
