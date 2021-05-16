@@ -1,1 +1,4 @@
-@use '@material/list/mdc-list';
+@use '@material/list/evolution-mixins';
+
+@include evolution-mixins.without-ripple;
+@include evolution-mixins.with-ripple;

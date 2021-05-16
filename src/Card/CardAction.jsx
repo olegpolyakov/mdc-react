@@ -13,10 +13,10 @@ export default function CardAction({
 }) {
     return (
         React.cloneElement(children, {
-            className: classnames('mdc-card__action', {
+            className: classnames(children.props.className, 'mdc-card__action', {
                 'mdc-card__action--button': button,
                 'mdc-card__action--icon': icon
-            }, children.props.className),
+            }, className),
             ...props
         })
     );

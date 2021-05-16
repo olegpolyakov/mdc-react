@@ -1,16 +1,16 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default React.forwardRef(ListItemMeta);
+export default React.forwardRef(ListItemEnd);
 
-function ListItemMeta({
+function ListItemEnd({
     element = 'span',
     component: Element = element,
     className,
     children,
     ...props
 }, ref) {
-    const classNames = classnames('mdc-list-item__meta', className);
+    const classNames = classnames('mdc-list-item__end', className);
 
     return React.isValidElement(children) ?
         React.cloneElement(children, {
@@ -24,4 +24,4 @@ function ListItemMeta({
         );
 }
 
-ListItemMeta.displayName = 'MDCListItemMeta';
+ListItemEnd.displayName = 'MDCListItemEnd';

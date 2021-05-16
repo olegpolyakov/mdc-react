@@ -1,10 +1,10 @@
 import React from 'react';
 
-import ListItemGraphic from '../List/ListItemGraphic';
+import ListItemStart from '../List/ListItemStart';
 
 export default function MenuSelectionGroupIcon(props) {
     return (
-        <ListItemGraphic
+        <ListItemStart
             className="mdc-menu__selection-group-icon"
             {...props}
         />

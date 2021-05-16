@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback, useImperativeHandle } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -25,18 +25,21 @@ function Banner({
     children = text,
     ...props
 }, ref) {
+    const rootRef = useRef();
     const contentRef = useRef();
 
-    // useMounted(() => {
-    //     if (open) {
-    //         const { height } = contentRef.current?.getBoundingClientRect();
+    useImperativeHandle(ref, () => rootRef.current);
 
-    //         console.log(height);
+    // useEffect(() => {
+    //     if (appear) {
+    //         contentRef.current.style.position = 'relative';
     //     }
-    // });
+    // }, [appear]);
 
-    const handleEntering = useCallback(node => {
-        node.style.height = `${contentRef.current.offsetHeight}px`;
+    const handleEntering = useCallback((node, isAppearing) => {
+        if (!isAppearing) {
+            node.style.height = `${contentRef.current.offsetHeight}px`;
+        }
     }, []);
 
     const handleExiting = useCallback(node => {
@@ -90,12 +93,13 @@ function Banner({
             in={open}
             appear={open}
             timeout={{
+                appear: 0,
                 enter: numbers.BANNER_ANIMATION_OPEN_TIME_MS,
                 exit: numbers.BANNER_ANIMATION_CLOSE_TIME_MS
             }}
             classNames={{
-                appear: cssClasses.OPEN,
-                appearDone: cssClasses.OPEN,
+                appear: 'mdc-banner--appearing',
+                appearDone: 'mdc-banner--appeared',
                 enter: cssClasses.OPENING,
                 enterActive: cssClasses.OPEN,
                 enterDone: cssClasses.OPEN,
@@ -106,7 +110,7 @@ function Banner({
             onEntering={handleEntering}
             onExiting={handleExiting}
         >
-            <Element ref={ref} className={classNames} role="banner" {...props}>
+            <Element ref={rootRef} className={classNames} role="banner" {...props}>
                 {content}
             </Element>
         </CSSTransition>

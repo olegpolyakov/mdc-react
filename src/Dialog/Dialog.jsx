@@ -1,19 +1,29 @@
-import React, { useRef, useCallback, useImperativeHandle } from 'react';
+import React, { useRef, useState, useCallback, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import { useUpdated, useDestroyed } from '../lifecycle-hooks';
 import Layer from '../Layer';
-import DialogTitle from './DialogTitle';
+import DialogHeader from './DialogHeader';
 import DialogContent from './DialogContent';
 import DialogActions from './DialogActions';
 
 const cssClasses = {
+    BASE: 'mdc-dialog',
+    HEADER: 'mdc-dialog__header',
+    CONTENT: 'mdc-dialog__content',
+    CONTAINER: 'mdc-dialog__container',
+    SURFACE: 'mdc-dialog__surface',
+    SCRIM: 'mdc-dialog__scrim',
+
     OPEN: 'mdc-dialog--open',
     OPENING: 'mdc-dialog--opening',
     CLOSING: 'mdc-dialog--closing',
     SCROLLABLE: 'mdc-dialog--scrollable',
     STACKED: 'mdc-dialog--stacked',
+    FULLSCREEN: 'mdc-dialog--fullscreen',
+    SCROLL_DIVIDER_HEADER: 'mdc-dialog-scroll-divider-header',
+    SCROLL_DIVIDER_FOOTER: 'mdc-dialog-scroll-divider-footer',
     SCROLL_LOCK: 'mdc-dialog-scroll-lock'
 };
 
@@ -21,20 +31,29 @@ export default React.forwardRef(Dialog);
 
 function Dialog({
     title,
+    closeIcon,
     content,
     actions,
     open = false,
     appear = false,
     persistent = false,
+    fullscreen = false,
     onClose = Function.prototype,
 
     element: Element = 'div',
     className,
-    children,
+    children = content,
     ...props
 }, ref) {
     const rootRef = useRef();
-    const classNames = classnames('mdc-dialog', className);
+    const contentRef = useRef();
+
+    const [isScrollable, setScrollable] = useState(false);
+
+    const classNames = classnames(cssClasses.BASE, {
+        [cssClasses.SCROLLABLE]: isScrollable,
+        [cssClasses.FULLSCREEN]: fullscreen
+    }, className);
 
     useImperativeHandle(ref, () => rootRef.current);
 
@@ -57,7 +76,7 @@ function Dialog({
     }, [open, persistent]);
 
     useUpdated(() => {
-        const contentElement = rootRef.current.querySelector('.mdc-dialog__content');
+        const contentElement = contentRef.current;
         const shouldScroll = contentElement ? contentElement.scrollHeight > contentElement.offsetHeight : false;
 
         if (open && shouldScroll) {
@@ -66,6 +85,25 @@ function Dialog({
             rootRef.current.classList.remove(cssClasses.SCROLLABLE);
         }
     }, [open]);
+
+    useUpdated(() => {
+        if (!fullscreen) return;
+
+        const contentElement = contentRef.current;
+
+        function handleScroll() {
+            const isScrollAtTop = contentElement ? contentElement.scrollTop === 0 : false;
+            const isScrollAtBottom = contentElement ? Math.ceil(contentElement.scrollHeight - contentElement.scrollTop) === contentElement.clientHeight :
+                false;
+
+            rootRef.current.classList.toggle(cssClasses.SCROLL_DIVIDER_HEADER, !isScrollAtTop);
+            rootRef.current.classList.toggle(cssClasses.SCROLL_DIVIDER_FOOTER, !isScrollAtBottom);
+        }
+
+        contentElement?.addEventListener('scroll', handleScroll);
+
+        return () => contentElement?.removeEventListener('scroll', handleScroll);
+    }, [open, fullscreen]);
 
     useDestroyed(() => document.body.classList.remove(cssClasses.SCROLL_LOCK));
 
@@ -90,12 +128,12 @@ function Dialog({
             appear={appear}
             timeout={{ enter: 150, exit: 75 }}
             classNames={{
-                appear: 'mdc-dialog--opening',
-                appearActive: 'mdc-dialog--open',
-                enter: 'mdc-dialog--opening',
-                enterActive: 'mdc-dialog--open',
-                enterDone: 'mdc-dialog--open',
-                exit: 'mdc-dialog--closing'
+                appear: cssClasses.OPENING,
+                appearActive: cssClasses.OPEN,
+                enter: cssClasses.OPENING,
+                enterActive: cssClasses.OPEN,
+                enterDone: cssClasses.OPEN,
+                exit: cssClasses.CLOSING
             }}
             onEnter={handleEnter}
             onExited={handleExited}
@@ -107,29 +145,32 @@ function Dialog({
                 className={classNames}
                 {...props}
             >
-                <div className="mdc-dialog__container">
+                <div className={cssClasses.CONTAINER}>
                     <div
                         role="alertdialog"
                         aria-modal="true"
-                        className="mdc-dialog__surface"
+                        className={cssClasses.SURFACE}
                     >
                         {title &&
-                            <DialogTitle>{title}</DialogTitle>
+                            <DialogHeader
+                                title={title}
+                                closeIcon={closeIcon}
+                                fullscreen={fullscreen}
+                                onClose={onClose}
+                            />
                         }
 
-                        {content &&
-                            <DialogContent>{content}</DialogContent>
+                        {children &&
+                            <DialogContent ref={contentRef}>{children}</DialogContent>
                         }
 
                         {actions &&
                             <DialogActions>{actions}</DialogActions>
                         }
-
-                        {children}
                     </div>
                 </div>
 
-                <div className="mdc-dialog__scrim" onClick={handleScrimClick} />
+                <div className={cssClasses.SCRIM} onClick={handleScrimClick} />
             </Element>
         </Layer>
     );
@@ -139,10 +180,13 @@ Dialog.displayName = 'MDCDialog';
 
 Dialog.propTypes = {
     title: PropTypes.node,
+    closeIcon: PropTypes.node,
     content: PropTypes.node,
     actions: PropTypes.arrayOf(PropTypes.node),
     open: PropTypes.bool,
     appear: PropTypes.bool,
     confirmation: PropTypes.bool,
+    persistent: PropTypes.bool,
+    fullscreen: PropTypes.bool,
     onClose: PropTypes.func
 };

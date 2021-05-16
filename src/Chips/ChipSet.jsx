@@ -18,7 +18,7 @@ function ChipSet({
     element = 'div',
     component: Element = element,
     className,
-    children = chips?.map(chip => React.createElement(Chip, chip)),
+    children = chips,
     ...props
 }, ref) {
     const inputRef = useRef();
@@ -49,10 +49,8 @@ function ChipSet({
         }
     }, [value, onChange]);
 
-    const classNames = classnames('mdc-chip-set', {
-        'mdc-chip-set--choice': choice,
-        'mdc-chip-set--filter': filter,
-        'mdc-chip-set--input': input
+    const classNames = classnames('mdc-evolution-chip-set', {
+        'mdc-evolution-chip-set--overflow': true
     }, className);
 
     return (

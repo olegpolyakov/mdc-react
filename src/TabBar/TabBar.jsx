@@ -1,11 +1,11 @@
-import React, { farwardRef, useRef, useCallback, useImperativeHandle } from 'react';
+import React, { forwardRef, useRef, useCallback, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import { useMounted, useUpdated } from '../lifecycle-hooks';
 import TabScroller from '../TabScroller';
 
-export default farwardRef(TabBar);
+export default forwardRef(TabBar);
 
 function TabBar({
     value,

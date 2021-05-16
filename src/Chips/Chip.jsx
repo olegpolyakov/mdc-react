@@ -19,9 +19,9 @@ function Chip({
     children = text,
     ...props
 }, ref) {
-    const classNames = classnames('mdc-chip', {
-        'mdc-chip--selected': selected,
-        'mdc-chip--outlined': outlined
+    const classNames = classnames('mdc-evolution-chip', {
+        'mdc-evolution-chip--selected': selected,
+        'mdc-evolution-chip--outlined': outlined
     }, className);
 
     return (

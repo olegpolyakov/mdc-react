@@ -74,6 +74,8 @@ module.exports = env => {
             })
         ],
 
+        devtool: (env === 'dev') ? 'eval-source-map' : undefined,
+
         optimization: {
             minimizer: [
                 new UglifyJsPlugin({

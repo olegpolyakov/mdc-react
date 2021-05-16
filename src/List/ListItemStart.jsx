@@ -1,16 +1,16 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default React.forwardRef(ListItemGraphic);
+export default React.forwardRef(ListItemStart);
 
-function ListItemGraphic({
+function ListItemStart({
     element = 'span',
     component: Element = element,
     className,
     children,
     ...props
 }, ref) {
-    const classNames = classnames('mdc-list-item__graphic', className);
+    const classNames = classnames('mdc-list-item__start', className);
 
     return (
         <Element ref={ref} className={classNames} {...props}>
@@ -19,4 +19,4 @@ function ListItemGraphic({
     );
 }
 
-ListItemGraphic.displayName = 'MDCListItemGraphic';
+ListItemStart.displayName = 'MDCListItemStart';
