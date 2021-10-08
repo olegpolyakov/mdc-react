@@ -1,0 +1,12 @@
+@use '@material/drawer';
+@use '@material/drawer/mdc-drawer';
+
+.mdc-drawer {
+    &--open ~ .mdc-drawer-app-content {
+        transition: margin-left drawer.$animation-enter;
+    }
+
+    &--closing ~ .mdc-drawer-app-content {
+        transition: margin-left drawer.$animation-exit;
+    }
+}

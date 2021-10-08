@@ -1,0 +1,25 @@
+@use '@material/banner/styles';
+
+.mdc-banner {
+    &.mdc-banner--appearing {
+        height: auto;
+        transition: none;
+
+        .mdc-banner__content {
+            position: relative;
+        }
+    }
+
+    &.mdc-banner--appeared {
+        height: auto;
+        transition: none;
+
+        .mdc-banner__content {
+            position: relative;
+        }
+    }
+
+    &.mdc-banner--fixed {
+        position: fixed;
+    }
+}

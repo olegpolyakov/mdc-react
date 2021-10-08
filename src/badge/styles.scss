@@ -1,0 +1,63 @@
+@use '@material/theme';
+
+$mdc-badge-font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif !default;
+$mdc-badge-font-size: 12px !default;
+$mdc-badge-color: theme.$on-primary !default;
+$mdc-badge-color-inverse: theme.$primary !default;
+$mdc-badge-background: theme.$primary !default;
+$mdc-badge-background-inverse: transparent !default;
+$mdc-badge-size : 20px !default;
+$mdc-badge-padding: 6px !default;
+
+.mdc-badge {
+    position : relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    vertical-align: middle;
+    white-space: nowrap;
+    margin-right: $mdc-badge-size;
+
+    &[data-badge]::after {
+        content: attr(data-badge);
+
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: $mdc-badge-size;
+        height: $mdc-badge-size;
+        transform: scale(1) translate(50%, -50%);
+        transform-origin: 100% 0%;
+        
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        
+        background: $mdc-badge-background;
+        color: $mdc-badge-color;
+        font-family: $mdc-badge-font-family;
+        font-size: $mdc-badge-font-size;
+        font-weight: 600;
+        padding: 0 $mdc-badge-padding;
+        line-height: 1;
+        border-radius: 10px;
+        box-sizing: border-box;
+        z-index: 1;
+    }
+
+    &.mdc-badge--inset {
+        &::after {
+            top: 14%;
+            right: 14%;
+        }
+    }
+
+    &.mdc-badge--transparent {
+        &::after {
+            color: $mdc-badge-color-inverse;
+            background: $mdc-badge-background-inverse;
+        }
+    }
+}

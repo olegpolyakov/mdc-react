@@ -1,0 +1,16 @@
+@use './mixins';
+@use './variables';
+
+@include mixins.core-styles;
+@include mixins.dismissible-core-styles;
+@include mixins.modal-core-styles;
+
+.mdc-side-sheet {
+    &--open ~ .mdc-side-sheet-app-content {
+        transition: margin-right variables.$animation-enter;
+    }
+
+    &--closing ~ .mdc-side-sheet-app-content {
+        transition: margin-right variables.$animation-exit;
+    }
+}

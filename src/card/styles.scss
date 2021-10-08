@@ -1,0 +1,77 @@
+@use '@material/icon-button';
+@use '@material/theme';
+@use '@material/typography';
+@use '@material/card/mdc-card';
+
+.mdc-card {
+    .mdc-card__header {
+        display: flex;
+        align-items: center;
+        padding: 8px 16px;
+        border-radius: 2px 2px 0 0;
+    
+        .mdc-card__header__graphic {
+            flex-shrink: 0;
+            margin-right: 16px;
+            @include theme.property(color, text-secondary-on-light);
+        }
+    
+        .mdc-card__header__content {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .mdc-card__header__actions {
+            display: inline-flex;
+            margin-left: auto;
+        }
+    
+        .mdc-card__header__graphic,
+        .mdc-card__header__actions {
+            .mdc-icon-button {
+                @include icon-button.size(32px);
+
+                &:not(:disabled) {
+                    @include icon-button.ink-color(text-secondary-on-light);
+                }
+            }
+        }
+    }
+
+    .mdc-card__title {
+        @include typography.typography(headline6);
+        @include theme.property(color, text-primary-on-light);
+        @include typography.overflow-ellipsis;
+        margin: 0;
+
+        + .mdc-card__subtitle {
+            line-height: 1.5rem;
+        }
+    }
+
+    .mdc-card__subtitle {
+        @include typography.typography(body2);
+        @include theme.property(color, text-secondary-on-light);
+        margin: 0;
+    }
+
+    .mdc-card__overline {
+        @include typography.typography(overline);
+        @include theme.property(color, text-secondary-on-light);
+        margin: 0;
+        display: block;
+        line-height: normal;
+    }
+
+    .mdc-card__section {
+        box-sizing: border-box;
+        
+        &.mdc-card__section--primary {
+            padding: 8px 16px;
+        }
+    
+        &.mdc-card__section--secondary {    
+            padding: 0 16px 8px;
+        }
+    }
+}

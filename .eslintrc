@@ -1,0 +1,59 @@
+{
+    "parser": "babel-eslint",
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true,
+        "mocha": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1,
+                "MemberExpression": 1
+            }
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-console": "error",
+        "react/prop-types": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-uses-react": "off"
+    },
+    "plugins": [
+        "react"
+    ],
+    "overrides": [
+        {
+            "files": [
+                "*.js",
+                ".jsx"
+            ],
+            "excludedFiles": "*/public/*.js"
+        }
+    ]
+}

@@ -1,0 +1,9 @@
+@use '@material/data-table/styles';
+
+.mdc-data-table {
+    overflow: hidden;
+
+    &__progress-indicator {
+        z-index: 1;
+    }
+}

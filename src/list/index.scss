@@ -1,0 +1,6 @@
+@forward '@material/list/evolution-variables';
+@forward '@material/list/evolution-mixins';
+
+@use '@material/list/evolution-mixins';
+
+@include evolution-mixins.core-styles;

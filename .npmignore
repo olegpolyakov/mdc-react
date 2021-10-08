@@ -1,0 +1,4 @@
+node_modules/
+docs/
+webpack.config.js
+debug.log*
