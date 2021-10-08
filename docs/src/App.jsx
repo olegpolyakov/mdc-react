@@ -1,4 +1,4 @@
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, Link, NavLink, Switch } from 'react-router-dom';
 import {
     Drawer,
     IconButton,
@@ -19,7 +19,9 @@ export default function App() {
                 navigationIcon={
                     <IconButton
                         icon={
-                            <img src="https://material-components.github.io/material-components-web-catalog/static/media/ic_component_24px_white.svg" alt="" />
+                            <Link to="/">
+                                <img src="https://material-components.github.io/material-components-web-catalog/static/media/ic_component_24px_white.svg" alt="" />
+                            </Link>
                         }
                     />
                 }
@@ -70,9 +72,7 @@ export default function App() {
 
             <main className="app-content mdc-drawer-app-content">
                 <Switch>
-                    <Route exact path="/">
-                        <Home routes={routes} />
-                    </Route>
+                    <Route exact path="/" component={Home} />
 
                     {routes.map(route =>
                         <Route

@@ -6,7 +6,7 @@ import App from './App';
 import './index.scss';
 
 render(
-    <Router>
+    <Router basename="mdc-react">
         <App />
     </Router>,
     document.querySelector('#root')
