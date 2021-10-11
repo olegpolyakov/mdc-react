@@ -7,7 +7,7 @@
 Install the library using npm:
 
 ```sh
-npm i mdc-pug
+npm i mdc-react
 ```
 
 If you plan on using the Sass files, you'll also need to install `sass`:
