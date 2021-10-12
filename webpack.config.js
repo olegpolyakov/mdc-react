@@ -4,6 +4,10 @@ const CssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 // const CopyPlugin = require('copy-webpack-plugin');
 
+const components = [
+    'avatar', 'badge', 'banner', 'button', 'card', 'checkbox', 'chips', 'circular-progress', 'data-table', 'dialog', 'drawer', 'elevation', 'fab', 'floating-label', 'form-field', 'icon', 'icon-button', 'image-list', 'layout', 'layout-grid', 'line-ripple', 'linear-progress', 'list', 'menu', 'notched-outline', 'radio', 'ripple', 'segmented-button', 'select', 'side-sheet', 'slider', 'snackbar', 'switch', 'tabs', 'text-field', 'tooltip', 'top-app-bar', 'typography'
+];
+
 module.exports = env => [
     {
         name: 'lib',
@@ -105,9 +109,11 @@ module.exports = env => [
     {
         name: 'components',
 
-        entry: {
-            avatar: ['./src/Avatar/index.js', './src/Avatar/index.scss']
-        },
+        entry: components.reduce((result, name) => {
+            result[name] = [`./src/${name}/index.js`, `./src/${name}/index.scss`];
+
+            return result;
+        }, {}),
 
         output: {
             path: path.resolve(__dirname, 'dist'),
