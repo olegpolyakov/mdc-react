@@ -16,8 +16,8 @@ const Banner = forwardRef(({
     primaryAction = action,
     secondaryAction,
     open = false,
-    fixed = false,
     centered = false,
+    fixed = false,
     mobileStacked = false,
 
     element = 'div',

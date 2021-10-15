@@ -64,10 +64,10 @@ const SideSheet = forwardRef(({
 
     return (
         <Layer
-            modal={modal}
-            fixed={modal}
             in={open}
             appear={appear}
+            modal={modal}
+            fixed={modal}
             timeout={{
                 enter: numbers.ANIMATION_ENTER_TIME_MS,
                 exit: numbers.ANIMATION_EXIT_TIME_MS
