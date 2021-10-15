@@ -13,29 +13,31 @@ export default function Page({
 }) {
     return (
         <article id={`${id}-page`} className="page" {...props}>
-            <header className="page-header">
-                <Typography className="page-title" type="headline4" noMargin>{title}</Typography>
+            {title &&
+                <header className="page-header">
+                    <Typography className="page-title" type="headline4" noMargin>{title}</Typography>
 
-                {description &&
-                    <Typography className="page-description" type="body1" noMargin>{description}</Typography>
-                }
+                    {description &&
+                        <Typography className="page-description" type="body1" noMargin>{description}</Typography>
+                    }
 
-                {links &&
-                    <List>
-                        {links.guide &&
-                            <List.Item>
-                                <a href={links.guide} target="_blank" rel="noreferrer">Guide</a>
-                            </List.Item>
-                        }
+                    {links &&
+                        <List>
+                            {links.guide &&
+                                <List.Item>
+                                    <a href={links.guide} target="_blank" rel="noreferrer">Guide</a>
+                                </List.Item>
+                            }
 
-                        {links.docs &&
-                            <List.Item>
-                                <a href={links.docs} target="_blank" rel="noreferrer">Docs</a>
-                            </List.Item>
-                        }
-                    </List>
-                }
-            </header>
+                            {links.docs &&
+                                <List.Item>
+                                    <a href={links.docs} target="_blank" rel="noreferrer">Docs</a>
+                                </List.Item>
+                            }
+                        </List>
+                    }
+                </header>
+            }
 
             <div className="page-content">
                 {children}

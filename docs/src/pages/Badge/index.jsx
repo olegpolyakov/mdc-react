@@ -1,44 +1,89 @@
-import { Badge, Button, Icon, IconButton } from 'mdc-react';
+import { useState } from 'react';
+import {
+    Avatar,
+    Badge,
+    Button,
+    FormField,
+    Icon,
+    IconButton,
+    SegmentedButton,
+    Switch,
+    TextField
+} from 'mdc-react';
 
+import Demo from '@/components/Demo';
+import FieldSet from '@/components/FieldSet';
 import Page from '@/components/Page';
 import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'badge';
 const title = 'Badge';
 const description = 'Badge generates a small badge to the top-right of its child(ren).';
 
+const content = {
+    avatar: <Avatar text="MD" />,
+    button: <Button outlined>Button</Button>,
+    icon: <Icon>star</Icon>,
+    iconButton: <IconButton icon="star" />,
+    text: 'Text'
+};
+
 export default function BadgePage() {
+    const [value, setValue] = useState(0);
+    const [type, setType] = useState('avatar');
+    const [inset, setInset] = useState(false);
+    const [transparent, setTransparent] = useState(false);
+
     return (
         <Page id={id} title={title} description={description}>
             <Section>
-                <Code title="Badge with text">
-                    <Badge value="3">Text</Badge>
-                </Code>
-            </Section>
+                <Demo
+                    settings={[
+                        <TextField
+                            key="value"
+                            value={value}
+                            label="Value"
+                            outlined
+                            onChange={(_, value) => setValue(value)}
+                        />,
 
-            <Section>
-                <Code title="Badge with an icon">
-                    <Badge value="3">
-                        <Icon>star</Icon>
-                    </Badge>
-                </Code>
-            </Section>
+                        <FieldSet key="content" legend="Content">
+                            <SegmentedButton
+                                segments={[
+                                    { value: 'avatar', label: 'Avatar' },
+                                    { value: 'button', label: 'Button' },
+                                    { value: 'icon', label: 'Icon' },
+                                    { value: 'iconButton', label: 'Icon Button' },
+                                    { value: 'text', label: 'Text' }
+                                ]}
+                                value={type}
+                                onChange={setType}
+                            />
+                        </FieldSet>,
 
-            <Section>
-                <Code title="Badge with an icon button">
-                    <Badge value="3" inset>
-                        <IconButton icon="star" />
-                    </Badge>
-                </Code>
-            </Section>
+                        <FormField key="inset" label="Inset" alignEnd spaceBetween>
+                            <Switch
+                                selected={inset}
+                                onChange={() => setInset(v => !v)}
+                            />
+                        </FormField>,
 
-            <Section>
-                <Code title="Badge with a button">
-                    <Badge value="3">
-                        <Button>Button</Button>
+                        <FormField key="transparent" label="Transparent" alignEnd spaceBetween>
+                            <Switch
+                                selected={transparent}
+                                onChange={() => setTransparent(v => !v)}
+                            />
+                        </FormField>
+                    ]}
+                >
+                    <Badge
+                        value={value}
+                        inset={inset || undefined}
+                        transparent={transparent || undefined}
+                    >
+                        {content[type]}
                     </Badge>
-                </Code>
+                </Demo>
             </Section>
         </Page>
     );

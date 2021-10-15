@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import {
     Avatar,
-    Layout,
     SegmentedButton
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
+import FieldSet from '@/components/FieldSet';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'avatar';
 const title = 'Avatar';
@@ -23,46 +22,43 @@ export default function AvatarPage() {
             title={title}
             description={description}
         >
-            <Section title="Demo">
-                <Layout row>
-                    <fieldset>
-                        <legend>Content</legend>
+            <Demo
+                title="Demo"
+                settings={
+                    <>
+                        <FieldSet legend="Content">
+                            <SegmentedButton
+                                segments={[
+                                    { value: 'image', label: 'Image' },
+                                    { value: 'icon', label: 'Icon' },
+                                    { value: 'text', label: 'Text' }
+                                ]}
+                                value={content}
+                                onChange={setContent}
+                            />
+                        </FieldSet>
 
-                        <SegmentedButton
-                            segments={[
-                                { value: 'image', label: 'Image' },
-                                { value: 'icon', label: 'Icon' },
-                                { value: 'text', label: 'Text' }
-                            ]}
-                            value={content}
-                            onChange={setContent}
-                        />
-                    </fieldset>
-
-                    <fieldset>
-                        <legend>Size</legend>
-
-                        <SegmentedButton
-                            segments={[
-                                { value: 'small', label: 'Small' },
-                                { value: 'medium', label: 'Medium' },
-                                { value: 'large', label: 'Large' }
-                            ]}
-                            value={size}
-                            onChange={setSize}
-                        />
-                    </fieldset>
-                </Layout>
-
-                <Code>
-                    <Avatar
-                        src={content === 'image' ? 'https://placeimg.com/128/128/people' : undefined}
-                        icon={content === 'icon' ? 'star' : undefined}
-                        text={content === 'text' ? 'MD' : undefined}
-                        size={size}
-                    />
-                </Code>
-            </Section>
+                        <FieldSet legend="Size">
+                            <SegmentedButton
+                                segments={[
+                                    { value: 'small', label: 'Small' },
+                                    { value: 'medium', label: 'Medium' },
+                                    { value: 'large', label: 'Large' }
+                                ]}
+                                value={size}
+                                onChange={setSize}
+                            />
+                        </FieldSet>
+                    </>
+                }
+            >
+                <Avatar
+                    src={content === 'image' ? 'https://placeimg.com/128/128/people' : undefined}
+                    icon={content === 'icon' ? 'star' : undefined}
+                    text={content === 'text' ? 'MD' : undefined}
+                    size={size}
+                />
+            </Demo>
         </Page>
     );
 }

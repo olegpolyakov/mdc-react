@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { Checkbox } from 'mdc-react';
 
+import Demo from '@/components/Demo';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'checkbox';
 const title = 'Checkbox';
@@ -14,41 +13,22 @@ const links = {
 };
 
 export default function CheckboxPage() {
-    const [isChecked, setChecked] = useState(false);
+    const [checked, setChecked] = useState(false);
+    const [controlled, setControlled] = useState(false);
+    const [indeterminate, setIndeterminate] = useState(false);
+    const [disabled, setDisabled] = useState(false);
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Controlled">
-                <Code>
-                    <Checkbox
-                        checked={isChecked}
-                        onChange={() => setChecked(v => !v)}
-                    />
-                </Code>
-            </Section>
-
-            <Section title="Uncontrolled">
-                <Code>
-                    <Checkbox
-                        defaultChecked={false}
-                    />
-                </Code>
-            </Section>
-
-            <Section title="Indeterminate">
-                <Code>
-                    <Checkbox
-                        indeterminate
-                        defaultChecked={false}
-                    />
-                </Code>
-            </Section>
-
-            <Section title="Disabled">
-                <Code>
-                    <Checkbox disabled />
-                </Code>
-            </Section>
+            <Demo>
+                <Checkbox
+                    checked={checked}
+                    defaultChecked={false}
+                    indeterminate={indeterminate}
+                    disabled={disabled}
+                    onChange={() => setChecked(v => !v)}
+                />
+            </Demo>
         </Page>
     );
 }

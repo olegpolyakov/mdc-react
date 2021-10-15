@@ -2,12 +2,14 @@ import { useState } from 'react';
 import {
     Banner,
     Button,
+    FormField,
+    Switch,
+    TextField,
     TopAppBar
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 import './index.scss';
 
@@ -20,102 +22,124 @@ const links = {
 };
 
 export default function BadgePage() {
-    const [isOpen1, setOpen1] = useState(false);
-    const [isOpen2, setOpen2] = useState(false);
-    const [isOpen3, setOpen3] = useState(false);
-    const [isOpen4, setOpen4] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [text, setText] = useState('Lorem ipsum');
+    const [hasIcon, setHasIcon] = useState(false);
+    const [icon, setIcon] = useState('');
+    const [hasAction, setHasAction] = useState(false);
+    const [action, setAction] = useState('');
+    const [hasSecondaryAction, setHasSecondaryAction] = useState(false);
+    const [secondaryAction, setSecondaryAction] = useState('');
+    const [centered, setCentered] = useState(false);
+    const [fixed, setFixed] = useState(false);
+    const [mobileStacked, setMobileStacked] = useState(false);
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Banner with text">
-                <Code
-                    setup={
-                        <TopAppBar
-                            title="Title"
-                            actionItems={
-                                <Button
-                                    label="Toggle"
-                                    onClick={() => setOpen1(v => !v)}
-                                />
-                            }
-                        />
-                    }
-                >
-                    <Banner
-                        text="Lorem ipsum"
-                        open={isOpen1}
+            <Demo
+                title="Demo"
+                setup={
+                    <TopAppBar
+                        title="Title"
+                        actionItems={
+                            <Button
+                                label="Toggle"
+                                onClick={() => setOpen(v => !v)}
+                            />
+                        }
                     />
-                </Code>
-            </Section>
+                }
+                settings={<>
+                    <TextField
+                        value={text}
+                        label="Text"
+                        onChange={(_, value) => setText(value)}
+                        outlined
+                    />
 
-            <Section title="Banner with icon and text">
-                <Code
-                    setup={
-                        <TopAppBar
-                            title="Title"
-                            actionItems={
-                                <Button
-                                    label="Toggle"
-                                    onClick={() => setOpen2(v => !v)}
-                                />
-                            }
-                        />
-                    }
-                >
-                    <Banner
-                        icon="warning"
-                        text="Lorem ipsum"
-                        open={isOpen2}
+                    <TextField
+                        value={icon}
+                        label="Icon"
+                        trailingIcon={
+                            <Switch
+                                selected={hasIcon}
+                                onChange={() => setHasIcon(v => !v)}
+                            />
+                        }
+                        outlined
+                        disabled={!hasIcon}
+                        onChange={(_, value) => setIcon(value)}
                     />
-                </Code>
-            </Section>
 
-            <Section title="Banner with icon, text and actions">
-                <Code
-                    setup={
-                        <TopAppBar
-                            title="Title"
-                            actionItems={
-                                <Button
-                                    label="Toggle"
-                                    onClick={() => setOpen3(v => !v)}
-                                />
-                            }
-                        />
-                    }
-                >
-                    <Banner
-                        icon="warning"
-                        text="Lorem ipsum"
-                        action={<Button>OK</Button>}
-                        open={isOpen3}
+                    <TextField
+                        value={action}
+                        label="Action"
+                        trailingIcon={
+                            <Switch
+                                selected={hasAction}
+                                onChange={() => setHasAction(v => !v)}
+                            />
+                        }
+                        disabled={!hasAction}
+                        outlined
+                        onChange={(_, value) => setAction(value)}
                     />
-                </Code>
-            </Section>
 
-            <Section title="Banner with icon, text and actions">
-                <Code
-                    setup={
-                        <TopAppBar
-                            title="Title"
-                            actionItems={
-                                <Button
-                                    label="Toggle"
-                                    onClick={() => setOpen4(v => !v)}
-                                />
-                            }
-                        />
-                    }
-                >
-                    <Banner
-                        icon="warning"
-                        text="Lorem ipsum"
-                        primaryAction={<Button>OK</Button>}
-                        secondaryAction={<Button>Close</Button>}
-                        open={isOpen4}
+                    <TextField
+                        value={secondaryAction}
+                        label="Secondary action"
+                        trailingIcon={
+                            <Switch
+                                selected={hasSecondaryAction}
+                                onChange={() => setHasSecondaryAction(v => !v)}
+                            />
+                        }
+                        disabled={!hasSecondaryAction}
+                        outlined
+                        onChange={(_, value) => setSecondaryAction(value)}
                     />
-                </Code>
-            </Section>
+
+                    <FormField label="Centered" alignEnd spaceBetween>
+                        <Switch
+                            selected={centered}
+                            onChange={() => setCentered(v => !v)}
+                        />
+                    </FormField>
+
+                    <FormField label="Fixed" alignEnd spaceBetween>
+                        <Switch
+                            selected={fixed}
+                            onChange={() => setFixed(v => !v)}
+                        />
+                    </FormField>
+
+                    <FormField label="Mobile stacked" alignEnd spaceBetween>
+                        <Switch
+                            selected={mobileStacked}
+                            onChange={() => setMobileStacked(v => !v)}
+                        />
+                    </FormField>
+                </>}
+            >
+                <Banner
+                    text={text}
+                    icon={hasIcon ? icon : undefined}
+                    action={hasAction ?
+                        <Button>{action}</Button>
+                        :
+                        undefined
+                    }
+                    secondaryAction={hasSecondaryAction ?
+                        <Button>{secondaryAction}</Button>
+                        :
+                        undefined
+                    }
+                    open={open || undefined}
+                    centered={centered || undefined}
+                    fixed={fixed || undefined}
+                    mobileStacked={mobileStacked || undefined}
+                />
+            </Demo>
         </Page>
     );
 }

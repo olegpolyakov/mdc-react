@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import {
     Button,
-    Layout,
-    SegmentedButton
+    SegmentedButton,
+    Switch,
+    TextField
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
+import FieldSet from '@/components/FieldSet';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'button';
 const title = 'Button';
@@ -18,21 +19,54 @@ const links = {
 };
 
 export default function ButtonPage() {
+    const [label, setLabel] = useState('Button');
+    const [hasLeadingIcon, setHasLeadingIcon] = useState(false);
+    const [leadingIcon, setLeadingIcon] = useState('save');
+    const [hasTrailingIcon, setHasTrailingIcon] = useState(false);
+    const [trailingIcon, setTrailingIcon] = useState('close');
     const [type, setType] = useState('plain');
-    const [leadingIcon, setLeadingIcon] = useState(false);
-    const [trailingIcon, setTrailingIcon] = useState(false);
-
-    const outlined = type === 'outlined' || undefined;
-    const unelevated = type === 'unelevated' || undefined;
-    const raised = type === 'raised' || undefined;
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Demo">
-                <Layout row>
-                    <fieldset>
-                        <legend>Type</legend>
+            <Demo
+                title="Demo"
+                settings={<>
+                    <TextField
+                        value={label}
+                        label="Label"
+                        outlined
+                        onChange={(_, value) => setLabel(value)}
+                    />
 
+                    <TextField
+                        value={leadingIcon}
+                        label="Leading icon"
+                        trailingIcon={
+                            <Switch
+                                selected={hasLeadingIcon}
+                                onChange={() => setHasLeadingIcon(v => !v)}
+                            />
+                        }
+                        outlined
+                        disabled={!hasLeadingIcon}
+                        onChange={(_, value) => setLeadingIcon(value)}
+                    />
+
+                    <TextField
+                        value={trailingIcon}
+                        label="Trailing icon"
+                        trailingIcon={
+                            <Switch
+                                selected={hasTrailingIcon}
+                                onChange={() => setHasTrailingIcon(v => !v)}
+                            />
+                        }
+                        outlined
+                        disabled={!hasTrailingIcon}
+                        onChange={(_, value) => setTrailingIcon(value)}
+                    />
+
+                    <FieldSet legend="Type">
                         <SegmentedButton
                             segments={[
                                 { value: 'plain', label: 'Plain' },
@@ -43,37 +77,19 @@ export default function ButtonPage() {
                             value={type}
                             onChange={setType}
                         />
-                    </fieldset>
-
-                    <fieldset>
-                        <legend>Icons</legend>
-
-                        <SegmentedButton>
-                            <SegmentedButton.Segment
-                                label="Leading Icon"
-                                selected={leadingIcon}
-                                onClick={() => setLeadingIcon(v => !v)}
-                            />
-
-                            <SegmentedButton.Segment
-                                label="Trailing Icon"
-                                selected={trailingIcon}
-                                onClick={() => setTrailingIcon(v => !v)}
-                            />
-                        </SegmentedButton>
-                    </fieldset>
-                </Layout>
-
-                <Code>
-                    <Button
-                        leadingIcon={leadingIcon ? 'save' : undefined}
-                        trailingIcon={trailingIcon ? 'close' : undefined}
-                        outlined={outlined}
-                        unelevated={unelevated}
-                        raised={raised}
-                    >Button</Button>
-                </Code>
-            </Section>
+                    </FieldSet>
+                </>}
+            >
+                <Button
+                    leadingIcon={hasLeadingIcon ? leadingIcon : undefined}
+                    trailingIcon={hasTrailingIcon ? trailingIcon : undefined}
+                    outlined={type === 'outlined' || undefined}
+                    unelevated={type === 'unelevated' || undefined}
+                    raised={type === 'raised' || undefined}
+                >
+                    {label}
+                </Button>
+            </Demo>
         </Page>
     );
 }
