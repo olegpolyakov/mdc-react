@@ -1,5 +1,6 @@
 export const numbers = {
-    NOTCH_SIZE_FACTOR: 0.75
+    NOTCH_SIZE_FACTOR: 0.75,
+    NOTCH_PADDING_RIGHT: 8
 };
 
 export const cssClasses = {
