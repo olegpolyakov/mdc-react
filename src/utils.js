@@ -1,5 +1,20 @@
 import { Key, KeyCode } from './constants';
 
+export function getClientWidth(element) {
+    if (element.offsetParent !== null) {
+        return element.clientWidth;
+    }
+
+    const clone = element.cloneNode(true);
+    clone.style.setProperty('position', 'absolute');
+    clone.style.setProperty('transform', 'translate(-9999px, -9999px)');
+    document.documentElement.appendChild(clone);
+    const clientWidth = clone.clientWidth;
+    document.documentElement.removeChild(clone);
+
+    return clientWidth;
+}
+
 export function getEventKey(event) {
     switch (event.key || event.keyCode) {
         case Key.ARROW_LEFT:
