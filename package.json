@@ -10,6 +10,7 @@
   "scripts": {
     "build": "webpack --env=production --mode=production",
     "docs": "webpack serve --config-name=docs --hot --history-api-fallback",
+    "build-docs": "webpack --config-name=docs  --env=production --mode=production",
     "lint": "eslint ./src",
     "start": "webpack --watch --env=development --mode=development",
     "prepublish": "npm run lint && npm run build"
