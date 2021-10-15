@@ -2,6 +2,8 @@ import { forwardRef, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+import { getClientWidth } from '../utils';
+
 import { numbers, cssClasses } from './constants';
 
 const NotchedOutline = forwardRef(({
@@ -14,10 +16,15 @@ const NotchedOutline = forwardRef(({
     const notchRef = useRef();
 
     useLayoutEffect(() => {
-        if (!notchRef.current) return;
+        const notch = notchRef.current;
+        const floatingLabel = notch?.firstChild;
+
+        if (!notch || !floatingLabel) return;
+
+        const width = getClientWidth(floatingLabel);
 
         if (notched) {
-            notchRef.current.style.width = `${(notchRef.current.clientWidth + 2) * numbers.NOTCH_SIZE_FACTOR}px`;
+            notchRef.current.style.width = `${width * numbers.NOTCH_SIZE_FACTOR + numbers.NOTCH_PADDING_RIGHT}px`;
         } else {
             notchRef.current.style.width = 'auto';
         }
