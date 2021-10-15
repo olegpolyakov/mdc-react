@@ -1,7 +1,9 @@
 const path = require('path');
+const { EnvironmentPlugin } = require('webpack');
 const autoprefixer = require('autoprefixer');
 const CssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const CopyPlugin = require('copy-webpack-plugin');
 
 const components = [
@@ -299,8 +301,15 @@ module.exports = env => [
         },
 
         plugins: [
+            new EnvironmentPlugin({
+                ENV: env
+            }),
             new CssExtractPlugin({
                 filename: 'index.css'
+            }),
+            new HtmlWebpackPlugin({
+                template: './docs/src/index.html',
+                publicPath: env.production ? '/mdc-react/' : ''
             })
         ]
     }
