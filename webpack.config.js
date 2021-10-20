@@ -14,7 +14,7 @@ module.exports = env => [
     {
         name: 'lib',
 
-        entry: ['./src/index.js', './src/index.scss'],
+        entry: ['./src/index.scss', './src/index.js'],
 
         output: {
             path: path.resolve(__dirname, 'dist'),
