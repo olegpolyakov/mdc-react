@@ -15,6 +15,7 @@ export const listItemCssClasses = {
     OVERLINE: 'mdc-list-item--with-overline',
     LEADING_ICON: 'mdc-list-item--with-leading-icon',
     LEADING_IMAGE: 'mdc-list-item--with-leading-image',
+    LEADING_AVATAR: 'mdc-list-item--with-leading-avatar',
     LEADING_THUMBNAIL: 'mdc-list-item--with-leading-thumbnail',
     LEADING_VIDEO: 'mdc-list-item--with-leading-video',
     LEADING_CHECKBOX: 'mdc-list-item--with-leading-checkbox',

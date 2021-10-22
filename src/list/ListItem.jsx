@@ -20,10 +20,12 @@ const ListItem = forwardRef(({
     secondaryText,
     icon,
     image,
+    avatar,
     thumbnail,
     video,
     leadingIcon = icon,
     leadingImage = image,
+    leadingAvatar = avatar,
     leadingThumbnail = thumbnail,
     leadingVideo = video,
     leadingCheckbox,
@@ -39,8 +41,12 @@ const ListItem = forwardRef(({
     selected = false,
     disabled = false,
     nonInteractive = false,
+    oneLine = false,
+    twoLines = false,
+    threeLines = false,
     withLeadingIcon = Boolean(leadingIcon),
     withLeadingImage = Boolean(leadingImage),
+    withLeadingAvatar = Boolean(leadingAvatar),
     withLeadingThumbnail = Boolean(leadingThumbnail),
     withLeadingVideo = Boolean(leadingVideo),
     withLeadingCheckbox = Boolean(leadingCheckbox),
@@ -60,7 +66,7 @@ const ListItem = forwardRef(({
 }, ref) => {
     const lines = Boolean(overlineText) + Boolean(primaryText) + Boolean(secondaryText);
     const hasStart = Boolean(
-        start || leadingIcon || leadingImage || leadingThumbnail ||
+        start || leadingIcon || leadingImage || leadingAvatar || leadingThumbnail ||
         leadingVideo || leadingCheckbox || leadingRadio || leadingSwitch
     );
     const hasContent = Boolean(content || overlineText || primaryText || secondaryText);
@@ -73,13 +79,14 @@ const ListItem = forwardRef(({
         [cssClasses.ACTIVATED]: activated,
         [cssClasses.SELECTED]: selected,
         [cssClasses.DISABLED]: disabled,
-        [cssClasses.ONE_LINE]: lines === 1,
-        [cssClasses.TWO_LINES]: lines === 2,
-        [cssClasses.THREE_LINES]: lines === 3,
+        [cssClasses.ONE_LINE]: oneLine || lines === 1,
+        [cssClasses.TWO_LINES]: twoLines || lines === 2,
+        [cssClasses.THREE_LINES]: threeLines || lines === 3,
         [cssClasses.NON_INTERACTIVE]: nonInteractive,
         [cssClasses.OVERLINE]: overlineText,
         [cssClasses.LEADING_ICON]: withLeadingIcon,
         [cssClasses.LEADING_IMAGE]: withLeadingImage,
+        [cssClasses.LEADING_AVATAR]: withLeadingAvatar,
         [cssClasses.LEADING_THUMBNAIL]: withLeadingThumbnail,
         [cssClasses.LEADING_VIDEO]: withLeadingVideo,
         [cssClasses.LEADING_CHECKBOX]: withLeadingCheckbox,
@@ -106,6 +113,7 @@ const ListItem = forwardRef(({
                         />
                     }
                     {leadingImage}
+                    {leadingAvatar}
                     {leadingThumbnail}
                     {leadingVideo}
                     {leadingCheckbox}
