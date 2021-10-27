@@ -11,11 +11,11 @@ import SideSheetContent from './SideSheetContent';
 const SideSheet = forwardRef(({
     title,
     content,
-    closeIcon,
     open = false,
     appear = false,
     dismissible = false,
     modal = false,
+    closeIcon = dismissible && 'close',
     appContentSelector,
     onClose = Function.prototype,
 
@@ -89,7 +89,7 @@ const SideSheet = forwardRef(({
                     className={classNames}
                     {...props}
                 >
-                    {(title || closeIcon) &&
+                    {(title || dismissible) &&
                         <SideSheetHeader
                             title={title}
                             onClose={onClose}
