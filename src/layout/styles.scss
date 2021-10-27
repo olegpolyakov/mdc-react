@@ -10,14 +10,6 @@
     flex-direction: column;
 }
 
-.mdc-layout--wrap {
-    flex-wrap: wrap;
-}
-
-.mdc-layout--wrap-reverse {
-    flex-wrap: wrap-reverse;
-}
-
 .mdc-layout--align-items--start {
     align-items: flex-start;
 }
@@ -30,8 +22,6 @@
     align-items: flex-end;
 }
 
-
-
 .mdc-layout--align-self--start {
     align-self: flex-start;
 }
@@ -43,7 +33,6 @@
 .mdc-layout--align-self--end {
     align-self: flex-end;
 }
-
 
 .mdc-layout--justify-content--start  {
     justify-content: flex-start;
@@ -63,4 +52,12 @@
 
 .mdc-layout--justify-content--between  {
     justify-content: space-between;
+}
+
+.mdc-layout--wrap {
+    flex-wrap: wrap;
+}
+
+.mdc-layout--wrap-reverse {
+    flex-wrap: wrap-reverse;
 }

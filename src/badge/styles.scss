@@ -1,13 +1,5 @@
 @use '@material/theme';
-
-$mdc-badge-font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif !default;
-$mdc-badge-font-size: 12px !default;
-$mdc-badge-color: theme.$on-primary !default;
-$mdc-badge-color-inverse: theme.$primary !default;
-$mdc-badge-background: theme.$primary !default;
-$mdc-badge-background-inverse: transparent !default;
-$mdc-badge-size : 20px !default;
-$mdc-badge-padding: 6px !default;
+@use './variables';
 
 .mdc-badge {
     position : relative;
@@ -15,7 +7,7 @@ $mdc-badge-padding: 6px !default;
     flex-shrink: 0;
     vertical-align: middle;
     white-space: nowrap;
-    margin-right: $mdc-badge-size;
+    margin-right: variables.$size;
 
     &[data-badge]::after {
         content: attr(data-badge);
@@ -23,8 +15,8 @@ $mdc-badge-padding: 6px !default;
         position: absolute;
         top: 0;
         right: 0;
-        min-width: $mdc-badge-size;
-        height: $mdc-badge-size;
+        min-width: variables.$size;
+        height: variables.$size;
         transform: scale(1) translate(50%, -50%);
         transform-origin: 100% 0%;
         
@@ -35,12 +27,12 @@ $mdc-badge-padding: 6px !default;
         align-content: center;
         align-items: center;
         
-        background: $mdc-badge-background;
-        color: $mdc-badge-color;
-        font-family: $mdc-badge-font-family;
-        font-size: $mdc-badge-font-size;
+        background: variables.$background;
+        color: variables.$color;
+        font-family: variables.$font-family;
+        font-size: variables.$font-size;
         font-weight: 600;
-        padding: 0 $mdc-badge-padding;
+        padding: 0 variables.$padding;
         line-height: 1;
         border-radius: 10px;
         box-sizing: border-box;
@@ -56,8 +48,8 @@ $mdc-badge-padding: 6px !default;
 
     &.mdc-badge--transparent {
         &::after {
-            color: $mdc-badge-color-inverse;
-            background: $mdc-badge-background-inverse;
+            color: variables.$color-inverse;
+            background: variables.$background-inverse;
         }
     }
 }

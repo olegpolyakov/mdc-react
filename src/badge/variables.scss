@@ -1,0 +1,10 @@
+@use '@material/theme/theme-color';
+
+$font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif !default;
+$font-size: 12px !default;
+$color: theme-color.$on-primary !default;
+$color-inverse: theme-color.$primary !default;
+$background: theme-color.$primary !default;
+$background-inverse: transparent !default;
+$size : 20px !default;
+$padding: 6px !default;

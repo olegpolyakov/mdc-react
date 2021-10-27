@@ -1,40 +1,41 @@
-$icon-dark-color: rgba(0, 0, 0, 0.54);
-$icon-dark-inactive-color: rgba(0, 0, 0, 0.26);
-$icon-light-color: rgba(255, 255, 255, 0.54);
-$icon-light-inactive-color: rgba(255, 255, 255, 0.3);
+@use './variables';
 
 .mdc-icon {
     user-select: none;
 
+    &.mdc-icon--small,
     &.mdc-icon--18 {
-        font-size: 18px;
+        font-size: variables.$size-small;
     }
 
+    &.mdc-icon--medium,
     &.mdc-icon--24 {
-        font-size: 24px;
+        font-size: variables.$size-medium;
     }
 
+    &.mdc-icon--large,
     &.mdc-icon--36 {
-        font-size: 36px;
+        font-size: variables.$size-large;
     }
 
+    &.mdc-icon--xlarge,
     &.mdc-icon--48 {
-        font-size: 48px;
+        font-size: variables.$size-xlarge;
     }
 
     &.mdc-icon--dark {
-        color: $icon-dark-color;
+        color: variables.$dark-color;
     }
 
     &.mdc-icon--dark.mdc-icon--inactive {
-        color: $icon-dark-inactive-color;
+        color: variables.$dark-inactive-color;
     }
 
     &.mdc-icon--light {
-        color: $icon-light-color;
+        color: variables.$light-color;
     }
 
     &.mdc-icon--light.mdc-icon--inactive {
-        color: $icon-light-inactive-color
+        color: variables.$light-inactive-color
     }
 }
