@@ -1,16 +1,15 @@
 import { useCallback, useState } from 'react';
 import {
-    FormField,
     Button,
-    LayoutGrid,
+    Dialog,
+    FormField,
     Menu,
-    Radio,
-    Typography
+    Radio
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
+import FieldSet from '@/components/FieldSet';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 import './index.scss';
 
@@ -30,6 +29,8 @@ export default function MenuPage() {
     const [anchorPosition, setAnchorPosition] = useState(Menu.Origin.TOP_LEFT);
     const [anchorOrigin, setAnchorOrigin] = useState(Menu.Origin.TOP_LEFT);
     const [transformOrigin, setTransformOrigin] = useState(Menu.Origin.TOP_LEFT);
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [isDialogOpen, setDialogOpen] = useState(false);
 
     const handleAnchorPositionChange = useCallback((event, value) => {
         setAnchorPosition(value);
@@ -45,230 +46,246 @@ export default function MenuPage() {
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Basic menu">
-                <Code>
-                    <Menu
-                        anchor={
-                            <Button
-                                label="Open"
-                                outlined
-                                onClick={() => setBasicOpen(true)}
+            <Demo title="Basic menu">
+                <Menu
+                    anchor={
+                        <Button
+                            label="Open"
+                            outlined
+                            onClick={() => setBasicOpen(true)}
+                        />
+                    }
+                    open={isBasicOpen}
+                    onClose={() => {
+                        setBasicOpen(false);
+                    }}
+                >
+                    <Menu.Item
+                        text="Foo"
+                    />
+
+                    <Menu.Item
+                        text="Bar"
+                    />
+
+                    <Menu.Item
+                        text="Baz"
+                    />
+                </Menu>
+            </Demo>
+
+            <Demo title="Quick menu">
+                <Menu
+                    anchor={
+                        <Button
+                            label="Open"
+                            outlined
+                            onClick={() => setQuickOpen(true)}
+                        />
+                    }
+                    open={isQuickOpen}
+                    quick
+                    onClose={() => {
+                        setQuickOpen(false);
+                    }}
+                >
+                    <Menu.Item
+                        text="Foo"
+                    />
+
+                    <Menu.Item
+                        text="Bar"
+                    />
+
+                    <Menu.Item
+                        text="Baz"
+                    />
+                </Menu>
+            </Demo>
+
+            <Demo title="Persistent menu">
+                <Menu
+                    anchor={
+                        <Button
+                            label="Open"
+                            outlined
+                            onClick={() => setPersistentOpen(v => !v)}
+                        />
+                    }
+                    open={isPersistentOpen}
+                    persistent
+                >
+                    <Menu.Item
+                        text="Foo"
+                        onClick={() => setPersistentOpen(false)}
+                    />
+
+                    <Menu.Item
+                        text="Bar"
+                        onClick={() => setPersistentOpen(false)}
+                    />
+
+                    <Menu.Item
+                        text="Baz"
+                        onClick={() => setPersistentOpen(false)}
+                    />
+                </Menu>
+            </Demo>
+
+            <Demo id="menu-origin" className={`origin--${anchorPosition.replace(' ', '-')}`} title="Menu origin"
+                settings={<>
+                    <FieldSet legend="Anchor position">
+                        <FormField label="Top left">
+                            <Radio
+                                value={Menu.Origin.TOP_LEFT}
+                                checked={anchorPosition === Menu.Origin.TOP_LEFT}
+                                onChange={handleAnchorPositionChange}
                             />
-                        }
-                        open={isBasicOpen}
-                        modal
-                        onClose={() => {
-                            setBasicOpen(false);
-                        }}
-                    >
-                        <Menu.Item
-                            text="Foo"
-                        />
+                        </FormField>
 
-                        <Menu.Item
-                            text="Bar"
-                        />
-
-                        <Menu.Item
-                            text="Baz"
-                        />
-                    </Menu>
-                </Code>
-            </Section>
-
-            <Section title="Quick menu">
-                <Code>
-                    <Menu
-                        anchor={
-                            <Button
-                                label="Open"
-                                outlined
-                                onClick={() => setQuickOpen(true)}
+                        <FormField label="Top right">
+                            <Radio
+                                value={Menu.Origin.TOP_RIGHT}
+                                checked={anchorPosition === Menu.Origin.TOP_RIGHT}
+                                onChange={handleAnchorPositionChange}
                             />
-                        }
-                        open={isQuickOpen}
-                        quick
-                        onClose={() => {
-                            setQuickOpen(false);
-                        }}
-                    >
-                        <Menu.Item
-                            text="Foo"
-                        />
+                        </FormField>
 
-                        <Menu.Item
-                            text="Bar"
-                        />
-
-                        <Menu.Item
-                            text="Baz"
-                        />
-                    </Menu>
-                </Code>
-            </Section>
-
-            <Section title="Persistent menu">
-                <Code>
-                    <Menu
-                        anchor={
-                            <Button
-                                label="Open"
-                                outlined
-                                onClick={() => setPersistentOpen(v => !v)}
+                        <FormField label="Bottom left">
+                            <Radio
+                                value={Menu.Origin.BOTTOM_LEFT}
+                                checked={anchorPosition === Menu.Origin.BOTTOM_LEFT}
+                                onChange={handleAnchorPositionChange}
                             />
-                        }
-                        open={isPersistentOpen}
-                        persistent
-                    >
-                        <Menu.Item
-                            text="Foo"
-                            onClick={() => setPersistentOpen(false)}
+                        </FormField>
+
+                        <FormField label="Bottom right">
+                            <Radio
+                                value={Menu.Origin.BOTTOM_RIGHT}
+                                checked={anchorPosition === Menu.Origin.BOTTOM_RIGHT}
+                                onChange={handleAnchorPositionChange}
+                            />
+                        </FormField>
+                    </FieldSet>
+
+                    <FieldSet legend="Anchor origin">
+                        <FormField label="Top left">
+                            <Radio
+                                value={Menu.Origin.TOP_LEFT}
+                                checked={anchorOrigin === Menu.Origin.TOP_LEFT}
+                                onChange={handleAnchorOriginChange}
+                            />
+                        </FormField>
+
+                        <FormField label="Top right">
+                            <Radio
+                                value={Menu.Origin.TOP_RIGHT}
+                                checked={anchorOrigin === Menu.Origin.TOP_RIGHT}
+                                onChange={handleAnchorOriginChange}
+                            />
+                        </FormField>
+
+                        <FormField label="Bottom left">
+                            <Radio
+                                value={Menu.Origin.BOTTOM_LEFT}
+                                checked={anchorOrigin === Menu.Origin.BOTTOM_LEFT}
+                                onChange={handleAnchorOriginChange}
+                            />
+                        </FormField>
+
+                        <FormField label="Bottom right">
+                            <Radio
+                                value={Menu.Origin.BOTTOM_RIGHT}
+                                checked={anchorOrigin === Menu.Origin.BOTTOM_RIGHT}
+                                onChange={handleAnchorOriginChange}
+                            />
+                        </FormField>
+                    </FieldSet>
+
+                    <FieldSet legend="Transform origin">
+                        <FormField label="Top left">
+                            <Radio
+                                value={Menu.Origin.TOP_LEFT}
+                                checked={transformOrigin === Menu.Origin.TOP_LEFT}
+                                onChange={handleTransformOriginChange}
+                            />
+                        </FormField>
+
+                        <FormField label="Top right">
+                            <Radio
+                                value={Menu.Origin.TOP_RIGHT}
+                                checked={transformOrigin === Menu.Origin.TOP_RIGHT}
+                                onChange={handleTransformOriginChange}
+                            />
+                        </FormField>
+
+                        <FormField label="Bottom left">
+                            <Radio
+                                value={Menu.Origin.BOTTOM_LEFT}
+                                checked={transformOrigin === Menu.Origin.BOTTOM_LEFT}
+                                onChange={handleTransformOriginChange}
+                            />
+                        </FormField>
+
+                        <FormField label="Bottom right">
+                            <Radio
+                                value={Menu.Origin.BOTTOM_RIGHT}
+                                checked={transformOrigin === Menu.Origin.BOTTOM_RIGHT}
+                                onChange={handleTransformOriginChange}
+                            />
+                        </FormField>
+                    </FieldSet>
+                </>}
+            >
+                <Menu
+                    anchor={
+                        <Button
+                            label={isPersistentOpen ? 'Close' : 'Open'}
+                            outlined
+                            onClick={() => setAnchoredOpen(v => !v)}
                         />
+                    }
+                    anchorOrigin={anchorOrigin}
+                    transformOrigin={transformOrigin}
+                    open={isAnchoredOpen}
+                    onClose={() => {
+                        setAnchoredOpen(false);
+                    }}
+                >
+                    <Menu.Item
+                        text="Foo"
+                    />
 
-                        <Menu.Item
-                            text="Bar"
-                            onClick={() => setPersistentOpen(false)}
-                        />
+                    <Menu.Item
+                        text="Bar"
+                    />
 
-                        <Menu.Item
-                            text="Baz"
-                            onClick={() => setPersistentOpen(false)}
-                        />
-                    </Menu>
-                </Code>
-            </Section>
+                    <Menu.Item
+                        text="Baz"
+                    />
+                </Menu>
+            </Demo>
 
-            <Section id="menu-origin" className={`origin--${anchorPosition.replace(' ', '-')}`} title="Menu origin">
-                <LayoutGrid>
-                    <LayoutGrid.Cell>
-                        <fieldset>
-                            <Typography element="legend" type="caption" noMargin>Anchor position</Typography>
-
-                            <FormField label="Top left">
-                                <Radio
-                                    value={Menu.Origin.TOP_LEFT}
-                                    checked={anchorPosition === Menu.Origin.TOP_LEFT}
-                                    onChange={handleAnchorPositionChange}
-                                />
-                            </FormField>
-
-                            <FormField label="Top right">
-                                <Radio
-                                    value={Menu.Origin.TOP_RIGHT}
-                                    checked={anchorPosition === Menu.Origin.TOP_RIGHT}
-                                    onChange={handleAnchorPositionChange}
-                                />
-                            </FormField>
-
-                            <FormField label="Bottom left">
-                                <Radio
-                                    value={Menu.Origin.BOTTOM_LEFT}
-                                    checked={anchorPosition === Menu.Origin.BOTTOM_LEFT}
-                                    onChange={handleAnchorPositionChange}
-                                />
-                            </FormField>
-
-                            <FormField label="Bottom right">
-                                <Radio
-                                    value={Menu.Origin.BOTTOM_RIGHT}
-                                    checked={anchorPosition === Menu.Origin.BOTTOM_RIGHT}
-                                    onChange={handleAnchorPositionChange}
-                                />
-                            </FormField>
-                        </fieldset>
-                    </LayoutGrid.Cell>
-
-                    <LayoutGrid.Cell>
-                        <fieldset>
-                            <Typography element="legend" type="caption" noMargin>Anchor origin</Typography>
-
-                            <FormField label="Top left">
-                                <Radio
-                                    value={Menu.Origin.TOP_LEFT}
-                                    checked={anchorOrigin === Menu.Origin.TOP_LEFT}
-                                    onChange={handleAnchorOriginChange}
-                                />
-                            </FormField>
-
-                            <FormField label="Top right">
-                                <Radio
-                                    value={Menu.Origin.TOP_RIGHT}
-                                    checked={anchorOrigin === Menu.Origin.TOP_RIGHT}
-                                    onChange={handleAnchorOriginChange}
-                                />
-                            </FormField>
-
-                            <FormField label="Bottom left">
-                                <Radio
-                                    value={Menu.Origin.BOTTOM_LEFT}
-                                    checked={anchorOrigin === Menu.Origin.BOTTOM_LEFT}
-                                    onChange={handleAnchorOriginChange}
-                                />
-                            </FormField>
-
-                            <FormField label="Bottom right">
-                                <Radio
-                                    value={Menu.Origin.BOTTOM_RIGHT}
-                                    checked={anchorOrigin === Menu.Origin.BOTTOM_RIGHT}
-                                    onChange={handleAnchorOriginChange}
-                                />
-                            </FormField>
-                        </fieldset>
-                    </LayoutGrid.Cell>
-
-                    <LayoutGrid.Cell>
-                        <fieldset>
-                            <Typography element="legend" type="caption" noMargin>Transform origin</Typography>
-
-                            <FormField label="Top left">
-                                <Radio
-                                    value={Menu.Origin.TOP_LEFT}
-                                    checked={transformOrigin === Menu.Origin.TOP_LEFT}
-                                    onChange={handleTransformOriginChange}
-                                />
-                            </FormField>
-
-                            <FormField label="Top right">
-                                <Radio
-                                    value={Menu.Origin.TOP_RIGHT}
-                                    checked={transformOrigin === Menu.Origin.TOP_RIGHT}
-                                    onChange={handleTransformOriginChange}
-                                />
-                            </FormField>
-
-                            <FormField label="Bottom left">
-                                <Radio
-                                    value={Menu.Origin.BOTTOM_LEFT}
-                                    checked={transformOrigin === Menu.Origin.BOTTOM_LEFT}
-                                    onChange={handleTransformOriginChange}
-                                />
-                            </FormField>
-
-                            <FormField label="Bottom right">
-                                <Radio
-                                    value={Menu.Origin.BOTTOM_RIGHT}
-                                    checked={transformOrigin === Menu.Origin.BOTTOM_RIGHT}
-                                    onChange={handleTransformOriginChange}
-                                />
-                            </FormField>
-                        </fieldset>
-                    </LayoutGrid.Cell>
-                </LayoutGrid>
-
-                <Code>
+            <Demo
+                title="Modal menu"
+                setup={<Button onClick={() => setDialogOpen(v => !v)}>Open Dialog</Button>}
+            >
+                <Dialog
+                    title="Dialog"
+                    open={isDialogOpen}
+                >
                     <Menu
                         anchor={
                             <Button
                                 label={isPersistentOpen ? 'Close' : 'Open'}
                                 outlined
-                                onClick={() => setAnchoredOpen(v => !v)}
+                                onClick={() => setModalOpen(v => !v)}
                             />
                         }
-                        anchorOrigin={anchorOrigin}
-                        transformOrigin={transformOrigin}
-                        open={isAnchoredOpen}
+                        open={isModalOpen}
+                        modal
                         onClose={() => {
-                            setAnchoredOpen(false);
+                            setModalOpen(false);
                         }}
                     >
                         <Menu.Item
@@ -283,8 +300,8 @@ export default function MenuPage() {
                             text="Baz"
                         />
                     </Menu>
-                </Code>
-            </Section>
+                </Dialog>
+            </Demo>
         </Page>
     );
 }

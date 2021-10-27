@@ -4,9 +4,8 @@ import {
     ChipSet, Chip
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'chips';
 const title = 'Chips';
@@ -22,65 +21,53 @@ export default function ChipsPage() {
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Basic chips">
-                <Code>
-                    <ChipSet>
-                        <Chip text="Foo" />
-                        <Chip text="Bar" />
-                        <Chip text="Baz" />
-                    </ChipSet>
-                </Code>
-            </Section>
+            <Demo title="Basic chips">
+                <ChipSet>
+                    <Chip text="Foo" />
+                    <Chip text="Bar" />
+                    <Chip text="Baz" />
+                </ChipSet>
+            </Demo>
 
-            <Section title="Chips with icons">
-                <Code>
-                    <ChipSet>
-                        <Chip text="Foo" icon="star" />
-                        <Chip text="Bar" icon="star" />
-                        <Chip text="Baz" icon="star" />
-                    </ChipSet>
-                </Code>
-            </Section>
+            <Demo title="Chips with icons">
+                <ChipSet>
+                    <Chip text="Foo" icon="star" />
+                    <Chip text="Bar" icon="star" />
+                    <Chip text="Baz" icon="star" />
+                </ChipSet>
+            </Demo>
 
-            <Section title="Chips with trailing icons">
-                <Code>
-                    <ChipSet>
-                        <Chip text="Foo" trailingIcon="delete" />
-                        <Chip text="Bar" trailingIcon="delete" />
-                        <Chip text="Baz" trailingIcon="delete" />
-                    </ChipSet>
-                </Code>
-            </Section>
+            <Demo title="Chips with trailing icons">
+                <ChipSet>
+                    <Chip text="Foo" trailingIcon="delete" />
+                    <Chip text="Bar" trailingIcon="delete" />
+                    <Chip text="Baz" trailingIcon="delete" />
+                </ChipSet>
+            </Demo>
 
-            <Section title="Chips with avatars">
-                <Code>
-                    <ChipSet>
-                        <Chip text="Foo" graphic={<Avatar src="https://placeimg.com/128/128/people" small />} withAvatar />
-                        <Chip text="Bar" graphic={<Avatar src="https://placeimg.com/128/128/people" small />} withAvatar />
-                        <Chip text="Baz" graphic={<Avatar src="https://placeimg.com/128/128/people" small />} withAvatar />
-                    </ChipSet>
-                </Code>
-            </Section>
+            <Demo title="Chips with avatars">
+                <ChipSet>
+                    <Chip text="Foo" avatar={<Avatar image="https://placeimg.com/128/128/people" small />} />
+                    <Chip text="Bar" avatar={<Avatar image="https://placeimg.com/128/128/people" small />} />
+                    <Chip text="Baz" avatar={<Avatar image="https://placeimg.com/128/128/people" small />} />
+                </ChipSet>
+            </Demo>
 
-            <Section title="Choice chips">
-                <Code>
-                    <ChipSet value={choiceChip} onChange={value => setChoiceChips(value)}>
-                        <Chip value="foo" text="Foo" />
-                        <Chip value="bar" text="Bar" />
-                        <Chip value="baz" text="Baz" />
-                    </ChipSet>
-                </Code>
-            </Section>
+            <Demo title="Choice chips">
+                <ChipSet value={choiceChip} onChange={value => setChoiceChips(value)}>
+                    <Chip value="foo" text="Foo" />
+                    <Chip value="bar" text="Bar" />
+                    <Chip value="baz" text="Baz" />
+                </ChipSet>
+            </Demo>
 
-            <Section title="Filter chips">
-                <Code>
-                    <ChipSet value={filterChips} onChange={value => setFilterChips(value)}>
-                        <Chip value="foo" text="Foo" />
-                        <Chip value="bar" text="Bar" />
-                        <Chip value="baz" text="Baz" />
-                    </ChipSet>
-                </Code>
-            </Section>
+            <Demo title="Filter chips">
+                <ChipSet value={filterChips} onChange={value => setFilterChips(value)}>
+                    <Chip value="foo" text="Foo" />
+                    <Chip value="bar" text="Bar" />
+                    <Chip value="baz" text="Baz" />
+                </ChipSet>
+            </Demo>
         </Page>
     );
 }

@@ -3,9 +3,8 @@ import {
     Select
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'select';
 const title = 'Select';
@@ -23,81 +22,71 @@ export default function SelectPage() {
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Filled select">
-                <Code>
-                    <Select
-                        label="Choose"
-                        value={filled}
-                        filled
-                        onChange={(event, value) => setFilled(value)}
-                    >
-                        <Select.Option value="foo" text="Foo" />
-                        <Select.Option value="bar" text="Bar" />
-                        <Select.Option value="baz" text="Baz" />
-                    </Select>
-                </Code>
-            </Section>
+            <Demo title="Filled select">
+                <Select
+                    label="Choose"
+                    value={filled}
+                    filled
+                    onChange={(event, value) => setFilled(value)}
+                >
+                    <Select.Option value="foo" text="Foo" />
+                    <Select.Option value="bar" text="Bar" />
+                    <Select.Option value="baz" text="Baz" />
+                </Select>
+            </Demo>
 
-            <Section title="Outlined select">
-                <Code>
-                    <Select
-                        label="Choose"
-                        value={outlined}
-                        outlined
-                        onChange={(event, value) => setOutlined(value)}
-                    >
-                        <Select.Option value="foo" text="Foo" />
-                        <Select.Option value="bar" text="Bar" />
-                        <Select.Option value="baz" text="Baz" />
-                    </Select>
-                </Code>
-            </Section>
+            <Demo title="Outlined select">
+                <Select
+                    label="Choose"
+                    value={outlined}
+                    outlined
+                    onChange={(event, value) => setOutlined(value)}
+                >
+                    <Select.Option value="foo" text="Foo" />
+                    <Select.Option value="bar" text="Bar" />
+                    <Select.Option value="baz" text="Baz" />
+                </Select>
+            </Demo>
 
-            <Section title="Preselected select">
-                <Code>
-                    <Select
-                        label="Choose"
-                        value={preselected}
-                        filled
-                        onChange={(event, value) => setPreselected(value)}
-                    >
-                        <Select.Option value="foo" text="Foo" />
-                        <Select.Option value="bar" text="Bar" />
-                        <Select.Option value="baz" text="Baz" />
-                    </Select>
-                </Code>
-            </Section>
+            <Demo title="Preselected select">
+                <Select
+                    label="Choose"
+                    value={preselected}
+                    filled
+                    onChange={(event, value) => setPreselected(value)}
+                >
+                    <Select.Option value="foo" text="Foo" />
+                    <Select.Option value="bar" text="Bar" />
+                    <Select.Option value="baz" text="Baz" />
+                </Select>
+            </Demo>
 
-            <Section title="Multiple select">
-                <Code>
-                    <Select
-                        label="Choose"
-                        value={multiple}
-                        filled
-                        onChange={(event, value) => setMultiple(value)}
-                    >
-                        <Select.Option value="foo" text="Foo" />
-                        <Select.Option value="bar" text="Bar" />
-                        <Select.Option value="baz" text="Baz" />
-                    </Select>
-                </Code>
-            </Section>
+            <Demo title="Multiple select">
+                <Select
+                    label="Choose"
+                    value={multiple}
+                    filled
+                    onChange={(event, value) => setMultiple(value)}
+                >
+                    <Select.Option value="foo" text="Foo" />
+                    <Select.Option value="bar" text="Bar" />
+                    <Select.Option value="baz" text="Baz" />
+                </Select>
+            </Demo>
 
-            <Section title="Select with an icon">
-                <Code>
-                    <Select
-                        label="Choose"
-                        value={icon}
-                        icon="star"
-                        filled
-                        onChange={(event, value) => setIcon(value)}
-                    >
-                        <Select.Option value="foo" text="Foo" />
-                        <Select.Option value="bar" text="Bar" />
-                        <Select.Option value="baz" text="Baz" />
-                    </Select>
-                </Code>
-            </Section>
+            <Demo title="Select with an icon">
+                <Select
+                    label="Choose"
+                    value={icon}
+                    icon="star"
+                    filled
+                    onChange={(event, value) => setIcon(value)}
+                >
+                    <Select.Option value="foo" text="Foo" />
+                    <Select.Option value="bar" text="Bar" />
+                    <Select.Option value="baz" text="Baz" />
+                </Select>
+            </Demo>
         </Page>
     );
 }

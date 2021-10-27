@@ -53,7 +53,7 @@ export default function AvatarPage() {
                 }
             >
                 <Avatar
-                    src={content === 'image' ? 'https://placeimg.com/128/128/people' : undefined}
+                    image={content === 'image' ? 'https://placeimg.com/128/128/people' : undefined}
                     icon={content === 'icon' ? 'star' : undefined}
                     text={content === 'text' ? 'MD' : undefined}
                     size={size}
