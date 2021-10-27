@@ -22,11 +22,11 @@ const Layout = forwardRef(({
         [cssClasses.ROW]: row,
         [cssClasses.COLUMN]: column,
         [`${cssClasses.DIRECTION}--${direction}`]: direction,
-        [cssClasses.WRAP]: wrap === true,
-        [cssClasses.WRAP_REVERSE]: wrap === 'reverse',
         [`${cssClasses.ALIGN_ITEMS}--${alignItems}`]: alignItems,
         [`${cssClasses.ALIGN_SELF}--${alignSelf}`]: alignSelf,
-        [`${cssClasses.JUSTIFY_CONTENT}--${justifyContent}`]: justifyContent
+        [`${cssClasses.JUSTIFY_CONTENT}--${justifyContent}`]: justifyContent,
+        [cssClasses.WRAP]: wrap === true,
+        [cssClasses.WRAP_REVERSE]: wrap === 'reverse'
     }, className);
 
     return (
