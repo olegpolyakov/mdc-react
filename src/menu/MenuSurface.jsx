@@ -67,8 +67,8 @@ const MenuSurface = forwardRef(({
         };
 
         const style = {
-            top: 0,
-            left: 0,
+            top: anchorDimensions.top,
+            left: anchorDimensions.left,
             width: fullWidth ? '100%' : undefined,
             maxWidth: fullWidth ? `${anchorDimensions.width}px` : undefined,
             position: fixed ? 'fixed' : 'absolute',
@@ -97,28 +97,28 @@ const MenuSurface = forwardRef(({
             const top = scrollY + style.top;
             const bottomOverflow = scrollY + (anchorOrigin.bottom ? anchorClientRect.bottom : anchorClientRect.top) + height - window.innerHeight;
 
-            style.top = `${bottomOverflow > 0 ? (top - bottomOverflow) : top}px`;
+            style.top = bottomOverflow > 0 ? (top - bottomOverflow) : top;
         } else if (transformOrigin.bottom) {
             const top = scrollY + style.top - height;
             const topOverflow = scrollY + (anchorOrigin.bottom ? anchorClientRect.bottom : anchorClientRect.top) - height;
 
-            style.top = `${topOverflow > 0 ? top : 0}px`;
+            style.top = topOverflow > 0 ? top : 0;
         }
 
         if (transformOrigin.left) {
             const left = style.left;
-            const rightOverflow = window.innerWidth - (anchorOrigin.left ? anchorClientRect.left : anchorClientRect.right) + width;
+            const rightOverflow = scrollX + window.innerWidth - (anchorOrigin.left ? anchorClientRect.left : anchorClientRect.right) + width;
 
-            style.left = `${rightOverflow > 0 ? left : left - Math.abs(rightOverflow)}px`;
+            style.left = rightOverflow > 0 ? left : left - Math.abs(rightOverflow);
         } else if (transformOrigin.right) {
             const left = style.left - width;
-            const leftOverflow = (anchorOrigin.right ? anchorClientRect.right : anchorClientRect.left) - width;
+            const leftOverflow = scrollX + (anchorOrigin.right ? anchorClientRect.right : anchorClientRect.left) - width;
 
-            style.left = `${leftOverflow > 0 ? left : 0}px`;
+            style.left = leftOverflow > 0 ? left : 0;
         }
 
-        rootRef.current.style.top = style.top;
-        rootRef.current.style.left = style.left;
+        rootRef.current.style.top = `${style.top}px`;
+        rootRef.current.style.left = `${style.left}px`;
         rootRef.current.style.position = style.position;
         rootRef.current.style.width = style.width;
         rootRef.current.style.maxWidth = style.maxWidth;
