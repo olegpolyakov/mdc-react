@@ -8,7 +8,7 @@ import Icon from '../icon';
 import { cssClasses } from './constants';
 
 const Avatar = forwardRef(({
-    src,
+    image,
     icon,
     text,
     size,
@@ -16,7 +16,6 @@ const Avatar = forwardRef(({
     element = 'span',
     component: Element = element,
     className,
-    alt,
     children = text,
     ...props
 }, ref) => {
@@ -26,8 +25,12 @@ const Avatar = forwardRef(({
 
     return (
         <Element ref={ref} className={classNames} {...props}>
-            {src &&
-                <img className={cssClasses.IMAGE} src={src} alt={alt} />
+            {image &&
+                <img
+                    className={cssClasses.IMAGE}
+                    src={image?.src || image}
+                    alt={image?.alt || ''}
+                />
             }
 
             {icon &&
