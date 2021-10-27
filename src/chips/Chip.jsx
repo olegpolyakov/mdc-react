@@ -10,8 +10,9 @@ import ChipTrailingAction from './ChipTrailingAction';
 const Chip = forwardRef(({
     value,
     text,
-    graphic,
     icon,
+    avatar,
+    graphic = avatar,
     primaryIcon = icon,
     trailingIcon,
     selectable = false,
@@ -20,7 +21,7 @@ const Chip = forwardRef(({
     outlined = false,
     disabled = false,
     touch = false,
-    withAvatar = false,
+    withAvatar = Boolean(avatar),
 
     element = 'span',
     component: Element = element,
