@@ -9,11 +9,11 @@
   },
   "scripts": {
     "build": "webpack --env=production --mode=production",
-    "docs": "webpack serve --config-name=docs --env=development --mode=development --hot --history-api-fallback",
     "build-docs": "webpack --config-name=docs --env=production --mode=production",
+    "docs": "webpack serve --config-name=docs --env=development --mode=development --hot --history-api-fallback",
     "lint": "eslint ./src",
-    "start": "webpack --watch --env=development --mode=development",
-    "prepublishOnly": "npm run lint && npm run build"
+    "prepublishOnly": "npm run lint && npm run build",
+    "start": "webpack --watch --env=development --mode=development"
   },
   "peerDependencies": {
     "react": "^17.0.0",
