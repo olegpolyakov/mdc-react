@@ -75,8 +75,8 @@ const MenuSurface = forwardRef(({
             transformOrigin: _transformOrigin
         };
 
-        const scrollY = (modal ? window.scrollY : 0);
-        const scrollX = (modal ? window.scrollX : 0);
+        const scrollY = (modal && !fixed) ? window.scrollY : 0;
+        const scrollX = (modal && !fixed) ? window.scrollX : 0;
 
         const anchorOrigin = getAnchorOrigin(_anchorOrigin);
         const transformOrigin = getAnchorOrigin(_transformOrigin);
@@ -123,7 +123,7 @@ const MenuSurface = forwardRef(({
         rootRef.current.style.width = style.width;
         rootRef.current.style.maxWidth = style.maxWidth;
         rootRef.current.style.transformOrigin = style.transformOrigin;
-    }, [open, modal, _anchorOrigin, _transformOrigin]);
+    }, [open, modal, fixed, _anchorOrigin, _transformOrigin]);
 
     const handleKeyDown = useCallback(event => {
         if (event.key === 'Escape' && !persistent) {
