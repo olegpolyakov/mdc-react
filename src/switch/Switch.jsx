@@ -13,7 +13,9 @@ const Switch = forwardRef(({
 }, ref) => {
 
     const handleClick = useCallback(event => {
-        onChange(event, !selected, event.target);
+        event.stopPropagation();
+
+        onChange(event, !selected, event.currentTarget);
     }, [selected, onChange]);
 
     const classNames = classnames(cssClasses.ROOT, {
