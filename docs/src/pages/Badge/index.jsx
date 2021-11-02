@@ -14,7 +14,6 @@ import {
 import Demo from '@/components/Demo';
 import FieldSet from '@/components/FieldSet';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
 
 const id = 'badge';
 const title = 'Badge';
@@ -36,55 +35,53 @@ export default function BadgePage() {
 
     return (
         <Page id={id} title={title} description={description}>
-            <Section>
-                <Demo
-                    settings={[
-                        <TextField
-                            key="value"
-                            value={value}
-                            label="Value"
-                            outlined
-                            onChange={(_, value) => setValue(value)}
-                        />,
-
-                        <FieldSet key="content" legend="Content">
-                            <SegmentedButton
-                                segments={[
-                                    { value: 'avatar', label: 'Avatar' },
-                                    { value: 'button', label: 'Button' },
-                                    { value: 'icon', label: 'Icon' },
-                                    { value: 'iconButton', label: 'Icon Button' },
-                                    { value: 'text', label: 'Text' }
-                                ]}
-                                value={type}
-                                onChange={setType}
-                            />
-                        </FieldSet>,
-
-                        <FormField key="inset" label="Inset" alignEnd spaceBetween>
-                            <Switch
-                                selected={inset}
-                                onChange={() => setInset(v => !v)}
-                            />
-                        </FormField>,
-
-                        <FormField key="transparent" label="Transparent" alignEnd spaceBetween>
-                            <Switch
-                                selected={transparent}
-                                onChange={() => setTransparent(v => !v)}
-                            />
-                        </FormField>
-                    ]}
-                >
-                    <Badge
+            <Demo
+                settings={[
+                    <TextField
+                        key="value"
                         value={value}
-                        inset={inset || undefined}
-                        transparent={transparent || undefined}
-                    >
-                        {content[type]}
-                    </Badge>
-                </Demo>
-            </Section>
+                        label="Value"
+                        outlined
+                        onChange={(_, value) => setValue(value)}
+                    />,
+
+                    <FieldSet key="content" legend="Content">
+                        <SegmentedButton
+                            segments={[
+                                { value: 'avatar', label: 'Avatar' },
+                                { value: 'button', label: 'Button' },
+                                { value: 'icon', label: 'Icon' },
+                                { value: 'iconButton', label: 'Icon Button' },
+                                { value: 'text', label: 'Text' }
+                            ]}
+                            value={type}
+                            onChange={setType}
+                        />
+                    </FieldSet>,
+
+                    <FormField key="inset" label="Inset" alignEnd spaceBetween>
+                        <Switch
+                            selected={inset}
+                            onChange={() => setInset(v => !v)}
+                        />
+                    </FormField>,
+
+                    <FormField key="transparent" label="Transparent" alignEnd spaceBetween>
+                        <Switch
+                            selected={transparent}
+                            onChange={() => setTransparent(v => !v)}
+                        />
+                    </FormField>
+                ]}
+            >
+                <Badge
+                    value={value}
+                    inset={inset || undefined}
+                    transparent={transparent || undefined}
+                >
+                    {content[type]}
+                </Badge>
+            </Demo>
         </Page>
     );
 }

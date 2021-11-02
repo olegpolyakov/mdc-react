@@ -1,9 +1,8 @@
 import { useCallback, useState } from 'react';
 import { DataTable } from 'mdc-react';
 
+import Demo from '@/components/Demo';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'data-table';
 const title = 'Data Table';
@@ -37,32 +36,30 @@ export default function DataTablePage() {
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Sortable data table">
-                <Code>
-                    <DataTable>
-                        <DataTable.Header>
-                            <DataTable.HeaderRow>
-                                <DataTable.HeaderCell>Dessert</DataTable.HeaderCell>
-                                <DataTable.HeaderCell numeric sort={sort} onSort={handleSort}>Carbs (g)</DataTable.HeaderCell>
-                                <DataTable.HeaderCell numeric>Protein (g)</DataTable.HeaderCell>
-                                <DataTable.HeaderCell>Comments</DataTable.HeaderCell>
-                            </DataTable.HeaderRow>
-                        </DataTable.Header>
+            <Demo title="Sortable data table">
+                <DataTable>
+                    <DataTable.Header>
+                        <DataTable.HeaderRow>
+                            <DataTable.HeaderCell>Dessert</DataTable.HeaderCell>
+                            <DataTable.HeaderCell numeric sort={sort} onSort={handleSort}>Carbs (g)</DataTable.HeaderCell>
+                            <DataTable.HeaderCell numeric>Protein (g)</DataTable.HeaderCell>
+                            <DataTable.HeaderCell>Comments</DataTable.HeaderCell>
+                        </DataTable.HeaderRow>
+                    </DataTable.Header>
 
-                        <DataTable.Content>
-                            {data.map((row, index) =>
-                                <DataTable.Row key={index}>
-                                    {row.map((value, index) =>
-                                        <DataTable.Cell key={index} scope={index === 0 ? 'row' : undefined} numeric={typeof value === 'number' || undefined}>
-                                            {value}
-                                        </DataTable.Cell>
-                                    )}
-                                </DataTable.Row>
-                            )}
-                        </DataTable.Content>
-                    </DataTable>
-                </Code>
-            </Section>
+                    <DataTable.Content>
+                        {data.map((row, index) =>
+                            <DataTable.Row key={index}>
+                                {row.map((value, index) =>
+                                    <DataTable.Cell key={index} scope={index === 0 ? 'row' : undefined} numeric={typeof value === 'number' || undefined}>
+                                        {value}
+                                    </DataTable.Cell>
+                                )}
+                            </DataTable.Row>
+                        )}
+                    </DataTable.Content>
+                </DataTable>
+            </Demo>
         </Page>
     );
 }

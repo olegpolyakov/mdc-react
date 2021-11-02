@@ -3,9 +3,8 @@ import {
     Switch
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'switch';
 const title = 'Switch';
@@ -20,20 +19,16 @@ export default function SwitchPage() {
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Basic switch">
-                <Code>
-                    <Switch
-                        selected={isSelected}
-                        onChange={() => setSelected(v => !v)}
-                    />
-                </Code>
-            </Section>
+            <Demo title="Basic switch">
+                <Switch
+                    selected={isSelected}
+                    onChange={() => setSelected(v => !v)}
+                />
+            </Demo>
 
-            <Section title="Disabled switch">
-                <Code>
-                    <Switch disabled />
-                </Code>
-            </Section>
+            <Demo title="Disabled switch">
+                <Switch disabled />
+            </Demo>
         </Page>
     );
 }

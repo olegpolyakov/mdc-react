@@ -1,9 +1,16 @@
 import { useState } from 'react';
-import { Button, CircularProgress } from 'mdc-react';
+import {
+    Button,
+    CircularProgress,
+    SegmentedButton,
+    FormField,
+    Switch,
+    TextField
+} from 'mdc-react';
 
+import Demo from '@/components/Demo';
+import FieldSet from '@/components/FieldSet';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'circular-progress';
 const title = 'Circular Progress';
@@ -14,87 +21,65 @@ const links = {
 };
 
 export default function CircularProgressPage() {
-    const [isClosed, setClosed] = useState(false);
+    const [value, setValue] = useState(42);
+    const [size, setSize] = useState('medium');
+    const [indeterminate, setIndeterminate] = useState(false);
+    const [colorful, setColorful] = useState(false);
+    const [closed, setClosed] = useState(false);
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section>
-                <Code>
-                    <CircularProgress
-                        value="42"
-                        size="small"
+            <Demo
+                settings={<>
+                    <TextField
+                        value={value}
+                        label="Value"
+                        outlined
+                        onChange={(_, value) => setValue(value)}
                     />
 
-                    <CircularProgress
-                        value="42"
-                        size="medium"
-                    />
-
-                    <CircularProgress
-                        value="42"
-                        size="large"
-                    />
-                </Code>
-            </Section>
-
-            <Section>
-                <Code>
-                    <CircularProgress
-                        indeterminate
-                        size="small"
-                    />
-
-                    <CircularProgress
-                        indeterminate
-                        size="medium"
-                    />
-
-                    <CircularProgress
-                        indeterminate
-                        size="large"
-                    />
-                </Code>
-            </Section>
-
-            <Section>
-                <Code>
-                    <CircularProgress
-                        size="small"
-                        indeterminate
-                        colorful
-                    />
-
-                    <CircularProgress
-                        size="medium"
-                        indeterminate
-                        colorful
-                    />
-
-                    <CircularProgress
-                        size="large"
-                        indeterminate
-                        colorful
-                    />
-                </Code>
-            </Section>
-
-            <Section title="Closed circular progress">
-                <Code
-                    setup={
-                        <Button
-                            label="Toggle"
-                            outlined
-                            onClick={() => setClosed(v => !v)}
+                    <FieldSet legend="Size">
+                        <SegmentedButton
+                            segments={[
+                                { value: 'small', label: 'Small' },
+                                { value: 'medium', label: 'Medium' },
+                                { value: 'large', label: 'Large' }
+                            ]}
+                            value={size}
+                            onChange={setSize}
                         />
-                    }
-                >
-                    <CircularProgress
-                        size="medium"
-                        indeterminate
-                        closed={isClosed}
-                    />
-                </Code>
-            </Section>
+                    </FieldSet>
+
+                    <FormField label="Indeterminate" alignEnd spaceBetween>
+                        <Switch
+                            selected={indeterminate}
+                            onChange={() => setIndeterminate(v => !v)}
+                        />
+                    </FormField>
+
+                    <FormField label="Colorful" alignEnd spaceBetween>
+                        <Switch
+                            selected={colorful}
+                            onChange={() => setColorful(v => !v)}
+                        />
+                    </FormField>
+
+                    <FormField label="Closed" alignEnd spaceBetween>
+                        <Switch
+                            selected={closed}
+                            onChange={() => setClosed(v => !v)}
+                        />
+                    </FormField>
+                </>}
+            >
+                <CircularProgress
+                    value={indeterminate ? undefined : value}
+                    size={size}
+                    indeterminate={indeterminate || undefined}
+                    colorful={colorful || undefined}
+                    closed={closed || undefined}
+                />
+            </Demo>
         </Page>
     );
 }
