@@ -8,7 +8,7 @@ export default function CharacterCounter({
 }) {
     return (
         <div className="mdc-text-field-character-counter" {...props}>
-            {`${value} / ${maxValue}`}
+            {value + (maxValue ? ` / ${maxValue}` : '')}
         </div>
     );
 }

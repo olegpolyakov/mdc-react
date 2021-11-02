@@ -32,7 +32,8 @@ const TextField = forwardRef(({
     textarea = false,
     endAligned = false,
     autoResize = false,
-    internalCounter = false,
+    characterCounter = false,
+    internalCharacterCounter = characterCounter === 'internal',
 
     className,
     element: Element = 'label',
@@ -82,7 +83,7 @@ const TextField = forwardRef(({
         Boolean(inputRef.current?.value)
     );
 
-    const hasHelperLine = helperText || validationMessage || props.maxLength;
+    const hasHelperLine = helperText || validationMessage || characterCounter;
 
     const classNames = classnames(cssClasses.ROOT, {
         [cssClasses.FILLED]: filled && !fullWidth,
@@ -96,7 +97,7 @@ const TextField = forwardRef(({
         [cssClasses.END_ALIGNED]: endAligned,
         [cssClasses.WITH_LEADING_ICON]: leadingIcon,
         [cssClasses.WITH_TRAILING_ICON]: trailingIcon,
-        [cssClasses.WITH_INTERNAL_COUNTER]: internalCounter
+        [cssClasses.WITH_INTERNAL_COUNTER]: internalCharacterCounter
     }, className);
 
     return (<>
@@ -159,7 +160,7 @@ const TextField = forwardRef(({
                     {...props}
                 />
 
-                {internalCounter &&
+                {internalCharacterCounter &&
                     <CharacterCounter
                         value={count}
                         maxValue={props.maxLength}
@@ -199,7 +200,7 @@ const TextField = forwardRef(({
                     <HelperText validation>{typeof validationMessage === 'string' ? validationMessage : inputRef.current?.validationMessage}</HelperText>
                 }
 
-                {(props.maxLength && !internalCounter) &&
+                {(characterCounter && !internalCharacterCounter) &&
                     <CharacterCounter
                         value={count}
                         maxValue={props.maxLength}
