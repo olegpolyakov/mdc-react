@@ -15,7 +15,7 @@ export const cssClasses = {
 
     ICON: 'mdc-text-field__icon',
     ICON_LEADING: 'mdc-text-field__icon--leading',
-    ICON_TRAILING: 'mdc-text-field__icon--leading',
+    ICON_TRAILING: 'mdc-text-field__icon--trailing',
 
     INPUT: 'mdc-text-field__input',
 
