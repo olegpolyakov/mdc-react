@@ -11,9 +11,9 @@ const Switch = forwardRef(({
     className,
     ...props
 }, ref) => {
-
     const handleClick = useCallback(event => {
         event.stopPropagation();
+        event.target = event.currentTarget;
 
         onChange(event, !selected, event.currentTarget);
     }, [selected, onChange]);
@@ -61,7 +61,7 @@ const Switch = forwardRef(({
 Switch.displayName = 'MDCSwitch';
 
 Switch.propTypes = {
-    checked: PropTypes.bool,
+    selected: PropTypes.bool,
     disabled: PropTypes.bool,
     onChange: PropTypes.func
 };
