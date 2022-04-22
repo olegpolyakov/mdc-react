@@ -37,6 +37,8 @@ const TextField = forwardRef(({
 
     className,
     element: Element = 'label',
+    onFocus = Function.prototype,
+    onBlur = Function.prototype,
     onChange = Function.prototype,
     ...props
 }, ref) => {
@@ -57,15 +59,17 @@ const TextField = forwardRef(({
         });
     }, []);
 
-    const handleInputFocus = useCallback(() => {
+    const handleInputFocus = useCallback(event => {
         setFocused(true);
         setTouched(true);
-    }, []);
+        onFocus(event);
+    }, [onFocus]);
 
-    const handleInputBlur = useCallback(() => {
+    const handleInputBlur = useCallback(event => {
         setFocused(false);
         setInteractionCoords();
-    }, []);
+        onBlur(event);
+    }, [onBlur]);
 
     const handleInputChange = useCallback(event => {
         const value = inputRef.current.value;
