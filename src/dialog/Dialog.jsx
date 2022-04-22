@@ -2,6 +2,7 @@ import { forwardRef, useRef, useCallback, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+import { clone, isElement } from '../component';
 import { useUpdated, useUnmounted } from '../hooks';
 import Layer from '../layer';
 
@@ -12,13 +13,14 @@ import DialogActions from './DialogActions';
 
 const Dialog = forwardRef(({
     title,
+    header,
     content,
     actions,
     closeIcon,
     open = false,
     appear = false,
-    persistent = false,
     fullscreen = false,
+    persistent = false,
     stacked = false,
     autoStackButtons = false,
     onClose = Function.prototype,
@@ -161,11 +163,26 @@ const Dialog = forwardRef(({
                             />
                         }
 
-                        {children &&
+                        {isElement(header) &&
+                            clone(header, {
+                                fullscreen,
+                                onClose
+                            })
+                        }
+
+                        {isElement(children) ?
+                            clone(children, {
+                                ref: contentRef
+                            })
+                            :
                             <DialogContent ref={contentRef}>{children}</DialogContent>
                         }
 
-                        {actions &&
+                        {isElement(actions) ?
+                            clone(actions, {
+                                ref: actionsRef
+                            })
+                            :
                             <DialogActions ref={actionsRef}>{actions}</DialogActions>
                         }
                     </div>
@@ -181,18 +198,18 @@ Dialog.displayName = 'MDCDialog';
 
 Dialog.propTypes = {
     title: PropTypes.node,
-    closeIcon: PropTypes.node,
+    header: PropTypes.node,
     content: PropTypes.node,
     actions: PropTypes.oneOfType([
         PropTypes.node,
         PropTypes.arrayOf(PropTypes.node)
     ]),
+    closeIcon: PropTypes.node,
     open: PropTypes.bool,
     appear: PropTypes.bool,
-    confirmation: PropTypes.bool,
+    fullscreen: PropTypes.bool,
     persistent: PropTypes.bool,
     stacked: PropTypes.bool,
-    fullscreen: PropTypes.bool,
     autoStackButtons: PropTypes.bool,
     onClose: PropTypes.func
 };
