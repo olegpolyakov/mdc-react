@@ -15,6 +15,21 @@ export function getClientWidth(element) {
     return clientWidth;
 }
 
+export function getClientHeight(element) {
+    if (element.offsetParent !== null) {
+        return element.clientHeight;
+    }
+
+    const clone = element.cloneNode(true);
+    clone.style.setProperty('position', 'absolute');
+    clone.style.setProperty('transform', 'translate(-9999px, -9999px)');
+    document.documentElement.appendChild(clone);
+    const clientHeight = clone.clientHeight;
+    document.documentElement.removeChild(clone);
+
+    return clientHeight;
+}
+
 export function getEventKey(event) {
     switch (event.key || event.keyCode) {
         case Key.ARROW_LEFT:
