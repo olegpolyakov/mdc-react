@@ -1,2 +1,9 @@
-export { default as Chip } from './Chip';
-export { default as ChipSet } from './ChipSet';
+import Chip from './Chip';
+import ChipSet from './ChipSet';
+
+Chip.Set = ChipSet;
+
+export {
+    Chip,
+    ChipSet
+};
