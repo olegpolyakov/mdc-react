@@ -1,0 +1,75 @@
+@use './variables';
+
+.mdc-symbol {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    &.mdc-symbol--outlined {
+        font-family: 'Material Symbols Outlined';
+    }
+
+    &.mdc-symbol--rounded {
+        font-family: 'Material Symbols Rounded';
+    }
+
+    &.mdc-symbol--sharp {
+        font-family: 'Material Symbols Sharp';
+    }
+
+    &.mdc-symbol--smaller,
+    &.mdc-symbol--16 {
+        font-size: variables.$smaller-size;
+        font-variation-settings: 'OPSZ' 16;
+    }
+
+    &.mdc-symbol--small,
+    &.mdc-symbol--18 {
+        font-size: variables.$small-size;
+        font-variation-settings: 'OPSZ' 18;
+    }
+
+    &.mdc-symbol--medium,
+    &.mdc-symbol--24 {
+        font-size: variables.$medium-size;
+        font-variation-settings: 'OPSZ' 24;
+    }
+
+    &.mdc-symbol--large,
+    &.mdc-symbol--36 {
+        font-size: variables.$large-size;
+        font-variation-settings: 'OPSZ' 36;
+    }
+
+    &.mdc-symbol--larger,
+    &.mdc-symbol--48 {
+        font-size: variables.$larger-size;
+        font-variation-settings: 'OPSZ' 48;
+    }
+
+    &.mdc-symbol--dark {
+        color: variables.$dark-color;
+        font-variation-settings: 'GRAD' -25;
+    }
+
+    &.mdc-symbol--dark.mdc-symbol--inactive {
+        color: variables.$dark-inactive-color;
+        font-variation-settings: 'GRAD' -25;
+    }
+
+    &.mdc-symbol--light {
+        color: variables.$light-color;
+    }
+
+    &.mdc-symbol--light.mdc-icon--inactive {
+        color: variables.$light-inactive-color
+    }
+}

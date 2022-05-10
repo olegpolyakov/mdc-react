@@ -31,6 +31,7 @@ export { default as Select, SelectOption } from './select';
 export { default as Slider } from './slider';
 export { default as Snackbar } from './snackbar';
 export { default as Switch } from './switch';
+export { default as Symbol } from './symbol';
 export { Tab, TabBar } from './tabs';
 export { Tooltip, RichTooltip } from './tooltip';
 export { default as TextField } from './text-field';
