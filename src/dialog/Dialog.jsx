@@ -170,21 +170,21 @@ const Dialog = forwardRef(({
                             })
                         }
 
-                        {isElement(children) ?
+                        {children && (isElement(children) ?
                             clone(children, {
                                 ref: contentRef
                             })
                             :
                             <DialogContent ref={contentRef}>{children}</DialogContent>
-                        }
+                        )}
 
-                        {isElement(actions) ?
+                        {actions && (isElement(actions) ?
                             clone(actions, {
                                 ref: actionsRef
                             })
                             :
                             <DialogActions ref={actionsRef}>{actions}</DialogActions>
-                        }
+                        )}
                     </div>
                 </div>
 
