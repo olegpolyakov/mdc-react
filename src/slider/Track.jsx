@@ -29,6 +29,7 @@ const Track = forwardRef(({
             {discrete && tickMarks &&
                 <TickMarks
                     value={value}
+                    min={min}
                     max={max}
                     step={step}
                 />

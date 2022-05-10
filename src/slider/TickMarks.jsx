@@ -4,16 +4,18 @@ import { cssClasses } from './constants';
 
 const TickMarks = ({
     value,
+    min,
     max,
     step = 1
 }) => {
     return (
         <div className={cssClasses.TICK_MARKS}>
-            {Array.from(new Array(max / step + 1))
-                .map((_, i) => i * step)
-                .map((tickValue, index) =>
+            {Array.from(new Array((max - min) / step + 1))
+                .map((_, i) => step * i + Number(min))
+                .map(tickValue =>
                     <div
-                        key={index}
+                        key={tickValue}
+                        data-value={tickValue}
                         className={
                             classnames({
                                 [cssClasses.TICK_MARK_ACTIVE]: tickValue <= value,
