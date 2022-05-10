@@ -35,4 +35,4 @@ export { Tab, TabBar } from './tabs';
 export { Tooltip, RichTooltip } from './tooltip';
 export { default as TextField } from './text-field';
 export { default as TopAppBar, TopAppBarActionItem, TopAppBarNavigationIcon, TopAppBarRow, TopAppBarSection, TopAppBarTitle } from './top-app-bar';
-export { default as Typography } from './typography';
+export { default as Typography, default as Text } from './typography';
