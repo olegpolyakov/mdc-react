@@ -5,6 +5,8 @@ import classnames from 'classnames';
 import { cssClasses } from './constants';
 
 const Icon = forwardRef(({
+    name,
+    type,
     size,
     light = false,
     dark = false,
@@ -12,10 +14,12 @@ const Icon = forwardRef(({
 
     element = 'i',
     component: Element = element,
+    children = name,
     className,
     ...props
 }, ref) => {
-    const classNames = classnames(cssClasses.ROOT, cssClasses.MATERIAL_ICONS, {
+    const classNames = classnames(cssClasses.ROOT, {
+        [`${cssClasses.ROOT}--${type}`]: type,
         [`${cssClasses.ROOT}--${size}`]: size,
         [cssClasses.LIGHT]: light,
         [cssClasses.DARK]: dark,
@@ -23,16 +27,19 @@ const Icon = forwardRef(({
     }, className);
 
     return (
-        <Element ref={ref} className={classNames} {...props} />
+        <Element ref={ref} className={classNames} {...props}>
+            {children}
+        </Element>
     );
 });
 
 Icon.displayName = 'MDCIcon';
 
 Icon.propTypes = {
+    type: PropTypes.oneOf(['filled', 'outlined', 'round', 'sharp', 'two-tone']),
     size: PropTypes.string,
-    dark: PropTypes.bool,
     light: PropTypes.bool,
+    dark: PropTypes.bool,
     inactive: PropTypes.bool
 };
 
