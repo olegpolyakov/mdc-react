@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import {
-    IconButton
+    IconButton,
+    Symbol
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
+import FieldSet from '@/components/FieldSet';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'icon-button';
 const title = 'Icon Button';
@@ -20,22 +21,24 @@ export default function IconButtonPage() {
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Basic icon button">
-                <Code>
-                    <IconButton
-                        icon="star"
-                    />
-                </Code>
-            </Section>
+            <Demo title="Basic icon button">
+                <IconButton
+                    icon="flag"
+                />
+            </Demo>
 
-            <Section title="Toggling icon button">
-                <Code>
-                    <IconButton
-                        icon={isOn ? 'favorite' : 'favorite_border'}
-                        onClick={() => setOn(v => !v)}
-                    />
-                </Code>
-            </Section>
+            <Demo title="Toggling icon button">
+                <IconButton
+                    icon={isOn ? 'favorite' : 'favorite_outlined'}
+                    onClick={() => setOn(v => !v)}
+                />
+            </Demo>
+
+            <Demo title="With a symbol">
+                <IconButton
+                    icon={<Symbol>flag</Symbol>}
+                />
+            </Demo>
         </Page>
     );
 }

@@ -13,6 +13,7 @@ import Elevation from './Elevation';
 import FAB from './FAB';
 import FormField from './FormField';
 import Home from './Home';
+import Icon from './Icon';
 import IconButton from './IconButton';
 import ImageList from './ImageList';
 import LayoutGrid from './LayoutGrid';
@@ -27,6 +28,7 @@ import SideSheet from './SideSheet';
 import Slider from './Slider';
 import Snackbar from './Snackbar';
 import Switch from './Switch';
+import Symbol from './Symbol';
 import Tabs from './Tabs';
 import TextField from './TextField';
 import Tooltip from './Tooltip';
@@ -49,6 +51,7 @@ export {
     FAB,
     FormField,
     Home,
+    Icon,
     IconButton,
     ImageList,
     LayoutGrid,
@@ -63,6 +66,7 @@ export {
     Slider,
     Snackbar,
     Switch,
+    Symbol,
     Tabs,
     TextField,
     Tooltip,

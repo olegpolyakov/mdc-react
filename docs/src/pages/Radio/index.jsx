@@ -4,9 +4,8 @@ import {
     Radio
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'radio';
 const title = 'Radio';
@@ -30,68 +29,64 @@ export default function RadioPage() {
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Basic radio">
-                <Code>
-                    <FormField label="Yes">
-                        <Radio
-                            name="answer1"
-                            value="yes"
-                            checked={value1 === 'yes'}
-                            onChange={handleChange1}
-                        />
-                    </FormField>
+            <Demo title="Basic radio">
+                <FormField label="Yes">
+                    <Radio
+                        name="answer1"
+                        value="yes"
+                        checked={value1 === 'yes'}
+                        onChange={handleChange1}
+                    />
+                </FormField>
 
-                    <FormField label="No">
-                        <Radio
-                            name="answer1"
-                            value="no"
-                            checked={value1 === 'no'}
-                            onChange={handleChange1}
-                        />
-                    </FormField>
+                <FormField label="No">
+                    <Radio
+                        name="answer1"
+                        value="no"
+                        checked={value1 === 'no'}
+                        onChange={handleChange1}
+                    />
+                </FormField>
 
-                    <FormField label="Maybe">
-                        <Radio
-                            name="answer1"
-                            value="maybe"
-                            checked={value1 === 'maybe'}
-                            onChange={handleChange1}
-                        />
-                    </FormField>
-                </Code>
-            </Section>
+                <FormField label="Maybe">
+                    <Radio
+                        name="answer1"
+                        value="maybe"
+                        checked={value1 === 'maybe'}
+                        onChange={handleChange1}
+                    />
+                </FormField>
+            </Demo>
 
-            <Section title="Disabled radio">
-                <Code>
-                    <FormField label="Yes">
-                        <Radio
-                            name="answer2"
-                            value="yes"
-                            checked={value2 === 'yes'}
-                            onChange={handleChange2}
-                        />
-                    </FormField>
+            <Demo title="Disabled radio">
+                <FormField label="Yes">
+                    <Radio
+                        name="answer2"
+                        value="yes"
+                        checked={value2 === 'yes'}
+                        onChange={handleChange2}
+                    />
+                </FormField>
 
-                    <FormField label="No">
-                        <Radio
-                            name="answer2"
-                            value="no"
-                            checked={value2 === 'no'}
-                            onChange={handleChange2}
-                        />
-                    </FormField>
+                <FormField label="No">
+                    <Radio
+                        name="answer2"
+                        value="no"
+                        checked={value2 === 'no'}
+                        onChange={handleChange2}
+                    />
+                </FormField>
 
-                    <FormField label="Maybe">
-                        <Radio
-                            name="answer2"
-                            value="maybe"
-                            checked={value2 === 'maybe'}
-                            disabled
-                            onChange={handleChange2}
-                        />
-                    </FormField>
-                </Code>
-            </Section>
+                <FormField label="Maybe">
+                    <Radio
+                        name="answer2"
+                        value="maybe"
+                        checked={value2 === 'maybe'}
+                        disabled
+                        onChange={handleChange2}
+                    />
+                </FormField>
+            </Demo>
         </Page>
     );
 }

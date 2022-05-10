@@ -2,9 +2,9 @@ import {
     Typography
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
+import FieldSet from '@/components/FieldSet';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'typography';
 const title = 'Typography';
@@ -17,83 +17,33 @@ const links = {
 export default function TypographyPage() {
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section>
-                <Code>
-                    <Typography type="headline1" noMargin>Headline 1</Typography>
-                </Code>
-            </Section>
+            <Demo>
+                <Typography type="headline1" noMargin>Headline 1</Typography>
 
-            <Section>
-                <Code>
-                    <Typography type="headline2" noMargin>Headline 2</Typography>
-                </Code>
-            </Section>
+                <Typography type="headline2" noMargin>Headline 2</Typography>
 
-            <Section>
-                <Code>
-                    <Typography type="headline3" noMargin>Headline 3</Typography>
-                </Code>
-            </Section>
+                <Typography type="headline3" noMargin>Headline 3</Typography>
 
-            <Section>
-                <Code>
-                    <Typography type="headline4" noMargin>Headline 4</Typography>
-                </Code>
-            </Section>
+                <Typography type="headline4" noMargin>Headline 4</Typography>
 
-            <Section>
-                <Code>
-                    <Typography type="headline5" noMargin>Headline 5</Typography>
-                </Code>
-            </Section>
+                <Typography type="headline5" noMargin>Headline 5</Typography>
 
-            <Section>
-                <Code>
-                    <Typography type="headline6" noMargin>Headline 6</Typography>
-                </Code>
-            </Section>
+                <Typography type="headline6" noMargin>Headline 6</Typography>
 
-            <Section>
-                <Code>
-                    <Typography type="subtitle1" noMargin>Subtitle 1</Typography>
-                </Code>
-            </Section>
+                <Typography type="subtitle1" noMargin>Subtitle 1</Typography>
 
-            <Section>
-                <Code>
-                    <Typography type="subtitle2" noMargin>Subtitle 2</Typography>
-                </Code>
-            </Section>
+                <Typography type="subtitle2" noMargin>Subtitle 2</Typography>
 
-            <Section>
-                <Code>
-                    <Typography type="body1" noMargin>Body 1</Typography>
-                </Code>
-            </Section>
+                <Typography type="body1" noMargin>Body 1</Typography>
 
-            <Section>
-                <Code>
-                    <Typography type="body2" noMargin>Body 2</Typography>
-                </Code>
-            </Section>
+                <Typography type="body2" noMargin>Body 2</Typography>
 
-            <Section>
-                <Code>
-                    <Typography type="caption">Caption</Typography>
-                </Code>
-            </Section>
+                <Typography type="caption">Caption</Typography>
 
-            <Section>
-                <Code>
-                    <Typography type="button">Button</Typography>
-                </Code>
-            </Section>
+                <Typography type="button">Button</Typography>
 
-            <Section>
-                <Code>
-                    <Typography type="overline">Overline</Typography>
-                </Code>
-            </Section>
+                <Typography type="overline">Overline</Typography>
+            </Demo>
         </Page>
     );
 }

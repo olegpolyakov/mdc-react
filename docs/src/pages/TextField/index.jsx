@@ -5,8 +5,8 @@ import {
 } from 'mdc-react';
 
 import Demo from '@/components/Demo';
+import FieldSet from '@/components/FieldSet';
 import Page from '@/components/Page';
-import Code from '@/components/Code';
 
 const id = 'text-field';
 const title = 'Text Field';

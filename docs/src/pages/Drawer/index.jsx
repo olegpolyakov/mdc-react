@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { Button, Drawer } from 'mdc-react';
 
+import Demo from '@/components/Demo';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'drawer';
 const title = 'Drawer';
@@ -19,50 +18,46 @@ export default function DrawerPage() {
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Permanent drawer">
-                <Code>
-                    <Drawer>
-                        <Drawer.Header title="Title" />
-                    </Drawer>
-                </Code>
-            </Section>
+            <Demo title="Permanent drawer">
+                <Drawer>
+                    <Drawer.Header title="Title" />
+                </Drawer>
+            </Demo>
 
-            <Section title="Dismissible drawer">
-                <Code
-                    setup={
-                        <Button
-                            label="Toggle"
-                            onClick={() => setDismissibleOpen(v => !v)}
-                        />
-                    }
+            <Demo
+                title="Dismissible drawer"
+                setup={
+                    <Button
+                        label="Toggle"
+                        onClick={() => setDismissibleOpen(v => !v)}
+                    />
+                }
+            >
+                <Drawer
+                    open={isDismissibleOpen}
+                    dismissible
                 >
-                    <Drawer
-                        open={isDismissibleOpen}
-                        dismissible
-                    >
-                        <Drawer.Header title="Title" />
-                    </Drawer>
-                </Code>
-            </Section>
+                    <Drawer.Header title="Title" />
+                </Drawer>
+            </Demo>
 
-            <Section title="Modal drawer">
-                <Code
-                    setup={
-                        <Button
-                            label="Toggle"
-                            onClick={() => setModalOpen(v => !v)}
-                        />
-                    }
+            <Demo
+                title="Modal drawer"
+                setup={
+                    <Button
+                        label="Toggle"
+                        onClick={() => setModalOpen(v => !v)}
+                    />
+                }
+            >
+                <Drawer
+                    open={isModalOpen}
+                    onClose={() => setModalOpen(v => !v)}
+                    modal
                 >
-                    <Drawer
-                        open={isModalOpen}
-                        onClose={() => setModalOpen(v => !v)}
-                        modal
-                    >
-                        <Drawer.Header title="Title" />
-                    </Drawer>
-                </Code>
-            </Section>
+                    <Drawer.Header title="Title" />
+                </Drawer>
+            </Demo>
         </Page>
     );
 }

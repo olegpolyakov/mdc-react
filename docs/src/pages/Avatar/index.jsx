@@ -24,33 +24,31 @@ export default function AvatarPage() {
         >
             <Demo
                 title="Demo"
-                settings={
-                    <>
-                        <FieldSet legend="Content">
-                            <SegmentedButton
-                                segments={[
-                                    { value: 'image', label: 'Image' },
-                                    { value: 'icon', label: 'Icon' },
-                                    { value: 'text', label: 'Text' }
-                                ]}
-                                value={content}
-                                onChange={setContent}
-                            />
-                        </FieldSet>
+                settings={<>
+                    <FieldSet legend="Content">
+                        <SegmentedButton
+                            segments={[
+                                { value: 'image', label: 'Image' },
+                                { value: 'icon', label: 'Icon' },
+                                { value: 'text', label: 'Text' }
+                            ]}
+                            value={content}
+                            onChange={setContent}
+                        />
+                    </FieldSet>
 
-                        <FieldSet legend="Size">
-                            <SegmentedButton
-                                segments={[
-                                    { value: 'small', label: 'Small' },
-                                    { value: 'medium', label: 'Medium' },
-                                    { value: 'large', label: 'Large' }
-                                ]}
-                                value={size}
-                                onChange={setSize}
-                            />
-                        </FieldSet>
-                    </>
-                }
+                    <FieldSet legend="Size">
+                        <SegmentedButton
+                            segments={[
+                                { value: 'small', label: 'Small' },
+                                { value: 'medium', label: 'Medium' },
+                                { value: 'large', label: 'Large' }
+                            ]}
+                            value={size}
+                            onChange={setSize}
+                        />
+                    </FieldSet>
+                </>}
             >
                 <Avatar
                     image={content === 'image' ? 'https://placeimg.com/128/128/people' : undefined}

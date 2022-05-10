@@ -3,9 +3,8 @@ import {
     FormField
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 import './index.scss';
 
@@ -19,37 +18,35 @@ const links = {
 export default function FormFieldPage() {
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Basic form field">
-                <Code>
-                    <FormField label="Label">
-                        <Checkbox />
-                    </FormField>
-                </Code>
-            </Section>
+            <Demo title="Basic form field">
+                <FormField label="Label">
+                    <Checkbox />
+                </FormField>
+            </Demo>
 
-            <Section title="Form field that goes before the element">
-                <Code>
-                    <FormField label="Label" alignEnd>
-                        <Checkbox />
-                    </FormField>
-                </Code>
-            </Section>
+            <Demo title="Form field that goes before the element">
+                <FormField label="Label" alignEnd>
+                    <Checkbox />
+                </FormField>
+            </Demo>
 
-            <Section title="No wrap form field">
-                <Code>
-                    <FormField label="Label" nowrap>
-                        <Checkbox />
-                    </FormField>
-                </Code>
-            </Section>
+            <Demo title="No wrap form field">
+                <FormField label="Label" nowrap>
+                    <Checkbox />
+                </FormField>
+            </Demo>
 
-            <Section title="Form field with space between">
-                <Code>
-                    <FormField label="Label" spaceBetween>
-                        <Checkbox />
-                    </FormField>
-                </Code>
-            </Section>
+            <Demo title="Form field with space between">
+                <FormField label="Label" spaceBetween>
+                    <Checkbox />
+                </FormField>
+            </Demo>
+
+            <Demo title="Block form field">
+                <FormField label="Label" block>
+                    <Checkbox />
+                </FormField>
+            </Demo>
         </Page>
     );
 }

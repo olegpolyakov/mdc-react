@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { Button, FAB } from 'mdc-react';
 
+import Demo from '@/components/Demo';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'fab';
 const title = 'FAB';
@@ -18,56 +17,47 @@ export default function FABPage() {
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Basic FAB">
-                <Code>
-                    <FAB
-                        icon="star"
-                    />
-                </Code>
-            </Section>
+            <Demo title="Basic FAB">
+                <FAB
+                    icon="star"
+                />
+            </Demo>
 
-            <Section title="Mini FAB">
-                <Code>
-                    <FAB
-                        icon="star"
-                        mini
-                    />
-                </Code>
-            </Section>
+            <Demo title="Mini FAB">
+                <FAB
+                    icon="star"
+                    mini
+                />
+            </Demo>
 
-            <Section title="Extended FAB">
-                <Code>
-                    <FAB
-                        icon="star"
-                        label="Star"
-                    />
-                </Code>
-            </Section>
+            <Demo title="Extended FAB">
+                <FAB
+                    icon="star"
+                    label="Star"
+                />
+            </Demo>
 
-            <Section title="Extended FAB with a trailing icon">
-                <Code>
-                    <FAB
-                        label="Star"
-                        trailingIcon="star"
-                    />
-                </Code>
-            </Section>
+            <Demo title="Extended FAB with a trailing icon">
+                <FAB
+                    label="Star"
+                    trailingIcon="star"
+                />
+            </Demo>
 
-            <Section title="Animated FAB">
-                <Code
-                    setup={
-                        <Button
-                            label="Toggle"
-                            onClick={() => setExited(v => !v)}
-                        />
-                    }
-                >
-                    <FAB
-                        icon="star"
-                        exited={isExited}
+            <Demo
+                title="Animated FAB"
+                setup={
+                    <Button
+                        label="Toggle"
+                        onClick={() => setExited(v => !v)}
                     />
-                </Code>
-            </Section>
+                }
+            >
+                <FAB
+                    icon="star"
+                    exited={isExited}
+                />
+            </Demo>
         </Page>
     );
 }

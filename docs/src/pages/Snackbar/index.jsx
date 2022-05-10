@@ -7,9 +7,9 @@ import {
     TextField
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
+import FieldSet from '@/components/FieldSet';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'snackbar';
 const title = 'Snackbar';
@@ -28,11 +28,17 @@ export default function SnackbarPage() {
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Demo">
-                <Layout row>
-                    <fieldset>
-                        <legend>Elements</legend>
-
+            <Demo
+                title="Demo"
+                setup={
+                    <Button
+                        label="Show"
+                        outlined
+                        onClick={() => setOpen(true)}
+                    />
+                }
+                settings={<>
+                    <FieldSet legend="Elements">
                         <SegmentedButton>
                             <SegmentedButton.Segment
                                 label="Action"
@@ -40,11 +46,9 @@ export default function SnackbarPage() {
                                 onClick={() => setHasAction(v => !v)}
                             />
                         </SegmentedButton>
-                    </fieldset>
+                    </FieldSet>
 
-                    <fieldset>
-                        <legend>Variants</legend>
-
+                    <FieldSet legend="Variants">
                         <SegmentedButton>
                             <SegmentedButton.Segment
                                 label="Leading"
@@ -58,7 +62,7 @@ export default function SnackbarPage() {
                                 onClick={() => setStacked(v => !v)}
                             />
                         </SegmentedButton>
-                    </fieldset>
+                    </FieldSet>
 
                     <TextField
                         label="Timeout"
@@ -67,32 +71,22 @@ export default function SnackbarPage() {
                         outlined
                         onChange={(_, value) => setTimeout(value)}
                     />
-                </Layout>
-
-                <Code
-                    setup={
-                        <Button
-                            label="Show"
-                            outlined
-                            onClick={() => setOpen(true)}
-                        />
+                </>}
+            >
+                <Snackbar
+                    open={isOpen}
+                    timeout={timeout}
+                    label="Message"
+                    action={hasAction ?
+                        <Button>Action</Button>
+                        :
+                        undefined
                     }
-                >
-                    <Snackbar
-                        open={isOpen}
-                        timeout={timeout}
-                        label="Message"
-                        action={hasAction ?
-                            <Button>Action</Button>
-                            :
-                            undefined
-                        }
-                        leading={isLeading || undefined}
-                        stacked={isStacked || undefined}
-                        onClose={() => setOpen(undefined)}
-                    />
-                </Code>
-            </Section>
+                    leading={isLeading || undefined}
+                    stacked={isStacked || undefined}
+                    onClose={() => setOpen(undefined)}
+                />
+            </Demo>
         </Page>
     );
 }

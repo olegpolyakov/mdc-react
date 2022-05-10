@@ -1,9 +1,8 @@
+import { useCallback, useState } from 'react';
 import { Elevation, Slider } from 'mdc-react';
 
+import Demo from '@/components/Demo';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
-import { useCallback, useState } from 'react';
 
 import './index.scss';
 
@@ -24,23 +23,21 @@ export default function ElevationPage() {
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section>
-                <Code
-                    setup={
-                        <Slider
-                            value={z}
-                            min="0"
-                            max="24"
-                            step="1"
-                            discrete
-                            tickMarks
-                            onChange={handleChange}
-                        />
-                    }
-                >
-                    <Elevation z={z} />
-                </Code>
-            </Section>
+            <Demo
+                setup={
+                    <Slider
+                        value={z}
+                        min="0"
+                        max="24"
+                        step="1"
+                        discrete
+                        tickMarks
+                        onChange={handleChange}
+                    />
+                }
+            >
+                <Elevation z={z} />
+            </Demo>
         </Page>
     );
 }

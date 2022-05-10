@@ -19,7 +19,7 @@ export default function Demo({
     code,
     children = code
 }) {
-    const [isCodeOpen, setCodeOpen] = useState(true);
+    const [isCodeOpen, setCodeOpen] = useState(false);
     const [isSettingsOpen, setSettingsOpen] = useState(false);
 
     const classNames = classnames('demo', {

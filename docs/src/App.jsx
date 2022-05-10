@@ -13,7 +13,7 @@ import './App.scss';
 
 export default function App() {
     return (
-        <div className="app">
+        <div className="app mdc-typography mdc-theme--dark">
             <TopAppBar
                 className="app-top-bar"
                 navigationIcon={

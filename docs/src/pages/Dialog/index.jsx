@@ -123,9 +123,9 @@ export default function DialogPage() {
                 <Dialog
                     title="Title"
                     open={isScrollableOpen}
-                    actions={
-                        <Button onClick={() => setScrollableOpen(v => !v)}>Close</Button>
-                    }
+                    actions={[
+                        <Button key="close" onClick={() => setScrollableOpen(v => !v)}>Close</Button>
+                    ]}
                     onClose={() => setScrollableOpen(v => !v)}
                 >
                     {scrollableContent}
@@ -142,9 +142,9 @@ export default function DialogPage() {
                     title="Fullscreen Dialog"
                     open={isFullscreenOpen}
                     fullscreen
-                    actions={
-                        <Button onClick={() => setFullscreenOpen(v => !v)}>Close</Button>
-                    }
+                    actions={[
+                        <Button key="close" onClick={() => setFullscreenOpen(v => !v)}>Close</Button>
+                    ]}
                     onClose={() => setFullscreenOpen(v => !v)}
                 >
                     {scrollableContent}

@@ -3,9 +3,8 @@ import {
     SegmentedButton
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'segmented-button';
 const title = 'Segmented Button';
@@ -22,55 +21,49 @@ export default function SegmentedButtonPage() {
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Text">
-                <Code>
-                    <SegmentedButton value={value1} onChange={setValue1}>
-                        <SegmentedButton.Segment
-                            value="star"
-                            label="star"
-                        />
+            <Demo title="Text">
+                <SegmentedButton value={value1} onChange={setValue1}>
+                    <SegmentedButton.Segment
+                        value="star"
+                        label="star"
+                    />
 
-                        <SegmentedButton.Segment
-                            value="favorite"
-                            label="favorite"
-                        />
-                    </SegmentedButton>
-                </Code>
-            </Section>
+                    <SegmentedButton.Segment
+                        value="favorite"
+                        label="favorite"
+                    />
+                </SegmentedButton>
+            </Demo>
 
-            <Section title="Icons">
-                <Code>
-                    <SegmentedButton value={value2} onChange={setValue2}>
-                        <SegmentedButton.Segment
-                            value="star"
-                            icon="star"
-                        />
+            <Demo title="Icons">
+                <SegmentedButton value={value2} onChange={setValue2}>
+                    <SegmentedButton.Segment
+                        value="star"
+                        icon="star"
+                    />
 
-                        <SegmentedButton.Segment
-                            value="favorite"
-                            icon="favorite"
-                        />
-                    </SegmentedButton>
-                </Code>
-            </Section>
+                    <SegmentedButton.Segment
+                        value="favorite"
+                        icon="favorite"
+                    />
+                </SegmentedButton>
+            </Demo>
 
-            <Section title="Text with Icons">
-                <Code>
-                    <SegmentedButton value={value3} onChange={setValue3}>
-                        <SegmentedButton.Segment
-                            value="star"
-                            icon="star"
-                            label="star"
-                        />
+            <Demo title="Text with Icons">
+                <SegmentedButton value={value3} onChange={setValue3}>
+                    <SegmentedButton.Segment
+                        value="star"
+                        icon="star"
+                        label="star"
+                    />
 
-                        <SegmentedButton.Segment
-                            value="favorite"
-                            icon="favorite"
-                            label="favorite"
-                        />
-                    </SegmentedButton>
-                </Code>
-            </Section>
+                    <SegmentedButton.Segment
+                        value="favorite"
+                        icon="favorite"
+                        label="favorite"
+                    />
+                </SegmentedButton>
+            </Demo>
         </Page>
     );
 }

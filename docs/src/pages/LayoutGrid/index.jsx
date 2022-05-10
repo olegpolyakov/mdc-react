@@ -2,9 +2,8 @@ import {
     LayoutGrid
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 import './index.scss';
 
@@ -19,33 +18,29 @@ const links = {
 export default function LayoutGridPage() {
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Basic grid">
-                <Code>
-                    <LayoutGrid>
-                        <LayoutGrid.Cell span="6" />
-                        <LayoutGrid.Cell span="3" />
-                        <LayoutGrid.Cell span="2" />
-                        <LayoutGrid.Cell span="1" />
-                        <LayoutGrid.Cell span="3" />
-                        <LayoutGrid.Cell span="1" />
-                        <LayoutGrid.Cell span="8" />
-                    </LayoutGrid>
-                </Code>
-            </Section>
+            <Demo title="Basic grid">
+                <LayoutGrid>
+                    <LayoutGrid.Cell span="6" />
+                    <LayoutGrid.Cell span="3" />
+                    <LayoutGrid.Cell span="2" />
+                    <LayoutGrid.Cell span="1" />
+                    <LayoutGrid.Cell span="3" />
+                    <LayoutGrid.Cell span="1" />
+                    <LayoutGrid.Cell span="8" />
+                </LayoutGrid>
+            </Demo>
 
-            <Section title="Nested grid">
-                <Code>
-                    <LayoutGrid>
-                        <LayoutGrid.Cell grid>
-                            <LayoutGrid.Cell />
-                            <LayoutGrid.Cell />
-                            <LayoutGrid.Cell />
-                        </LayoutGrid.Cell>
+            <Demo title="Nested grid">
+                <LayoutGrid>
+                    <LayoutGrid.Cell grid>
                         <LayoutGrid.Cell />
                         <LayoutGrid.Cell />
-                    </LayoutGrid>
-                </Code>
-            </Section>
+                        <LayoutGrid.Cell />
+                    </LayoutGrid.Cell>
+                    <LayoutGrid.Cell />
+                    <LayoutGrid.Cell />
+                </LayoutGrid>
+            </Demo>
         </Page>
     );
 }

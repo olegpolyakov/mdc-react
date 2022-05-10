@@ -4,9 +4,9 @@ import {
     SideSheet
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
+import FieldSet from '@/components/FieldSet';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'side-sheet';
 const title = 'Side Sheet';
@@ -21,57 +21,52 @@ export default function SideSheetPage() {
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Basic side sheet">
-                <Code>
-                    <SideSheet title="Title">
-                        Content
-                    </SideSheet>
-                </Code>
-            </Section>
+            <Demo title="Basic side sheet">
+                <SideSheet title="Title">
+                    Content
+                </SideSheet>
+            </Demo>
 
-            <Section title="Dismissible side sheet">
-                <Code
-                    setup={
-                        <Button
-                            label="Toggle"
-                            outlined
-                            onClick={() => setDismissibleOpen(v => !v)}
-                        />
-                    }
+            <Demo title="Dismissible side sheet"
+                setup={
+                    <Button
+                        label="Toggle"
+                        outlined
+                        onClick={() => setDismissibleOpen(v => !v)}
+                    />
+                }
+            >
+                <SideSheet
+                    title="Title"
+                    closeIcon="close"
+                    open={isDismissibleOpen}
+                    dismissible
+                    onClose={() => setDismissibleOpen(false)}
                 >
-                    <SideSheet
-                        title="Title"
-                        closeIcon="close"
-                        open={isDismissibleOpen}
-                        dismissible
-                        onClose={() => setDismissibleOpen(false)}
-                    >
-                        Content
-                    </SideSheet>
-                </Code>
-            </Section>
+                    Content
+                </SideSheet>
+            </Demo>
 
-            <Section title="Modal side sheet">
-                <Code
-                    setup={
-                        <Button
-                            label="Open"
-                            outlined
-                            onClick={() => setModalOpen(true)}
-                        />
-                    }
+            <Demo
+                title="Modal side sheet"
+                setup={
+                    <Button
+                        label="Open"
+                        outlined
+                        onClick={() => setModalOpen(true)}
+                    />
+                }
+            >
+                <SideSheet
+                    title="Title"
+                    closeIcon="close"
+                    open={isModalOpen}
+                    modal
+                    onClose={() => setModalOpen(false)}
                 >
-                    <SideSheet
-                        title="Title"
-                        closeIcon="close"
-                        open={isModalOpen}
-                        modal
-                        onClose={() => setModalOpen(false)}
-                    >
-                        Content
-                    </SideSheet>
-                </Code>
-            </Section>
+                    Content
+                </SideSheet>
+            </Demo>
         </Page>
     );
 }

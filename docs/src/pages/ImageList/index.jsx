@@ -10,9 +10,8 @@ const links = {
     guide: 'https://material.io/components/image-lists'
 };
 
+import Demo from '@/components/Demo';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 import './index.scss';
 
@@ -29,45 +28,37 @@ const masonryItems = new Array(15).fill(1).map(() => ({
 export default function ImageListPage() {
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section id="standard-image-list" title="Standard Image List">
-                <Code>
-                    <ImageList>
-                        {standardItems.map((item, index) =>
-                            <ImageList.Item key={index} {...item} />
-                        )}
-                    </ImageList>
-                </Code>
-            </Section>
+            <Demo id="standard-image-list" title="Standard Image List">
+                <ImageList>
+                    {standardItems.map((item, index) =>
+                        <ImageList.Item key={index} {...item} />
+                    )}
+                </ImageList>
+            </Demo>
 
-            <Section id="standard-image-list" title="Standard Image List with Text Protection">
-                <Code>
-                    <ImageList withTextProtection>
-                        {standardItems.map((item, index) =>
-                            <ImageList.Item key={index} {...item} />
-                        )}
-                    </ImageList>
-                </Code>
-            </Section>
+            <Demo id="standard-image-list" title="Standard Image List with Text Protection">
+                <ImageList withTextProtection>
+                    {standardItems.map((item, index) =>
+                        <ImageList.Item key={index} {...item} />
+                    )}
+                </ImageList>
+            </Demo>
 
-            <Section id="masonry-image-list" title="Masonry Image Lis">
-                <Code>
-                    <ImageList masonry>
-                        {masonryItems.map((item, index) =>
-                            <ImageList.Item key={index} {...item} />
-                        )}
-                    </ImageList>
-                </Code>
-            </Section>
+            <Demo id="masonry-image-list" title="Masonry Image Lis">
+                <ImageList masonry>
+                    {masonryItems.map((item, index) =>
+                        <ImageList.Item key={index} {...item} />
+                    )}
+                </ImageList>
+            </Demo>
 
-            <Section id="masonry-image-list" title="Masonry Image List with Text Protection">
-                <Code>
-                    <ImageList masonry withTextProtection>
-                        {masonryItems.map((item, index) =>
-                            <ImageList.Item key={index} {...item} />
-                        )}
-                    </ImageList>
-                </Code>
-            </Section>
+            <Demo id="masonry-image-list" title="Masonry Image List with Text Protection">
+                <ImageList masonry withTextProtection>
+                    {masonryItems.map((item, index) =>
+                        <ImageList.Item key={index} {...item} />
+                    )}
+                </ImageList>
+            </Demo>
         </Page>
     );
 }

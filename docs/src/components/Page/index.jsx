@@ -22,19 +22,19 @@ export default function Page({
                     }
 
                     {links &&
-                        <List>
+                        <ul>
                             {links.guide &&
-                                <List.Item>
+                                <li>
                                     <a href={links.guide} target="_blank" rel="noreferrer">Guide</a>
-                                </List.Item>
+                                </li>
                             }
 
                             {links.docs &&
-                                <List.Item>
+                                <li>
                                     <a href={links.docs} target="_blank" rel="noreferrer">Docs</a>
-                                </List.Item>
+                                </li>
                             }
-                        </List>
+                        </ul>
                     }
                 </header>
             }

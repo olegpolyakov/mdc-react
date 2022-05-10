@@ -3,9 +3,9 @@ import {
     TabBar, Tab
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
+import FieldSet from '@/components/FieldSet';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'tabs';
 const title = 'Tabs';
@@ -29,184 +29,164 @@ export default function SwitchPage() {
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Basic tabs">
-                <Code>
-                    <TabBar
-                        value={basic}
-                        onChange={value => setBasic(value)}
-                    >
-                        <Tab label="Tab 1" />
-                        <Tab label="Tab 2" />
-                        <Tab label="Tab 3" />
-                    </TabBar>
-                </Code>
-            </Section>
+            <Demo title="Basic tabs">
+                <TabBar
+                    value={basic}
+                    onChange={value => setBasic(value)}
+                >
+                    <Tab label="Tab 1" />
+                    <Tab label="Tab 2" />
+                    <Tab label="Tab 3" />
+                </TabBar>
+            </Demo>
 
-            <Section title="Min width tabs">
-                <Code>
-                    <TabBar
-                        value={minWidth}
-                        minWidth
-                        onChange={value => setMinWidth(value)}
-                    >
-                        <Tab label="Tab 1" />
-                        <Tab label="Tab 2" />
-                        <Tab label="Tab 3" />
-                    </TabBar>
-                </Code>
-            </Section>
+            <Demo title="Min width tabs">
+                <TabBar
+                    value={minWidth}
+                    minWidth
+                    onChange={value => setMinWidth(value)}
+                >
+                    <Tab label="Tab 1" />
+                    <Tab label="Tab 2" />
+                    <Tab label="Tab 3" />
+                </TabBar>
+            </Demo>
 
-            <Section title="Tabs with min width indicator">
-                <Code>
-                    <TabBar
-                        value={minWidthIndicator}
-                        minWidthIndicator
-                        onChange={value => setMinWidthIndicator(value)}
-                    >
-                        <Tab label="Tab 1" />
-                        <Tab label="Tab 2" />
-                        <Tab label="Tab 3" />
-                    </TabBar>
-                </Code>
-            </Section>
+            <Demo title="Tabs with min width indicator">
+                <TabBar
+                    value={minWidthIndicator}
+                    minWidthIndicator
+                    onChange={value => setMinWidthIndicator(value)}
+                >
+                    <Tab label="Tab 1" />
+                    <Tab label="Tab 2" />
+                    <Tab label="Tab 3" />
+                </TabBar>
+            </Demo>
 
-            <Section title="Min width tabs with min width indicator">
-                <Code>
-                    <TabBar
-                        value={minWidthWithMinWidthIndicator}
-                        minWidth
-                        minWidthIndicator
-                        onChange={value => setMinWidthWithMinWidthIndicator(value)}
-                    >
-                        <Tab label="Tab 1" />
-                        <Tab label="Tab 2" />
-                        <Tab label="Tab 3" />
-                    </TabBar>
-                </Code>
-            </Section>
+            <Demo title="Min width tabs with min width indicator">
+                <TabBar
+                    value={minWidthWithMinWidthIndicator}
+                    minWidth
+                    minWidthIndicator
+                    onChange={value => setMinWidthWithMinWidthIndicator(value)}
+                >
+                    <Tab label="Tab 1" />
+                    <Tab label="Tab 2" />
+                    <Tab label="Tab 3" />
+                </TabBar>
+            </Demo>
 
-            <Section title="Tabs with fading indicator">
-                <Code>
-                    <TabBar
-                        value={fade}
-                        fade
-                        onChange={value => setFade(value)}
-                    >
-                        <Tab label="Tab 1" />
-                        <Tab label="Tab 2" />
-                        <Tab label="Tab 3" />
-                    </TabBar>
-                </Code>
-            </Section>
+            <Demo title="Tabs with fading indicator">
+                <TabBar
+                    value={fade}
+                    fade
+                    onChange={value => setFade(value)}
+                >
+                    <Tab label="Tab 1" />
+                    <Tab label="Tab 2" />
+                    <Tab label="Tab 3" />
+                </TabBar>
+            </Demo>
 
-            <Section title="Tabs with icons">
-                <Code>
-                    <TabBar
-                        value={icons}
-                        onChange={value => setIcons(value)}
-                    >
-                        <Tab
-                            icon="star"
-                            label="Tab 1"
-                        />
+            <Demo title="Tabs with icons">
+                <TabBar
+                    value={icons}
+                    onChange={value => setIcons(value)}
+                >
+                    <Tab
+                        icon="star"
+                        label="Tab 1"
+                    />
 
-                        <Tab
-                            icon="favorite"
-                            label="Tab 2"
-                        />
+                    <Tab
+                        icon="favorite"
+                        label="Tab 2"
+                    />
 
-                        <Tab
-                            icon="settings"
-                            label="Tab 3"
-                        />
-                    </TabBar>
-                </Code>
-            </Section>
+                    <Tab
+                        icon="settings"
+                        label="Tab 3"
+                    />
+                </TabBar>
+            </Demo>
 
-            <Section title="Tabs with stacked icons">
-                <Code>
-                    <TabBar
-                        value={stackedIcons}
-                        stacked
-                        onChange={value => setStackedIcons(value)}
-                    >
-                        <Tab
-                            icon="star"
-                            label="Tab 1"
-                        />
+            <Demo title="Tabs with stacked icons">
+                <TabBar
+                    value={stackedIcons}
+                    stacked
+                    onChange={value => setStackedIcons(value)}
+                >
+                    <Tab
+                        icon="star"
+                        label="Tab 1"
+                    />
 
-                        <Tab
-                            icon="favorite"
-                            label="Tab 2"
-                        />
+                    <Tab
+                        icon="favorite"
+                        label="Tab 2"
+                    />
 
-                        <Tab
-                            icon="settings"
-                            label="Tab 3"
-                        />
-                    </TabBar>
-                </Code>
-            </Section>
+                    <Tab
+                        icon="settings"
+                        label="Tab 3"
+                    />
+                </TabBar>
+            </Demo>
 
-            <Section title="Tabs with icons only">
-                <Code>
-                    <TabBar
-                        value={onlyIcons}
-                        indicatorIcon="star"
-                        onChange={value => setOnlyIcons(value)}
-                    >
-                        <Tab
-                            icon="star"
-                        />
+            <Demo title="Tabs with icons only">
+                <TabBar
+                    value={onlyIcons}
+                    indicatorIcon="star"
+                    onChange={value => setOnlyIcons(value)}
+                >
+                    <Tab
+                        icon="star"
+                    />
 
-                        <Tab
-                            icon="favorite"
-                        />
+                    <Tab
+                        icon="favorite"
+                    />
 
-                        <Tab
-                            icon="settings"
-                        />
-                    </TabBar>
-                </Code>
-            </Section>
+                    <Tab
+                        icon="settings"
+                    />
+                </TabBar>
+            </Demo>
 
-            <Section title="Tabs with icon indicator">
-                <Code>
-                    <TabBar
-                        value={iconIndicator}
-                        onChange={value => setIconIndicator(value)}
-                    >
-                        <Tab label="Tab 1" />
-                        <Tab label="Tab 2" />
-                        <Tab label="Tab 3" />
-                    </TabBar>
-                </Code>
-            </Section>
+            <Demo title="Tabs with icon indicator">
+                <TabBar
+                    value={iconIndicator}
+                    onChange={value => setIconIndicator(value)}
+                >
+                    <Tab label="Tab 1" />
+                    <Tab label="Tab 2" />
+                    <Tab label="Tab 3" />
+                </TabBar>
+            </Demo>
 
-            <Section title="Scrolling tabs">
-                <Code>
-                    <TabBar
-                        value={scroll}
-                        onChange={value => setScroll(value)}
-                    >
-                        <Tab label="Tab 1" />
-                        <Tab label="Tab 2" />
-                        <Tab label="Tab 3" />
-                        <Tab label="Tab 4" />
-                        <Tab label="Tab 5" />
-                        <Tab label="Tab 6" />
-                        <Tab label="Tab 7" />
-                        <Tab label="Tab 8" />
-                        <Tab label="Tab 9" />
-                        <Tab label="Tab 10" />
-                        <Tab label="Tab 11" />
-                        <Tab label="Tab 12" />
-                        <Tab label="Tab 13" />
-                        <Tab label="Tab 14" />
-                        <Tab label="Tab 15" />
-                    </TabBar>
-                </Code>
-            </Section>
+            <Demo title="Scrolling tabs">
+                <TabBar
+                    value={scroll}
+                    onChange={value => setScroll(value)}
+                >
+                    <Tab label="Tab 1" />
+                    <Tab label="Tab 2" />
+                    <Tab label="Tab 3" />
+                    <Tab label="Tab 4" />
+                    <Tab label="Tab 5" />
+                    <Tab label="Tab 6" />
+                    <Tab label="Tab 7" />
+                    <Tab label="Tab 8" />
+                    <Tab label="Tab 9" />
+                    <Tab label="Tab 10" />
+                    <Tab label="Tab 11" />
+                    <Tab label="Tab 12" />
+                    <Tab label="Tab 13" />
+                    <Tab label="Tab 14" />
+                    <Tab label="Tab 15" />
+                </TabBar>
+            </Demo>
         </Page>
     );
 }

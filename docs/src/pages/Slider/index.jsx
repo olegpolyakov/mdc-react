@@ -3,9 +3,9 @@ import {
     Slider
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
+import FieldSet from '@/components/FieldSet';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'slider';
 const title = 'Slider';
@@ -22,46 +22,38 @@ export default function SliderPage() {
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Continuous slider">
-                <Code>
-                    <Slider
-                        value={value1}
-                        onChange={setValue1}
-                    />
-                </Code>
-            </Section>
+            <Demo title="Continuous slider">
+                <Slider
+                    value={value1}
+                    onChange={setValue1}
+                />
+            </Demo>
 
-            <Section title="Discrete slider">
-                <Code>
-                    <Slider
-                        value={value2}
-                        step="10"
-                        discrete
-                        onChange={setValue2}
-                    />
-                </Code>
-            </Section>
+            <Demo title="Discrete slider">
+                <Slider
+                    value={value2}
+                    step="10"
+                    discrete
+                    onChange={setValue2}
+                />
+            </Demo>
 
-            <Section title="Discrete slider with tick marks">
-                <Code>
-                    <Slider
-                        value={value3}
-                        step="10"
-                        discrete
-                        tickMarks
-                        onChange={setValue3}
-                    />
-                </Code>
-            </Section>
+            <Demo title="Discrete slider with tick marks">
+                <Slider
+                    value={value3}
+                    step="10"
+                    discrete
+                    tickMarks
+                    onChange={setValue3}
+                />
+            </Demo>
 
-            <Section title="Disabled slider">
-                <Code>
-                    <Slider
-                        value={42}
-                        disabled
-                    />
-                </Code>
-            </Section>
+            <Demo title="Disabled slider">
+                <Slider
+                    value={42}
+                    disabled
+                />
+            </Demo>
         </Page>
     );
 }

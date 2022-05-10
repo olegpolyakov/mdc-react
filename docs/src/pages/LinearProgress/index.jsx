@@ -4,9 +4,8 @@ import {
     LinearProgress
 } from 'mdc-react';
 
+import Demo from '@/components/Demo';
 import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Code from '@/components/Code';
 
 const id = 'linear-progress';
 const title = 'Linear Progress';
@@ -21,33 +20,26 @@ export default function LinearProgressPage() {
 
     return (
         <Page id={id} title={title} description={description} links={links}>
-            <Section title="Basic linear progress">
-                <Code>
-                    <LinearProgress value="42" />
-                </Code>
-            </Section>
+            <Demo title="Basic linear progress">
+                <LinearProgress value="42" />
+            </Demo>
 
-            <Section title="Linear progress with a buffer">
-                <Code>
-                    <LinearProgress value="42" buffer="84" />
-                </Code>
-            </Section>
+            <Demo title="Linear progress with a buffer">
+                <LinearProgress value="42" buffer="84" />
+            </Demo>
 
-            <Section title="Indeterminate linear progress">
-                <Code>
-                    <LinearProgress indeterminate />
-                </Code>
-            </Section>
+            <Demo title="Indeterminate linear progress">
+                <LinearProgress indeterminate />
+            </Demo>
 
-            <Section title="Closed linear progress">
-                <Code
-                    setup={
-                        <Button onClick={() => setClosed(v => !v)}>Toggle</Button>
-                    }
-                >
-                    <LinearProgress closed={isClosed} value="42" />
-                </Code>
-            </Section>
+            <Demo
+                title="Closed linear progress"
+                setup={
+                    <Button onClick={() => setClosed(v => !v)}>Toggle</Button>
+                }
+            >
+                <LinearProgress closed={isClosed} value="42" />
+            </Demo>
         </Page>
     );
 }
