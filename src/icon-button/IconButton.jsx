@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import { Clone } from '../component';
+import { cssClasses as iconCssClasses } from '../icon/constants';
 
 import { cssClasses } from './constants';
 
@@ -17,7 +18,7 @@ const IconButton = forwardRef(({
     ...props
 }, ref) => {
     const classNames = classnames(cssClasses.ROOT, {
-        [cssClasses.MATERIAL_ICONS]: typeof children === 'string',
+        [iconCssClasses.ROOT]: typeof children === 'string',
         [cssClasses.TOUCH]: touch
     }, className);
 
@@ -40,7 +41,8 @@ const IconButton = forwardRef(({
 IconButton.displayName = 'MDCIconButton';
 
 IconButton.propTypes = {
-    icon: PropTypes.node
+    icon: PropTypes.node,
+    touch: PropTypes.bool
 };
 
 export default IconButton;
