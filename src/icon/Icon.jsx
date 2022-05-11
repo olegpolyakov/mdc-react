@@ -36,7 +36,7 @@ const Icon = forwardRef(({
 Icon.displayName = 'MDCIcon';
 
 Icon.propTypes = {
-    type: PropTypes.oneOf(['filled', 'outlined', 'round', 'sharp', 'two-tone']),
+    type: PropTypes.oneOf(['', 'filled', 'outlined', 'round', 'sharp', 'two-tone']),
     size: PropTypes.string,
     light: PropTypes.bool,
     dark: PropTypes.bool,
