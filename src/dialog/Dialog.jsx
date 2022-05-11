@@ -2,8 +2,9 @@ import { forwardRef, useRef, useCallback, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { clone, isElement } from '../component';
+import { clone, Clone } from '../component';
 import { useUpdated, useUnmounted } from '../hooks';
+import IconButton from '../icon-button';
 import Layer from '../layer';
 
 import { numbers, cssClasses } from './constants';
@@ -21,8 +22,10 @@ const Dialog = forwardRef(({
     appear = false,
     fullscreen = false,
     persistent = false,
+    sheet = false,
     stacked = false,
     autoStackButtons = false,
+    noContentPadding,
     onClose = Function.prototype,
 
     element: Element = 'div',
@@ -118,7 +121,9 @@ const Dialog = forwardRef(({
 
     const classNames = classnames(cssClasses.ROOT, {
         [cssClasses.FULLSCREEN]: fullscreen,
-        [cssClasses.STACKED]: stacked
+        [cssClasses.SHEET]: sheet,
+        [cssClasses.STACKED]: stacked,
+        [cssClasses.NO_CONTENT_PADDING]: noContentPadding
     }, className);
 
     return (
@@ -154,6 +159,15 @@ const Dialog = forwardRef(({
                         role="alertdialog"
                         aria-modal="true"
                     >
+                        {sheet &&
+                            <Clone
+                                component={closeIcon}
+                                fallback={<IconButton icon="close" />}
+                                className={cssClasses.CLOSE}
+                                onClick={onClose}
+                            />
+                        }
+
                         {title &&
                             <DialogHeader
                                 title={title}
@@ -163,14 +177,14 @@ const Dialog = forwardRef(({
                             />
                         }
 
-                        {isElement(header) &&
+                        {header?.type === DialogHeader &&
                             clone(header, {
                                 fullscreen,
                                 onClose
                             })
                         }
 
-                        {children && (isElement(children) ?
+                        {children && (children?.type === DialogContent ?
                             clone(children, {
                                 ref: contentRef
                             })
@@ -178,7 +192,7 @@ const Dialog = forwardRef(({
                             <DialogContent ref={contentRef}>{children}</DialogContent>
                         )}
 
-                        {actions && (isElement(actions) ?
+                        {actions && (actions.type === DialogActions ?
                             clone(actions, {
                                 ref: actionsRef
                             })
@@ -209,8 +223,10 @@ Dialog.propTypes = {
     appear: PropTypes.bool,
     fullscreen: PropTypes.bool,
     persistent: PropTypes.bool,
+    sheet: PropTypes.bool,
     stacked: PropTypes.bool,
     autoStackButtons: PropTypes.bool,
+    noContentPadding: PropTypes.bool,
     onClose: PropTypes.func
 };
 

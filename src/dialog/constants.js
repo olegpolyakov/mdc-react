@@ -20,8 +20,10 @@ export const cssClasses = {
     OPENING: 'mdc-dialog--opening',
     CLOSING: 'mdc-dialog--closing',
     FULLSCREEN: 'mdc-dialog--fullscreen',
+    SHEET: 'mdc-dialog--sheet',
     SCROLLABLE: 'mdc-dialog--scrollable',
     STACKED: 'mdc-dialog--stacked',
+    NO_CONTENT_PADDING: 'mdc-dialog--no-content-padding',
 
     SCROLL_DIVIDER_HEADER: 'mdc-dialog-scroll-divider-header',
     SCROLL_DIVIDER_FOOTER: 'mdc-dialog-scroll-divider-footer',
