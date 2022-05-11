@@ -1,5 +1,9 @@
 @use '@material/drawer';
-@use '@material/drawer/mdc-drawer';
+@use './mixins';
+
+@include mixins.core-styles;
+@include mixins.dismissible-core-styles;
+@include mixins.modal-core-styles;
 
 .mdc-drawer {
     &--open ~ .mdc-drawer-app-content {
