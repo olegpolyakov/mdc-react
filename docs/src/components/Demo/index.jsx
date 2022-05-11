@@ -17,7 +17,8 @@ export default function Demo({
     setup,
     settings,
     code,
-    children = code
+    children = code,
+    ...props
 }) {
     const [isCodeOpen, setCodeOpen] = useState(false);
     const [isSettingsOpen, setSettingsOpen] = useState(false);
@@ -27,7 +28,7 @@ export default function Demo({
     });
 
     return (
-        <Card element="article" className={classNames} outlined>
+        <Card element="article" className={classNames} outlined {...props}>
             <Card.Header
                 title={title}
                 actions={[

@@ -1,6 +1,10 @@
 #menu-page {
     padding-bottom: 256px;
 
+    .demo {
+        overflow: visible;
+    }
+
     #menu-origin {
         .mdc-layout-grid {
             padding: 0;

@@ -44,7 +44,7 @@ export default function ImageListPage() {
                 </ImageList>
             </Demo>
 
-            <Demo id="masonry-image-list" title="Masonry Image Lis">
+            <Demo id="masonry-image-list" title="Masonry Image List">
                 <ImageList masonry>
                     {masonryItems.map((item, index) =>
                         <ImageList.Item key={index} {...item} />

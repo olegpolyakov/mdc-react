@@ -47,9 +47,9 @@ export default function ChipsPage() {
 
             <Demo title="Chips with avatars">
                 <ChipSet>
-                    <Chip text="Foo" avatar={<Avatar image="https://placeimg.com/128/128/people" small />} />
-                    <Chip text="Bar" avatar={<Avatar image="https://placeimg.com/128/128/people" small />} />
-                    <Chip text="Baz" avatar={<Avatar image="https://placeimg.com/128/128/people" small />} />
+                    <Chip text="Foo" avatar={<Avatar image="https://placeimg.com/128/128/people" size="small" />} />
+                    <Chip text="Bar" avatar={<Avatar image="https://placeimg.com/128/128/people" size="small" />} />
+                    <Chip text="Baz" avatar={<Avatar image="https://placeimg.com/128/128/people" size="small" />} />
                 </ChipSet>
             </Demo>
 

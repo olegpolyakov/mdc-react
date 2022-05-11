@@ -14,16 +14,16 @@ const links = {
 
 export default function CheckboxPage() {
     const [checked, setChecked] = useState(false);
-    const [controlled, setControlled] = useState(false);
-    const [indeterminate, setIndeterminate] = useState(false);
-    const [disabled, setDisabled] = useState(false);
+    const [controlled, setControlled] = useState(true);
+    const [indeterminate, setIndeterminate] = useState();
+    const [disabled, setDisabled] = useState();
 
     return (
         <Page id={id} title={title} description={description} links={links}>
             <Demo>
                 <Checkbox
-                    checked={checked}
-                    defaultChecked={false}
+                    checked={controlled ? checked : undefined}
+                    defaultChecked={!controlled ? false : undefined}
                     indeterminate={indeterminate}
                     disabled={disabled}
                     onChange={() => setChecked(v => !v)}

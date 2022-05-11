@@ -6,6 +6,8 @@ import {
 import Demo from '@/components/Demo';
 import Page from '@/components/Page';
 
+import './index.scss';
+
 const id = 'select';
 const title = 'Select';
 const description = 'Segmented buttons allow users to toggle the selected states of grouped buttons.';
