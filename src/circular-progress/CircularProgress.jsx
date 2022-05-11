@@ -73,7 +73,7 @@ CircularProgress.displayName = 'MDCCircularProgress';
 
 CircularProgress.propTypes = {
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    size: PropTypes.oneOf([strings.SMALL, strings.MEDIUM, strings.LARGE]),
+    size: PropTypes.oneOf([Size.SMALL, Size.MEDIUM, Size.LARGE]),
     indeterminate: PropTypes.bool,
     closed: PropTypes.bool,
     colorful: PropTypes.bool
