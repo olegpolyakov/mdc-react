@@ -112,7 +112,7 @@ module.exports = env => [
         name: 'components',
 
         entry: components.reduce((result, name) => {
-            result[name] = [`./src/${name}/index.js`, `./src/${name}/index.scss`];
+            result[name] = [`./src/${name}/index.js`, `./src/${name}/styles.scss`];
 
             return result;
         }, {}),
