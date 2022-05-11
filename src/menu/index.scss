@@ -1,2 +1,3 @@
-@forward '@material/menu';
 @forward '@material/menu-surface' as surface-*;
+@forward '@material/menu/variables';
+@forward './mixins';

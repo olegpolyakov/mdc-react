@@ -1,2 +1,4 @@
-@use '@material/menu/mdc-menu';
 @use '@material/menu-surface/mdc-menu-surface';
+@use './mixins';
+
+@include mixins.core-styles;
