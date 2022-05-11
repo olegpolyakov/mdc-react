@@ -59,6 +59,7 @@ export default function DialogPage() {
     const [isStackingOpen, setStackingOpen] = useState(false);
     const [isScrollableOpen, setScrollableOpen] = useState(false);
     const [isFullscreenOpen, setFullscreenOpen] = useState(false);
+    const [isFloatingSheetOpen, setFloatingSheetOpen] = useState(false);
 
     return (
         <Page id={id} title={title} description={description} links={links}>
@@ -142,12 +143,26 @@ export default function DialogPage() {
                     title="Fullscreen Dialog"
                     open={isFullscreenOpen}
                     fullscreen
-                    actions={[
-                        <Button key="close" onClick={() => setFullscreenOpen(v => !v)}>Close</Button>
-                    ]}
+                    actions={<Button key="close" onClick={() => setFullscreenOpen(v => !v)}>Close</Button>}
                     onClose={() => setFullscreenOpen(v => !v)}
                 >
                     {scrollableContent}
+                </Dialog>
+            </Demo>
+
+            <Demo
+                title="Floating sheet"
+                setup={
+                    <Button onClick={() => setFloatingSheetOpen(true)}>Open</Button>
+                }
+            >
+                <Dialog
+                    open={isFloatingSheetOpen}
+                    sheet
+                    onClose={() => setFloatingSheetOpen(false)}
+                >
+                    <h3>Sheets</h3>
+                    There are no action buttons. Any HTML content can go here. Title is also defined through content.
                 </Dialog>
             </Demo>
         </Page>

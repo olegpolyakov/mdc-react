@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import { Route, Link, NavLink, Switch } from 'react-router-dom';
 import {
     Drawer,
+    Icon,
     IconButton,
     List,
     TopAppBar
@@ -12,6 +14,14 @@ import { Home } from './pages';
 import './App.scss';
 
 export default function App() {
+    useEffect(() => {
+        const activeNavItem = document.querySelector('.app-drawer .mdc-list-item--activated');
+
+        if (activeNavItem) {
+            activeNavItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, []);
+
     return (
         <div className="app mdc-typography mdc-theme--dark">
             <TopAppBar
@@ -25,7 +35,7 @@ export default function App() {
                         }
                     />
                 }
-                title="MDC React"
+                title={<Link to="/" className="app-home-link">MDC React</Link>}
                 actionItems={[
                     <IconButton
                         key="code"
@@ -62,6 +72,7 @@ export default function App() {
                                 key={route.url}
                                 component={NavLink}
                                 to={route.url}
+                                leadingIcon={<Icon type="outlined">{route.icon}</Icon>}
                                 primaryText={route.title}
                                 activeClassName="mdc-list-item--activated"
                             />

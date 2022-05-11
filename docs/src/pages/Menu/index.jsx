@@ -273,33 +273,38 @@ export default function MenuPage() {
                 <Dialog
                     title="Dialog"
                     open={isDialogOpen}
+                    onClose={() => setDialogOpen(v => !v)}
                 >
-                    <Menu
-                        anchor={
-                            <Button
-                                label={isPersistentOpen ? 'Close' : 'Open'}
-                                outlined
-                                onClick={() => setModalOpen(v => !v)}
+                    <Dialog.Content>
+
+
+                        <Menu
+                            anchor={
+                                <Button
+                                    label={isPersistentOpen ? 'Close' : 'Open'}
+                                    outlined
+                                    onClick={() => setModalOpen(v => !v)}
+                                />
+                            }
+                            open={isModalOpen}
+                            modal
+                            onClose={() => {
+                                setModalOpen(false);
+                            }}
+                        >
+                            <Menu.Item
+                                text="Foo"
                             />
-                        }
-                        open={isModalOpen}
-                        modal
-                        onClose={() => {
-                            setModalOpen(false);
-                        }}
-                    >
-                        <Menu.Item
-                            text="Foo"
-                        />
 
-                        <Menu.Item
-                            text="Bar"
-                        />
+                            <Menu.Item
+                                text="Bar"
+                            />
 
-                        <Menu.Item
-                            text="Baz"
-                        />
-                    </Menu>
+                            <Menu.Item
+                                text="Baz"
+                            />
+                        </Menu>
+                    </Dialog.Content>
                 </Dialog>
             </Demo>
         </Page>
