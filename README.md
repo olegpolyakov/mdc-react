@@ -18,6 +18,26 @@ npm i -D sass
 
 > **NOTE**: MDC React (as well as MDC Web) uses the new [Sass Module System](https://sass-lang.com/blog/the-module-system-is-launched). Unfortunately at this time the `node-sass` implementation does not support it. Please use the `sass` library.
 
+### Icons
+
+To use [Material Icons](https://fonts.google.com/icons?icon.set=Material+Icons) include them in your HTML:
+
+```html
+<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+```
+
+### Symbols (NEW)
+
+To use [Material Symbols](https://fonts.google.com/icons?icon.set=Material+Symbols) include them in your HTML:
+
+```html
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+```
+
+The above snippet includes the default configuration for each <a href="https://fonts.google.com/knowledge/glossary/axis_in_variable_fonts" target="_blank" class="external">axis</a>, with <a href="https://fonts.google.com/knowledge/glossary/weight_axis" target="_blank" class="external">weight</a> at 400, <a href="https://fonts.google.com/knowledge/glossary/optical_size_axis" target="_blank" class="external">optical size</a> at 48, <a href="https://fonts.google.com/knowledge/glossary/grade_axis" target="_blank" class="external">grade</a> at 0 and <a href="https://fonts.google.com/knowledge/glossary/fill_axis" target="_blank" class="external">fill</a> (also 0.)
+
+> To configure the symbols follow the [developer guide](https://developers.google.com/fonts/docs/material_symbols).
+
 ## Usage
 
 ### JS
