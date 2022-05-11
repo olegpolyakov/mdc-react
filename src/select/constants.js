@@ -10,8 +10,7 @@ export const cssClasses = {
     NO_LABEL: 'mdc-select--no-label',
     WITH_LEADING_ICON: 'mdc-select--with-leading-icon',
 
-    SELECTED_TEXT: 'mdc-select__selected-text',
-    SELECTED_TEXT_CONTAINER: 'mdc-select__selected-text-container',
+    ANCHOR: 'mdc-select__anchor',
 
     DROPDOWN_ICON: 'mdc-select__dropdown-icon',
     DROPDOWN_ICON_GRAPHIC: 'mdc-select__dropdown-icon-graphic',
@@ -25,9 +24,18 @@ export const cssClasses = {
 
     RIPPLE: 'mdc-select__ripple',
 
-    ANCHOR: 'mdc-select__anchor',
+    SELECTED_TEXT: 'mdc-select__selected-text',
+    SELECTED_TEXT_CONTAINER: 'mdc-select__selected-text-container',
 
     HELPER_TEXT: 'mdc-select-helper-text',
     VALIDATION_MESSAGE: 'mdc-select-helper-text--validation-msg',
     VALIDATION_MESSAGE_PERSISTENT: 'mdc-select-helper-text--validation-msg-persistent'
+};
+
+export const optionCssClasses = {
+    ROOT: 'mdc-select__option',
+    ONE_LINE: 'mdc-select__one-line-option',
+    TWO_LINE: 'mdc-select__two-line-option',
+    WITH_LEADING_CONTENT: 'mdc-select__option-with-leading-content',
+    WITH_META: 'mdc-select__option-with-meta',
 };
