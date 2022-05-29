@@ -47,14 +47,4 @@
         transition: box-shadow 200ms linear;
         z-index: 8;
     }
-
-    @include dark.styles {
-        @include top-app-bar.fill-color(surface);
-        @include top-app-bar.ink-color(on-surface);
-        @include top-app-bar.icon-ink-color(on-surface);
-
-        &--raised {
-            @include top-app-bar.fill-color(dark.$surface-4dp);
-        }
-    }
 }
