@@ -514,8 +514,8 @@
 
   // Prevents list item children from being included in the click target.
   // postcss-bem-linter: ignore
-  .mdc-list-item__text,
-  .mdc-deprecated-list-item__start {
+  .mdc-list-item__content,
+  .mdc-list-item__start {
     @include feature-targeting.targets($feat-structure) {
       pointer-events: none;
     }
