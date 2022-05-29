@@ -5,9 +5,6 @@ export const numbers = {
 
 export const cssClasses = {
     ROOT: 'mdc-top-app-bar',
-    STICKY: 'mdc-top-app-bar--sticky',
-    STICKY_HIDDEN: 'mdc-top-app-bar--sticky-hidden',
-    STICKY_SHOWN: 'mdc-top-app-bar--sticky-shown',
     FIXED: 'mdc-top-app-bar--fixed',
     FIXED_SCROLLED: 'mdc-top-app-bar--fixed-scrolled',
     FIXED_ADJUST: 'mdc-top-app-bar--fixed-adjust',
@@ -19,6 +16,10 @@ export const cssClasses = {
     SHORT: 'mdc-top-app-bar--short',
     SHORT_COLLAPSED: 'mdc-top-app-bar--short-collapsed',
     SHORT_FIXED_ADJUST: 'mdc-top-app-bar--short-fixed-adjust',
+    STICKY: 'mdc-top-app-bar--sticky',
+    STICKY_HIDDEN: 'mdc-top-app-bar--sticky-hidden',
+    STICKY_SHOWN: 'mdc-top-app-bar--sticky-shown',
+    RAISED: 'mdc-top-app-bar--raised',
 
     ROW: 'mdc-top-app-bar__row',
 

@@ -19,6 +19,7 @@ const TopAppBar = forwardRef(({
     prominent = false,
     short = false,
     collapsed = false,
+    raised = false,
     onNavigationIconClick = Function.prototype,
 
     element = 'header',
@@ -68,7 +69,8 @@ const TopAppBar = forwardRef(({
         [cssClasses.SHORT_COLLAPSED]: short && collapsed,
         [cssClasses.FIXED_SCROLLED]: fixed && scrolled,
         [cssClasses.STICKY_HIDDEN]: sticky && hidden,
-        [cssClasses.STICKY_SHOWN]: sticky && !hidden
+        [cssClasses.STICKY_SHOWN]: sticky && !hidden,
+        [cssClasses.RAISED]: raised
     }, className);
 
     return (
@@ -130,7 +132,8 @@ TopAppBar.propTypes = {
     dense: PropTypes.bool,
     prominent: PropTypes.bool,
     short: PropTypes.bool,
-    collapsed: PropTypes.bool
+    collapsed: PropTypes.bool,
+    raised: PropTypes.bool
 };
 
 export default TopAppBar;

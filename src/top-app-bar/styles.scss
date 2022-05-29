@@ -1,6 +1,12 @@
+@use '@material/top-app-bar';
+@use '@material/elevation';
 @use '@material/top-app-bar/mdc-top-app-bar';
 
 .mdc-top-app-bar {
+    @include top-app-bar.fill-color(primary);
+    @include top-app-bar.ink-color(on-primary);
+    @include top-app-bar.icon-ink-color(on-primary);
+
     //transition: transform .15s;
     position: relative;
 
@@ -34,5 +40,21 @@
     
     &--prominent {
         transition: transform .2s;
+    }
+
+    &--raised {
+        @include elevation.elevation(4);
+        transition: box-shadow 200ms linear;
+        z-index: 8;
+    }
+
+    @include dark.styles {
+        @include top-app-bar.fill-color(surface);
+        @include top-app-bar.ink-color(on-surface);
+        @include top-app-bar.icon-ink-color(on-surface);
+
+        &--raised {
+            @include top-app-bar.fill-color(dark.$surface-4dp);
+        }
     }
 }
