@@ -47,6 +47,7 @@ export default function BadgePage() {
                                 onClick={() => setOpen(v => !v)}
                             />
                         }
+                        raised
                     />
                 }
                 settings={<>

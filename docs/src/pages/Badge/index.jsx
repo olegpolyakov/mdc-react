@@ -20,7 +20,7 @@ const title = 'Badge';
 const description = 'Badge generates a small badge to the top-right of its child(ren).';
 
 const content = {
-    avatar: <Avatar text="MD" />,
+    avatar: <Avatar text="MD" size="medium" />,
     button: <Button outlined>Button</Button>,
     icon: <Icon>star</Icon>,
     iconButton: <IconButton icon="star" />,
